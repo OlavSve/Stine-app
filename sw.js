@@ -1,6 +1,6 @@
-/* Kvitteringer, mjau mjau - bakgrunnsskript v3.10: nett først, hurtiglager som reserve (samme som NFK Operations 8.10) */
-const LAGER = "stine-app-v3-10";
-const GRUNN = ["./index.html", "./manifest.webmanifest", "./ikon-192.png", "./ikon-512.png", "./lyd/k01.mp3", "./lyd/k02.mp3", "./lyd/k03.mp3", "./lyd/k04.mp3", "./lyd/k05.mp3", "./lyd/k06.mp3", "./lyd/k15.mp3", "./lyd/k24.mp3", "./lyd/k25.mp3", "./lyd/k27.mp3", "./lyd/k28.mp3", "./lyd/k30.mp3", "./lyd/k31.mp3", "./lyd/k43.mp3", "./lyd/k44.mp3", "./lyd/k45.mp3", "./lyd/k46.mp3", "./lyd/k47.mp3", "./lyd/k49.mp3", "./lyd/k50.mp3", "./lyd/k52.mp3", "./lyd/k53.mp3", "./lyd/k54.mp3", "./lyd/k55.mp3", "./lyd/k56.mp3", "./lyd/k57.mp3", "./lyd/k58.mp3", "./lyd/k59.mp3", "./lyd/k60.mp3"];
+/* Kvitteringer, mjau mjau - bakgrunnsskript v3.11: nett først, hurtiglager som reserve (samme som NFK Operations 8.10) */
+const LAGER = "stine-app-v3-11";
+const GRUNN = ["./index.html", "./manifest.webmanifest", "./ikon-192.png", "./ikon-512.png"];
 
 self.addEventListener("install", h => {
   h.waitUntil(caches.open(LAGER).then(l => l.addAll(GRUNN)).then(() => self.skipWaiting()));
