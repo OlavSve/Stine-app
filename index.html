@@ -74,8 +74,9 @@ button,input,select,textarea{font-family:inherit}
 .varsel.feil{background:var(--feil-bg);border-color:#e8c0b4;color:var(--feil)}
 
 /* ---------- Startside ---------- */
-#start{min-height:100vh;min-height:100dvh;background:var(--himmel);display:flex;flex-direction:column;padding:calc(28px + env(safe-area-inset-top)) 20px calc(28px + env(safe-area-inset-bottom))}
-#start .midt{width:100%;max-width:460px;margin:auto}
+#start{position:relative;overflow:hidden;min-height:100vh;min-height:100dvh;background:var(--himmel);display:flex;flex-direction:column;padding:calc(28px + env(safe-area-inset-top)) 20px calc(28px + env(safe-area-inset-bottom))}
+#start .midt{position:relative;z-index:1;width:100%;max-width:460px;margin:auto}
+#start .katt{position:absolute;right:5%;bottom:-6px;width:150px;height:auto;pointer-events:none;z-index:0}
 #start .merke{color:var(--muted);font-size:11px;letter-spacing:3.2px;text-transform:uppercase;margin-bottom:6px}
 #start h1{font-size:30px;font-weight:700;letter-spacing:.2px;margin:0 0 4px;color:var(--ink)}
 #start .ingress{color:var(--muted);font-size:13.5px;margin:0 0 22px;display:flex;justify-content:space-between;align-items:baseline;gap:10px}
@@ -99,7 +100,7 @@ button,input,select,textarea{font-family:inherit}
 #startBesk.ok{color:var(--good)} #startBesk.feil{color:var(--feil)}
 
 /* ---------- Kategori ---------- */
-#topp{position:sticky;top:0;z-index:60;background:var(--akt);color:#fff;padding:calc(9px + env(safe-area-inset-top)) 14px 9px;display:flex;align-items:center;gap:10px;box-shadow:0 1px 5px rgba(0,0,0,.14)}
+#topp{position:sticky;top:0;z-index:60;background-color:var(--akt);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='84' height='84' viewBox='0 0 84 84' fill='rgba(255,255,255,0.15)'%3E%3Cg transform='translate(12 14) rotate(-18)'%3E%3Cellipse cx='12' cy='14' rx='6.2' ry='5'/%3E%3Ccircle cx='4' cy='7' r='2.5'/%3E%3Ccircle cx='9' cy='3.2' r='2.7'/%3E%3Ccircle cx='15' cy='3.2' r='2.7'/%3E%3Ccircle cx='20' cy='7' r='2.5'/%3E%3C/g%3E%3Cg transform='translate(50 48) rotate(16)'%3E%3Cellipse cx='12' cy='14' rx='6.2' ry='5'/%3E%3Ccircle cx='4' cy='7' r='2.5'/%3E%3Ccircle cx='9' cy='3.2' r='2.7'/%3E%3Ccircle cx='15' cy='3.2' r='2.7'/%3E%3Ccircle cx='20' cy='7' r='2.5'/%3E%3C/g%3E%3C/svg%3E");background-repeat:repeat;color:#fff;padding:calc(9px + env(safe-area-inset-top)) 14px 9px;display:flex;align-items:center;gap:10px;box-shadow:0 1px 5px rgba(0,0,0,.14)}
 #topp .tilbake{background:rgba(255,255,255,.16);border:none;color:#fff;font-size:20px;width:34px;height:34px;border-radius:8px;cursor:pointer;line-height:1;flex:none}
 #topp .tittel{font-size:16.5px;font-weight:650}
 #topp .undertekst{font-size:11px;opacity:.82}
@@ -197,6 +198,14 @@ button,input,select,textarea{font-family:inherit}
 .listerad .knapper{display:flex;gap:6px;flex:none}
 .listerad .knapper button{background:var(--card);border:1px solid var(--line);border-radius:7px;padding:7px 10px;font-size:12.5px;cursor:pointer;color:var(--ink)}
 .listerad .knapper button.fare{color:var(--feil)}
+/* Kattemat og stjerner */
+#dryss{position:fixed;inset:0;pointer-events:none;z-index:120;overflow:hidden}
+#dryss .bit{position:absolute;top:-16px;width:10px;height:10px;border-radius:50%;background:#8b5a2b;animation:fall var(--t) linear forwards}
+#dryss .stjerne{position:absolute;color:#d6a533;font-size:15px;line-height:1;animation:sprett .9s ease-out forwards}
+#dryss .bit.sprett{top:auto;animation:sprett .9s ease-out forwards}
+@keyframes fall{to{transform:translateY(108vh) rotate(var(--r))}}
+@keyframes sprett{from{transform:translate(0,0) scale(.6);opacity:1}to{transform:translate(var(--dx),var(--dy)) scale(1.1);opacity:0}}
+@media (prefers-reduced-motion:reduce){ #dryss{display:none} }
 @media (prefers-reduced-motion:no-preference){
   .panel{animation:opp .2s ease-out}
   @keyframes opp{from{transform:translateY(22px)}to{transform:translateY(0)}}
@@ -278,10 +287,17 @@ button,input,select,textarea{font-family:inherit}
     <div class="fot">
       <button id="knBackup" class="skjult" title="Lagre komplett backup (JSON)">&#128190;</button>
       <button id="knFil" class="skjult" title="Fil">&#128196; Fil</button>
-      <span class="versjon" id="startVersjon">Versjon 2.6</span>
+      <span class="versjon" id="startVersjon">Versjon 2.7</span>
     </div>
     <div id="startBesk"></div>
   </div>
+  <svg class="katt" viewBox="0 0 100 58" aria-hidden="true">
+    <polygon points="30,36 33,10 49,22" fill="#3d6fa3"/><polygon points="70,36 67,10 51,22" fill="#3d6fa3"/>
+    <circle cx="50" cy="52" r="28" fill="#3d6fa3"/>
+    <polygon points="34.5,33 36,16 44,23" fill="#f4bdd4"/><polygon points="65.5,33 64,16 56,23" fill="#f4bdd4"/>
+    <circle cx="41" cy="50" r="3.6" fill="#ffffff"/><circle cx="59" cy="50" r="3.6" fill="#ffffff"/>
+    <polygon points="46.5,56 53.5,56 50,58" fill="#f4bdd4"/>
+  </svg>
 </div>
 
 <!-- ===================== KATEGORI ===================== -->
@@ -475,8 +491,8 @@ button,input,select,textarea{font-family:inherit}
 
 <script>
 "use strict";
-/* ===================== Kvitteringer, mjau mjau, versjon 2.6 ===================== */
-const APP_VERSJON = "2.6";
+/* ===================== Kvitteringer, mjau mjau, versjon 2.7 ===================== */
+const APP_VERSJON = "2.7";
 const LAGER = { eier: "OlavSve", repo: "Stine-app-data", gren: "main", fil: "bilag.kryptert.json", bilder: "bilder", backup: "backup" };
 const EK = { hemmelighet: "0df7552eec9d178481fda706b469d0305507b5ddc5c229a6292f863412d29d50", bildesalt: "m1jWj9kLvoyOxH+NuTrtpA==" };
 const DATA_TYPE = "stine-app-data";
@@ -908,11 +924,12 @@ async function broHentInn(){
 const TOLK_OPPGAVE = `Du får ett eller flere bilder av en norsk kvittering. Svar KUN med JSON. Ingen forklaring, ingen kodeblokk, ingen tekst utenom objektet.
 
 Formatet er nøyaktig:
-{"butikk":"","dato":"","belop":null,"beskrivelse":"","sikker":true}
+{"butikk":"","dato":"","dato_slik_den_star":"","belop":null,"beskrivelse":"","sikker":true}
 
 Regler:
 - butikk: navnet slik det står på kvitteringen. Ta med filial hvis den står der, f.eks. "Rema 1000 Storo". Tom streng hvis du ikke ser det.
-- dato: kjøpsdatoen, skrevet som ÅÅÅÅ-MM-DD. Norske kvitteringer skriver den som regel dd.mm.åååå. Tom streng hvis du ikke ser den.
+- dato_slik_den_star: kjøpsdatoen nøyaktig slik den er trykket på kvitteringen, tegn for tegn, f.eks. "11/08/2026" eller "11.08.26". Tom streng hvis du ikke ser den.
+- dato: samme dato skrevet som ÅÅÅÅ-MM-DD. Norske kvitteringer skriver ALLTID dagen først: dd.mm.åååå eller dd/mm/åååå. "11/08/2026" er 11. august 2026, aldri 8. november. Tom streng hvis du ikke ser den.
 - belop: totalbeløpet som ble betalt, som tall med punktum som desimalskille. Bruk linja merket "Totalt", "Total", "Å betale" eller "Sum". Ikke bruk "Herav mva", ikke enkeltvarer, ikke "Avrunding". Bruk null hvis du ikke ser totalen.
 - beskrivelse: to til fire ord om hva som ble kjøpt, basert på varelinjene, f.eks. "Kattemat og strø". Tom streng hvis varelinjene ikke er lesbare.
 - sikker: false hvis bildet er uskarpt, avkuttet, skjevt eller vanskelig å lese. Ellers true.
@@ -920,12 +937,25 @@ Regler:
 Gjett aldri på et beløp du ikke kan lese. Da er belop null og sikker false.`;
 function ryddDato(v){
   const s = String(v || "").trim(); let y, m, d;
-  let t = s.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  let t = s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
   if (t){ y = +t[1]; m = +t[2]; d = +t[3]; }
-  else { t = s.match(/^(\d{1,2})[.\/-](\d{1,2})[.\/-](\d{4})$/); if (!t) return ""; d = +t[1]; m = +t[2]; y = +t[3]; }
+  else { t = s.match(/^(\d{1,2})[.\/-](\d{1,2})[.\/-](\d{2}|\d{4})$/); if (!t) return ""; d = +t[1]; m = +t[2]; y = +t[3]; if (y < 100) y += 2000; }
   if (m < 1 || m > 12 || d < 1 || d > 31) return "";
   const iAar = new Date().getFullYear(); if (y < 2000 || y > iAar + 1) return "";
   return `${y}-${String(m).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
+}
+/* Et kjøp ligger aldri fram i tid: en dato i framtida med byttet dag og måned i fortida er lest feil vei */
+function datoIkkeFramtid(iso){
+  if (!iso) return iso;
+  const idag = idagIso();
+  if (iso <= idag) return iso;
+  const [y, m, d] = iso.split("-");
+  if (+d >= 1 && +d <= 12){ const byttet = `${y}-${d}-${m}`; if (byttet <= idag) return byttet; }
+  return iso;
+}
+function velgDato(o){
+  const raa = ryddDato(o.dato_slik_den_star);
+  return datoIkkeFramtid(raa || ryddDato(o.dato));
 }
 function tolkSvaret(tekst){
   let t = String(tekst || "").trim().replace(/^```(?:json)?\s*/i, "").replace(/```\s*$/, "").trim();
@@ -933,7 +963,7 @@ function tolkSvaret(tekst){
   let o; try{ o = JSON.parse(t.slice(a, b + 1)); }catch{ return null; }
   let belop = o.belop; if (typeof belop === "string") belop = parseFloat(belop.replace(/\s/g, "").replace(",", "."));
   if (typeof belop !== "number" || !isFinite(belop) || belop <= 0) belop = null;
-  return { butikk: String(o.butikk || "").trim().slice(0, 80), dato: ryddDato(o.dato), belop, beskrivelse: String(o.beskrivelse || "").trim().slice(0, 60), sikker: o.sikker !== false };
+  return { butikk: String(o.butikk || "").trim().slice(0, 80), dato: velgDato(o), belop, beskrivelse: String(o.beskrivelse || "").trim().slice(0, 60), sikker: o.sikker !== false };
 }
 async function tolkBilder(b64Liste){
   const innhold = b64Liste.slice(0, MAKS_BILDER).map(b => ({ type: "image", source: { type: "base64", media_type: "image/jpeg", data: b } }));
@@ -1086,6 +1116,37 @@ async function lesBildeFil(fil){
   } finally { URL.revokeObjectURL(url); }
 }
 
+/* ===================== KATTEMAT OG STJERNER ===================== */
+function reduserBevegelse(){ return !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches); }
+function kattemat(){
+  if(reduserBevegelse()) return;
+  const d=document.createElement("div"); d.id="dryss";
+  const farger=["#8b5a2b","#a86f3a","#6f4420","#b8834a"];
+  for(let i=0;i<34;i++){
+    const b=document.createElement("span"); b.className="bit";
+    const st=7+Math.random()*7;
+    b.style.left=(Math.random()*100)+"%"; b.style.width=st+"px"; b.style.height=(st*(0.8+Math.random()*0.4))+"px";
+    b.style.background=farger[i%farger.length]; b.style.borderRadius=i%3?"50%":"50% 50% 50% 50% / 60% 60% 40% 40%";
+    b.style.setProperty("--t",(1.1+Math.random()*0.6)+"s"); b.style.setProperty("--r",(Math.random()*720-360)+"deg");
+    b.style.animationDelay=(Math.random()*0.35)+"s"; d.appendChild(b);
+  }
+  document.body.appendChild(d); setTimeout(()=>d.remove(),2300);
+}
+function stjerner(el){
+  if(reduserBevegelse()||!el) return;
+  const r=el.getBoundingClientRect(), d=document.createElement("div"); d.id="dryss";
+  for(let i=0;i<18;i++){
+    const s=document.createElement("span"), mat=i%3===0;
+    s.className=mat?"bit sprett":"stjerne"; if(!mat) s.textContent="\u2726";
+    s.style.left=(r.left+r.width*(0.15+Math.random()*0.7))+"px"; s.style.top=(r.top+r.height/2)+"px";
+    const v=Math.random()*Math.PI*2, k=40+Math.random()*60;
+    s.style.setProperty("--dx",(Math.cos(v)*k)+"px"); s.style.setProperty("--dy",(Math.sin(v)*k-24)+"px");
+    if(mat){ s.style.width="9px"; s.style.height="9px"; s.style.background=["#8b5a2b","#a86f3a"][i%2]; }
+    d.appendChild(s);
+  }
+  document.body.appendChild(d); setTimeout(()=>d.remove(),1000);
+}
+
 /* ===================== TILSTAND ===================== */
 let KAT=null, redigerId=null, skjemaBilder=[], detaljId=null, pdfKlar=null, detaljPdf=null;
 let rort={dato:false,butikk:false,belop:false,besk:false};
@@ -1218,7 +1279,7 @@ async function tolkBildet(){
   oppdaterFilnavn();
   if(!fylt) tolkStatus("Fikk ikke lest noe sikkert ut av bildet. Fyll ut selv.","feil");
   else if(!sv.sikker||sv.belop===null||sv.belop===undefined) tolkStatus("Bildet var vanskelig å lese. Sjekk alle feltene mot kvitteringen.","usikker");
-  else tolkStatus("Lest fra bildet. Sjekk at beløpet stemmer før du lagrer.","");
+  else { tolkStatus("Lest fra bildet. Sjekk at beløpet stemmer før du lagrer.",""); stjerner($("tolkStatus")); }
 }
 async function lagreBilag(){
   const b={ dato:$("inDato").value, butikk:$("inButikk").value.trim(), beskrivelse:$("inBesk").value.trim(), belop:tolkBelop($("inBelop").value),
@@ -1242,6 +1303,7 @@ async function lagreBilag(){
   $("pdfNavn").textContent=filnavnFor(rec); $("pdfBesk").textContent="";
   $("knDelPdf").disabled=true; $("knDelPdf").textContent="Lager PDF …";
   $("pdfOverlegg").classList.remove("skjult");
+  kattemat();
   pdfKlar=null;
   const kat=KAT; skjemaBilder=skjemaBilder.map(bi=>({id:bi.id,w:bi.w,h:bi.h}));
   nullstillSkjema(); $("knLagre").disabled=false;
