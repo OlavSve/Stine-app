@@ -278,7 +278,7 @@ button,input,select,textarea{font-family:inherit}
     <div class="fot">
       <button id="knBackup" class="skjult" title="Lagre komplett backup (JSON)">&#128190;</button>
       <button id="knFil" class="skjult" title="Fil">&#128196; Fil</button>
-      <span class="versjon" id="startVersjon">Versjon 2.5</span>
+      <span class="versjon" id="startVersjon">Versjon 2.6</span>
     </div>
     <div id="startBesk"></div>
   </div>
@@ -475,8 +475,8 @@ button,input,select,textarea{font-family:inherit}
 
 <script>
 "use strict";
-/* ===================== Kvitteringer, mjau mjau, versjon 2.5 ===================== */
-const APP_VERSJON = "2.5";
+/* ===================== Kvitteringer, mjau mjau, versjon 2.6 ===================== */
+const APP_VERSJON = "2.6";
 const LAGER = { eier: "OlavSve", repo: "Stine-app-data", gren: "main", fil: "bilag.kryptert.json", bilder: "bilder", backup: "backup" };
 const EK = { hemmelighet: "0df7552eec9d178481fda706b469d0305507b5ddc5c229a6292f863412d29d50", bildesalt: "m1jWj9kLvoyOxH+NuTrtpA==" };
 const DATA_TYPE = "stine-app-data";
@@ -942,12 +942,14 @@ async function tolkBilder(b64Liste){
   try{
     r = await fetch("https://api.anthropic.com/v1/messages", { method: "POST",
       headers: { "content-type": "application/json", "x-api-key": tolkeNokkel, "anthropic-version": "2023-06-01", "anthropic-dangerous-direct-browser-access": "true" },
-      body: JSON.stringify({ model: "claude-haiku-4-5", max_tokens: 300, messages: [{ role: "user", content: innhold }] }) });
+      body: JSON.stringify({ model: "claude-haiku-4-5-20251001", max_tokens: 300, messages: [{ role: "user", content: innhold }] }) });
   }catch{ throw new Error("Ingen nettforbindelse. Fyll ut selv."); }
   if (!r.ok){
-    if (r.status === 401 || r.status === 403) throw new Error("Nøkkelen til kvitteringslesingen blir avvist. Legg den inn på nytt fra startsiden.");
+    let melding = "";
+    try{ const j = await r.json(); melding = (j && j.error && j.error.message) ? String(j.error.message) : ""; }catch{}
+    if (r.status === 401 || r.status === 403) throw new Error("Nøkkelen til kvitteringslesingen blir avvist. Legg den inn på nytt fra startsiden." + (melding ? " (" + melding + ")" : ""));
     if (r.status === 429) throw new Error("For mange forespørsler akkurat nå. Fyll ut selv.");
-    throw new Error("Tolkningen feilet. Fyll ut selv.");
+    throw new Error("Tolkningen feilet (" + r.status + (melding ? ": " + melding : "") + "). Fyll ut selv.");
   }
   const data = await r.json();
   const ut = tolkSvaret((data.content || []).filter(d => d.type === "text").map(d => d.text).join("\n"));
