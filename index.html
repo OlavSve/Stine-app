@@ -276,7 +276,7 @@ button,input,select,textarea{font-family:inherit}
 
     <div class="fot">
       <button id="knFil" class="skjult">Fil</button>
-      <span class="versjon" id="startVersjon">Versjon 2.0</span>
+      <span class="versjon" id="startVersjon">Versjon 2.1</span>
     </div>
     <div id="startBesk"></div>
   </div>
@@ -475,8 +475,8 @@ button,input,select,textarea{font-family:inherit}
 
 <script>
 "use strict";
-/* ===================== Bilag, mjau mjau — versjon 2.0 ===================== */
-const APP_VERSJON = "2.0";
+/* ===================== Bilag, mjau mjau — versjon 2.1 ===================== */
+const APP_VERSJON = "2.1";
 const LAGER = { eier: "OlavSve", repo: "Stine-app-data", gren: "main", fil: "bilag.kryptert.json", bilder: "bilder", backup: "backup" };
 const EK = { hemmelighet: "0df7552eec9d178481fda706b469d0305507b5ddc5c229a6292f863412d29d50", bildesalt: "m1jWj9kLvoyOxH+NuTrtpA==" };
 const DATA_TYPE = "stine-app-data";
@@ -767,6 +767,7 @@ function pvSkjul(){ $("pvVarsel").classList.remove("vis"); }
 async function pvSjekk(){
   if (!eksternStartet || !COMBINED || !tilgang) return;
   let r; try{ r = await ekLes(true); }catch{ return; }
+  ekNettOk();
   if (r.uendret || r.mangler) return;
   ekEtag = r.etag;
   if (r.sha === ekSha){ sisteKjenteDisk = r.tekst; return; }
@@ -877,7 +878,7 @@ async function lesLenke(){
   const n = (p.get("nokkel") || "").trim(), t = (p.get("tolk") || "").trim(), u = (p.get("utlop") || "").trim();
   if (n.length >= 20) await idbSet("tilgang", n);
   if (t.length >= 20) await idbSet("tolk", t);
-  if (/^\d{4}-\d{2}-\d{2}$/.test(u)) await idbSet("utlop", u); else if (n.length >= 20 && !t) await idbSet("utlop", null);
+  if (n.length >= 20) await idbSet("utlop", /^\d{4}-\d{2}-\d{2}$/.test(u) ? u : null);
   try{ history.replaceState(null, "", location.pathname + location.search); }catch{}
 }
 
@@ -1157,7 +1158,7 @@ function oppdaterFilnavn(){
   $("reklHint").textContent = (d&&reklamasjon!=="0")?"Reklamasjon "+reklamasjonTekst({dato:d,reklamasjon}):"";
 }
 function nullstillSkjema(){
-  redigerId=null; skjemaBilder.forEach(b=>{ if(b.url) URL.revokeObjectURL(b.url); }); skjemaBilder=[];
+  redigerId=null; skjemaBilder.forEach(b=>{ if(b.url&&b.bytes) URL.revokeObjectURL(b.url); }); skjemaBilder=[];
   $("inDato").value=idagIso(); $("inBelop").value=""; $("inButikk").value=""; $("inBesk").value=""; $("inRetur").value=""; $("inKomm").value="";
   settReklamasjon("2");
   ["feltDato","feltBelop","feltButikk","feltBesk"].forEach(i=>$(i).classList.remove("mangler"));
@@ -1451,7 +1452,7 @@ async function importerV1(){
 
 /* ===================== OPPSTART ===================== */
 async function etterInnlogging(){
-  if(eksternStartet){ visStart(); return; }
+  if(eksternStartet){ visStart(); pvStart(); return; }
   const ok=await startEkstern(); if(!ok) return;
   await etterStart();
 }
