@@ -18,6 +18,7 @@
   --privat:#3d6fa3; --privat-tint:#e3eef9; --privat-ink:#1f4a7a;
   --puser:#b34a7c; --puser-tint:#fbe4ee; --puser-ink:#72243e;
   --frist:#b8641b; --frist-bg:#fdebd3; --frist-ink:#7a4410;
+  --gavekort:#2f8f7a; --gavekort-tint:#e0f2ee; --gavekort-ink:#1b5a4d;
   --feil:#b3422e; --feil-bg:#fbeeea; --good:#2e7d5b; --good-bg:#e4f3ec;
   --forslag-bg:#fdf8ec; --forslag-line:#d6bd7f; --forslag-ink:#8a6d1f;
   --akt:var(--privat); --akt-tint:var(--privat-tint); --akt-ink:var(--privat-ink);
@@ -90,6 +91,7 @@ button,input,select,textarea{font-family:inherit}
 .velg .kamera svg{width:24px;height:24px}
 .velg[data-kat="privat"] .kamera{background:var(--privat)}
 .velg[data-kat="kattepuser"] .kamera{background:var(--puser)}
+.velg[data-kat="gavekort"] .kamera{background:var(--gavekort)}
 .tolkrad{display:flex;justify-content:space-between;align-items:center;gap:12px;background:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.9);border-radius:11px;padding:11px 14px;margin-top:14px}
 .tolkrad .n{font-size:13px}
 .tolkrad .t{font-size:11.5px;color:var(--muted);margin-top:2px}
@@ -163,6 +165,10 @@ button,input,select,textarea{font-family:inherit}
 .merkelapp.snart{background:var(--frist-bg);color:var(--frist-ink)}
 .merkelapp.utgatt{background:var(--linje-lys);color:#8a9295;text-decoration:line-through}
 .merkelapp.flere{background:var(--akt-tint);color:var(--akt-ink)}
+.merkelapp.type{background:var(--gavekort-tint);color:var(--gavekort-ink)}
+.merkelapp.brukt{background:var(--linje-lys);color:#8a9295}
+.bilag.brukt{opacity:.6}
+.bruktelenke{display:block;width:100%;background:transparent;border:none;color:var(--muted);font-size:13px;padding:22px 0 0;cursor:pointer;text-decoration:underline}
 .tomt{text-align:center;color:var(--muted);font-size:14px;padding:52px 20px;line-height:1.6}
 .tomt strong{display:block;color:var(--ink);font-size:16px;margin-bottom:5px}
 
@@ -176,7 +182,7 @@ button,input,select,textarea{font-family:inherit}
 .panel .rad .n{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.9px;font-weight:600;padding-top:3px;flex:none;width:112px}
 .panel .rad .v{text-align:right;word-break:break-word}
 .panel .rad.stablet{display:block}
-.panel .rad.stablet .n{width:auto;padding:0 0 4px}
+.panel .rad.stablet .n{display:block;width:auto;padding:0 0 4px}
 .panel .rad.stablet .v{text-align:left;font-size:13.5px;color:#3b4548}
 .panel .galleri{display:flex;flex-direction:column;gap:10px;margin:16px 0 4px}
 .panel .galleri img{width:100%;border-radius:11px;border:1px solid var(--line);display:block}
@@ -195,9 +201,56 @@ button,input,select,textarea{font-family:inherit}
 .listerad .k{font-size:11px;font-weight:650;padding:2px 7px;border-radius:5px;white-space:nowrap}
 .listerad .k.privat{background:var(--privat-tint);color:var(--privat-ink)}
 .listerad .k.kattepuser{background:var(--puser-tint);color:var(--puser-ink)}
+.listerad .k.gavekort{background:var(--gavekort-tint);color:var(--gavekort-ink)}
 .listerad .knapper{display:flex;gap:6px;flex:none}
 .listerad .knapper button{background:var(--card);border:1px solid var(--line);border-radius:7px;padding:7px 10px;font-size:12.5px;cursor:pointer;color:var(--ink)}
 .listerad .knapper button.fare{color:var(--feil)}
+/* ---------- Karusell på startsiden ---------- */
+.karusell{position:relative;height:262px;overflow:hidden;margin:4px -20px 0;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.kar-kort{position:absolute;top:50%;left:50%;width:var(--kw,260px);margin-left:calc(var(--kw,260px) / -2);margin-top:-118px;height:236px;background:rgba(255,255,255,.86);border:1px solid rgba(255,255,255,.95);border-radius:20px;box-shadow:0 8px 24px rgba(31,43,58,.10);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:16px 18px;cursor:pointer;will-change:transform,opacity}
+.karusell:not(.drar) .kar-kort{transition:transform .32s cubic-bezier(.22,.8,.3,1),opacity .32s ease}
+.kar-kort svg{width:88px;height:88px;margin-bottom:10px}
+.kar-kort .navn{font-size:21px;font-weight:650;color:var(--ink);line-height:1.15}
+.kar-kort .under{font-size:12.5px;color:var(--muted);margin-top:6px;min-height:16px}
+.kar-piler{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:6px;min-height:30px}
+.kar-piler button{display:none;background:rgba(255,255,255,.7);border:1px solid rgba(61,111,163,.3);color:var(--privat-ink);border-radius:50%;width:30px;height:30px;font-size:17px;line-height:1;cursor:pointer;align-items:center;justify-content:center}
+@media (hover:hover) and (pointer:fine){ .kar-piler button{display:inline-flex} }
+.kar-prikker{display:flex;gap:6px}
+.kar-prikker span{width:7px;height:7px;border-radius:50%;background:rgba(31,43,58,.22)}
+.kar-prikker span.pa{background:var(--privat)}
+
+/* ---------- Kalender (som 8.10: måned med brikker, og «Kommende») ---------- */
+#kalender .ark{padding-bottom:calc(30px + env(safe-area-inset-bottom))}
+.kal-nav{display:flex;align-items:center;gap:8px;margin:0 0 12px}
+.kal-nav button{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 12px;font-size:14px;cursor:pointer;color:var(--ink)}
+.kal-nav .mnd{flex:1;text-align:center;font-size:16px;font-weight:650}
+.kal-hode{display:grid;grid-template-columns:30px repeat(7,minmax(0,1fr));gap:3px;margin-bottom:3px}
+.kal-hode div{font-size:10.5px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);text-align:center;font-weight:600}
+.kal-grid{display:grid;grid-template-columns:30px repeat(7,minmax(0,1fr));gap:3px}
+.kal-uke{font-size:10.5px;color:var(--muted);display:flex;align-items:center;justify-content:center;font-variant-numeric:tabular-nums}
+.kal-celle{min-height:50px;background:var(--card);border:1px solid var(--line);border-radius:7px;padding:3px 4px;cursor:pointer;overflow:hidden}
+.kal-celle.tom{background:transparent;border-color:transparent;cursor:default}
+.kal-celle.idag{border-color:var(--privat);box-shadow:inset 0 0 0 1px var(--privat)}
+.kal-celle.valgt{background:var(--privat-tint)}
+.kal-dag{font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.kal-celle.idag .kal-dag{color:var(--privat-ink);font-weight:700}
+.kal-prikker{display:flex;flex-wrap:wrap;gap:3px;margin-top:4px}
+.kal-prikk{width:7px;height:7px;border-radius:50%}
+.kal-brikke{display:none}
+.kal-liste{margin-top:16px}
+.kal-tittel{font-size:11px;text-transform:uppercase;letter-spacing:1.1px;color:var(--muted);font-weight:650;margin:16px 2px 8px}
+.kal-tom{color:var(--muted);font-size:13.5px;padding:10px 2px}
+.kal-rad{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:8px;cursor:pointer}
+.kal-rad .farge{width:10px;height:10px;border-radius:50%;flex:none}
+.kal-rad .t{flex:1;min-width:0}
+.kal-rad .h{font-size:14.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kal-rad .u{font-size:12.5px;color:var(--muted)}
+.kal-rad .d{font-size:12.5px;color:var(--muted);white-space:nowrap}
+@media (min-width:700px){
+  .kal-celle{min-height:78px}
+  .kal-prikker{display:none}
+  .kal-brikke{display:block;font-size:10.5px;color:#fff;border-radius:4px;padding:1px 5px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+}
 /* Kattemat og stjerner */
 #dryss{position:fixed;inset:0;pointer-events:none;z-index:120;overflow:hidden}
 #dryss .bit{position:absolute;top:-16px;width:10px;height:10px;border-radius:50%;background:#8b5a2b;animation:fall var(--t) linear forwards}
@@ -265,16 +318,41 @@ button,input,select,textarea{font-family:inherit}
     <div id="fristVarsel" class="varsel klikk skjult"></div>
     <div id="nokkelVarsel" class="varsel skjult"></div>
 
-    <button class="velg" data-kat="privat">
-      <div class="navn"><span class="prikk" style="background:var(--privat)"></span>Privat</div>
-      <div class="tall-linje" id="oppsumPrivat">Ingen bilag ennå</div>
-      <span class="kamera" data-kamera="privat" role="button" aria-label="Ta bilde til Privat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg></span>
-    </button>
-    <button class="velg" data-kat="kattepuser">
-      <div class="navn"><span class="prikk" style="background:var(--puser)"></span>Kattepuser</div>
-      <div class="tall-linje" id="oppsumPuser">Ingen bilag ennå</div>
-      <span class="kamera" data-kamera="kattepuser" role="button" aria-label="Ta bilde til Kattepuser"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg></span>
-    </button>
+    <div class="karusell" id="karusell" aria-roledescription="karusell">
+      <div class="kar-kort" data-kat="privat" role="button" tabindex="0">
+        <svg viewBox="0 0 100 100" aria-hidden="true"><path d="M24 12 H76 V84 L71 79 L66 84 L61 79 L56 84 L51 79 L46 84 L41 79 L36 84 L31 79 L26 84 L24 82 Z" fill="#ffffff" stroke="#3d6fa3" stroke-width="3" stroke-linejoin="round"/><rect x="32" y="22" width="36" height="9" rx="4" fill="#3d6fa3"/><rect x="32" y="40" width="26" height="5" rx="2.5" fill="#9fb9d6"/><rect x="62" y="40" width="6" height="5" rx="2.5" fill="#9fb9d6"/><rect x="32" y="50" width="20" height="5" rx="2.5" fill="#9fb9d6"/><rect x="62" y="50" width="6" height="5" rx="2.5" fill="#9fb9d6"/><rect x="32" y="60" width="28" height="5" rx="2.5" fill="#9fb9d6"/><rect x="62" y="60" width="6" height="5" rx="2.5" fill="#9fb9d6"/><rect x="32" y="70" width="36" height="6" rx="3" fill="#3d6fa3"/></svg>
+        <div class="navn">Privat</div>
+        <div class="under" id="oppsumPrivat">Ingen bilag ennå</div>
+      </div>
+      <div class="kar-kort" data-kat="kattepuser" role="button" tabindex="0">
+        <svg viewBox="0 0 100 100" aria-hidden="true"><polygon points="24,48 28,14 50,30" fill="#b34a7c"/><polygon points="76,48 72,14 50,30" fill="#b34a7c"/><circle cx="50" cy="58" r="32" fill="#b34a7c"/><polygon points="30,42 32,22 44,32" fill="#f4bdd4"/><polygon points="70,42 68,22 56,32" fill="#f4bdd4"/><circle cx="38" cy="56" r="5" fill="#ffffff"/><circle cx="62" cy="56" r="5" fill="#ffffff"/><polygon points="45,67 55,67 50,73" fill="#f4bdd4"/></svg>
+        <div class="navn">Kattepuser</div>
+        <div class="under" id="oppsumPuser">Ingen bilag ennå</div>
+      </div>
+      <div class="kar-kort" data-kat="gavekort" role="button" tabindex="0">
+        <svg viewBox="0 0 100 100" aria-hidden="true"><rect x="12" y="32" width="76" height="50" rx="9" fill="#2f8f7a"/><rect x="43" y="32" width="14" height="50" fill="#7fc4b4"/><rect x="12" y="52" width="76" height="12" fill="#7fc4b4"/><ellipse cx="38" cy="26" rx="12" ry="7" fill="none" stroke="#f4bdd4" stroke-width="5"/><ellipse cx="62" cy="26" rx="12" ry="7" fill="none" stroke="#f4bdd4" stroke-width="5"/><circle cx="50" cy="30" r="5" fill="#f4bdd4"/></svg>
+        <div class="navn">Gavekort og tilgodelapper</div>
+        <div class="under" id="oppsumGavekort">Ingen kort ennå</div>
+      </div>
+      <div class="kar-kort" data-kat="kalender" role="button" tabindex="0">
+        <svg viewBox="0 0 100 100" aria-hidden="true"><rect x="14" y="20" width="72" height="66" rx="9" fill="#ffffff" stroke="#3d6fa3" stroke-width="3"/><path d="M14 29 a9 9 0 0 1 9-9 h54 a9 9 0 0 1 9 9 v11 H14 Z" fill="#3d6fa3"/><rect x="30" y="12" width="6" height="16" rx="3" fill="#1f2b3a"/><rect x="64" y="12" width="6" height="16" rx="3" fill="#1f2b3a"/><ellipse cx="50" cy="68" rx="9" ry="7.5" fill="#b34a7c"/><circle cx="39" cy="58" r="4" fill="#b34a7c"/><circle cx="46" cy="53" r="4.3" fill="#b34a7c"/><circle cx="54" cy="53" r="4.3" fill="#b34a7c"/><circle cx="61" cy="58" r="4" fill="#b34a7c"/></svg>
+        <div class="navn">Kalender</div>
+        <div class="under" id="oppsumKalender">Ingen frister de neste 14 dagene</div>
+      </div>
+    </div>
+    <div class="kar-piler">
+      <button id="karForrige" aria-label="Forrige">‹</button>
+      <div class="kar-prikker" id="karPrikker"><span class="pa"></span><span></span><span></span><span></span></div>
+      <button id="karNeste" aria-label="Neste">›</button>
+    </div>
+
+    <div class="tolkrad">
+      <div>
+        <div class="n">Varsler om frister</div>
+        <div class="t" id="varselTilstand">Av</div>
+      </div>
+      <button id="knVarsler">Slå på</button>
+    </div>
 
     <div class="tolkrad">
       <div>
@@ -287,7 +365,7 @@ button,input,select,textarea{font-family:inherit}
     <div class="fot">
       <button id="knBackup" class="skjult" title="Lagre komplett backup (JSON)">&#128190;</button>
       <button id="knFil" class="skjult" title="Fil">&#128196; Fil</button>
-      <span class="versjon" id="startVersjon">Versjon 2.7</span>
+      <span class="versjon" id="startVersjon">Versjon 3.0</span>
     </div>
     <div id="startBesk"></div>
   </div>
@@ -319,7 +397,7 @@ button,input,select,textarea{font-family:inherit}
   <!-- Skjema -->
   <div id="faneNy" class="ark">
     <div id="bildeTom" class="bildeboks">
-      <p>Ta bilde av kvitteringen</p>
+      <p id="bildeTomTekst">Ta bilde av kvitteringen</p>
       <div class="bildeknapper">
         <button id="knKamera">Ta bilde</button>
         <button id="knGalleri" class="andre">Velg fra bilder</button>
@@ -329,6 +407,7 @@ button,input,select,textarea{font-family:inherit}
 
     <div id="tolkStatus"></div>
 
+    <div id="feltsettBilag">
     <div class="par">
       <div class="felt" id="feltDato">
         <label for="inDato">Dato</label>
@@ -380,6 +459,54 @@ button,input,select,textarea{font-family:inherit}
       <label>Filnavn på PDF-en</label>
       <div class="hint tall" id="filnavnVis" style="font-size:12.5px">Fyll ut dato, butikk og beskrivelse.</div>
     </div>
+    </div>
+
+    <div id="feltsettGavekort" class="skjult">
+    <div class="felt">
+      <label>Type</label>
+      <div class="segment" id="segType">
+        <button type="button" data-v="gavekort" class="pa">Gavekort</button>
+        <button type="button" data-v="tilgodelapp">Tilgodelapp</button>
+      </div>
+    </div>
+    <div class="felt" id="feltGButikk">
+      <label for="inGButikk">Butikk</label>
+      <input type="text" id="inGButikk" autocapitalize="words" list="butikker">
+      <div class="foreslag">Foreslått fra bildet</div>
+    </div>
+    <div class="par">
+      <div class="felt" id="feltGPalydende">
+        <label for="inGPalydende">Pålydende</label>
+        <input type="text" id="inGPalydende" inputmode="decimal" placeholder="0,00">
+        <div class="foreslag">Foreslått fra bildet; sjekk mot kortet</div>
+      </div>
+      <div class="felt">
+        <label for="inGRest">Restbeløp <span class="valg">– valgfritt</span></label>
+        <input type="text" id="inGRest" inputmode="decimal" placeholder="Hele beløpet">
+      </div>
+    </div>
+    <div class="par">
+      <div class="felt" id="feltGUtstedt">
+        <label for="inGUtstedt">Utstedt</label>
+        <input type="date" id="inGUtstedt">
+        <div class="foreslag">Foreslått fra bildet</div>
+      </div>
+      <div class="felt" id="feltGUtlop">
+        <label for="inGUtlop">Utløper <span class="valg">– valgfritt</span></label>
+        <input type="date" id="inGUtlop">
+        <div class="foreslag">Foreslått fra bildet</div>
+      </div>
+    </div>
+    <div class="felt"><div class="hint" id="foreldHint"></div></div>
+    <div class="felt">
+      <label for="inGNr">Kortnummer <span class="valg">– valgfritt</span></label>
+      <input type="text" id="inGNr" autocapitalize="off" autocorrect="off" spellcheck="false">
+    </div>
+    <div class="felt">
+      <label for="inGKomm">Kommentar <span class="valg">– valgfritt</span></label>
+      <textarea id="inGKomm"></textarea>
+    </div>
+    </div>
   </div>
 
   <!-- Oversikt -->
@@ -392,6 +519,7 @@ button,input,select,textarea{font-family:inherit}
       <span class="verdi tall" id="sumVerdi">kr 0,00</span>
     </div>
     <div id="listeInnhold"></div>
+    <button class="bruktelenke skjult" id="knBrukte">Vis brukte</button>
   </div>
 
   <div class="bunnlinje" id="bunnNy">
@@ -400,6 +528,27 @@ button,input,select,textarea{font-family:inherit}
       <button class="avbryt skjult" id="knAvbryt">Avbryt</button>
       <button class="stor" id="knLagre">Lagre bilag</button>
     </div>
+  </div>
+</div>
+
+<!-- ===================== KALENDER ===================== -->
+<div id="kalender" class="skjult">
+  <div id="toppKal" class="topp-kal" style="position:sticky;top:0;z-index:60;background-color:var(--privat);color:#fff;padding:calc(9px + env(safe-area-inset-top)) 14px 9px;display:flex;align-items:center;gap:10px;box-shadow:0 1px 5px rgba(0,0,0,.14)">
+    <button class="tilbake" id="knKalHjem" aria-label="Tilbake til start" style="background:rgba(255,255,255,.16);border:none;color:#fff;font-size:20px;width:34px;height:34px;border-radius:8px;cursor:pointer;line-height:1;flex:none">‹</button>
+    <div><div class="tittel" style="font-size:16.5px;font-weight:650">Kalender</div><div class="undertekst" id="kalUnder" style="font-size:11px;opacity:.82"></div></div>
+  </div>
+  <div class="ark">
+    <div class="kal-nav">
+      <button id="kalForrige" aria-label="Forrige måned">‹</button>
+      <div class="mnd" id="kalMnd"></div>
+      <button id="kalNeste" aria-label="Neste måned">›</button>
+      <button id="kalIdag">I dag</button>
+    </div>
+    <div class="kal-hode"><div></div><div>Ma</div><div>Ti</div><div>On</div><div>To</div><div>Fr</div><div>Lø</div><div>Sø</div></div>
+    <div class="kal-grid" id="kalGrid"></div>
+    <div class="kal-liste" id="kalDag"></div>
+    <div class="kal-tittel">Kommende 14 dager</div>
+    <div id="kalKommende"></div>
   </div>
 </div>
 
@@ -427,6 +576,8 @@ button,input,select,textarea{font-family:inherit}
     <div class="galleri" id="dGalleri"></div>
     <button class="panelknapp" id="dPdf" disabled>Lager PDF …</button>
     <button class="panelknapp andre skjult" id="dKalender">Legg returfristen i kalenderen</button>
+    <button class="panelknapp skjult" id="dRest">Oppdater restbeløp</button>
+    <button class="panelknapp andre skjult" id="dBrukt">Brukt opp</button>
     <div class="tolinje">
       <button class="panelknapp andre" id="dRediger">Rediger</button>
       <button class="panelknapp fare" id="dSlett">Slett</button>
@@ -491,17 +642,18 @@ button,input,select,textarea{font-family:inherit}
 
 <script>
 "use strict";
-/* ===================== Kvitteringer, mjau mjau, versjon 2.7 ===================== */
-const APP_VERSJON = "2.7";
+/* ===================== Kvitteringer, mjau mjau, versjon 3.0 ===================== */
+const APP_VERSJON = "3.0";
 const LAGER = { eier: "OlavSve", repo: "Stine-app-data", gren: "main", fil: "bilag.kryptert.json", bilder: "bilder", backup: "backup" };
 const EK = { hemmelighet: "0df7552eec9d178481fda706b469d0305507b5ddc5c229a6292f863412d29d50", bildesalt: "m1jWj9kLvoyOxH+NuTrtpA==" };
 const DATA_TYPE = "stine-app-data";
 const SBK_MAKS = 60, SBK_INTERVALL = 30 * 60 * 1000, PV_INTERVALL = 20000, NETT_PAUSE = 15000;
 const BACKUP_MONSTER = /^\d{4} \d{2}-\d{2} Backup Bilag \d{2}-\d{2}-\d{2}\.json$/;
 const USERS = { stine: { navn: "Stine", sjekk: "e98867470e6a2680aa174231e3711d5ffb1dbbc74f66c2f5d3a71dbd1e65852d" }, olav: { navn: "Olav", sjekk: "db676bb2e8827fbb3235fe61402d6a342434744a7952dcf8d5896766b4a4a500" } };
-const KATNAVN = { privat: "Privat", kattepuser: "Kattepuser" };
-const GRENER = ["privat", "kattepuser", "papirkurv"];
+const KATNAVN = { privat: "Privat", kattepuser: "Kattepuser", gavekort: "Gavekort og tilgodelapper" };
+const GRENER = ["privat", "kattepuser", "gavekort", "papirkurv"];
 const MAKS_BILDER = 6;
+const VAPID_OFFENTLIG = "BBTU9Wt6KuEYzdV7FBa_DvRA0GuUQJ5VFHNRKAHLax822dur8wKsbkS9MfUtZtMi2tKV2ec_MdGeEaLZ0Rd82Ro";
 
 const $ = (id) => document.getElementById(id);
 const tbo = { enc: new TextEncoder(), dec: new TextDecoder() };
@@ -843,6 +995,42 @@ async function startEkstern(){
   return true;
 }
 
+/* ---------- Varsler om frister (push via lageret, sendes av en jobb i GitHub kl. 19) ---------- */
+let enhetId = null, varselAbonnement = null;
+function b64urlTilBytes(s){ const p = "=".repeat((4 - s.length % 4) % 4); return b64fra((s + p).replace(/-/g, "+").replace(/_/g, "/")); }
+function varslerStottes(){ return "serviceWorker" in navigator && "PushManager" in window && "Notification" in window; }
+function erHjemskjerm(){ return (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches) || window.navigator.standalone === true; }
+function erIos(){ return /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1); }
+function varselSti(){ return "varsler/" + enhetId + ".kryptert.json"; }
+async function varslerFinnAbonnement(){
+  if (!varslerStottes()) return null;
+  try{ const reg = await navigator.serviceWorker.ready; return await reg.pushManager.getSubscription(); }catch{ return null; }
+}
+async function varslerSkrivTilLager(abonnement){
+  const innhold = JSON.stringify({ enhet: enhetId, navn: innlogget || "", abonnement, oppdatert: new Date().toISOString() });
+  let sha = null; try{ const r = await ghLes(varselSti(), null); if (r.sha) sha = r.sha; }catch{}
+  const res = await ghSkriv(varselSti(), tbo.enc.encode(await ekKrypter(innhold)), sha, "Varsler " + enhetId);
+  if (res.kollisjon){ const r = await ghLes(varselSti(), null); await ghSkriv(varselSti(), tbo.enc.encode(await ekKrypter(innhold)), r.sha || null, "Varsler " + enhetId); }
+}
+async function varslerSlettFraLager(){
+  try{ const r = await ghLes(varselSti(), null); if (r.sha) await ghSlett(varselSti(), r.sha, "Varsler av " + enhetId); }catch{}
+}
+async function varslerSlaaPaa(){
+  if (!varslerStottes()) throw new Error(erIos() && !erHjemskjerm() ? "Legg appen på Hjem-skjermen først; iPhone gir bare varsler til apper som ligger der." : "Denne nettleseren støtter ikke varsler.");
+  if (erIos() && !erHjemskjerm()) throw new Error("Legg appen på Hjem-skjermen først; iPhone gir bare varsler til apper som ligger der.");
+  const svar = await Notification.requestPermission();
+  if (svar !== "granted") throw new Error("Varsler ble ikke tillatt. Det kan endres i innstillingene på telefonen.");
+  const reg = await navigator.serviceWorker.ready;
+  let sub = await reg.pushManager.getSubscription();
+  if (!sub) sub = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: b64urlTilBytes(VAPID_OFFENTLIG) });
+  await varslerSkrivTilLager(sub.toJSON());
+  varselAbonnement = sub; await idbSet("varslerPaa", "ja");
+}
+async function varslerSlaaAv(){
+  try{ const sub = await varslerFinnAbonnement(); if (sub) await sub.unsubscribe(); }catch{}
+  await varslerSlettFraLager(); varselAbonnement = null; await idbSet("varslerPaa", null);
+}
+
 /* ---------- Innlogging (8.10) ---------- */
 let innlogget = null;
 function settInn(navn){
@@ -935,6 +1123,21 @@ Regler:
 - sikker: false hvis bildet er uskarpt, avkuttet, skjevt eller vanskelig å lese. Ellers true.
 
 Gjett aldri på et beløp du ikke kan lese. Da er belop null og sikker false.`;
+const TOLK_GAVEKORT = `Du får ett eller flere bilder av et norsk gavekort eller en tilgodelapp. Svar KUN med JSON. Ingen forklaring, ingen kodeblokk, ingen tekst utenom objektet.
+
+Formatet er nøyaktig:
+{"type":"gavekort","butikk":"","belop":null,"utstedt":"","utstedt_slik_den_star":"","utlop":"","utlop_slik_den_star":"","kortnummer":"","sikker":true}
+
+Regler:
+- type: "gavekort" eller "tilgodelapp", ut fra det som står på kortet. Er det uklart: "gavekort".
+- butikk: butikken eller kjeden kortet gjelder hos, f.eks. "Elkjøp". Tom streng hvis du ikke ser det.
+- belop: verdien på kortet, som tall med punktum som desimalskille. null hvis du ikke ser det.
+- utstedt_slik_den_star og utlop_slik_den_star: datoene nøyaktig slik de er trykket, tegn for tegn. Tom streng hvis de ikke finnes.
+- utstedt og utlop: samme datoer som ÅÅÅÅ-MM-DD. Norske kort skriver ALLTID dagen først: dd.mm.åååå eller dd/mm/åååå. "11/08/2026" er 11. august, aldri 8. november. Tom streng hvis de ikke finnes.
+- kortnummer: kortets nummer eller kode hvis den er trykket. Tom streng ellers.
+- sikker: false hvis bildet er uskarpt, avkuttet eller vanskelig å lese. Ellers true.
+
+Gjett aldri på et beløp eller en dato du ikke kan lese.`;
 function ryddDato(v){
   const s = String(v || "").trim(); let y, m, d;
   let t = s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
@@ -965,9 +1168,20 @@ function tolkSvaret(tekst){
   if (typeof belop !== "number" || !isFinite(belop) || belop <= 0) belop = null;
   return { butikk: String(o.butikk || "").trim().slice(0, 80), dato: velgDato(o), belop, beskrivelse: String(o.beskrivelse || "").trim().slice(0, 60), sikker: o.sikker !== false };
 }
-async function tolkBilder(b64Liste){
+function tolkGavekortSvaret(tekst){
+  let t = String(tekst || "").trim().replace(/^```(?:json)?\s*/i, "").replace(/```\s*$/, "").trim();
+  const a = t.indexOf("{"), b = t.lastIndexOf("}"); if (a === -1 || b === -1) return null;
+  let o; try{ o = JSON.parse(t.slice(a, b + 1)); }catch{ return null; }
+  let belop = o.belop; if (typeof belop === "string") belop = parseFloat(belop.replace(/\s/g, "").replace(",", "."));
+  if (typeof belop !== "number" || !isFinite(belop) || belop <= 0) belop = null;
+  const utstedt = datoIkkeFramtid(ryddDato(o.utstedt_slik_den_star) || ryddDato(o.utstedt));
+  const utlop = ryddDato(o.utlop_slik_den_star) || ryddDato(o.utlop);
+  return { type: o.type === "tilgodelapp" ? "tilgodelapp" : "gavekort", butikk: String(o.butikk || "").trim().slice(0, 80), belop, utstedt, utlop,
+           kortnummer: String(o.kortnummer || "").trim().slice(0, 60), sikker: o.sikker !== false };
+}
+async function tolkBilder(b64Liste, gavekort){
   const innhold = b64Liste.slice(0, MAKS_BILDER).map(b => ({ type: "image", source: { type: "base64", media_type: "image/jpeg", data: b } }));
-  innhold.push({ type: "text", text: TOLK_OPPGAVE });
+  innhold.push({ type: "text", text: gavekort ? TOLK_GAVEKORT : TOLK_OPPGAVE });
   let r;
   try{
     r = await fetch("https://api.anthropic.com/v1/messages", { method: "POST",
@@ -982,8 +1196,9 @@ async function tolkBilder(b64Liste){
     throw new Error("Tolkningen feilet (" + r.status + (melding ? ": " + melding : "") + "). Fyll ut selv.");
   }
   const data = await r.json();
-  const ut = tolkSvaret((data.content || []).filter(d => d.type === "text").map(d => d.text).join("\n"));
-  if (!ut) throw new Error("Klarte ikke å lese kvitteringen. Fyll ut selv.");
+  const tekst = (data.content || []).filter(d => d.type === "text").map(d => d.text).join("\n");
+  const ut = gavekort ? tolkGavekortSvaret(tekst) : tolkSvaret(tekst);
+  if (!ut) throw new Error(gavekort ? "Klarte ikke å lese kortet. Fyll ut selv." : "Klarte ikke å lese kvitteringen. Fyll ut selv.");
   return ut;
 }
 </script>
@@ -1116,6 +1331,63 @@ async function lesBildeFil(fil){
   } finally { URL.revokeObjectURL(url); }
 }
 
+/* ===================== KALENDER (som 8.10) ===================== */
+let kalAar=0, kalMnd=0, kalValgt=null;
+const KAL_FARGE={ kjop_privat:"#3d6fa3", kjop_kattepuser:"#b34a7c", retur:"#b8641b", reklamasjon:"#6b7f99", gavekort:"#2f8f7a" };
+function kalHendelser(){
+  const ut=[];
+  for(const k of ["privat","kattepuser"]) for(const b of bilagListe(k)){
+    if(b.dato) ut.push({dato:b.dato,slag:"kjop_"+k,kat:k,id:b.id,tekst:b.butikk,under:"Kjøp · kr "+kr(b.belop)});
+    if(b.returfrist) ut.push({dato:b.returfrist,slag:"retur",kat:k,id:b.id,tekst:"Returfrist: "+b.butikk,under:b.beskrivelse});
+    if(b.reklamasjon&&b.reklamasjon!=="0"&&b.dato) ut.push({dato:leggTilAar(b.dato,Number(b.reklamasjon)),slag:"reklamasjon",kat:k,id:b.id,tekst:"Reklamasjonsfrist: "+b.butikk,under:b.beskrivelse});
+  }
+  for(const g of gavekortListe(false)){ const f=gavekortFrist(g); if(f.dato) ut.push({dato:f.dato,slag:"gavekort",kat:"gavekort",id:g.id,tekst:(f.beregnet?"Foreldes: ":"Utløper: ")+g.butikk,under:(g.type==="tilgodelapp"?"Tilgodelapp":"Gavekort")+" · kr "+kr(gavekortRest(g))+" igjen"}); }
+  return ut.sort((a,b)=>a.dato.localeCompare(b.dato));
+}
+function isoUke(d){ const t=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())); const dag=t.getUTCDay()||7; t.setUTCDate(t.getUTCDate()+4-dag); const start=new Date(Date.UTC(t.getUTCFullYear(),0,1)); return Math.ceil(((t-start)/86400000+1)/7); }
+function kalIso(y,m,d){ return `${y}-${String(m+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`; }
+function kalRad(h){ return `<div class="kal-rad" data-kat="${h.kat}" data-id="${h.id}"><span class="farge" style="background:${KAL_FARGE[h.slag]}"></span><div class="t"><div class="h">${esc(h.tekst)}</div><div class="u">${esc(h.under||"")}</div></div><span class="d tall">${norskDato(h.dato)}</span></div>`; }
+function kalKoble(rot){ rot.querySelectorAll(".kal-rad").forEach(r=>r.addEventListener("click",()=>{ $("kalender").classList.add("skjult"); aapneKat(r.dataset.kat); byttFane("liste"); visDetalj(r.dataset.id); })); }
+function kalTegn(){
+  const alle=kalHendelser(), idag=idagIso();
+  const forste=new Date(kalAar,kalMnd,1), antall=new Date(kalAar,kalMnd+1,0).getDate();
+  $("kalMnd").textContent=forste.toLocaleDateString("nb-NO",{month:"long",year:"numeric"}).replace(/^./,c=>c.toUpperCase());
+  let h="", start=(forste.getDay()+6)%7, dag=1;
+  const perDag={}; alle.forEach(x=>{ (perDag[x.dato]=perDag[x.dato]||[]).push(x); });
+  for(let rad=0; dag<=antall; rad++){
+    const ukeDato=new Date(kalAar,kalMnd,Math.max(1,dag-start*(rad===0?1:0)));
+    h+=`<div class="kal-uke">${isoUke(rad===0?forste:new Date(kalAar,kalMnd,dag))}</div>`;
+    for(let k=0;k<7;k++){
+      if((rad===0&&k<start)||dag>antall){ h+=`<div class="kal-celle tom"></div>`; continue; }
+      const iso=kalIso(kalAar,kalMnd,dag), hs=perDag[iso]||[];
+      h+=`<div class="kal-celle${iso===idag?" idag":""}${iso===kalValgt?" valgt":""}" data-dato="${iso}"><div class="kal-dag">${dag}</div>
+        <div class="kal-prikker">${hs.slice(0,6).map(x=>`<span class="kal-prikk" style="background:${KAL_FARGE[x.slag]}"></span>`).join("")}</div>
+        ${hs.slice(0,3).map(x=>`<div class="kal-brikke" style="background:${KAL_FARGE[x.slag]}" title="${esc(x.tekst)}">${esc(x.tekst)}</div>`).join("")}</div>`;
+      dag++;
+    }
+  }
+  $("kalGrid").innerHTML=h;
+  $("kalGrid").querySelectorAll(".kal-celle[data-dato]").forEach(c=>c.addEventListener("click",()=>{ kalValgt=c.dataset.dato; kalTegn(); }));
+  const vd=$("kalDag");
+  if(kalValgt&&kalValgt.startsWith(kalIso(kalAar,kalMnd,1).slice(0,7))){
+    const hs=perDag[kalValgt]||[]; const d=new Date(kalValgt+"T00:00:00");
+    vd.innerHTML=`<div class="kal-tittel">${esc(d.toLocaleDateString("nb-NO",{weekday:"long",day:"numeric",month:"long"}))}</div>`+(hs.length?hs.map(kalRad).join(""):`<div class="kal-tom">Ingenting denne dagen.</div>`);
+    kalKoble(vd);
+  } else vd.innerHTML="";
+  const slutt=leggTilAar(idag,0); const til=new Date(idag+"T00:00:00"); til.setDate(til.getDate()+14); const tilIso=kalIso(til.getFullYear(),til.getMonth(),til.getDate());
+  const kommende=alle.filter(x=>!x.slag.startsWith("kjop")&&x.dato>=idag&&x.dato<=tilIso);
+  $("kalKommende").innerHTML=kommende.length?kommende.map(kalRad).join(""):`<div class="kal-tom">Ingen frister de neste 14 dagene.</div>`;
+  kalKoble($("kalKommende"));
+  $("kalUnder").textContent=kommende.length?`${kommende.length} ${kommende.length===1?"frist":"frister"} de neste 14 dagene`:"";
+}
+function visKalender(){ const i=idagIso(); if(!kalAar){ kalAar=+i.slice(0,4); kalMnd=+i.slice(5,7)-1; } kalValgt=kalValgt||i; $("start").classList.add("skjult"); $("kalender").classList.remove("skjult"); kalTegn(); window.scrollTo(0,0); }
+function kalNesteTekst(){
+  const idag=idagIso(); const til=new Date(idag+"T00:00:00"); til.setDate(til.getDate()+14); const tilIso=kalIso(til.getFullYear(),til.getMonth(),til.getDate());
+  const k=kalHendelser().filter(x=>!x.slag.startsWith("kjop")&&x.dato>=idag&&x.dato<=tilIso);
+  if(!k.length) return "Ingen frister de neste 14 dagene";
+  const d=dagerTil(k[0].dato); return `${k[0].tekst} ${d===0?"i dag":"om "+d+(d===1?" dag":" dager")}`+(k.length>1?` · ${k.length-1} til`:"");
+}
+
 /* ===================== KATTEMAT OG STJERNER ===================== */
 function reduserBevegelse(){ return !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches); }
 function kattemat(){
@@ -1150,14 +1422,18 @@ function stjerner(el){
 /* ===================== TILSTAND ===================== */
 let KAT=null, redigerId=null, skjemaBilder=[], detaljId=null, pdfKlar=null, detaljPdf=null;
 let rort={dato:false,butikk:false,belop:false,besk:false};
-let reklamasjon="2";
+let reklamasjon="2", gType="gavekort", visBrukte=false;
+function erGavekort(){ return KAT==="gavekort"; }
+function gavekortFrist(g){ if(g.utlop) return {dato:g.utlop,beregnet:false}; if(g.utstedt) return {dato:leggTilAar(g.utstedt,3),beregnet:true}; return {dato:"",beregnet:false}; }
+function gavekortRest(g){ return g.rest===null||g.rest===undefined?Number(g.palydende||0):Number(g.rest||0); }
 function bilagListe(k){ return Object.values((COMBINED&&COMBINED[k]&&COMBINED[k].bilag)||{}); }
 function finnBilag(k,id){ return COMBINED&&COMBINED[k]&&COMBINED[k].bilag[id]||null; }
 
 /* ===================== STARTSIDE ===================== */
 function fristerDenneUka(){
   const ut=[];
-  for(const k of ["privat","kattepuser"]) for(const b of bilagListe(k)){ const d=dagerTil(b.returfrist); if(d!==null&&d>=0&&d<=7) ut.push({b,k,d}); }
+  for(const k of ["privat","kattepuser"]) for(const b of bilagListe(k)){ const d=dagerTil(b.returfrist); if(d!==null&&d>=0&&d<=7) ut.push({b,k,d,slag:"retur"}); }
+  for(const g of bilagListe("gavekort")){ if(g.brukt) continue; const f=gavekortFrist(g); const d=dagerTil(f.dato); if(d!==null&&d>=0&&d<=14) ut.push({b:g,k:"gavekort",d,slag:f.beregnet?"foreldes":"utlop"}); }
   return ut.sort((a,b)=>a.d-b.d);
 }
 function oppsummer(){
@@ -1165,8 +1441,15 @@ function oppsummer(){
     const l=bilagListe(k), sum=l.reduce((a,b)=>a+Number(b.belop||0),0);
     $(k==="privat"?"oppsumPrivat":"oppsumPuser").textContent = l.length?`${l.length} bilag · kr ${kr(sum)}`:"Ingen bilag ennå";
   }
+  $("oppsumKalender").textContent=kalNesteTekst();
+  const g=gavekortListe(false), grest=g.reduce((a,x)=>a+gavekortRest(x),0);
+  $("oppsumGavekort").textContent = g.length?`${g.length} kort · kr ${kr(grest)} igjen`:"Ingen kort ennå";
   const f=fristerDenneUka(), e=$("fristVarsel");
-  if(f.length){ const idag=f.filter(x=>x.d===0).length; e.textContent=(f.length===1?"1 returfrist":f.length+" returfrister")+" denne uka"+(idag?" – "+(idag===1?"én":idag)+" i dag":"")+". Trykk for å se."; e.classList.remove("skjult"); }
+  if(f.length){
+    const r=f.filter(x=>x.slag==="retur"), gk=f.filter(x=>x.slag!=="retur"), idag=f.filter(x=>x.d===0).length, deler=[];
+    if(r.length) deler.push((r.length===1?"1 returfrist":r.length+" returfrister")+" denne uka");
+    if(gk.length) deler.push((gk.length===1?"1 kort":gk.length+" kort")+" utløper snart");
+    e.textContent=deler.join(" · ")+(idag?" – "+(idag===1?"ett":idag)+" i dag":"")+". Trykk for å se."; e.classList.remove("skjult"); }
   else e.classList.add("skjult");
   const nv=$("nokkelVarsel");
   if(nokkelUtlop){ const d=dagerTil(nokkelUtlop);
@@ -1176,8 +1459,8 @@ function oppsummer(){
   } else nv.className="varsel skjult";
 }
 function visStart(){
-  $("app").classList.add("skjult"); $("start").classList.remove("skjult");
-  KAT=null; oppsummer(); window.scrollTo(0,0);
+  $("app").classList.add("skjult"); $("kalender").classList.add("skjult"); $("start").classList.remove("skjult");
+  KAT=null; oppsummer(); karTegn(0); window.scrollTo(0,0);
 }
 function visTolkTilstand(){
   $("tolkTilstand").textContent = tolkeNokkel?"På":"Av";
@@ -1185,19 +1468,24 @@ function visTolkTilstand(){
   $("knTolkAv").classList.toggle("skjult",!tolkeNokkel);
   $("knTolkLagre").textContent = tolkeNokkel?"Bytt nøkkel":"Slå på";
 }
+function gavekortListe(brukte){ return bilagListe("gavekort").filter(g=>!!g.brukt===!!brukte); }
 function tegnAlt(){
   if(!$("start").classList.contains("skjult")) oppsummer();
-  if(KAT){ fyllButikkliste(); if(!$("faneListe").classList.contains("skjult")) tegnListe(); $("katUnder").textContent=`${bilagListe(KAT).length} bilag`; }
+  if(KAT){ fyllButikkliste(); if(!$("faneListe").classList.contains("skjult")) tegnListe(); $("katUnder").textContent=erGavekort()?`${gavekortListe(false).length} kort`:`${bilagListe(KAT).length} bilag`; }
 }
 
 /* ===================== KATEGORI ===================== */
 function aapneKat(k){
   KAT=k;
   const r=document.documentElement.style;
-  r.setProperty("--akt",k==="privat"?"var(--privat)":"var(--puser)");
-  r.setProperty("--akt-tint",k==="privat"?"var(--privat-tint)":"var(--puser-tint)");
-  r.setProperty("--akt-ink",k==="privat"?"var(--privat-ink)":"var(--puser-ink)");
+  const v=k==="privat"?"privat":(k==="kattepuser"?"puser":"gavekort");
+  r.setProperty("--akt",`var(--${v})`); r.setProperty("--akt-tint",`var(--${v}-tint)`); r.setProperty("--akt-ink",`var(--${v}-ink)`);
   $("katNavn").textContent=KATNAVN[k];
+  $("feltsettBilag").classList.toggle("skjult",k==="gavekort"); $("feltsettGavekort").classList.toggle("skjult",k!=="gavekort");
+  document.querySelector("#faner button[data-fane='ny']").textContent = k==="gavekort"?"Nytt kort":"Nytt bilag";
+  $("bildeTomTekst").textContent = k==="gavekort"?"Ta bilde av kortet":"Ta bilde av kvitteringen";
+  $("inSok").placeholder = k==="gavekort"?"Søk i butikk, kortnummer eller kommentar":"Søk i butikk, beskrivelse eller kommentar";
+  visBrukte=false;
   $("start").classList.add("skjult"); $("app").classList.remove("skjult");
   nullstillSkjema(); byttFane("ny"); fyllButikkliste(); pkOppdaterIkon(); window.scrollTo(0,0);
 }
@@ -1205,11 +1493,11 @@ function byttFane(f){
   document.querySelectorAll("#faner button").forEach(b=>b.classList.toggle("pa",b.dataset.fane===f));
   $("faneNy").classList.toggle("skjult",f!=="ny"); $("faneListe").classList.toggle("skjult",f!=="liste"); $("bunnNy").classList.toggle("skjult",f!=="ny");
   if(f==="liste")tegnListe();
-  $("katUnder").textContent = f==="liste"?`${bilagListe(KAT).length} bilag`:"";
+  $("katUnder").textContent = f==="liste"?(erGavekort()?`${gavekortListe(false).length} kort`:`${bilagListe(KAT).length} bilag`):"";
   window.scrollTo(0,0);
 }
 function fyllButikkliste(){
-  const sett=new Set(); for(const k of ["privat","kattepuser"]) bilagListe(k).forEach(b=>b.butikk&&sett.add(b.butikk));
+  const sett=new Set(); for(const k of ["privat","kattepuser","gavekort"]) bilagListe(k).forEach(b=>b.butikk&&sett.add(b.butikk));
   $("butikker").innerHTML=[...sett].sort().map(s=>`<option value="${esc(s)}">`).join("");
 }
 
@@ -1217,7 +1505,12 @@ function fyllButikkliste(){
 function settSkjemaBesk(m,k){ const e=$("skjemaBesk"); e.textContent=m||""; e.className=k==="info"?"info":""; }
 function tolkStatus(m,k){ const e=$("tolkStatus"); e.textContent=m||""; e.className=m?("vis "+(k||"")):""; }
 function merkForeslatt(id,pa){ $(id).classList.toggle("foreslatt",!!pa); }
-function nullstillForslag(){ ["feltDato","feltBelop","feltButikk","feltBesk"].forEach(i=>merkForeslatt(i,false)); rort={dato:false,butikk:false,belop:false,besk:false}; tolkStatus(""); }
+function nullstillForslag(){ ["feltDato","feltBelop","feltButikk","feltBesk","feltGButikk","feltGPalydende","feltGUtstedt","feltGUtlop"].forEach(i=>merkForeslatt(i,false)); rort={dato:false,butikk:false,belop:false,besk:false,gbutikk:false,gpal:false,gutstedt:false,gutlop:false}; tolkStatus(""); }
+function settType(v){ gType=v; document.querySelectorAll("#segType button").forEach(b=>b.classList.toggle("pa",b.dataset.v===v)); }
+function oppdaterForeldHint(){
+  const u=$("inGUtlop").value, ut=$("inGUtstedt").value;
+  $("foreldHint").textContent = u ? "" : (ut ? "Ingen utløpsdato på kortet: foreldes "+norskDato(leggTilAar(ut,3))+" (beregnet, tre år etter utstedt)." : "Står det ingen utløpsdato på kortet, gjelder tre år fra utstedt.");
+}
 function settReklamasjon(v){ reklamasjon=v; document.querySelectorAll("#segReklamasjon button").forEach(b=>b.classList.toggle("pa",b.dataset.v===v)); oppdaterFilnavn(); }
 function oppdaterFilnavn(){
   const d=$("inDato").value, bu=$("inButikk").value.trim(), be=$("inBesk").value.trim();
@@ -1228,9 +1521,12 @@ function nullstillSkjema(){
   redigerId=null; skjemaBilder.forEach(b=>{ if(b.url&&b.bytes) URL.revokeObjectURL(b.url); }); skjemaBilder=[];
   $("inDato").value=idagIso(); $("inBelop").value=""; $("inButikk").value=""; $("inBesk").value=""; $("inRetur").value=""; $("inKomm").value="";
   settReklamasjon("2");
+  $("inGButikk").value=""; $("inGPalydende").value=""; $("inGRest").value=""; $("inGUtstedt").value=idagIso(); $("inGUtlop").value=""; $("inGNr").value=""; $("inGKomm").value="";
+  settType("gavekort"); oppdaterForeldHint();
+  ["feltGButikk","feltGPalydende","feltGUtstedt"].forEach(i=>$(i).classList.remove("mangler"));
   ["feltDato","feltBelop","feltButikk","feltBesk"].forEach(i=>$(i).classList.remove("mangler"));
   $("bildeTom").classList.remove("mangler");
-  $("knLagre").textContent="Lagre bilag"; $("knAvbryt").classList.add("skjult");
+  $("knLagre").textContent=erGavekort()?"Lagre kort":"Lagre bilag"; $("knAvbryt").classList.add("skjult");
   settSkjemaBesk(""); nullstillForslag(); tegnBildestripe(); oppdaterFilnavn();
 }
 function tegnBildestripe(){
@@ -1263,14 +1559,15 @@ async function taImotFiler(filer){
   for(const f of liste){ try{ skjemaBilder.push(await lesBildeFil(f)); }catch(e){ settSkjemaBesk(e.message,"feil"); } }
   if(!/Maks|Bare/.test($("skjemaBesk").textContent)) settSkjemaBesk("");
   $("bildeTom").classList.remove("mangler"); tegnBildestripe();
-  if(tolkeNokkel && (forsteNye || tolkBelop($("inBelop").value)===null)) tolkBildet();
+  if(tolkeNokkel && (forsteNye || tolkBelop(erGavekort()?$("inGPalydende").value:$("inBelop").value)===null)) tolkBildet();
 }
 async function tolkBildet(){
   const b64=skjemaBilder.filter(b=>b.lesbarB64).map(b=>b.lesbarB64);
   if(!tolkeNokkel||!b64.length) return;
+  if(erGavekort()) return tolkKortet(b64);
   tolkStatus("Leser kvitteringen …","jobber");
   let sv;
-  try{ sv=await tolkBilder(b64); }catch(e){ tolkStatus(e.message,"feil"); return; }
+  try{ sv=await tolkBilder(b64,false); }catch(e){ tolkStatus(e.message,"feil"); return; }
   let fylt=0;
   if(sv.butikk&&!rort.butikk&&!$("inButikk").value){ $("inButikk").value=sv.butikk; merkForeslatt("feltButikk",true); fylt++; }
   if(sv.dato&&!rort.dato){ $("inDato").value=sv.dato; merkForeslatt("feltDato",true); fylt++; }
@@ -1281,7 +1578,44 @@ async function tolkBildet(){
   else if(!sv.sikker||sv.belop===null||sv.belop===undefined) tolkStatus("Bildet var vanskelig å lese. Sjekk alle feltene mot kvitteringen.","usikker");
   else { tolkStatus("Lest fra bildet. Sjekk at beløpet stemmer før du lagrer.",""); stjerner($("tolkStatus")); }
 }
+async function tolkKortet(b64){
+  tolkStatus("Leser kortet …","jobber");
+  let sv;
+  try{ sv=await tolkBilder(b64,true); }catch(e){ tolkStatus(e.message,"feil"); return; }
+  let fylt=0;
+  settType(sv.type);
+  if(sv.butikk&&!rort.gbutikk&&!$("inGButikk").value){ $("inGButikk").value=sv.butikk; merkForeslatt("feltGButikk",true); fylt++; }
+  if(sv.belop!==null&&!rort.gpal&&!$("inGPalydende").value){ $("inGPalydende").value=(sv.belop%1?sv.belop.toFixed(2):String(sv.belop)).replace(".",","); merkForeslatt("feltGPalydende",true); fylt++; }
+  if(sv.utstedt&&!rort.gutstedt){ $("inGUtstedt").value=sv.utstedt; merkForeslatt("feltGUtstedt",true); fylt++; }
+  if(sv.utlop&&!rort.gutlop&&!$("inGUtlop").value){ $("inGUtlop").value=sv.utlop; merkForeslatt("feltGUtlop",true); fylt++; }
+  if(sv.kortnummer&&!$("inGNr").value){ $("inGNr").value=sv.kortnummer; fylt++; }
+  oppdaterForeldHint();
+  if(!fylt) tolkStatus("Fikk ikke lest noe sikkert ut av bildet. Fyll ut selv.","feil");
+  else if(!sv.sikker||sv.belop===null) tolkStatus("Bildet var vanskelig å lese. Sjekk alle feltene mot kortet.","usikker");
+  else { tolkStatus("Lest fra bildet. Sjekk at beløpet stemmer før du lagrer.",""); stjerner($("tolkStatus")); }
+}
+async function lagreGavekort(){
+  const g={ type:gType, butikk:$("inGButikk").value.trim(), palydende:tolkBelop($("inGPalydende").value), rest:tolkBelop($("inGRest").value),
+            utstedt:$("inGUtstedt").value, utlop:$("inGUtlop").value, kortnummer:$("inGNr").value.trim(), kommentar:$("inGKomm").value.trim() };
+  if(g.rest===null) g.rest=g.palydende;
+  const mangler=[];
+  $("feltGButikk").classList.toggle("mangler",!g.butikk); if(!g.butikk)mangler.push("butikk");
+  $("feltGPalydende").classList.toggle("mangler",g.palydende===null); if(g.palydende===null)mangler.push("pålydende");
+  $("feltGUtstedt").classList.toggle("mangler",!g.utstedt); if(!g.utstedt)mangler.push("utstedt dato");
+  if(mangler.length){ settSkjemaBesk("Mangler "+mangler.join(", ")+".","feil"); window.scrollTo({top:0,behavior:"smooth"}); return; }
+  $("knLagre").disabled=true;
+  for(const bi of skjemaBilder){ if(bi.ny&&bi.bytes){ await bildeLagreLokalt(bi.id,bi.bytes,bi.mini); bi.ny=false; } }
+  const bilder=skjemaBilder.map(bi=>({id:bi.id,w:bi.w,h:bi.h}));
+  let rec;
+  if(redigerId&&finnBilag("gavekort",redigerId)){ rec=finnBilag("gavekort",redigerId); Object.assign(rec,g,{bilder,endret:new Date().toISOString()}); if(gavekortRest(rec)<=0) rec.brukt=true; }
+  else { rec=Object.assign({id:nyId("g")},g,{bilder,brukt:gavekortRest(g)<=0,opprettet:new Date().toISOString(),av:innlogget||""}); COMBINED.gavekort.bilag[rec.id]=rec; }
+  merkSti("gavekort",{t:"bilag",id:rec.id}); uskrevetLagre(); persist();
+  fyllButikkliste(); skjemaBilder=skjemaBilder.map(bi=>({id:bi.id,w:bi.w,h:bi.h}));
+  nullstillSkjema(); $("knLagre").disabled=false;
+  kattemat(); byttFane("liste");
+}
 async function lagreBilag(){
+  if(erGavekort()) return lagreGavekort();
   const b={ dato:$("inDato").value, butikk:$("inButikk").value.trim(), beskrivelse:$("inBesk").value.trim(), belop:tolkBelop($("inBelop").value),
             returfrist:$("inRetur").value, kommentar:$("inKomm").value.trim(), reklamasjon };
   const mangler=[];
@@ -1325,7 +1659,41 @@ function fyllMini(rot){
     if(url) img.src=url; else { const d=document.createElement("div"); d.className="mini tom"; d.textContent="Bildet er ikke lastet opp ennå"; img.replaceWith(d); }
   });
 }
+function gavekortLapp(g){
+  if(g.brukt) return `<span class="merkelapp brukt">Brukt opp</span>`;
+  const f=gavekortFrist(g); const dt=dagerTil(f.dato); if(dt===null) return "";
+  const ord=f.beregnet?"Foreldes":"Utløper";
+  if(dt<0) return `<span class="merkelapp utgatt">${f.beregnet?"Foreldet":"Utløpt"}</span>`;
+  if(dt===0) return `<span class="merkelapp snart">${ord} i dag</span>`;
+  if(dt<=14) return `<span class="merkelapp snart">${ord} om ${dt} ${dt===1?"dag":"dager"}</span>`;
+  return `<span class="merkelapp">${ord} ${norskDato(f.dato)}</span>`;
+}
+function tegnGavekortListe(){
+  const sok=$("inSok").value.trim().toLowerCase();
+  let l=gavekortListe(visBrukte);
+  if(sok) l=l.filter(g=>((g.butikk||"")+" "+(g.kortnummer||"")+" "+(g.kommentar||"")).toLowerCase().includes(sok));
+  l.sort((a,b)=>{ const fa=gavekortFrist(a).dato||"9999", fb=gavekortFrist(b).dato||"9999"; return fa.localeCompare(fb)||String(b.opprettet||"").localeCompare(String(a.opprettet||"")); });
+  $("sumEtikett").textContent=sok?`${l.length} treff`:(visBrukte?"Brukte":"Igjen");
+  $("sumVerdi").textContent="kr "+kr(l.reduce((a,g)=>a+(visBrukte?0:gavekortRest(g)),0));
+  pkOppdaterIkon();
+  const ant=gavekortListe(true).length, kb=$("knBrukte");
+  kb.classList.toggle("skjult",!ant&&!visBrukte); kb.textContent=visBrukte?"Vis aktive":`Vis brukte (${ant})`;
+  const boks=$("listeInnhold");
+  if(!l.length){ boks.innerHTML=`<div class="tomt"><strong>${sok?"Ingen treff":(visBrukte?"Ingen brukte kort":"Ingen kort her ennå")}</strong>${sok?"Prøv et annet søkeord.":(visBrukte?"":"Gå til «Nytt kort» og ta det første bildet.")}</div>`; return; }
+  let h="";
+  for(const g of l){
+    const forste=(g.bilder&&g.bilder[0])?g.bilder[0].id:null;
+    h+=`<div class="bilag${g.brukt?" brukt":""}" data-id="${g.id}">${forste?`<img class="mini" data-bilde="${forste}" alt="">`:`<div class="mini tom">Uten bilde</div>`}
+      <div class="midt"><div class="butikk">${esc(g.butikk)}</div><div class="besk">${g.type==="tilgodelapp"?"Tilgodelapp":"Gavekort"}${g.kortnummer?" · "+esc(g.kortnummer):""}</div>
+      <div class="under"><span class="dato tall">Utstedt ${norskDato(g.utstedt)}</span>${gavekortLapp(g)}</div></div>
+      <div class="belop tall">kr ${kr(gavekortRest(g))}${gavekortRest(g)!==Number(g.palydende||0)?`<div class="dato" style="text-align:right">av ${kr(g.palydende)}</div>`:""}</div></div><div class="rift"></div>`;
+  }
+  boks.innerHTML=h; fyllMini(boks);
+  boks.querySelectorAll(".bilag").forEach(e=>e.addEventListener("click",()=>visDetalj(e.dataset.id)));
+}
 function tegnListe(){
+  $("knBrukte").classList.toggle("skjult",!erGavekort());
+  if(erGavekort()) return tegnGavekortListe();
   const sok=$("inSok").value.trim().toLowerCase();
   let l=bilagListe(KAT);
   if(sok) l=l.filter(b=>((b.butikk||"")+" "+(b.beskrivelse||"")+" "+(b.kommentar||"")).toLowerCase().includes(sok));
@@ -1353,8 +1721,28 @@ function tegnListe(){
 }
 
 /* ===================== DETALJ ===================== */
+async function visGavekortDetalj(g){
+  detaljId=g.id; detaljPdf=null;
+  $("dButikk").textContent=g.butikk; $("dBesk").textContent=(g.type==="tilgodelapp"?"Tilgodelapp":"Gavekort")+(g.brukt?" · brukt opp":"");
+  const f=gavekortFrist(g);
+  let h=`<div class="rad"><span class="n">Pålydende</span><span class="v tall">kr ${kr(g.palydende)}</span></div>
+         <div class="rad"><span class="n">Restbeløp</span><span class="v tall"><strong>kr ${kr(gavekortRest(g))}</strong></span></div>
+         <div class="rad"><span class="n">Utstedt</span><span class="v tall">${norskDato(g.utstedt)}</span></div>`;
+  if(f.dato) h+=`<div class="rad"><span class="n">${f.beregnet?"Foreldes":"Utløper"}</span><span class="v tall">${norskDato(f.dato)}${f.beregnet?" (beregnet)":""}</span></div>`;
+  if(g.kortnummer) h+=`<div class="rad"><span class="n">Kortnummer</span><span class="v tall">${esc(g.kortnummer)}</span></div>`;
+  if(g.kommentar) h+=`<div class="rad"><span class="n">Kommentar</span><span class="v">${esc(g.kommentar)}</span></div>`;
+  if(g.av) h+=`<div class="rad"><span class="n">Registrert av</span><span class="v">${esc(g.av)}</span></div>`;
+  $("dRader").innerHTML=h;
+  const gal=$("dGalleri"); gal.innerHTML=(g.bilder||[]).map((bi,i)=>`<img data-full="${bi.id}" alt="Bilde ${i+1} av ${g.bilder.length}">`).join("");
+  $("dPdf").classList.add("skjult"); $("dKalender").classList.add("skjult");
+  $("dRest").classList.toggle("skjult",!!g.brukt); $("dBrukt").classList.remove("skjult"); $("dBrukt").textContent=g.brukt?"Ta i bruk igjen":"Brukt opp";
+  $("dBesk2").textContent=""; $("detaljOverlegg").classList.remove("skjult");
+  gal.querySelectorAll("img[data-full]").forEach(async img=>{ const url=await bildeHent(img.dataset.full,false); if(url) img.src=url; else { const d=document.createElement("div"); d.className="tomtbilde"; d.textContent="Bildet er ikke lastet opp ennå – det hentes når det er i lageret."; img.replaceWith(d); } });
+}
 async function visDetalj(id){
   const b=finnBilag(KAT,id); if(!b) return;
+  $("dPdf").classList.remove("skjult"); $("dRest").classList.add("skjult"); $("dBrukt").classList.add("skjult");
+  if(erGavekort()) return visGavekortDetalj(b);
   detaljId=id; detaljPdf=null;
   $("dButikk").textContent=b.butikk; $("dBesk").textContent=b.beskrivelse;
   let h=`<div class="rad"><span class="n">Dato</span><span class="v tall">${norskDato(b.dato)}</span></div>
@@ -1387,7 +1775,7 @@ function pkOppdaterIkon(){
 }
 function tegnPapirkurv(){
   const l=bilagListe("papirkurv").filter(b=>b.kat===KAT).sort((a,b)=>String(b.slettet).localeCompare(String(a.slettet)));
-  $("pkListe").innerHTML = l.length ? l.map(b=>`<div class="listerad" data-id="${b.id}"><div><div class="h">${esc(b.butikk)} · kr ${kr(b.belop)}</div><div class="u">${esc(b.beskrivelse)} · ${norskDato(b.dato)} · slettet ${norskDato(b.slettet)}</div></div>
+  $("pkListe").innerHTML = l.length ? l.map(b=>`<div class="listerad" data-id="${b.id}"><div><div class="h">${esc(b.butikk)} · kr ${kr(b.kat==="gavekort"?gavekortRest(b):b.belop)}</div><div class="u">${esc(b.kat==="gavekort"?(b.type==="tilgodelapp"?"Tilgodelapp":"Gavekort"):b.beskrivelse)} · ${norskDato(b.kat==="gavekort"?b.utstedt:b.dato)} · slettet ${norskDato(b.slettet)}</div></div>
     <div class="knapper"><button data-gjen="${b.id}">Gjenopprett</button><button class="fare" data-godt="${b.id}">Slett for godt</button></div></div>`).join("")
     : `<div class="tomt">Papirkurven er tom.</div>`;
   $("pkTom").classList.toggle("skjult",!l.length);
@@ -1406,11 +1794,55 @@ $("loginBtn").addEventListener("click",tryLogin);
 $("knLoggUt").addEventListener("click",loggUt);
 $("nokkelBtn").addEventListener("click",nokkelLagre);
 $("nokkelInput").addEventListener("keydown",e=>{ if(e.key==="Enter") nokkelLagre(); });
-document.querySelectorAll(".velg").forEach(b=>b.addEventListener("click",e=>{
-  const kam=e.target.closest("[data-kamera]");
-  aapneKat(b.dataset.kat);
-  if(kam) $("filKamera").click();
-}));
+/* ---------- Karusell ---------- */
+const karKort=Array.from(document.querySelectorAll("#karusell .kar-kort"));
+let karIdx=0, karDrag=null;
+function karMaal(){
+  const W=$("karusell").clientWidth||360, kw=Math.min(Math.round(W*0.66),320);
+  $("karusell").style.setProperty("--kw",kw+"px");
+  const side=W/2-26+(kw*0.72)/2;
+  return {W,kw,side};
+}
+function karPlasser(offset,m){
+  const o=Math.max(-2,Math.min(2,offset));
+  const nk=[-2,-1,0,1,2], xs=[-m.W,-m.side,0,m.side,m.W], sk=[0.6,0.72,1,0.72,0.6], op=[0,0.55,1,0.55,0];
+  let i=0; while(i<3&&o>nk[i+1]) i++;
+  const t=(o-nk[i])/(nk[i+1]-nk[i]);
+  const l=(a,b)=>a+(b-a)*t;
+  return {x:l(xs[i],xs[i+1]),s:l(sk[i],sk[i+1]),a:l(op[i],op[i+1])};
+}
+function karTegn(p){
+  const m=karMaal(), n=karKort.length;
+  karKort.forEach((k,i)=>{
+    let o=((i-karIdx)%n+n)%n; if(o===3) o=-1; if(o===2) o=(p||0)>0?-2:2;
+    const pl=karPlasser(o-(p||0),m);
+    k.style.transform=`translate3d(${pl.x.toFixed(1)}px,0,0) scale(${pl.s.toFixed(3)})`;
+    k.style.opacity=pl.a.toFixed(3); k.style.zIndex=String(10-Math.round(Math.abs(o-(p||0))*3));
+    k.setAttribute("aria-hidden",o===0?"false":"true");
+  });
+  $("karPrikker").querySelectorAll("span").forEach((d,i)=>d.classList.toggle("pa",i===karIdx));
+}
+function karGaa(retning){ const n=karKort.length; karIdx=((karIdx+retning)%n+n)%n; karTegn(0); }
+function karAapne(i){ const kat=karKort[i].dataset.kat; if(kat==="kalender") visKalender(); else aapneKat(kat); }
+$("karForrige").addEventListener("click",()=>karGaa(-1));
+$("karNeste").addEventListener("click",()=>karGaa(1));
+karKort.forEach((k,i)=>{
+  k.addEventListener("click",()=>{ if(karDrag&&karDrag.flyttet) return; if(i===karIdx) karAapne(i); else { karIdx=i; karTegn(0); } });
+  k.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); if(i===karIdx) karAapne(i); } });
+});
+const karEl=$("karusell");
+karEl.addEventListener("pointerdown",e=>{ if(e.pointerType==="mouse"&&e.button!==0) return; karDrag={x:e.clientX,p:0,flyttet:false,t:Date.now()}; karEl.classList.add("drar"); });
+karEl.addEventListener("pointermove",e=>{ if(!karDrag) return; const dx=e.clientX-karDrag.x; if(Math.abs(dx)>6) karDrag.flyttet=true; karDrag.p=Math.max(-1,Math.min(1,dx/karMaal().kw)); karTegn(karDrag.p); });
+function karSlipp(){ if(!karDrag) return; const p=karDrag.p, fart=Math.abs(p)/Math.max(1,(Date.now()-karDrag.t))*1000; karEl.classList.remove("drar");
+  if(p<-0.28||(p<-0.08&&fart>1.2)) karGaa(1); else if(p>0.28||(p>0.08&&fart>1.2)) karGaa(-1); else karTegn(0);
+  const d=karDrag; setTimeout(()=>{ if(karDrag===d) karDrag=null; },50); }
+karEl.addEventListener("pointerup",karSlipp); karEl.addEventListener("pointercancel",karSlipp); karEl.addEventListener("pointerleave",karSlipp);
+document.addEventListener("keydown",e=>{ if($("start").classList.contains("skjult")||!$("loginScreen").classList.contains("skjult")) return; if(e.key==="ArrowLeft") karGaa(-1); else if(e.key==="ArrowRight") karGaa(1); });
+window.addEventListener("resize",()=>karTegn(0));
+$("knKalHjem").addEventListener("click",()=>{ $("kalender").classList.add("skjult"); visStart(); });
+$("kalForrige").addEventListener("click",()=>{ kalMnd--; if(kalMnd<0){ kalMnd=11; kalAar--; } kalTegn(); });
+$("kalNeste").addEventListener("click",()=>{ kalMnd++; if(kalMnd>11){ kalMnd=0; kalAar++; } kalTegn(); });
+$("kalIdag").addEventListener("click",()=>{ const i=idagIso(); kalAar=+i.slice(0,4); kalMnd=+i.slice(5,7)-1; kalValgt=i; kalTegn(); });
 $("knHjem").addEventListener("click",visStart);
 document.querySelectorAll("#faner button").forEach(b=>b.addEventListener("click",()=>byttFane(b.dataset.fane)));
 $("inSok").addEventListener("input",tegnListe);
@@ -1433,9 +1865,32 @@ $("dPdf").addEventListener("click",async ()=>{ if(!detaljPdf) return; const r=aw
 $("dKalender").addEventListener("click",async ()=>{ const b=finnBilag(KAT,detaljId); if(!b) return; const ics=icsFor(b); if(!ics) return;
   const r=await delEllerLastNed(tbo.enc.encode(ics),"Returfrist "+rensNavn(b.butikk)+".ics","text/calendar");
   $("dBesk2").textContent = r==="avbrutt"?"":"Åpne fila i Kalender for å legge inn fristen."; });
+$("dRest").addEventListener("click",()=>{
+  const g=finnBilag("gavekort",detaljId); if(!g) return;
+  const p=prompt("Nytt restbeløp på kortet fra "+g.butikk+":", String(gavekortRest(g)).replace(".",",")); if(p===null) return;
+  const n=tolkBelop(p); if(n===null||n<0){ $("dBesk2").textContent="Skriv et beløp, for eksempel 350 eller 350,50."; return; }
+  g.rest=n; if(n<=0) g.brukt=true; g.endret=new Date().toISOString();
+  merkSti("gavekort",{t:"bilag",id:g.id}); uskrevetLagre(); persist(); visGavekortDetalj(g); tegnListe(); oppsummer();
+});
+$("dBrukt").addEventListener("click",()=>{
+  const g=finnBilag("gavekort",detaljId); if(!g) return;
+  g.brukt=!g.brukt; if(!g.brukt&&gavekortRest(g)<=0) g.rest=Number(g.palydende||0); g.endret=new Date().toISOString();
+  merkSti("gavekort",{t:"bilag",id:g.id}); uskrevetLagre(); persist(); lukkDetalj(); tegnListe(); oppsummer();
+});
+$("knBrukte").addEventListener("click",()=>{ visBrukte=!visBrukte; tegnListe(); });
+document.querySelectorAll("#segType button").forEach(b=>b.addEventListener("click",()=>settType(b.dataset.v)));
+["inGUtstedt","inGUtlop"].forEach(i=>$(i).addEventListener("input",oppdaterForeldHint));
+for(const [inn,felt,flagg] of [["inGButikk","feltGButikk","gbutikk"],["inGPalydende","feltGPalydende","gpal"],["inGUtstedt","feltGUtstedt","gutstedt"],["inGUtlop","feltGUtlop","gutlop"]]){
+  $(inn).addEventListener("input",()=>{ rort[flagg]=true; merkForeslatt(felt,false); });
+}
 $("dRediger").addEventListener("click",()=>{
   const b=finnBilag(KAT,detaljId); if(!b) return;
   redigerId=b.id; skjemaBilder=(b.bilder||[]).map(bi=>({id:bi.id,w:bi.w,h:bi.h,ny:false}));
+  if(erGavekort()){
+    settType(b.type||"gavekort"); $("inGButikk").value=b.butikk; $("inGPalydende").value=String(b.palydende).replace(".",","); $("inGRest").value=String(gavekortRest(b)).replace(".",",");
+    $("inGUtstedt").value=b.utstedt||""; $("inGUtlop").value=b.utlop||""; $("inGNr").value=b.kortnummer||""; $("inGKomm").value=b.kommentar||""; oppdaterForeldHint();
+    nullstillForslag(); tegnBildestripe(); $("knLagre").textContent="Lagre endringer"; $("knAvbryt").classList.remove("skjult"); lukkDetalj(); byttFane("ny"); return;
+  }
   $("inDato").value=b.dato; $("inBelop").value=String(b.belop).replace(".",","); $("inButikk").value=b.butikk; $("inBesk").value=b.beskrivelse;
   $("inRetur").value=b.returfrist||""; $("inKomm").value=b.kommentar||""; settReklamasjon(b.reklamasjon||"0");
   nullstillForslag(); tegnBildestripe();
@@ -1443,7 +1898,7 @@ $("dRediger").addEventListener("click",()=>{
   oppdaterFilnavn(); lukkDetalj(); byttFane("ny");
 });
 $("dSlett").addEventListener("click",()=>{ const b=finnBilag(KAT,detaljId); if(!b) return;
-  if(!confirm(`Slette «${b.butikk} – ${b.beskrivelse}»? Bilaget legges i papirkurven.`)) return;
+  if(!confirm(erGavekort()?`Slette «${b.butikk} – kr ${kr(gavekortRest(b))}»? Kortet legges i papirkurven.`:`Slette «${b.butikk} – ${b.beskrivelse}»? Bilaget legges i papirkurven.`)) return;
   slettTilPapirkurv(detaljId); lukkDetalj(); tegnListe(); pkOppdaterIkon(); });
 $("knPapirkurv").addEventListener("click",()=>{ tegnPapirkurv(); $("papirkurvOverlegg").classList.remove("skjult"); });
 $("pkLukk").addEventListener("click",()=>$("papirkurvOverlegg").classList.add("skjult"));
@@ -1452,7 +1907,9 @@ $("pkTom").addEventListener("click",()=>{ const l=bilagListe("papirkurv").filter
   l.forEach(b=>{ delete COMBINED.papirkurv.bilag[b.id]; merkSti("papirkurv",{t:"bilag",id:b.id}); }); uskrevetLagre(); persist(); tegnPapirkurv(); tegnListe(); });
 $("fristVarsel").addEventListener("click",()=>{
   const f=fristerDenneUka();
-  $("fristListe").innerHTML=f.map(x=>`<div class="listerad" data-kat="${x.k}" data-id="${x.b.id}"><div><div class="h">${esc(x.b.butikk)} · kr ${kr(x.b.belop)}</div><div class="u">${esc(x.b.beskrivelse)} · ${x.d===0?"i dag":"om "+x.d+(x.d===1?" dag":" dager")} (${norskDato(x.b.returfrist)})</div></div><span class="k ${x.k}">${KATNAVN[x.k]}</span></div>`).join("");
+  $("fristListe").innerHTML=f.map(x=>{ const gk=x.k==="gavekort", fr=gk?gavekortFrist(x.b):{dato:x.b.returfrist};
+    const hva=gk?(x.slag==="foreldes"?"foreldes":"utløper"):"returfrist";
+    return `<div class="listerad" data-kat="${x.k}" data-id="${x.b.id}"><div><div class="h">${esc(x.b.butikk)} · kr ${kr(gk?gavekortRest(x.b):x.b.belop)}</div><div class="u">${esc(gk?(x.b.type==="tilgodelapp"?"Tilgodelapp":"Gavekort"):x.b.beskrivelse)} · ${hva} ${x.d===0?"i dag":"om "+x.d+(x.d===1?" dag":" dager")} (${norskDato(fr.dato)})</div></div><span class="k ${x.k}">${gk?"Gavekort":KATNAVN[x.k]}</span></div>`; }).join("");
   $("fristListe").querySelectorAll(".listerad").forEach(r=>r.addEventListener("click",()=>{ $("fristOverlegg").classList.add("skjult"); aapneKat(r.dataset.kat); byttFane("liste"); visDetalj(r.dataset.id); }));
   $("fristOverlegg").classList.remove("skjult");
 });
@@ -1463,6 +1920,22 @@ for(const id of ["pdfOverlegg","detaljOverlegg","papirkurvOverlegg","fristOverle
 }
 $("pvVarsel").addEventListener("click",e=>{ if(e.target&&e.target.id==="pvLukk") return; pvHentInn(); });
 $("pvLukk").addEventListener("click",async e=>{ e.stopPropagation(); pvSkjul(); try{ const r=await ekLes(false); pvSkjultTekst=r&&r.tekst?r.tekst:null; if(r&&r.etag) ekEtag=r.etag; }catch{ pvSkjultTekst=null; } });
+
+/* ---------- Varsler av/på ---------- */
+async function visVarselTilstand(){
+  const paa = (await idbGet("varslerPaa")) === "ja";
+  $("varselTilstand").textContent = paa ? "På – hver dag kl. 19 når noe forfaller" : "Av";
+  $("knVarsler").textContent = paa ? "Slå av" : "Slå på";
+}
+$("knVarsler").addEventListener("click", async () => {
+  const paa = (await idbGet("varslerPaa")) === "ja";
+  $("knVarsler").disabled = true;
+  try{
+    if (paa){ await varslerSlaaAv(); startBesk("Varsler slått av på denne telefonen.", "ok"); }
+    else { await varslerSlaaPaa(); startBesk("Varsler slått på. Frister meldes klokka 19 den dagen de gjelder.", "ok"); }
+  }catch(e){ startBesk(e.message, "feil"); }
+  $("knVarsler").disabled = false; visVarselTilstand();
+});
 
 /* ---------- Kvitteringslesing av/på ---------- */
 $("knTolkNokkel").addEventListener("click",()=>{ $("inTolkNokkel").value=""; $("tolkNokkelBesk").textContent=""; visTolkTilstand(); $("nokkelOverlegg").classList.remove("skjult"); });
@@ -1481,7 +1954,7 @@ $("knFil").addEventListener("click",async ()=>{
   if(!rett){ alert("Feil passord."); return; }
   $("filSistLagret").textContent = COMBINED&&COMBINED.lagret ? new Date(COMBINED.lagret).toLocaleString("nb-NO") : "–";
   $("filUtlop").textContent = nokkelUtlop ? norskDato(nokkelUtlop) : "Ingen utløpsdato";
-  $("filAntall").textContent = `${bilagListe("privat").length} privat · ${bilagListe("kattepuser").length} kattepuser · ${bilagListe("papirkurv").length} i papirkurv`;
+  $("filAntall").textContent = `${bilagListe("privat").length} privat · ${bilagListe("kattepuser").length} kattepuser · ${bilagListe("gavekort").length} kort · ${bilagListe("papirkurv").length} i papirkurv`;
   $("filBesk").textContent=""; $("filOverlegg").classList.remove("skjult");
 });
 $("filLukkBtn").addEventListener("click",()=>$("filOverlegg").classList.add("skjult"));
@@ -1532,6 +2005,7 @@ async function etterInnlogging(){
 async function etterStart(){
   const n=await importerV1();
   visStart(); pvStart(); sbkStart();
+  if(window.__apne){ const {k,id}=window.__apne; window.__apne=null; if(k==="kalender") visKalender(); else if(KATNAVN[k]&&finnBilag(k,id)){ aapneKat(k); byttFane("liste"); visDetalj(id); } }
   if(n) startBesk(`Tok med ${n} bilag fra forrige utgave av appen.`,"ok");
 }
 (async ()=>{
@@ -1539,7 +2013,9 @@ async function etterStart(){
   tilgang=await idbGet("tilgang"); tolkeNokkel=await idbGet("tolk"); nokkelUtlop=await idbGet("utlop");
   await broHentInn(); if(tilgang) broSkriv();
   ventende=(await idbGet("ventende"))||[];
-  visTolkTilstand(); $("inDato").value=idagIso();
+  enhetId=await idbGet("enhet"); if(!enhetId){ enhetId=nyId("e"); await idbSet("enhet",enhetId); }
+  visTolkTilstand(); visVarselTilstand(); $("inDato").value=idagIso();
+  if((location.hash||"").startsWith("#apne=")){ const [k,id]=location.hash.slice(6).split("/"); window.__apne={k,id}; try{ history.replaceState(null,"",location.pathname+location.search); }catch{} }
   const husket=await idbGet("husk");
   if(typeof husket==="string"&&USERS[husket.toLowerCase()]){ settInn(USERS[husket.toLowerCase()].navn); etterInnlogging(); }
   else $("loginName").focus();
