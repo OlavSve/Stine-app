@@ -77,11 +77,22 @@ button,input,select,textarea{font-family:inherit}
 /* ---------- Startside ---------- */
 #start{position:relative;overflow:hidden;min-height:100vh;min-height:100dvh;background:var(--himmel);display:flex;flex-direction:column;padding:calc(28px + env(safe-area-inset-top)) 20px calc(28px + env(safe-area-inset-bottom))}
 #start .midt{position:relative;z-index:1;width:100%;max-width:460px;margin:auto}
-#start .katt{position:absolute;right:5%;bottom:-6px;width:150px;height:auto;pointer-events:none;z-index:0}
+#start .katt{position:absolute;left:7%;bottom:-6px;width:150px;height:auto;pointer-events:none;z-index:0}
+#start .spor{height:44px;margin:0 -20px 10px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='44' viewBox='0 0 96 44' fill='rgba(61,111,163,0.22)'%3E%3Cg transform='translate(8 6) rotate(-14)'%3E%3Cellipse cx='12' cy='14' rx='6.2' ry='5'/%3E%3Ccircle cx='4' cy='7' r='2.5'/%3E%3Ccircle cx='9' cy='3.2' r='2.7'/%3E%3Ccircle cx='15' cy='3.2' r='2.7'/%3E%3Ccircle cx='20' cy='7' r='2.5'/%3E%3C/g%3E%3Cg transform='translate(54 18) rotate(14)'%3E%3Cellipse cx='12' cy='14' rx='6.2' ry='5'/%3E%3Ccircle cx='4' cy='7' r='2.5'/%3E%3Ccircle cx='9' cy='3.2' r='2.7'/%3E%3Ccircle cx='15' cy='3.2' r='2.7'/%3E%3Ccircle cx='20' cy='7' r='2.5'/%3E%3C/g%3E%3C/svg%3E");background-repeat:repeat-x;background-position:center}
+#start .tittelrad{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin-bottom:18px}
+#start .tittelrad h1{margin:0}
+#start .sittekatt{width:64px;height:64px;flex:none}
+.tannhjul{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:80;width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.92);border:1px solid rgba(61,111,163,.3);box-shadow:0 4px 12px rgba(31,43,58,.16);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--privat-ink)}
+.tannhjul svg{width:24px;height:24px}
+#nokkelOverlegg,#filOverlegg{z-index:95}
+.panel .tolkrad{background:var(--card);border:1px solid var(--line);margin-top:10px}
+.panel .tolkrad button,.panel .fot button{background:var(--card);color:var(--privat-ink);border:1px solid var(--line);border-radius:7px;padding:8px 13px;font-size:12.5px;cursor:pointer;flex:none}
+.panel .fot{display:flex;gap:8px;align-items:center;margin-top:14px}
+.panel .fot .versjon{margin-left:auto;font-size:11.5px;color:var(--muted)}
+.panel .konto{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:14px;color:var(--ink);padding:4px 2px 12px;border-bottom:1px solid var(--line);margin-bottom:4px}
+.panel .konto button{background:transparent;border:none;color:var(--privat-ink);font-size:13.5px;cursor:pointer;text-decoration:underline;padding:0}
 #start .merke{color:var(--muted);font-size:11px;letter-spacing:3.2px;text-transform:uppercase;margin-bottom:6px}
 #start h1{font-size:30px;font-weight:700;letter-spacing:.2px;margin:0 0 4px;color:var(--ink)}
-#start .ingress{color:var(--muted);font-size:13.5px;margin:0 0 22px;display:flex;justify-content:space-between;align-items:baseline;gap:10px}
-#start .ingress button{background:transparent;border:none;color:var(--privat-ink);font-size:13px;cursor:pointer;padding:0;text-decoration:underline}
 .velg{position:relative;display:block;width:100%;text-align:left;cursor:pointer;background:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.95);border-radius:14px;padding:18px 74px 18px 20px;margin-bottom:12px;color:var(--ink)}
 .velg:active{background:rgba(255,255,255,.95)}
 .velg .navn{font-size:21px;font-weight:650;display:flex;align-items:center;gap:10px}
@@ -96,8 +107,6 @@ button,input,select,textarea{font-family:inherit}
 .tolkrad .n{font-size:13px}
 .tolkrad .t{font-size:11.5px;color:var(--muted);margin-top:2px}
 .tolkrad button,#start .fot button{background:transparent;color:var(--privat-ink);border:1px solid rgba(61,111,163,.35);border-radius:7px;padding:8px 13px;font-size:12.5px;cursor:pointer;flex:none}
-#start .fot{margin-top:14px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-#start .versjon{margin-left:auto;font-size:11.5px;color:var(--muted)}
 #startBesk{color:var(--muted);font-size:12px;margin-top:12px;min-height:16px}
 #startBesk.ok{color:var(--good)} #startBesk.feil{color:var(--feil)}
 
@@ -312,8 +321,17 @@ button,input,select,textarea{font-family:inherit}
 <!-- ===================== STARTSIDE ===================== -->
 <div id="start" class="skjult">
   <div class="midt">
-    <h1>Kvitteringer, mjau mjau</h1>
-    <p class="ingress"><span id="startBruker">Innlogget</span><button id="knLoggUt">Logg ut</button></p>
+    <div class="spor" aria-hidden="true"></div>
+    <div class="tittelrad">
+      <h1>Kvitteringer, mjau mjau</h1>
+      <svg class="sittekatt" viewBox="0 0 100 100" aria-hidden="true" fill="none" stroke="#b34a7c" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M30 42 L31 16 L43 28 Q50 25 57 28 L69 16 L70 42 Q71 58 50 60 Q29 58 30 42 Z"/>
+        <path d="M36 59 Q20 76 26 94 L72 94 Q80 78 66 59"/>
+        <path d="M72 94 Q94 90 90 74 Q88 66 82 70"/>
+        <circle cx="42" cy="44" r="2" fill="#b34a7c" stroke="none"/><circle cx="58" cy="44" r="2" fill="#b34a7c" stroke="none"/>
+        <path d="M46 51 L54 51 L50 55 Z" fill="#b34a7c" stroke="none"/>
+      </svg>
+    </div>
 
     <div id="fristVarsel" class="varsel klikk skjult"></div>
     <div id="nokkelVarsel" class="varsel skjult"></div>
@@ -346,29 +364,8 @@ button,input,select,textarea{font-family:inherit}
       <button id="karNeste" aria-label="Neste">›</button>
     </div>
 
-    <div class="tolkrad">
-      <div>
-        <div class="n">Varsler om frister</div>
-        <div class="t" id="varselTilstand">Av</div>
-      </div>
-      <button id="knVarsler">Slå på</button>
-    </div>
-
-    <div class="tolkrad">
-      <div>
-        <div class="n">Les kvitteringen automatisk</div>
-        <div class="t" id="tolkTilstand">Av</div>
-      </div>
-      <button id="knTolkNokkel">Slå på</button>
-    </div>
-
-    <div class="fot">
-      <button id="knBackup" class="skjult" title="Lagre komplett backup (JSON)">&#128190;</button>
-      <button id="knFil" class="skjult" title="Fil">&#128196; Fil</button>
-      <span class="versjon" id="startVersjon">Versjon 3.0</span>
-    </div>
-    <div id="startBesk"></div>
   </div>
+  <button class="tannhjul" id="knInnst" aria-label="Innstillinger"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3h0a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8v0a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button>
   <svg class="katt" viewBox="0 0 100 58" aria-hidden="true">
     <polygon points="30,36 33,10 49,22" fill="#3d6fa3"/><polygon points="70,36 67,10 51,22" fill="#3d6fa3"/>
     <circle cx="50" cy="52" r="28" fill="#3d6fa3"/>
@@ -624,6 +621,36 @@ button,input,select,textarea{font-family:inherit}
   </div>
 </div>
 
+<div id="innstOverlegg" class="overlegg skjult">
+  <div class="panel">
+    <div class="grep"></div>
+    <div class="konto"><span id="startBruker">Innlogget</span><button id="knLoggUt">Logg ut</button></div>
+    <div class="tolkrad">
+      <div>
+        <div class="n">Varsler om frister</div>
+        <div class="t" id="varselTilstand">Av</div>
+      </div>
+      <button id="knVarsler">Slå på</button>
+    </div>
+
+    <div class="tolkrad">
+      <div>
+        <div class="n">Les kvitteringen automatisk</div>
+        <div class="t" id="tolkTilstand">Av</div>
+      </div>
+      <button id="knTolkNokkel">Slå på</button>
+    </div>
+
+    <div class="fot">
+      <button id="knBackup" class="skjult" title="Lagre komplett backup (JSON)">&#128190;</button>
+      <button id="knFil" class="skjult" title="Fil">&#128196; Fil</button>
+      <span class="versjon" id="startVersjon">Versjon 3.1</span>
+    </div>
+    <div id="startBesk"></div>
+    <button class="panelknapp andre" id="knInnstSkjul" style="margin-top:16px">Skjul innstillinger</button>
+  </div>
+</div>
+
 <div id="filOverlegg" class="overlegg skjult">
   <div class="panel">
     <div class="grep"></div>
@@ -642,8 +669,8 @@ button,input,select,textarea{font-family:inherit}
 
 <script>
 "use strict";
-/* ===================== Kvitteringer, mjau mjau, versjon 3.0 ===================== */
-const APP_VERSJON = "3.0";
+/* ===================== Kvitteringer, mjau mjau, versjon 3.1 ===================== */
+const APP_VERSJON = "3.1";
 const LAGER = { eier: "OlavSve", repo: "Stine-app-data", gren: "main", fil: "bilag.kryptert.json", bilder: "bilder", backup: "backup" };
 const EK = { hemmelighet: "0df7552eec9d178481fda706b469d0305507b5ddc5c229a6292f863412d29d50", bildesalt: "m1jWj9kLvoyOxH+NuTrtpA==" };
 const DATA_TYPE = "stine-app-data";
@@ -1052,6 +1079,7 @@ async function tryLogin(){
   etterInnlogging();
 }
 async function loggUt(){
+  $("innstOverlegg").classList.add("skjult");
   await idbSet("husk", null); broSkriv();
   innlogget = null; pvStopp();
   $("app").classList.add("skjult"); $("start").classList.add("skjult");
@@ -1796,7 +1824,7 @@ $("nokkelBtn").addEventListener("click",nokkelLagre);
 $("nokkelInput").addEventListener("keydown",e=>{ if(e.key==="Enter") nokkelLagre(); });
 /* ---------- Karusell ---------- */
 const karKort=Array.from(document.querySelectorAll("#karusell .kar-kort"));
-let karIdx=0, karDrag=null;
+let karIdx=0, karDrag=null, karRetning=1;
 function karMaal(){
   const W=$("karusell").clientWidth||360, kw=Math.min(Math.round(W*0.66),320);
   $("karusell").style.setProperty("--kw",kw+"px");
@@ -1814,7 +1842,7 @@ function karPlasser(offset,m){
 function karTegn(p){
   const m=karMaal(), n=karKort.length;
   karKort.forEach((k,i)=>{
-    let o=((i-karIdx)%n+n)%n; if(o===3) o=-1; if(o===2) o=(p||0)>0?-2:2;
+    let o=((i-karIdx)%n+n)%n; if(o===3) o=-1; if(o===2) o=(p?(p>0?-2:2):(karRetning>0?-2:2));
     const pl=karPlasser(o-(p||0),m);
     k.style.transform=`translate3d(${pl.x.toFixed(1)}px,0,0) scale(${pl.s.toFixed(3)})`;
     k.style.opacity=pl.a.toFixed(3); k.style.zIndex=String(10-Math.round(Math.abs(o-(p||0))*3));
@@ -1822,7 +1850,7 @@ function karTegn(p){
   });
   $("karPrikker").querySelectorAll("span").forEach((d,i)=>d.classList.toggle("pa",i===karIdx));
 }
-function karGaa(retning){ const n=karKort.length; karIdx=((karIdx+retning)%n+n)%n; karTegn(0); }
+function karGaa(retning){ const n=karKort.length; karRetning=retning>0?1:-1; karIdx=((karIdx+retning)%n+n)%n; karTegn(0); }
 function karAapne(i){ const kat=karKort[i].dataset.kat; if(kat==="kalender") visKalender(); else aapneKat(kat); }
 $("karForrige").addEventListener("click",()=>karGaa(-1));
 $("karNeste").addEventListener("click",()=>karGaa(1));
@@ -1844,6 +1872,8 @@ $("kalForrige").addEventListener("click",()=>{ kalMnd--; if(kalMnd<0){ kalMnd=11
 $("kalNeste").addEventListener("click",()=>{ kalMnd++; if(kalMnd>11){ kalMnd=0; kalAar++; } kalTegn(); });
 $("kalIdag").addEventListener("click",()=>{ const i=idagIso(); kalAar=+i.slice(0,4); kalMnd=+i.slice(5,7)-1; kalValgt=i; kalTegn(); });
 $("knHjem").addEventListener("click",visStart);
+$("knInnst").addEventListener("click",()=>{ startBesk(""); visTolkTilstand(); visVarselTilstand(); $("innstOverlegg").classList.remove("skjult"); });
+$("knInnstSkjul").addEventListener("click",()=>$("innstOverlegg").classList.add("skjult"));
 document.querySelectorAll("#faner button").forEach(b=>b.addEventListener("click",()=>byttFane(b.dataset.fane)));
 $("inSok").addEventListener("input",tegnListe);
 ["inDato","inButikk","inBesk"].forEach(i=>$(i).addEventListener("input",oppdaterFilnavn));
@@ -1914,7 +1944,7 @@ $("fristVarsel").addEventListener("click",()=>{
   $("fristOverlegg").classList.remove("skjult");
 });
 $("fristLukk").addEventListener("click",()=>$("fristOverlegg").classList.add("skjult"));
-for(const id of ["pdfOverlegg","detaljOverlegg","papirkurvOverlegg","fristOverlegg","nokkelOverlegg","filOverlegg"]){
+for(const id of ["pdfOverlegg","detaljOverlegg","papirkurvOverlegg","fristOverlegg","nokkelOverlegg","filOverlegg","innstOverlegg"]){
   $(id).addEventListener("click",e=>{ if(e.target.id!==id) return;
     if(id==="detaljOverlegg") lukkDetalj(); else if(id==="pdfOverlegg"){ $("pdfOverlegg").classList.add("skjult"); byttFane("liste"); } else $(id).classList.add("skjult"); });
 }
