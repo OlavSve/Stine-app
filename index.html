@@ -861,7 +861,7 @@ button,input,select,textarea{font-family:inherit}
     <div class="fot">
       <button id="knBackup" class="skjult" title="Lagre komplett backup (JSON)">&#128190;</button>
       <button id="knFil" class="skjult" title="Fil">&#128196; Fil</button>
-      <span class="versjon" id="startVersjon">Versjon 3.11</span>
+      <span class="versjon" id="startVersjon">Versjon 3.12</span>
     </div>
     <div id="startBesk"></div>
     <button class="panelknapp andre" id="knInnstSkjul" style="margin-top:16px">Skjul innstillinger</button>
@@ -886,8 +886,8 @@ button,input,select,textarea{font-family:inherit}
 
 <script>
 "use strict";
-/* ===================== Kvitteringer, mjau mjau, versjon 3.11 ===================== */
-const APP_VERSJON = "3.11";
+/* ===================== Kvitteringer, mjau mjau, versjon 3.12 ===================== */
+const APP_VERSJON = "3.12";
 const LAGER = { eier: "OlavSve", repo: "Stine-app-data", gren: "main", fil: "bilag.kryptert.json", bilder: "bilder", backup: "backup" };
 const EK = { hemmelighet: "0df7552eec9d178481fda706b469d0305507b5ddc5c229a6292f863412d29d50", bildesalt: "m1jWj9kLvoyOxH+NuTrtpA==" };
 const DATA_TYPE = "stine-app-data";
@@ -1782,7 +1782,7 @@ const LYD={
 /* Ekte katteopptak: små MP3-filer i mappa lyd/, hentes ved behov og hurtiglagres */
 const KLIPP_NR=[1,2,3,4,5,6,15,24,25,27,28,30,31,43,44,45,46,47,49,50,52,53,54,55,56,57,58,59,60];
 const klippData=new Map(), klippBuffer=new Map();
-function klippSti(nr){ return "./lyd/k"+String(nr).padStart(2,"0")+".mp3"; }
+function klippSti(nr){ return "./lyd/k"+String(nr).padStart(2,"0")+".mp3?v="+APP_VERSJON; }
 async function klippHent(nr){
   if(klippData.has(nr)) return klippData.get(nr);
   const p=fetch(klippSti(nr)).then(r=>r.ok?r.arrayBuffer():null).catch(()=>null);
@@ -1864,7 +1864,7 @@ const AMB={
     return {ms:5200,rydd:()=>{ e.remove(); zz.forEach(x=>{ if(x.t) clearTimeout(x.t); else x.remove(); }); }}; },
   kloring(){ const r=$("tittelBoble").getBoundingClientRect(); const el=[]; for(let i=0;i<3;i++){ const k=document.createElement("div"); k.className="amb-klor"; k.style.left=(r.left+r.width*0.62+i*13)+"px"; k.style.top=(r.top+14)+"px"; k.style.width="38px"; k.style.animationDelay=(i*0.12)+"s"; document.body.appendChild(k); el.push(k); }
     const t=document.createElement("span"); t.className="prr"; t.textContent="krrrt"; t.style.left=(r.left+r.width*0.55)+"px"; t.style.top=(r.top-6)+"px"; t.style.fontSize="15px"; t.style.setProperty("--dx","14px"); t.style.setProperty("--v","-8deg"); document.body.appendChild(t); el.push(t);
-    lydSpill("krrrt"); return {ms:2400,rydd:()=>el.forEach(x=>x.remove())}; },
+    return {ms:2400,rydd:()=>el.forEach(x=>x.remove())}; },
 
   nys(){ const k=KATT_BUNN(); const r=k.getBoundingClientRect(); const t=setTimeout(()=>{ k.classList.add("nys"); prrTekst(r.left+r.width*0.6,r.top+10); const e=document.querySelectorAll(".prr"); const sist=e[e.length-1]; if(sist) sist.textContent="Atsjoo!"; },500); return {ms:1800,rydd:()=>{clearTimeout(t);k.classList.remove("nys");}}; },
   ball(){ const b=ambLag("amb-ball",BALL_SVG), k=ambLag("amb-ballkatt",KATTUNGE_SVG); const av=ambFolgPunkt(k,5400); return {ms:5800,rydd:()=>{av();b.remove();k.remove();}}; },
@@ -2418,7 +2418,7 @@ const PUS=[
   ()=>{ const r=pusRekt(); const e=pusLag("pus-el pus-krone",KRONE_SVG,r.left+r.width*0.37,r.top-8); setTimeout(()=>e.remove(),2200); setTimeout(()=>stjerner(document.querySelector("#start .sittekatt")),500); return 2100; }
 ];
 const PUS_LYD=[28,55,57,5,[54,46],53,56,[44,45,46],58,60,50,54,
-  59,27,49,25,56,15,"purr",30,31,52,47,[53,5,57,60],27,24,6];
+  59,27,49,25,56,15,null,30,31,52,47,[53,5,57,60],27,24,6];
 const TANKE_FISK_SVG='<svg viewBox="0 0 48 36"><ellipse cx="24" cy="15" rx="22" ry="13" fill="#fff"/><circle cx="9" cy="30" r="4" fill="#fff"/><circle cx="3" cy="35" r="2" fill="#fff"/><g transform="translate(11 8)">'+'<ellipse cx="11" cy="7" rx="9" ry="5.5" fill="#3d6fa3"/><polygon points="18,7 26,1 26,13" fill="#3d6fa3"/><circle cx="7" cy="5.5" r="1.4" fill="#fff"/></g></svg>';
 const REGNBUE_SVG='<svg viewBox="0 0 70 36">'+["#b34a7c","#e0a83a","#2f8f7a","#3d6fa3","#f4bdd4"].map((f,i)=>`<path d="M${5+i*3} 36 A${30-i*3} ${30-i*3} 0 0 1 ${65-i*3} 36" fill="none" stroke="${f}" stroke-width="3"/>`).join("")+'</svg>';
 const BRILLER_SVG='<svg viewBox="0 0 34 14"><rect x="1" y="2" width="13" height="10" rx="4" fill="#1f2b3a"/><rect x="20" y="2" width="13" height="10" rx="4" fill="#1f2b3a"/><rect x="14" y="5" width="6" height="2" fill="#1f2b3a"/></svg>';
