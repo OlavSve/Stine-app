@@ -1,6 +1,6 @@
 {
-  "name": "Bilag, mjau mjau",
-  "short_name": "Bilag",
+  "name": "Kvitteringer, mjau mjau",
+  "short_name": "Mjau mjau",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",

@@ -6,12 +6,12 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="Bilag">
+<meta name="apple-mobile-web-app-title" content="Mjau mjau">
 <meta name="theme-color" content="#cfe0f5">
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./ikon-192.png">
 <link rel="icon" href="./ikon-192.png">
-<title>Bilag, mjau mjau</title>
+<title>Kvitteringer, mjau mjau</title>
 <style>
 :root{
   --bg:#f4f7fb; --card:#ffffff; --ink:#1f2b3a; --muted:#5b6675; --line:#d8e0ea; --linje-lys:#e9eef4;
@@ -103,6 +103,7 @@ button,input,select,textarea{font-family:inherit}
 #topp .tilbake{background:rgba(255,255,255,.16);border:none;color:#fff;font-size:20px;width:34px;height:34px;border-radius:8px;cursor:pointer;line-height:1;flex:none}
 #topp .tittel{font-size:16.5px;font-weight:650}
 #topp .undertekst{font-size:11px;opacity:.82}
+#topp .pk{margin-left:auto;background:rgba(255,255,255,.16);border:none;color:#fff;border-radius:8px;padding:7px 10px;font-size:14px;cursor:pointer;flex:none}
 #faner{display:flex;background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:55}
 #faner button{flex:1;background:none;border:none;padding:13px 6px;font-size:14px;font-weight:550;color:var(--muted);cursor:pointer;border-bottom:2.5px solid transparent}
 #faner button.pa{color:var(--ink);border-bottom-color:var(--akt)}
@@ -163,7 +164,6 @@ button,input,select,textarea{font-family:inherit}
 .merkelapp.flere{background:var(--akt-tint);color:var(--akt-ink)}
 .tomt{text-align:center;color:var(--muted);font-size:14px;padding:52px 20px;line-height:1.6}
 .tomt strong{display:block;color:var(--ink);font-size:16px;margin-bottom:5px}
-.papirkurvlenke{display:block;width:100%;background:transparent;border:none;color:var(--muted);font-size:13px;padding:22px 0 0;cursor:pointer;text-decoration:underline}
 
 /* ---------- Paneler nedenfra ---------- */
 .overlegg{position:fixed;inset:0;z-index:90;background:rgba(31,43,58,.45);display:flex;align-items:flex-end;justify-content:center}
@@ -211,9 +211,8 @@ button,input,select,textarea{font-family:inherit}
 <!-- ===================== INNLOGGING ===================== -->
 <div id="loginScreen" class="fullskjerm">
   <div class="boks">
-    <h1>Bilag, mjau mjau</h1>
-    <p class="under">Logg inn for å åpne kvitteringene.</p>
-    <div class="felt">
+    <h1>Kvitteringer, mjau mjau</h1>
+    <div class="felt" style="margin-top:18px">
       <label for="loginName">Fornavn</label>
       <input type="text" id="loginName" autocomplete="username" autocapitalize="words" autocorrect="off" spellcheck="false">
     </div>
@@ -221,7 +220,7 @@ button,input,select,textarea{font-family:inherit}
       <label for="loginPassword">Passord</label>
       <input type="password" id="loginPassword" autocomplete="current-password">
     </div>
-    <label class="husk"><input type="checkbox" id="loginRemember" checked> Husk meg på denne telefonen</label>
+    <label class="husk"><input type="checkbox" id="loginRemember" checked> Husk meg i denne nettleseren</label>
     <div class="feilmelding" id="loginError"></div>
     <button class="knapp" id="loginBtn">Logg inn</button>
   </div>
@@ -230,16 +229,19 @@ button,input,select,textarea{font-family:inherit}
 <!-- ===================== NØKKEL ===================== -->
 <div id="nokkelScreen" class="fullskjerm skjult">
   <div class="boks">
-    <h1>Nøkkel</h1>
-    <p class="info">Appen trenger nøkkelen til lageret for å hente og lagre kvitteringer. Den legges inn én gang på denne telefonen.</p>
+    <h1>Tilgangsnøkler</h1>
+    <p class="info">Lim inn tilgangsnøklene for denne enheten. Har du fått en lenke, åpne den i stedet; da fylles feltene av seg selv.</p>
     <div class="felt">
-      <label for="nokkelInput">Nøkkel til lageret</label>
-      <input type="password" id="nokkelInput" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Lim inn nøkkelen">
+      <label for="nokkelInput">Tilgangsnøkkel til lageret (GitHub)</label>
+      <input type="password" id="nokkelInput" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
+      <div class="hint">Begynner med github_pat_</div>
     </div>
     <div class="felt">
-      <label for="nokkelTolkInput">Nøkkel til kvitteringslesing <span class="valg">– valgfritt</span></label>
-      <input type="password" id="nokkelTolkInput" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Kan legges inn senere">
+      <label for="nokkelTolkInput">Tilgangsnøkkel til kvitteringslesing (Anthropic) <span class="valg">– valgfritt</span></label>
+      <input type="password" id="nokkelTolkInput" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
+      <div class="hint">Begynner med sk-ant-. Kan legges inn senere fra startsiden.</div>
     </div>
+    <p class="info">Nøklene lagres kun på denne enheten og gjelder til nøkkelbytte.</p>
     <div class="feilmelding" id="nokkelFeil"></div>
     <button class="knapp" id="nokkelBtn">Lagre</button>
   </div>
@@ -248,8 +250,7 @@ button,input,select,textarea{font-family:inherit}
 <!-- ===================== STARTSIDE ===================== -->
 <div id="start" class="skjult">
   <div class="midt">
-    <div class="merke">Kvitteringer</div>
-    <h1>Bilag, mjau mjau</h1>
+    <h1>Kvitteringer, mjau mjau</h1>
     <p class="ingress"><span id="startBruker">Innlogget</span><button id="knLoggUt">Logg ut</button></p>
 
     <div id="fristVarsel" class="varsel klikk skjult"></div>
@@ -275,8 +276,9 @@ button,input,select,textarea{font-family:inherit}
     </div>
 
     <div class="fot">
-      <button id="knFil" class="skjult">Fil</button>
-      <span class="versjon" id="startVersjon">Versjon 2.1</span>
+      <button id="knBackup" class="skjult" title="Lagre komplett backup (JSON)">&#128190;</button>
+      <button id="knFil" class="skjult" title="Fil">&#128196; Fil</button>
+      <span class="versjon" id="startVersjon">Versjon 2.5</span>
     </div>
     <div id="startBesk"></div>
   </div>
@@ -290,10 +292,11 @@ button,input,select,textarea{font-family:inherit}
       <div class="tittel" id="katNavn">Privat</div>
       <div class="undertekst" id="katUnder"></div>
     </div>
+    <button id="knPapirkurv" class="pk skjult" title="Papirkurv">&#128465;&#65039; <span id="pkAntall">0</span></button>
   </div>
 
   <div id="faner">
-    <button data-fane="ny" class="pa">Ny kvittering</button>
+    <button data-fane="ny" class="pa">Nytt bilag</button>
     <button data-fane="liste">Oversikt</button>
   </div>
 
@@ -319,7 +322,7 @@ button,input,select,textarea{font-family:inherit}
       <div class="felt" id="feltBelop">
         <label for="inBelop">Beløp</label>
         <input type="text" id="inBelop" inputmode="decimal" placeholder="0,00">
-        <div class="foreslag">Foreslått fra bildet — sjekk mot kvitteringen</div>
+        <div class="foreslag">Foreslått fra bildet; sjekk mot kvitteringen</div>
       </div>
     </div>
 
@@ -334,7 +337,7 @@ button,input,select,textarea{font-family:inherit}
       <label for="inBesk">Beskrivelse</label>
       <input type="text" id="inBesk" autocapitalize="sentences" placeholder="Kattemat">
       <div class="foreslag">Foreslått fra bildet</div>
-      <div class="hint">Går rett inn i filnavnet. Hold den kort.</div>
+      <div class="hint">Blir en del av filnavnet på PDF-en.</div>
     </div>
 
     <div class="felt">
@@ -373,7 +376,6 @@ button,input,select,textarea{font-family:inherit}
       <span class="verdi tall" id="sumVerdi">kr 0,00</span>
     </div>
     <div id="listeInnhold"></div>
-    <button class="papirkurvlenke skjult" id="knPapirkurv">Papirkurv</button>
   </div>
 
   <div class="bunnlinje" id="bunnNy">
@@ -392,7 +394,7 @@ button,input,select,textarea{font-family:inherit}
   <div class="panel">
     <div class="grep"></div>
     <h2 id="pdfTittel">Bilaget er lagret</h2>
-    <p class="ledetekst">Lagre PDF-en i Filer, eller send den videre. PDF-en er arkivet — appen er oversikten.</p>
+    <p class="ledetekst">Lagre PDF-en i Filer, eller send den videre.</p>
     <div class="rad stablet"><span class="n">Filnavn på PDF-en</span><span class="v tall" id="pdfNavn"></span></div>
     <button class="panelknapp" id="knDelPdf" disabled>Lager PDF …</button>
     <button class="panelknapp andre" id="knPdfFerdig">Ferdig</button>
@@ -422,9 +424,8 @@ button,input,select,textarea{font-family:inherit}
   <div class="panel">
     <div class="grep"></div>
     <h2>Papirkurv</h2>
-    <p class="ledetekst">Slettede bilag kan hentes tilbake herfra.</p>
     <div id="pkListe"></div>
-    <button class="panelknapp fare" id="pkTom">Tøm papirkurv</button>
+    <button class="panelknapp fare" id="pkTom">Tøm papirkurven</button>
     <button class="panelknapp andre" id="pkLukk">Lukk</button>
   </div>
 </div>
@@ -445,9 +446,9 @@ button,input,select,textarea{font-family:inherit}
     <h2>Les kvitteringen automatisk</h2>
     <p class="ledetekst">Når du har tatt bildet, leser appen butikk, dato og beløp for deg. Du får forslag som du sjekker før du lagrer. Bildet sendes ut fra telefonen for å bli lest.</p>
     <div class="felt">
-      <label for="inTolkNokkel">Nøkkel til kvitteringslesing</label>
-      <input type="password" id="inTolkNokkel" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Lim inn nøkkelen">
-      <div class="hint">Du taster den inn én gang på denne telefonen.</div>
+      <label for="inTolkNokkel">Nøkkel fra Anthropic</label>
+      <input type="password" id="inTolkNokkel" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Begynner med sk-ant-">
+      <div class="hint">Begynner med sk-ant-. Du taster den inn én gang på denne telefonen.</div>
     </div>
     <div class="panelbesk feil" id="tolkNokkelBesk"></div>
     <button class="panelknapp" id="knTolkLagre">Slå på</button>
@@ -464,7 +465,6 @@ button,input,select,textarea{font-family:inherit}
     <div class="rad"><span class="n">Tilgang utløper</span><span class="v tall" id="filUtlop">–</span></div>
     <div class="rad"><span class="n">Bilag</span><span class="v tall" id="filAntall">–</span></div>
     <button class="panelknapp" id="filOppdaterBtn">Oppdater fil</button>
-    <button class="panelknapp andre" id="filBackupBtn">Last ned sikkerhetskopi</button>
     <button class="panelknapp andre" id="filLukkBtn">Lukk</button>
     <div class="panelbesk" id="filBesk"></div>
   </div>
@@ -475,8 +475,8 @@ button,input,select,textarea{font-family:inherit}
 
 <script>
 "use strict";
-/* ===================== Bilag, mjau mjau — versjon 2.1 ===================== */
-const APP_VERSJON = "2.1";
+/* ===================== Kvitteringer, mjau mjau, versjon 2.5 ===================== */
+const APP_VERSJON = "2.5";
 const LAGER = { eier: "OlavSve", repo: "Stine-app-data", gren: "main", fil: "bilag.kryptert.json", bilder: "bilder", backup: "backup" };
 const EK = { hemmelighet: "0df7552eec9d178481fda706b469d0305507b5ddc5c229a6292f863412d29d50", bildesalt: "m1jWj9kLvoyOxH+NuTrtpA==" };
 const DATA_TYPE = "stine-app-data";
@@ -834,6 +834,7 @@ function settInn(navn){
   $("loginScreen").classList.add("skjult");
   $("startBruker").textContent = "Innlogget: " + navn;
   $("knFil").classList.toggle("skjult", navn !== "Olav");
+  $("knBackup").classList.toggle("skjult", navn !== "Olav");
 }
 async function tryLogin(){
   const key = ($("loginName").value || "").trim().toLowerCase();
@@ -864,6 +865,9 @@ function nokkelVis(melding){
 function nokkelSkjul(){ $("nokkelScreen").classList.add("skjult"); }
 async function nokkelLagre(){
   const v = ($("nokkelInput").value || "").trim(), t = ($("nokkelTolkInput").value || "").trim();
+  if (v.startsWith("sk-ant-")){ $("nokkelFeil").textContent = "Dette er Anthropic-nøkkelen. Den skal i feltet under. I det øverste feltet skal nøkkelen som begynner med github_pat_."; return; }
+  if (!v.startsWith("github_pat_") && !v.startsWith("ghp_")){ $("nokkelFeil").textContent = "Nøkkelen fra GitHub begynner med github_pat_. Sjekk at du har kopiert hele."; return; }
+  if (t && !t.startsWith("sk-ant-")){ $("nokkelFeil").textContent = "Nøkkelen fra Anthropic begynner med sk-ant-. Sjekk feltet under."; return; }
   if (v.length < 20){ $("nokkelFeil").textContent = "Dette ser ikke ut som en gyldig nøkkel."; return; }
   await idbSet("tilgang", v); tilgang = v;
   if (t){ await idbSet("tolk", t); tolkeNokkel = t; }
@@ -1056,7 +1060,7 @@ function icsFor(b){
   const neste=(()=>{const [y,m,dd]=b.returfrist.split("-").map(Number); const t=new Date(y,m-1,dd+1); return `${t.getFullYear()}${String(t.getMonth()+1).padStart(2,"0")}${String(t.getDate()).padStart(2,"0")}`;})();
   const r=s=>String(s||"").replace(/\\/g,"\\\\").replace(/;/g,"\\;").replace(/,/g,"\\,").replace(/\n/g,"\\n");
   const stamp=new Date().toISOString().replace(/[-:]/g,"").replace(/\.\d{3}/,"");
-  return ["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Bilag mjau mjau//NO","CALSCALE:GREGORIAN","BEGIN:VEVENT",
+  return ["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Kvitteringer mjau mjau//NO","CALSCALE:GREGORIAN","BEGIN:VEVENT",
     "UID:"+b.id+"@bilag","DTSTAMP:"+stamp,"DTSTART;VALUE=DATE:"+d,"DTEND;VALUE=DATE:"+neste,
     "SUMMARY:"+r("Returfrist: "+b.butikk+" – "+b.beskrivelse),
     "DESCRIPTION:"+r("Kjøpt "+norskDato(b.dato)+", kr "+kr(b.belop)+(b.kommentar?". "+b.kommentar:"")),
@@ -1116,7 +1120,7 @@ function visTolkTilstand(){
   $("tolkTilstand").textContent = tolkeNokkel?"På":"Av";
   $("knTolkNokkel").textContent = tolkeNokkel?"Endre":"Slå på";
   $("knTolkAv").classList.toggle("skjult",!tolkeNokkel);
-  $("knTolkLagre").textContent = tolkeNokkel?"Lagre ny nøkkel":"Slå på";
+  $("knTolkLagre").textContent = tolkeNokkel?"Bytt nøkkel":"Slå på";
 }
 function tegnAlt(){
   if(!$("start").classList.contains("skjult")) oppsummer();
@@ -1132,7 +1136,7 @@ function aapneKat(k){
   r.setProperty("--akt-ink",k==="privat"?"var(--privat-ink)":"var(--puser-ink)");
   $("katNavn").textContent=KATNAVN[k];
   $("start").classList.add("skjult"); $("app").classList.remove("skjult");
-  nullstillSkjema(); byttFane("ny"); fyllButikkliste(); window.scrollTo(0,0);
+  nullstillSkjema(); byttFane("ny"); fyllButikkliste(); pkOppdaterIkon(); window.scrollTo(0,0);
 }
 function byttFane(f){
   document.querySelectorAll("#faner button").forEach(b=>b.classList.toggle("pa",b.dataset.fane===f));
@@ -1174,7 +1178,7 @@ function tegnBildestripe(){
   skjemaBilder.forEach((b,i)=>{ h+=`<div class="b"><img data-i="${i}" alt="Bilde ${i+1}"><span class="nr">${i+1} av ${skjemaBilder.length}</span><button class="fjern" data-fjern="${i}" aria-label="Fjern bilde ${i+1}">✕</button></div>`; });
   if(skjemaBilder.length<MAKS_BILDER){
     h+=`<button class="legg" id="knLeggKamera" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg>Ta bilde</button>`;
-    h+=`<button class="legg" id="knLeggGalleri" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>Fra bilder</button>`;
+    h+=`<button class="legg" id="knLeggGalleri" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>Velg fra bilder</button>`;
   }
   s.innerHTML=h;
   s.querySelectorAll("img[data-i]").forEach(async img=>{
@@ -1264,10 +1268,9 @@ function tegnListe(){
   l.sort((a,b)=>(b.dato||"").localeCompare(a.dato||"")||String(b.opprettet||"").localeCompare(String(a.opprettet||"")));
   $("sumEtikett").textContent=sok?`${l.length} treff`:"Totalt";
   $("sumVerdi").textContent="kr "+kr(l.reduce((a,b)=>a+Number(b.belop||0),0));
-  const pk=bilagListe("papirkurv").filter(b=>b.kat===KAT).length;
-  $("knPapirkurv").classList.toggle("skjult",!pk); $("knPapirkurv").textContent=`Papirkurv (${pk})`;
+  pkOppdaterIkon();
   const boks=$("listeInnhold");
-  if(!l.length){ boks.innerHTML=`<div class="tomt"><strong>${sok?"Ingen treff":"Ingen bilag her ennå"}</strong>${sok?"Prøv et annet søkeord.":"Gå til «Ny kvittering» og ta det første bildet."}</div>`; return; }
+  if(!l.length){ boks.innerHTML=`<div class="tomt"><strong>${sok?"Ingen treff":"Ingen bilag her ennå"}</strong>${sok?"Prøv et annet søkeord.":"Gå til «Nytt bilag» og ta det første bildet."}</div>`; return; }
   let h="", forrige="";
   for(const b of l){
     const md=(b.dato||"").slice(0,7);
@@ -1313,17 +1316,21 @@ function slettTilPapirkurv(id){
   uskrevetLagre(); persist();
 }
 
-/* ===================== PAPIRKURV ===================== */
+/* ===================== PAPIRKURV (8.10) ===================== */
+function pkOppdaterIkon(){
+  const pk=KAT?bilagListe("papirkurv").filter(b=>b.kat===KAT).length:0;
+  $("pkAntall").textContent=pk; $("knPapirkurv").classList.toggle("skjult",!pk);
+}
 function tegnPapirkurv(){
   const l=bilagListe("papirkurv").filter(b=>b.kat===KAT).sort((a,b)=>String(b.slettet).localeCompare(String(a.slettet)));
   $("pkListe").innerHTML = l.length ? l.map(b=>`<div class="listerad" data-id="${b.id}"><div><div class="h">${esc(b.butikk)} · kr ${kr(b.belop)}</div><div class="u">${esc(b.beskrivelse)} · ${norskDato(b.dato)} · slettet ${norskDato(b.slettet)}</div></div>
-    <div class="knapper"><button data-gjen="${b.id}">Hent tilbake</button><button class="fare" data-godt="${b.id}">Slett for godt</button></div></div>`).join("")
+    <div class="knapper"><button data-gjen="${b.id}">Gjenopprett</button><button class="fare" data-godt="${b.id}">Slett for godt</button></div></div>`).join("")
     : `<div class="tomt">Papirkurven er tom.</div>`;
   $("pkTom").classList.toggle("skjult",!l.length);
   $("pkListe").querySelectorAll("[data-gjen]").forEach(k=>k.addEventListener("click",()=>{ const id=k.dataset.gjen, b=COMBINED.papirkurv.bilag[id]; if(!b) return;
     const kat=b.kat; delete COMBINED.papirkurv.bilag[id]; merkSti("papirkurv",{t:"bilag",id});
     const r=Object.assign({},b); delete r.kat; delete r.slettet; COMBINED[kat].bilag[id]=r; merkSti(kat,{t:"bilag",id});
-    uskrevetLagre(); persist(); tegnPapirkurv(); tegnListe(); }));
+    uskrevetLagre(); persist(); tegnPapirkurv(); tegnListe(); pkOppdaterIkon(); }));
   $("pkListe").querySelectorAll("[data-godt]").forEach(k=>k.addEventListener("click",()=>{ const id=k.dataset.godt, b=COMBINED.papirkurv.bilag[id]; if(!b) return;
     if(!confirm(`Slette bilaget fra ${b.butikk} for godt?`)) return;
     delete COMBINED.papirkurv.bilag[id]; merkSti("papirkurv",{t:"bilag",id}); uskrevetLagre(); persist(); tegnPapirkurv(); tegnListe(); }));
@@ -1372,12 +1379,12 @@ $("dRediger").addEventListener("click",()=>{
   oppdaterFilnavn(); lukkDetalj(); byttFane("ny");
 });
 $("dSlett").addEventListener("click",()=>{ const b=finnBilag(KAT,detaljId); if(!b) return;
-  if(!confirm(`Slette bilaget fra ${b.butikk}?\n\nDet legges i papirkurven og kan hentes tilbake.`)) return;
-  slettTilPapirkurv(detaljId); lukkDetalj(); tegnListe(); });
+  if(!confirm(`Slette «${b.butikk} – ${b.beskrivelse}»? Bilaget legges i papirkurven.`)) return;
+  slettTilPapirkurv(detaljId); lukkDetalj(); tegnListe(); pkOppdaterIkon(); });
 $("knPapirkurv").addEventListener("click",()=>{ tegnPapirkurv(); $("papirkurvOverlegg").classList.remove("skjult"); });
 $("pkLukk").addEventListener("click",()=>$("papirkurvOverlegg").classList.add("skjult"));
 $("pkTom").addEventListener("click",()=>{ const l=bilagListe("papirkurv").filter(b=>b.kat===KAT); if(!l.length) return;
-  if(!confirm(`Slette ${l.length} bilag for godt?`)) return;
+  if(!confirm(`Tømme papirkurven (${l.length} bilag)? Dette kan ikke angres.`)) return;
   l.forEach(b=>{ delete COMBINED.papirkurv.bilag[b.id]; merkSti("papirkurv",{t:"bilag",id:b.id}); }); uskrevetLagre(); persist(); tegnPapirkurv(); tegnListe(); });
 $("fristVarsel").addEventListener("click",()=>{
   const f=fristerDenneUka();
@@ -1396,7 +1403,9 @@ $("pvLukk").addEventListener("click",async e=>{ e.stopPropagation(); pvSkjul(); 
 /* ---------- Kvitteringslesing av/på ---------- */
 $("knTolkNokkel").addEventListener("click",()=>{ $("inTolkNokkel").value=""; $("tolkNokkelBesk").textContent=""; visTolkTilstand(); $("nokkelOverlegg").classList.remove("skjult"); });
 $("knTolkLukk").addEventListener("click",()=>$("nokkelOverlegg").classList.add("skjult"));
-$("knTolkLagre").addEventListener("click",async ()=>{ const v=$("inTolkNokkel").value.trim(); if(v.length<20){ $("tolkNokkelBesk").textContent="Dette ser ikke ut som en gyldig nøkkel."; return; }
+$("knTolkLagre").addEventListener("click",async ()=>{ const v=$("inTolkNokkel").value.trim();
+  if(v.startsWith("github_pat_")){ $("tolkNokkelBesk").textContent="Dette er GitHub-nøkkelen. Her skal nøkkelen fra Anthropic, den som begynner med sk-ant-."; return; }
+  if(!v.startsWith("sk-ant-")||v.length<20){ $("tolkNokkelBesk").textContent="Nøkkelen fra Anthropic begynner med sk-ant-. Sjekk at du har kopiert hele."; return; }
   await idbSet("tolk",v); tolkeNokkel=v; visTolkTilstand(); broSkriv(); $("nokkelOverlegg").classList.add("skjult"); startBesk("Kvitteringslesing slått på. Neste bilde blir lest automatisk.","ok"); });
 $("knTolkAv").addEventListener("click",async ()=>{ await idbSet("tolk",null); tolkeNokkel=null; visTolkTilstand(); broSkriv(); $("nokkelOverlegg").classList.add("skjult"); startBesk("Kvitteringslesing slått av. Bildene forlater ikke telefonen.","ok"); });
 function startBesk(m,k){ const e=$("startBesk"); e.textContent=m||""; e.className=k||""; }
@@ -1413,10 +1422,10 @@ $("knFil").addEventListener("click",async ()=>{
 });
 $("filLukkBtn").addEventListener("click",()=>$("filOverlegg").classList.add("skjult"));
 $("filOppdaterBtn").addEventListener("click",async ()=>{ $("filOverlegg").classList.add("skjult"); await pvHentInn(); });
-$("filBackupBtn").addEventListener("click",()=>{
+$("knBackup").addEventListener("click",()=>{
   const tekst=JSON.stringify(COMBINED,null,1); const [y,m,d]=idagIso().split("-");
-  delEllerLastNed(tbo.enc.encode(tekst),`${y} ${m}-${d} - Bilag - Sikkerhetskopi.json`,"application/json");
-  $("filBesk").textContent="Sikkerhetskopien inneholder feltene, ikke bildene. Bildene ligger i lageret.";
+  delEllerLastNed(tbo.enc.encode(tekst),`${y} ${m}-${d} - Bilag - Backup.json`,"application/json");
+  startBesk("Backupen inneholder feltene, ikke bildene. Bildene ligger i lageret.","ok");
 });
 
 /* ===================== IMPORT FRA V1 ===================== */
