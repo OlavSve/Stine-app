@@ -76,14 +76,19 @@ button,input,select,textarea{font-family:inherit}
 
 /* ---------- Startside ---------- */
 #start{position:relative;overflow:hidden;min-height:100vh;min-height:100dvh;background:var(--himmel);display:flex;flex-direction:column;padding:calc(14px + env(safe-area-inset-top)) 20px calc(28px + env(safe-area-inset-bottom))}
-#start .midt{position:relative;z-index:1;width:100%;max-width:460px;margin:0 auto}
+#start .midt{position:relative;z-index:1;width:100%;max-width:460px;margin:0 auto;flex:1;display:flex;flex-direction:column;justify-content:space-evenly;padding-bottom:104px}
 #start .hilsen{display:flex;align-items:center;gap:14px;padding:6px 0 4px}
-#start .hilsen svg{width:58px;height:58px;flex:none}
-#start .hilsen .h{font-size:20px;font-weight:650;color:var(--ink);line-height:1.2}
-#start .hilsen .s{font-size:13.5px;color:var(--muted);margin-top:3px;line-height:1.35}
-#start .katt{position:absolute;left:7%;bottom:-6px;width:150px;height:auto;pointer-events:none;z-index:0}
-#start .spor{height:44px;margin:6px -20px 10px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='44' viewBox='0 0 96 44' fill='rgba(61,111,163,0.22)'%3E%3Cg transform='translate(8 6) rotate(-14)'%3E%3Cellipse cx='12' cy='14' rx='6.2' ry='5'/%3E%3Ccircle cx='4' cy='7' r='2.5'/%3E%3Ccircle cx='9' cy='3.2' r='2.7'/%3E%3Ccircle cx='15' cy='3.2' r='2.7'/%3E%3Ccircle cx='20' cy='7' r='2.5'/%3E%3C/g%3E%3Cg transform='translate(54 18) rotate(14)'%3E%3Cellipse cx='12' cy='14' rx='6.2' ry='5'/%3E%3Ccircle cx='4' cy='7' r='2.5'/%3E%3Ccircle cx='9' cy='3.2' r='2.7'/%3E%3Ccircle cx='15' cy='3.2' r='2.7'/%3E%3Ccircle cx='20' cy='7' r='2.5'/%3E%3C/g%3E%3C/svg%3E");background-repeat:repeat-x;background-position:center}
-#start .tittelrad{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin-bottom:18px}
+#start .hilsen svg{width:68px;height:68px;flex:none}
+#start .hilsen .h{font-size:25px;font-weight:650;color:var(--ink);line-height:1.2}
+#start .hilsen .s{font-size:16px;color:var(--muted);margin-top:4px;line-height:1.35}
+#start .katt{position:fixed;left:7%;bottom:-6px;width:150px;height:auto;pointer-events:auto;z-index:2;cursor:pointer;touch-action:none;-webkit-user-select:none;user-select:none}
+#start .katt circle.oye{transition:transform .15s ease;transform-origin:center;transform-box:fill-box}
+#start .katt.kos circle.oye{transform:scaleY(.15)}
+.prr{position:fixed;z-index:130;pointer-events:none;color:#b34a7c;font-weight:650;letter-spacing:.5px;animation:stig 1.15s ease-out forwards;text-shadow:0 1px 0 rgba(255,255,255,.7)}
+@keyframes stig{from{transform:translate(0,0) rotate(var(--v));opacity:1}to{transform:translate(var(--dx),-90px) rotate(var(--v));opacity:0}}
+@media (prefers-reduced-motion:reduce){ .prr{animation:none;opacity:0} }
+#start .spor{height:90px;margin:0 -20px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='90' viewBox='0 0 150 90' fill='rgba(61,111,163,0.22)'%3E%3Cg transform='translate(10 8) rotate(-14) scale(1.5)'%3E%3Cellipse cx='12' cy='14' rx='6.2' ry='5'/%3E%3Ccircle cx='4' cy='7' r='2.5'/%3E%3Ccircle cx='9' cy='3.2' r='2.7'/%3E%3Ccircle cx='15' cy='3.2' r='2.7'/%3E%3Ccircle cx='20' cy='7' r='2.5'/%3E%3C/g%3E%3Cg transform='translate(84 40) rotate(14) scale(1.5)'%3E%3Cellipse cx='12' cy='14' rx='6.2' ry='5'/%3E%3Ccircle cx='4' cy='7' r='2.5'/%3E%3Ccircle cx='9' cy='3.2' r='2.7'/%3E%3Ccircle cx='15' cy='3.2' r='2.7'/%3E%3Ccircle cx='20' cy='7' r='2.5'/%3E%3C/g%3E%3Cg transform='translate(44 54) rotate(-10) scale(1.2)'%3E%3Cellipse cx='12' cy='14' rx='6.2' ry='5'/%3E%3Ccircle cx='4' cy='7' r='2.5'/%3E%3Ccircle cx='9' cy='3.2' r='2.7'/%3E%3Ccircle cx='15' cy='3.2' r='2.7'/%3E%3Ccircle cx='20' cy='7' r='2.5'/%3E%3C/g%3E%3C/svg%3E");background-repeat:repeat-x;background-position:center}
+#start .tittelrad{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin-bottom:0}
 #start .tittelrad h1{margin:0}
 #start .sittekatt{width:64px;height:64px;flex:none;cursor:pointer;pointer-events:auto}
 #start .sittekatt circle{transition:transform .18s ease;transform-origin:center}
@@ -221,7 +226,7 @@ button,input,select,textarea{font-family:inherit}
 .listerad .knapper button{background:var(--card);border:1px solid var(--line);border-radius:7px;padding:7px 10px;font-size:12.5px;cursor:pointer;color:var(--ink)}
 .listerad .knapper button.fare{color:var(--feil)}
 /* ---------- Karusell på startsiden ---------- */
-.karusell{position:relative;height:262px;overflow:hidden;margin:4px -20px 0;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.karusell{position:relative;height:262px;overflow:hidden;margin:8px -20px 0;touch-action:pan-y;user-select:none;-webkit-user-select:none}
 .kar-kort{position:absolute;top:50%;left:50%;width:var(--kw,260px);margin-left:calc(var(--kw,260px) / -2);margin-top:-118px;height:236px;background:rgba(255,255,255,.86);border:1px solid rgba(255,255,255,.95);border-radius:20px;box-shadow:0 8px 24px rgba(31,43,58,.10);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:16px 18px;cursor:pointer;will-change:transform,opacity}
 .karusell:not(.drar) .kar-kort{transition:transform .32s cubic-bezier(.22,.8,.3,1),opacity .32s ease}
 .kar-kort svg{width:88px;height:88px;margin-bottom:10px}
@@ -380,7 +385,7 @@ button,input,select,textarea{font-family:inherit}
     <polygon points="30,36 33,10 49,22" fill="#3d6fa3"/><polygon points="70,36 67,10 51,22" fill="#3d6fa3"/>
     <circle cx="50" cy="52" r="28" fill="#3d6fa3"/>
     <polygon points="34.5,33 36,16 44,23" fill="#f4bdd4"/><polygon points="65.5,33 64,16 56,23" fill="#f4bdd4"/>
-    <circle cx="41" cy="50" r="3.6" fill="#ffffff"/><circle cx="59" cy="50" r="3.6" fill="#ffffff"/>
+    <circle class="oye" cx="41" cy="50" r="3.6" fill="#ffffff"/><circle class="oye" cx="59" cy="50" r="3.6" fill="#ffffff"/>
     <polygon points="46.5,56 53.5,56 50,58" fill="#f4bdd4"/>
   </svg>
 </div>
@@ -662,7 +667,7 @@ button,input,select,textarea{font-family:inherit}
     <div class="fot">
       <button id="knBackup" class="skjult" title="Lagre komplett backup (JSON)">&#128190;</button>
       <button id="knFil" class="skjult" title="Fil">&#128196; Fil</button>
-      <span class="versjon" id="startVersjon">Versjon 3.4</span>
+      <span class="versjon" id="startVersjon">Versjon 3.5</span>
     </div>
     <div id="startBesk"></div>
     <button class="panelknapp andre" id="knInnstSkjul" style="margin-top:16px">Skjul innstillinger</button>
@@ -687,8 +692,8 @@ button,input,select,textarea{font-family:inherit}
 
 <script>
 "use strict";
-/* ===================== Kvitteringer, mjau mjau, versjon 3.4 ===================== */
-const APP_VERSJON = "3.4";
+/* ===================== Kvitteringer, mjau mjau, versjon 3.5 ===================== */
+const APP_VERSJON = "3.5";
 const LAGER = { eier: "OlavSve", repo: "Stine-app-data", gren: "main", fil: "bilag.kryptert.json", bilder: "bilder", backup: "backup" };
 const EK = { hemmelighet: "0df7552eec9d178481fda706b469d0305507b5ddc5c229a6292f863412d29d50", bildesalt: "m1jWj9kLvoyOxH+NuTrtpA==" };
 const DATA_TYPE = "stine-app-data";
@@ -1524,6 +1529,51 @@ function tegnHilsen(){
   let i; do{ i=Math.floor(Math.random()*SETNINGER.length); }while(SETNINGER.length>1&&i===sisteSetning); sisteSetning=i;
   $("hilsenSetning").textContent=SETNINGER[i];
 }
+
+/* ===================== KOS: «prrr» og maling ===================== */
+const PRR=["prrr","prrrrr","prrr prrr","prrrrrr","prr"];
+let kosAktiv=false, kosSist=0, lyd=null;
+function prrTekst(x,y){
+  if(reduserBevegelse()) return;
+  const e=document.createElement("span"); e.className="prr"; e.textContent=PRR[Math.floor(Math.random()*PRR.length)];
+  e.style.left=(x-20+Math.random()*40)+"px"; e.style.top=(y-30)+"px"; e.style.fontSize=(15+Math.random()*7)+"px";
+  e.style.setProperty("--dx",(Math.random()*60-30)+"px"); e.style.setProperty("--v",(Math.random()*30-15)+"deg");
+  document.body.appendChild(e); setTimeout(()=>e.remove(),1250);
+}
+/* Malingen lages av appen selv: et lavt brumm rullet av en langsom svinging */
+function malingStart(){
+  try{
+    const AC=window.AudioContext||window.webkitAudioContext; if(!AC) return;
+    if(!lyd){ lyd={ctx:new AC()}; }
+    const c=lyd.ctx; if(c.state==="suspended") c.resume();
+    if(lyd.gain) return;
+    const t=c.currentTime;
+    const osc=c.createOscillator(); osc.type="sawtooth"; osc.frequency.value=112;
+    const osc2=c.createOscillator(); osc2.type="triangle"; osc2.frequency.value=56;
+    const filter=c.createBiquadFilter(); filter.type="lowpass"; filter.frequency.value=260; filter.Q.value=5;
+    const rull=c.createGain(); rull.gain.value=0.5;
+    const lfo=c.createOscillator(); lfo.type="sine"; lfo.frequency.value=24;
+    const lfoDyp=c.createGain(); lfoDyp.gain.value=0.45; lfo.connect(lfoDyp); lfoDyp.connect(rull.gain);
+    const vib=c.createOscillator(); vib.type="sine"; vib.frequency.value=0.6; const vibDyp=c.createGain(); vibDyp.gain.value=6; vib.connect(vibDyp); vibDyp.connect(osc.frequency);
+    const gain=c.createGain(); gain.gain.setValueAtTime(0,t); gain.gain.linearRampToValueAtTime(0.28,t+0.18);
+    osc.connect(filter); osc2.connect(filter); filter.connect(rull); rull.connect(gain); gain.connect(c.destination);
+    osc.start(); osc2.start(); lfo.start(); vib.start();
+    lyd.gain=gain; lyd.noder=[osc,osc2,lfo,vib];
+  }catch{}
+}
+function malingStopp(){
+  if(!lyd||!lyd.gain) return;
+  const c=lyd.ctx, t=c.currentTime, g=lyd.gain, noder=lyd.noder; lyd.gain=null; lyd.noder=null;
+  try{ g.gain.cancelScheduledValues(t); g.gain.setValueAtTime(g.gain.value,t); g.gain.linearRampToValueAtTime(0,t+0.35); noder.forEach(n=>n.stop(t+0.4)); }catch{}
+}
+(function(){
+  const katt=document.querySelector("#start .katt"); if(!katt) return;
+  katt.addEventListener("pointerdown",e=>{ e.preventDefault(); kosAktiv=true; kosSist=0; katt.classList.add("kos"); try{ katt.setPointerCapture(e.pointerId); }catch{} malingStart(); prrTekst(e.clientX,e.clientY); });
+  katt.addEventListener("pointermove",e=>{ if(!kosAktiv) return; const n=Date.now(); if(n-kosSist<170) return; kosSist=n; prrTekst(e.clientX,e.clientY); });
+  const slutt=()=>{ if(!kosAktiv) return; kosAktiv=false; malingStopp(); setTimeout(()=>katt.classList.remove("kos"),350); };
+  ["pointerup","pointercancel"].forEach(h=>katt.addEventListener(h,slutt));
+  document.addEventListener("visibilitychange",()=>{ if(document.hidden) slutt(); });
+})();
 
 /* ===================== STARTSIDE ===================== */
 function fristerDenneUka(){
