@@ -410,7 +410,7 @@ button,input,select,textarea{font-family:inherit}
 #start .katt.nys .ore-v{transform:rotate(-30deg)}#start .katt.nys .ore-h{transform:rotate(30deg)}
 @keyframes amb-gaa-h{0%{transform:translateX(-90px)}44%{transform:translateX(40vw)}58%{transform:translateX(42vw)}100%{transform:translateX(112vw)}}
 .amb-ballkatt{bottom:calc(8px + env(safe-area-inset-bottom));left:0;width:88px;height:68px;animation:amb-gaa-h 5.4s cubic-bezier(.4,0,.6,1) forwards}
-.amb-ballkatt svg{width:100%;height:100%;transform:scaleX(-1);animation:amb-galopp .22s ease-in-out infinite alternate}
+.amb-ballkatt svg{width:100%;height:100%;animation:amb-galopp .22s ease-in-out infinite alternate}
 .amb-ball{bottom:calc(10px + env(safe-area-inset-bottom));left:84px;width:24px;height:24px;animation:amb-gaa-h 5.4s cubic-bezier(.4,0,.6,1) forwards}
 .amb-ball svg{width:100%;height:100%;animation:amb-spinn .5s linear infinite}
 @keyframes amb-spinn{to{transform:rotate(360deg)}}
@@ -453,6 +453,58 @@ button,input,select,textarea{font-family:inherit}
 @keyframes pus-besok{0%{transform:translateX(-120px)}30%,70%{transform:translateX(0)}100%{transform:translateX(-120px)}}
 .pus-besok{width:54px;height:42px;animation:pus-besok 3s ease-in-out forwards}
 .pus-besok svg{width:100%;height:100%;animation:amb-galopp .22s ease-in-out infinite alternate}
+/* ---------- v3.13: tolv nye med katt ---------- */
+@keyframes amb-gaa-jevn{from{transform:translateX(-120px)}to{transform:translateX(112vw)}}
+.amb-flokk{left:0;width:78px;height:60px;animation:amb-gaa-jevn var(--t,4.5s) linear var(--d,0s) forwards}
+.amb-flokk.stopp{animation-name:amb-gaa-h;animation-timing-function:cubic-bezier(.4,0,.6,1)}
+.amb-flokk svg{width:100%;height:100%;animation:amb-galopp .2s ease-in-out infinite alternate}
+@keyframes amb-zoom{0%{left:-20vw;top:44%}18%{left:78vw;top:44%}22%{left:78vw;top:44%}42%{left:-2vw;top:60%}46%{left:-2vw;top:60%}62%{left:2vw;top:16%}66%{left:2vw;top:16%}82%{left:60vw;top:52%}100%{left:112vw;top:52%}}
+@keyframes amb-zoomvend{0%,18%{transform:scaleX(1)}22%,42%{transform:scaleX(-1)}46%,62%{transform:scaleX(1) rotate(-70deg)}66%,100%{transform:scaleX(1)}}
+.amb-zoom{width:84px;height:64px;animation:amb-zoom 5s ease-in-out forwards}
+.amb-zoom .vend{width:100%;height:100%;animation:amb-zoomvend 5s step-end forwards}
+.amb-zoom svg{width:100%;height:100%;animation:amb-galopp .12s ease-in-out infinite alternate}
+.amb-spor{width:26px;height:4px;background:rgba(31,43,58,.35);border-radius:2px;opacity:0;animation:spor-inn 1.8s ease forwards}
+.amb-hund{top:48%;left:0;width:92px;height:64px;animation:amb-gaa-jevn 3.8s linear forwards}
+.amb-hund svg{width:100%;height:100%;animation:amb-galopp .16s ease-in-out infinite alternate}
+.amb-jeger{top:calc(48% + 4px);left:0;width:88px;height:64px;animation:amb-gaa-jevn 3.8s linear .35s forwards}
+.amb-jeger svg{width:100%;height:100%;animation:amb-galopp .16s ease-in-out infinite alternate}
+@keyframes amb-speilinn{0%{transform:translateX(220px)}22%,76%{transform:translateX(0)}100%{transform:translateX(220px)}}
+.amb-speil{bottom:calc(-2px + env(safe-area-inset-bottom));left:calc(7% + 150px);width:150px;height:118px;animation:amb-speilinn 5s ease-in-out forwards}
+#start .katt.blaas .ore-v{transform:rotate(-30deg)}#start .katt.blaas .ore-h{transform:rotate(30deg)}
+#start .katt.blaas .oye{transform:scale(1.6)}
+@keyframes amb-hylle{0%{opacity:0}12%,88%{opacity:1}100%{opacity:0}}
+@keyframes amb-dytt{0%,38%{transform:translateX(0)}50%{transform:translateX(-34px)}60%,100%{transform:translateX(0)}}
+@keyframes amb-glassfall{0%,40%{transform:translate(0,0) rotate(0)}52%{transform:translate(-22px,-4px) rotate(-30deg)}100%{transform:translate(-60px,100vh) rotate(-260deg);opacity:0}}
+.amb-hyllekatt{top:calc(118px + env(safe-area-inset-top));left:52%;width:110px;height:76px;animation:amb-hylle 4.6s ease forwards}
+.amb-hyllekatt .pote{position:absolute;left:-6px;top:36px;width:44px;height:20px;animation:amb-dytt 4.6s ease-in-out forwards}
+.amb-hyllelinje{top:calc(192px + env(safe-area-inset-top));left:34%;width:40%;height:4px;background:rgba(61,111,163,.35);border-radius:2px;animation:amb-hylle 4.6s ease forwards}
+.amb-glass{top:calc(150px + env(safe-area-inset-top));left:calc(52% - 34px);width:30px;height:42px;animation:amb-glassfall 4.6s ease-in forwards}
+@keyframes amb-eskekatt{0%{transform:translateY(90px)}18%,62%{transform:translateY(0)}78%,100%{transform:translateY(64px)}}
+@keyframes amb-eskeblunk{0%,38%,46%,100%{transform:scaleY(1)}42%{transform:scaleY(.1)}}
+.amb-eskehel{bottom:calc(0px + env(safe-area-inset-bottom));left:calc(50% - 46px);width:92px;height:112px;overflow:hidden}
+.amb-eskehel .katten{position:absolute;left:14px;top:0;width:64px;height:78px;animation:amb-eskekatt 5s ease-in-out forwards}
+.amb-eskehel .katten .oye{transform-box:fill-box;transform-origin:center;animation:amb-eskeblunk 5s linear forwards}
+.amb-eskehel .front{position:absolute;left:0;bottom:0;width:92px;height:52px}
+@keyframes amb-klatre{0%{transform:translateY(0)}45%{transform:translateY(-46vh)}65%{transform:translateY(-46vh)}72%{transform:translateY(-44vh) rotate(-8deg)}100%{transform:translateY(8vh) rotate(30deg)}}
+.amb-gardin{right:0;top:0;width:34px;height:100vh;background:rgba(244,189,212,.45);opacity:0;animation:amb-hylle 4.4s ease forwards}
+.amb-klatrer{right:6px;bottom:calc(-10px + env(safe-area-inset-bottom));width:52px;height:70px;animation:amb-klatre 4.4s ease-in-out forwards}
+.amb-klatrer svg{width:100%;height:100%}
+@keyframes amb-hoppopp{0%{transform:translateY(120px);opacity:0}14%{transform:translateY(-14px);opacity:1}20%,74%{transform:translateY(0);opacity:1}86%{transform:translate(70px,-30px);opacity:1}100%{transform:translate(120px,140px);opacity:0}}
+.amb-kortkatt{width:58px;height:62px;animation:amb-hoppopp 4.6s ease-in-out forwards}
+.amb-kortkatt .hale{transform-box:fill-box;transform-origin:0% 0%;animation:pus-sving 1.6s ease-in-out infinite}
+.amb-mor{bottom:calc(6px + env(safe-area-inset-bottom));left:0;width:120px;height:76px;animation:amb-gaa-jevn 7s linear forwards}
+.amb-mor svg{width:100%;height:100%}
+@keyframes amb-titt{0%,12%{transform:translate(0,40px)}24%,58%{transform:translate(0,0)}66%,100%{transform:translate(0,44px)}}
+.amb-titter{right:44px;bottom:calc(30px + env(safe-area-inset-bottom));width:50px;height:44px;overflow:hidden}
+.amb-titter svg{width:100%;height:100%;animation:amb-titt 4s ease-in-out forwards}
+@keyframes amb-yoga{0%{transform:translateX(0) scaleX(.2);opacity:0}25%,70%{transform:translateX(0) scaleX(1);opacity:1}100%{transform:translateX(0) scaleX(.2);opacity:0}}
+.amb-yoga{bottom:calc(-2px + env(safe-area-inset-bottom));left:calc(7% + 118px);width:210px;height:70px;transform-origin:left bottom;animation:amb-yoga 4.4s ease-in-out forwards}
+@keyframes amb-halehopp{0%,55%{transform:translateY(0)}68%{transform:translateY(-34px)}78%,100%{transform:translateY(-8px)}}
+@keyframes amb-haleflikk{0%,66%,80%,100%{transform:rotate(0)}72%{transform:rotate(-40deg)}}
+.amb-halekatt{bottom:calc(6px + env(safe-area-inset-bottom));left:0;width:110px;height:78px;animation:amb-gaa-jevn 5.2s linear forwards}
+.amb-halekatt .haleopp{transform-box:fill-box;transform-origin:0% 100%;animation:amb-haleflikk 5.2s ease forwards}
+.amb-halekattunge{bottom:calc(6px + env(safe-area-inset-bottom));left:-70px;width:60px;height:46px;animation:amb-gaa-jevn 5.2s linear .22s forwards}
+.amb-halekattunge svg{width:100%;height:100%;animation:amb-halehopp 5.2s ease-in-out forwards}
 /* Kattemat og stjerner */
 #dryss{position:fixed;inset:0;pointer-events:none;z-index:120;overflow:hidden}
 #dryss .bit{position:absolute;top:-16px;width:10px;height:10px;border-radius:50%;background:#8b5a2b;animation:fall var(--t) linear forwards}
@@ -861,7 +913,7 @@ button,input,select,textarea{font-family:inherit}
     <div class="fot">
       <button id="knBackup" class="skjult" title="Lagre komplett backup (JSON)">&#128190;</button>
       <button id="knFil" class="skjult" title="Fil">&#128196; Fil</button>
-      <span class="versjon" id="startVersjon">Versjon 3.12</span>
+      <span class="versjon" id="startVersjon">Versjon 3.13</span>
     </div>
     <div id="startBesk"></div>
     <button class="panelknapp andre" id="knInnstSkjul" style="margin-top:16px">Skjul innstillinger</button>
@@ -886,8 +938,8 @@ button,input,select,textarea{font-family:inherit}
 
 <script>
 "use strict";
-/* ===================== Kvitteringer, mjau mjau, versjon 3.12 ===================== */
-const APP_VERSJON = "3.12";
+/* ===================== Kvitteringer, mjau mjau, versjon 3.13 ===================== */
+const APP_VERSJON = "3.13";
 const LAGER = { eier: "OlavSve", repo: "Stine-app-data", gren: "main", fil: "bilag.kryptert.json", bilder: "bilder", backup: "backup" };
 const EK = { hemmelighet: "0df7552eec9d178481fda706b469d0305507b5ddc5c229a6292f863412d29d50", bildesalt: "m1jWj9kLvoyOxH+NuTrtpA==" };
 const DATA_TYPE = "stine-app-data";
@@ -1841,38 +1893,44 @@ const SKAAL_SVG='<svg viewBox="0 0 80 44"><path d="M4 10 h72 q-4 26 -36 30 q-32 
 const SKYGGE_SVG='<svg viewBox="0 0 70 44"><g class="bein b1"><rect x="16" y="34" width="7" height="10" rx="3" fill="#1f2b3a"/><rect x="42" y="34" width="7" height="10" rx="3" fill="#1f2b3a"/></g><g class="bein b2"><rect x="24" y="34" width="7" height="10" rx="3" fill="#1f2b3a"/><rect x="50" y="34" width="7" height="10" rx="3" fill="#1f2b3a"/></g><ellipse cx="34" cy="30" rx="26" ry="12" fill="#1f2b3a"/><circle cx="56" cy="20" r="11" fill="#1f2b3a"/><polygon points="48,12 50,2 57,9" fill="#1f2b3a"/><polygon points="64,12 62,2 55,9" fill="#1f2b3a"/><path d="M8 30 q-8 -14 4 -22" fill="none" stroke="#1f2b3a" stroke-width="5" stroke-linecap="round"/></svg>';
 
 const AMB={
-  snore(){ const s=ambLag("amb-snore",SNORE_SVG), k=ambLag("amb-kattunge",KATTUNGE_SVG); const av=ambFolgPunkt(k,5200); return {ms:5600,rydd:()=>{av();s.remove();k.remove();}}; },
+  snore(){ const s=ambLag("amb-snore",SNORE_SVG), k=ambLag("amb-kattunge",speil(KATTUNGE_SVG,72)); const av=ambFolgPunkt(k,5200); return {ms:5600,rydd:()=>{av();s.remove();k.remove();}}; },
   laser(){ const d=ambLag("amb-laser"); const av=ambFolgPunkt(d,3400); return {ms:3800,rydd:()=>{av();d.remove();}}; },
   sommerfugl(){ const f=ambLag("amb-sommerfugl",SOMMERFUGL_SVG); const sk=document.querySelector("#start .sittekatt"); sk.classList.add("folger"); const av=ambFolgPunkt(f,4800); return {ms:5200,rydd:()=>{av();f.remove();sk.classList.remove("folger");}}; },
-  garn(){ const t=ambLag("amb-trad"), g=ambLag("amb-garn",GARN_SVG); const av=ambFolgPunkt(g,4600); return {ms:5000,rydd:()=>{av();t.remove();g.remove();}}; },
   pote(){ const h=ambLag("amb-hylle"), b=ambLag("amb-bit"), p=ambLag("amb-pote",POTE_SVG); return {ms:3600,rydd:()=>{h.remove();b.remove();p.remove();}}; },
   fugl(){ const f=ambLag("amb-fugl",FUGL_SVG); const k=KATT_BUNN(); const t1=setTimeout(()=>{ k.classList.add("store"); lydSpill([1,2,3,4]); },1100), t2=setTimeout(()=>k.classList.remove("store"),2900); return {ms:4200,rydd:()=>{clearTimeout(t1);clearTimeout(t2);k.classList.remove("store");f.remove();}}; },
   strekk(){ const k=KATT_BUNN(); k.classList.add("gjesp"); return {ms:2600,rydd:()=>k.classList.remove("gjesp")}; },
   hale(){ const h=ambLag("amb-hale",HALE_SVG); const av=ambFolgPunkt(h,5000); return {ms:5400,rydd:()=>{av();h.remove();}}; },
   mus(){ const m=ambLag("amb-mus",MUS_SVG); const k=KATT_BUNN(); const t1=setTimeout(()=>{ ambOye(3,1); k.classList.add("store"); lydSpill([54,43]); },900), t2=setTimeout(()=>{ ambOyeNull(); k.classList.remove("store"); },2700); return {ms:3800,rydd:()=>{clearTimeout(t1);clearTimeout(t2);ambOyeNull();k.classList.remove("store");m.remove();}}; },
-  skaal(){ const s=ambLag("amb-skaal",SKAAL_SVG+'<i style="left:28px;top:6px;animation-delay:.1s"></i><i style="left:40px;top:4px;animation-delay:.35s"></i><i style="left:50px;top:8px;animation-delay:.6s"></i>'); return {ms:3800,rydd:()=>s.remove()}; },
   skygge(){ const e=ambLag("amb-skygge",SKYGGE_SVG); const av=ambFolgPunkt(e,5800); return {ms:6200,rydd:()=>{av();e.remove();}}; },
   solflekk(){ const e=ambLag("amb-sol"); const k=KATT_BUNN(); let inne=false;
     const av=ambFolgPunkt(e,4200,(cx,cy,kx)=>{ const naer=Math.abs(cx-kx)<90; if(naer!==inne){ inne=naer; k.classList.toggle("kos",naer); } });
     return {ms:4400,rydd:()=>{av();k.classList.remove("kos");e.remove();}}; },
-  fjaer(){ const e=ambLag("amb-fjaer",FJAER_SVG); const av=ambFolgPunkt(e,4400); return {ms:4700,rydd:()=>{av();e.remove();}}; },
   eske(){ const e=ambLag("amb-eske",ESKE_SVG+'<div class="orer">'+ORER_SVG+'</div>'); const av=ambFolgPunkt(e,3800); return {ms:4200,rydd:()=>{av();e.remove();}}; },
 
   flue(){ const f=ambLag("amb-flue",FLUE_SVG), p=ambLag("amb-slaapote",POTE_OPP_SVG); const av=ambFolgPunkt(f,3400); return {ms:3800,rydd:()=>{av();f.remove();p.remove();}}; },
-  snoretopp(){ const e=ambLag("amb-snoretopp",'<div class="inner">'+SNORE_TOPP_SVG+'</div>'); const av=ambFolgPunkt(e.firstChild,4400); return {ms:4800,rydd:()=>{av();e.remove();}}; },
   sover(){ const e=ambLag("amb-sover",SOVER_SVG); const zz=[]; for(let i=0;i<3;i++){ const t=setTimeout(()=>{ const r=e.getBoundingClientRect(); const z=document.createElement("span"); z.className="prr"; z.textContent=["z","z","Z"][i]; z.style.color="#3d6fa3"; z.style.left=(r.left+30+i*8)+"px"; z.style.top=(r.top-4)+"px"; z.style.fontSize=(13+i*4)+"px"; z.style.setProperty("--dx",(10+i*6)+"px"); z.style.setProperty("--v","0deg"); document.body.appendChild(z); zz.push(z); setTimeout(()=>z.remove(),1250); },1300+i*450); zz.push({t}); }
     return {ms:5200,rydd:()=>{ e.remove(); zz.forEach(x=>{ if(x.t) clearTimeout(x.t); else x.remove(); }); }}; },
-  kloring(){ const r=$("tittelBoble").getBoundingClientRect(); const el=[]; for(let i=0;i<3;i++){ const k=document.createElement("div"); k.className="amb-klor"; k.style.left=(r.left+r.width*0.62+i*13)+"px"; k.style.top=(r.top+14)+"px"; k.style.width="38px"; k.style.animationDelay=(i*0.12)+"s"; document.body.appendChild(k); el.push(k); }
-    const t=document.createElement("span"); t.className="prr"; t.textContent="krrrt"; t.style.left=(r.left+r.width*0.55)+"px"; t.style.top=(r.top-6)+"px"; t.style.fontSize="15px"; t.style.setProperty("--dx","14px"); t.style.setProperty("--v","-8deg"); document.body.appendChild(t); el.push(t);
-    return {ms:2400,rydd:()=>el.forEach(x=>x.remove())}; },
-
   nys(){ const k=KATT_BUNN(); const r=k.getBoundingClientRect(); const t=setTimeout(()=>{ k.classList.add("nys"); prrTekst(r.left+r.width*0.6,r.top+10); const e=document.querySelectorAll(".prr"); const sist=e[e.length-1]; if(sist) sist.textContent="Atsjoo!"; },500); return {ms:1800,rydd:()=>{clearTimeout(t);k.classList.remove("nys");}}; },
   ball(){ const b=ambLag("amb-ball",BALL_SVG), k=ambLag("amb-ballkatt",KATTUNGE_SVG); const av=ambFolgPunkt(k,5400); return {ms:5800,rydd:()=>{av();b.remove();k.remove();}}; },
   sommerfuglhode(){ const k=KATT_BUNN(); const r=k.getBoundingClientRect(); const f=ambLag("pus-sommerfugl",SOMMERFUGL_SVG); f.style.left=(r.left+r.width*0.4)+"px"; f.style.top=(r.top-6)+"px"; const t1=setTimeout(()=>k.classList.add("store"),900), t2=setTimeout(()=>k.classList.remove("store"),2300); return {ms:3400,rydd:()=>{clearTimeout(t1);clearTimeout(t2);k.classList.remove("store");f.remove();}}; },
-  fiskebolle(){ const e=ambLag("amb-bolle",BOLLE_SVG+'<div class="fisk">'+PUS_SVG.fisk+'</div>'); const fi=e.querySelector(".fisk"); const av=ambFolgPunkt(fi,4000); return {ms:4600,rydd:()=>{av();e.remove();}}; },
   vasker(){ const k=KATT_BUNN(); const p=ambLag("amb-vaskpote",VASKPOTE_SVG); const t1=setTimeout(()=>k.classList.add("kos"),600), t2=setTimeout(()=>k.classList.remove("kos"),2000); return {ms:2800,rydd:()=>{clearTimeout(t1);clearTimeout(t2);k.classList.remove("kos");p.remove();}}; },
+  flokk(){ const el=[]; const opp=[[0,"30%","4.6s"],[0.5,"50%","4.2s"],[1.1,"38%","5.6s"],[1.6,"58%","4.9s"]];
+    opp.forEach(([d,top,t],i)=>{ const k=ambLag("amb-flokk"+(i===2?" stopp":""),KATTUNGE_SVG); k.style.top=top; k.style.setProperty("--t",t); k.style.setProperty("--d",d+"s"); k.style.animationDelay=d+"s"; el.push(k); });
+    const av=ambFolgPunkt(el[0],6200); return {ms:7600,rydd:()=>{av();el.forEach(e=>e.remove());}}; },
+  zoom(){ const z=ambLag("amb-zoom",'<div class="vend">'+KATTUNGE_SVG+'</div>'); const k=KATT_BUNN(); const t1=setTimeout(()=>k.classList.add("store"),500), t2=setTimeout(()=>k.classList.remove("store"),4600);
+    const spor=[]; [[0.9,"78vw","calc(44% + 60px)"],[2.1,"2vw","calc(60% + 60px)"]].forEach(([d,l,t])=>{ spor.push({t:setTimeout(()=>{ const e=ambLag("amb-spor"); e.style.left=l; e.style.top=t; spor.push(e); const e2=ambLag("amb-spor"); e2.style.left="calc("+l+" + 30px)"; e2.style.top=t; spor.push(e2); },d*1000)}); });
+    const av=ambFolgPunkt(z,4900); return {ms:5200,rydd:()=>{av();clearTimeout(t1);clearTimeout(t2);k.classList.remove("store");z.remove();spor.forEach(x=>{ if(x.t) clearTimeout(x.t); else x.remove(); });}}; },
+  jager(){ const h=ambLag("amb-hund",HUND_SVG), j=ambLag("amb-jeger",KATTUNGE_SVG); const av=ambFolgPunkt(h,4000); return {ms:4400,rydd:()=>{av();h.remove();j.remove();}}; },
+  speil(){ const e=ambLag("amb-speil",SPEIL_SVG); const k=KATT_BUNN(); const t1=setTimeout(()=>k.classList.add("blaas"),1300), t2=setTimeout(()=>k.classList.remove("blaas"),3900); return {ms:5200,rydd:()=>{clearTimeout(t1);clearTimeout(t2);k.classList.remove("blaas");e.remove();}}; },
+  glass(){ const l=ambLag("amb-hyllelinje"), g=ambLag("amb-glass",GLASS_SVG), k=ambLag("amb-hyllekatt",HYLLEKATT_SVG+'<div class="pote">'+DYTTPOTE_SVG+'</div>'); const av=ambFolgPunkt(g,3200); return {ms:4800,rydd:()=>{av();l.remove();g.remove();k.remove();}}; },
+  eskekatt(){ const e=ambLag("amb-eskehel",'<div class="katten">'+ESKEKATT_SVG+'</div><div class="front">'+ESKEFRONT_SVG+'</div>'); const av=ambFolgPunkt(e,4800); return {ms:5200,rydd:()=>{av();e.remove();}}; },
+  klatrer(){ const g=ambLag("amb-gardin"), k=ambLag("amb-klatrer",KLATRER_SVG); const av=ambFolgPunkt(k,4200); return {ms:4600,rydd:()=>{av();g.remove();k.remove();}}; },
+  kortkatt(){ const r=karKort[karIdx].getBoundingClientRect(); const e=ambLag("amb-kortkatt",KORTKATT_SVG); e.style.left=(r.left+r.width*0.62)+"px"; e.style.top=(r.top-52)+"px"; const av=ambFolgPunkt(e,4400); return {ms:4800,rydd:()=>{av();e.remove();}}; },
+  mor(){ const e=ambLag("amb-mor",MOR_SVG); const av=ambFolgPunkt(e,6800); return {ms:7200,rydd:()=>{av();e.remove();}}; },
+  titter(){ const e=ambLag("amb-titter",TITTER_SVG); const k=KATT_BUNN(); const t1=setTimeout(()=>{ k.style.transform="rotate(7deg)"; ambOye(3,0); },1900), t2=setTimeout(()=>{ k.style.transform=""; ambOyeNull(); },3400); return {ms:4200,rydd:()=>{clearTimeout(t1);clearTimeout(t2);k.style.transform="";ambOyeNull();e.remove();}}; },
+  yoga(){ const e=ambLag("amb-yoga",YOGA_SVG); const k=KATT_BUNN(); const t1=setTimeout(()=>k.classList.add("kos"),900), t2=setTimeout(()=>k.classList.remove("kos"),3200); return {ms:4600,rydd:()=>{clearTimeout(t1);clearTimeout(t2);k.classList.remove("kos");e.remove();}}; },
+  halejakt(){ const k=ambLag("amb-halekatt",HALEKATT_SVG), u=ambLag("amb-halekattunge",KATTUNGE_SVG); const av=ambFolgPunkt(u,5200); return {ms:5600,rydd:()=>{av();k.remove();u.remove();}}; },
   muslop(){ const m=ambLag("amb-muslop",MUS_SVG); const k=KATT_BUNN(); k.classList.add("store"); const av=ambFolgPunkt(m,2500); lydSpill([54,43]); return {ms:2800,rydd:()=>{av();k.classList.remove("store");m.remove();}}; },
-  stjerneskudd(){ if(tidPaaDognet()!=="natt") return {ms:1,rydd:()=>{}}; const e=ambLag("amb-stjerneskudd","<b></b><i></i>"); return {ms:2400,rydd:()=>e.remove()}; }
 };
 const FJAER_SVG='<svg viewBox="0 0 34 70"><path d="M17 4 Q34 24 17 58 Q0 24 17 4 Z" fill="#f4bdd4"/><path d="M17 8 L17 68" stroke="#b34a7c" stroke-width="2"/>'+[14,20,26,32,38,44,50].map(y=>`<path d="M17 ${y} L6 ${y+7} M17 ${y} L28 ${y+7}" stroke="#dba9c0" stroke-width="1.3"/>`).join("")+'</svg>';
 const ESKE_SVG='<svg viewBox="0 0 80 70" style="position:absolute;left:0;top:26px;width:80px;height:44px"><rect x="4" y="6" width="72" height="38" rx="4" fill="#c9a26b"/><rect x="4" y="6" width="72" height="8" fill="#b08a55"/></svg>';
@@ -1881,6 +1939,20 @@ const FLUE_SVG='<svg viewBox="0 0 28 20"><g class="vinger"><ellipse cx="8" cy="6
 const POTE_OPP_SVG='<svg viewBox="0 0 70 110"><rect x="24" y="30" width="22" height="80" rx="11" fill="#3d6fa3"/><ellipse cx="35" cy="22" rx="14" ry="12" fill="#3d6fa3"/><circle cx="24" cy="10" r="5" fill="#f4bdd4"/><circle cx="35" cy="6" r="5" fill="#f4bdd4"/><circle cx="46" cy="10" r="5" fill="#f4bdd4"/><ellipse cx="35" cy="25" rx="7" ry="5.5" fill="#f4bdd4"/></svg>';
 const SNORE_TOPP_SVG='<svg viewBox="0 0 40 300" preserveAspectRatio="none"><line x1="20" y1="0" x2="20" y2="262" stroke="#b34a7c" stroke-width="2.5"/><path d="M20 262 Q6 280 10 298 M20 262 Q20 284 20 300 M20 262 Q34 280 30 298 M20 262 Q0 272 4 290 M20 262 Q40 272 36 290" fill="none" stroke="#f4bdd4" stroke-width="5" stroke-linecap="round"/></svg>';
 const SOVER_SVG='<svg viewBox="0 0 70 44"><ellipse cx="34" cy="30" rx="30" ry="13" fill="#3d6fa3"/><circle cx="52" cy="24" r="11" fill="#3d6fa3"/><polygon points="44,16 46,6 53,13" fill="#3d6fa3"/><polygon points="60,16 58,6 51,13" fill="#3d6fa3"/><path d="M47 26 q3 2 6 0 M55 26 q3 2 6 0" stroke="#fff" stroke-width="1.6" fill="none"/><path d="M8 32 q-8 -10 2 -20" fill="none" stroke="#3d6fa3" stroke-width="5" stroke-linecap="round"/></svg>';
+function speil(svg,w){ return svg.replace(/<svg([^>]*)>/,'<svg$1><g transform="matrix(-1 0 0 1 '+w+' 0)">').replace(/<\/svg>\s*$/,'</g></svg>'); }
+const HUND_SVG='<svg viewBox="0 0 92 64"><g class="bein b1"><rect x="20" y="46" width="8" height="16" rx="4" fill="#8a5a3a"/><rect x="54" y="46" width="8" height="16" rx="4" fill="#8a5a3a"/></g><g class="bein b2"><rect x="30" y="46" width="8" height="16" rx="4" fill="#a86f4a"/><rect x="64" y="46" width="8" height="16" rx="4" fill="#a86f4a"/></g><path class="halevift" d="M8 36 Q0 26 8 18" fill="none" stroke="#a86f4a" stroke-width="6" stroke-linecap="round"/><ellipse cx="42" cy="40" rx="28" ry="14" fill="#a86f4a"/><circle cx="70" cy="28" r="14" fill="#a86f4a"/><ellipse cx="60" cy="34" rx="7" ry="11" fill="#8a5a3a"/><circle cx="82" cy="30" r="6" fill="#8a5a3a"/><circle cx="74" cy="24" r="3.4" fill="#fff"/><circle cx="75" cy="24" r="1.6" fill="#1f2b3a"/><circle cx="86" cy="28" r="2" fill="#1f2b3a"/><path d="M78 36 q4 4 8 0" stroke="#1f2b3a" stroke-width="1.6" fill="none"/></svg>';
+const SPEIL_SVG='<svg viewBox="0 0 150 118"><rect x="10" y="4" width="130" height="110" rx="12" fill="#9fb9d6"/><rect x="18" y="12" width="114" height="94" rx="8" fill="#e6eef8"/><circle cx="62" cy="70" r="34" fill="#e0a83a"/><path d="M28 70 q4 -34 34 -40 q30 6 34 40 q-4 30 -34 36 q-30 -6 -34 -36 z" fill="#e0a83a"/><circle cx="62" cy="70" r="24" fill="#f2c66d"/><polygon points="44,54 46,40 56,50" fill="#f2c66d"/><polygon points="80,54 78,40 68,50" fill="#f2c66d"/><circle cx="54" cy="66" r="3.5" fill="#1f2b3a"/><circle cx="70" cy="66" r="3.5" fill="#1f2b3a"/><polygon points="58,76 66,76 62,81" fill="#b34a7c"/><path d="M50 84 q12 8 24 0" stroke="#1f2b3a" stroke-width="2" fill="none"/><rect x="10" y="98" width="130" height="16" rx="8" fill="#6f8bb0"/></svg>';
+const HYLLEKATT_SVG='<svg viewBox="0 0 110 76"><ellipse cx="66" cy="54" rx="34" ry="18" fill="#3d6fa3"/><path d="M98 50 q14 -10 6 -26" fill="none" stroke="#3d6fa3" stroke-width="7" stroke-linecap="round"/><circle cx="36" cy="34" r="22" fill="#3d6fa3"/><polygon points="18,22 20,2 34,14" fill="#3d6fa3"/><polygon points="54,22 52,2 38,14" fill="#3d6fa3"/><polygon points="22,20 23,9 31,15" fill="#f4bdd4"/><polygon points="50,20 49,9 41,15" fill="#f4bdd4"/><circle cx="28" cy="32" r="3.6" fill="#fff"/><circle cx="44" cy="32" r="3.6" fill="#fff"/><circle cx="28.5" cy="32.5" r="1.7" fill="#1f2b3a"/><circle cx="44.5" cy="32.5" r="1.7" fill="#1f2b3a"/><polygon points="33,39 39,39 36,43" fill="#f4bdd4"/></svg>';
+const DYTTPOTE_SVG='<svg viewBox="0 0 44 20"><rect x="6" y="4" width="38" height="12" rx="6" fill="#3d6fa3"/><ellipse cx="8" cy="10" rx="8" ry="7" fill="#3d6fa3"/><circle cx="4" cy="6" r="2.2" fill="#f4bdd4"/><circle cx="3" cy="11" r="2.2" fill="#f4bdd4"/><circle cx="6" cy="15" r="2.2" fill="#f4bdd4"/></svg>';
+const GLASS_SVG='<svg viewBox="0 0 30 42"><path d="M3 2 h24 l-3 38 h-18 z" fill="rgba(159,185,214,.55)" stroke="#3d6fa3" stroke-width="2"/><rect x="7" y="20" width="16" height="16" fill="rgba(61,111,163,.35)"/></svg>';
+const ESKEKATT_SVG='<svg viewBox="0 0 64 78"><ellipse cx="32" cy="62" rx="26" ry="16" fill="#3d6fa3"/><circle cx="32" cy="30" r="22" fill="#3d6fa3"/><polygon points="14,18 17,0 30,10" fill="#3d6fa3"/><polygon points="50,18 47,0 34,10" fill="#3d6fa3"/><polygon points="18,16 19,6 27,12" fill="#f4bdd4"/><polygon points="46,16 45,6 37,12" fill="#f4bdd4"/><circle class="oye" cx="24" cy="30" r="4" fill="#fff"/><circle class="oye" cx="40" cy="30" r="4" fill="#fff"/><circle cx="24.5" cy="30.5" r="1.8" fill="#1f2b3a"/><circle cx="40.5" cy="30.5" r="1.8" fill="#1f2b3a"/><polygon points="29,38 35,38 32,42" fill="#f4bdd4"/></svg>';
+const ESKEFRONT_SVG='<svg viewBox="0 0 92 52" preserveAspectRatio="none"><rect x="2" y="2" width="88" height="48" rx="4" fill="#c9a26b"/><rect x="2" y="2" width="88" height="8" fill="#b08a55"/></svg>';
+const KLATRER_SVG='<svg viewBox="0 0 52 70"><path d="M26 66 Q10 60 14 44" fill="none" stroke="#3d6fa3" stroke-width="6" stroke-linecap="round"/><ellipse cx="26" cy="42" rx="16" ry="22" fill="#3d6fa3"/><circle cx="26" cy="16" r="13" fill="#3d6fa3"/><polygon points="14,10 15,0 24,6" fill="#3d6fa3"/><polygon points="38,10 37,0 28,6" fill="#3d6fa3"/><g class="bein b1"><rect x="8" y="22" width="7" height="14" rx="3.5" fill="#2f5a87"/><rect x="37" y="34" width="7" height="14" rx="3.5" fill="#2f5a87"/></g><g class="bein b2"><rect x="8" y="38" width="7" height="14" rx="3.5" fill="#3d6fa3"/><rect x="37" y="20" width="7" height="14" rx="3.5" fill="#3d6fa3"/></g></svg>';
+const KORTKATT_SVG='<svg viewBox="0 0 58 62"><ellipse cx="29" cy="40" rx="18" ry="16" fill="#3d6fa3"/><circle cx="29" cy="20" r="15" fill="#3d6fa3"/><polygon points="16,12 18,0 28,8" fill="#3d6fa3"/><polygon points="42,12 40,0 30,8" fill="#3d6fa3"/><circle cx="23" cy="20" r="3" fill="#fff"/><circle cx="35" cy="20" r="3" fill="#fff"/><polygon points="26,26 32,26 29,29" fill="#f4bdd4"/><path class="hale" d="M44 46 Q56 52 50 62" fill="none" stroke="#3d6fa3" stroke-width="6" stroke-linecap="round"/><rect x="16" y="50" width="8" height="10" rx="4" fill="#2f5a87"/><rect x="34" y="50" width="8" height="10" rx="4" fill="#2f5a87"/></svg>';
+const MOR_SVG='<svg viewBox="0 0 120 76"><g class="bein b1"><rect x="30" y="56" width="9" height="18" rx="4.5" fill="#2f5a87"/><rect x="68" y="56" width="9" height="18" rx="4.5" fill="#2f5a87"/></g><g class="bein b2"><rect x="42" y="56" width="9" height="18" rx="4.5" fill="#3d6fa3"/><rect x="80" y="56" width="9" height="18" rx="4.5" fill="#3d6fa3"/></g><path class="halevift" d="M14 46 Q2 34 12 22" fill="none" stroke="#3d6fa3" stroke-width="7" stroke-linecap="round"/><ellipse cx="58" cy="46" rx="36" ry="18" fill="#3d6fa3"/><circle cx="92" cy="30" r="16" fill="#3d6fa3"/><polygon points="80,20 82,4 94,14" fill="#3d6fa3"/><polygon points="104,20 102,4 90,14" fill="#3d6fa3"/><circle cx="90" cy="28" r="2.6" fill="#fff"/><circle cx="100" cy="28" r="2.6" fill="#fff"/><g transform="translate(96 40) rotate(20) scale(.42)"><ellipse cx="34" cy="36" rx="22" ry="13" fill="#6f8bb0"/><circle cx="54" cy="26" r="12" fill="#6f8bb0"/><polygon points="45,18 47,6 55,14" fill="#6f8bb0"/><polygon points="63,18 61,6 53,14" fill="#6f8bb0"/><rect x="18" y="44" width="6" height="10" rx="3" fill="#6f8bb0"/><rect x="42" y="44" width="6" height="10" rx="3" fill="#6f8bb0"/></g></svg>';
+const TITTER_SVG='<svg viewBox="0 0 50 44"><circle cx="25" cy="30" r="20" fill="#3d6fa3"/><polygon points="8,20 10,2 24,12" fill="#3d6fa3"/><polygon points="42,20 40,2 26,12" fill="#3d6fa3"/><polygon points="12,18 13,8 21,13" fill="#f4bdd4"/><polygon points="38,18 37,8 29,13" fill="#f4bdd4"/><circle cx="18" cy="28" r="3.4" fill="#fff"/><circle cx="32" cy="28" r="3.4" fill="#fff"/><circle cx="17" cy="28" r="1.6" fill="#1f2b3a"/><circle cx="31" cy="28" r="1.6" fill="#1f2b3a"/></svg>';
+const YOGA_SVG='<svg viewBox="0 0 210 70" preserveAspectRatio="none"><ellipse cx="90" cy="48" rx="88" ry="20" fill="#3d6fa3"/><path d="M176 44 Q206 36 200 14" fill="none" stroke="#3d6fa3" stroke-width="9" stroke-linecap="round"/><rect x="20" y="56" width="30" height="12" rx="6" fill="#2f5a87"/><rect x="60" y="58" width="30" height="12" rx="6" fill="#2f5a87"/><circle cx="24" cy="60" r="4" fill="#f4bdd4"/><circle cx="64" cy="62" r="4" fill="#f4bdd4"/></svg>';
+const HALEKATT_SVG='<svg viewBox="0 0 110 78"><g class="bein b1"><rect x="34" y="58" width="9" height="18" rx="4.5" fill="#2f5a87"/><rect x="70" y="58" width="9" height="18" rx="4.5" fill="#2f5a87"/></g><g class="bein b2"><rect x="46" y="58" width="9" height="18" rx="4.5" fill="#3d6fa3"/><rect x="82" y="58" width="9" height="18" rx="4.5" fill="#3d6fa3"/></g><path class="haleopp" d="M26 50 Q6 40 14 6" fill="none" stroke="#3d6fa3" stroke-width="8" stroke-linecap="round"/><ellipse cx="62" cy="48" rx="34" ry="18" fill="#3d6fa3"/><circle cx="94" cy="32" r="16" fill="#3d6fa3"/><polygon points="82,22 84,6 96,16" fill="#3d6fa3"/><polygon points="106,22 104,6 92,16" fill="#3d6fa3"/><circle cx="92" cy="30" r="2.6" fill="#fff"/><circle cx="102" cy="30" r="2.6" fill="#fff"/></svg>';
 const BALL_SVG='<svg viewBox="0 0 22 22"><circle cx="11" cy="11" r="11" fill="#b34a7c"/><path d="M0 11 Q11 4 22 11 Q11 18 0 11 Z" fill="#f4bdd4"/></svg>';
 const BOLLE_SVG='<svg viewBox="0 0 88 70" style="position:absolute;inset:0;width:100%;height:100%"><path d="M14 8 q-10 30 8 54 h44 q18 -24 8 -54 z" fill="rgba(159,185,214,.55)" stroke="#3d6fa3" stroke-width="2.5"/><rect x="18" y="26" width="52" height="30" fill="rgba(61,111,163,.18)"/></svg>';
 const VASKPOTE_SVG='<svg viewBox="0 0 48 60"><rect x="16" y="14" width="18" height="46" rx="9" fill="#3d6fa3"/><ellipse cx="25" cy="12" rx="11" ry="9" fill="#3d6fa3"/><circle cx="16" cy="4" r="3.6" fill="#f4bdd4"/><circle cx="25" cy="2" r="3.6" fill="#f4bdd4"/><circle cx="34" cy="4" r="3.6" fill="#f4bdd4"/></svg>';
@@ -1899,7 +1971,7 @@ function ambKjor(navn){
 }
 function ambTikk(){
   if(!ambKanKjore()) return;
-  let n; do{ n=AMB_NAVN[Math.floor(Math.random()*AMB_NAVN.length)]; }while(n===ambSist||(n==="stjerneskudd"&&tidPaaDognet()!=="natt"));
+  let n; do{ n=AMB_NAVN[Math.floor(Math.random()*AMB_NAVN.length)]; }while(n===ambSist);
   ambKjor(n);
 }
 function ambStart(){ if(ambTimer) clearInterval(ambTimer); ambTimer=setInterval(ambTikk,AMB_INTERVALL); }
