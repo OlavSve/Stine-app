@@ -913,7 +913,7 @@ button,input,select,textarea{font-family:inherit}
     <div class="fot">
       <button id="knBackup" class="skjult" title="Lagre komplett backup (JSON)">&#128190;</button>
       <button id="knFil" class="skjult" title="Fil">&#128196; Fil</button>
-      <span class="versjon" id="startVersjon">Versjon 3.13</span>
+      <span class="versjon" id="startVersjon">Versjon 3.14</span>
     </div>
     <div id="startBesk"></div>
     <button class="panelknapp andre" id="knInnstSkjul" style="margin-top:16px">Skjul innstillinger</button>
@@ -938,8 +938,8 @@ button,input,select,textarea{font-family:inherit}
 
 <script>
 "use strict";
-/* ===================== Kvitteringer, mjau mjau, versjon 3.13 ===================== */
-const APP_VERSJON = "3.13";
+/* ===================== Kvitteringer, mjau mjau, versjon 3.14 ===================== */
+const APP_VERSJON = "3.14";
 const LAGER = { eier: "OlavSve", repo: "Stine-app-data", gren: "main", fil: "bilag.kryptert.json", bilder: "bilder", backup: "backup" };
 const EK = { hemmelighet: "0df7552eec9d178481fda706b469d0305507b5ddc5c229a6292f863412d29d50", bildesalt: "m1jWj9kLvoyOxH+NuTrtpA==" };
 const DATA_TYPE = "stine-app-data";
@@ -1969,10 +1969,17 @@ function ambKjor(navn){
   const t=setTimeout(ferdig,r.ms); ambStopp=()=>{ clearTimeout(t); ferdig(); };
   return true;
 }
+let ambBunke=[];
+function ambStokk(){
+  const b=AMB_NAVN.slice();
+  for(let i=b.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [b[i],b[j]]=[b[j],b[i]]; }
+  if(b[b.length-1]===ambSist&&b.length>1) [b[b.length-1],b[0]]=[b[0],b[b.length-1]];
+  return b;
+}
 function ambTikk(){
   if(!ambKanKjore()) return;
-  let n; do{ n=AMB_NAVN[Math.floor(Math.random()*AMB_NAVN.length)]; }while(n===ambSist);
-  ambKjor(n);
+  if(!ambBunke.length) ambBunke=ambStokk();
+  ambKjor(ambBunke.pop());
 }
 function ambStart(){ if(ambTimer) clearInterval(ambTimer); ambTimer=setInterval(ambTikk,AMB_INTERVALL); }
 document.addEventListener("visibilitychange",()=>{ if(document.hidden&&ambStopp) ambStopp(); });
