@@ -84,7 +84,7 @@ button,input,select,textarea{font-family:inherit}
 #start .sittekatt{width:64px;height:64px;flex:none}
 .tannhjul{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:80;width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.92);border:1px solid rgba(61,111,163,.3);box-shadow:0 4px 12px rgba(31,43,58,.16);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--privat-ink)}
 .tannhjul svg{width:24px;height:24px}
-#nokkelOverlegg,#filOverlegg{z-index:95}
+#nokkelOverlegg,#filOverlegg,#papirkurvOverlegg{z-index:95}
 .panel .tolkrad{background:var(--card);border:1px solid var(--line);margin-top:10px}
 .panel .tolkrad button,.panel .fot button{background:var(--card);color:var(--privat-ink);border:1px solid var(--line);border-radius:7px;padding:8px 13px;font-size:12.5px;cursor:pointer;flex:none}
 .panel .fot{display:flex;gap:8px;align-items:center;margin-top:14px}
@@ -635,6 +635,14 @@ button,input,select,textarea{font-family:inherit}
 
     <div class="tolkrad">
       <div>
+        <div class="n">Papirkurv</div>
+        <div class="t" id="pkTilstand">Tom</div>
+      </div>
+      <button id="knPapirkurvAlle">Åpne</button>
+    </div>
+
+    <div class="tolkrad">
+      <div>
         <div class="n">Les kvitteringen automatisk</div>
         <div class="t" id="tolkTilstand">Av</div>
       </div>
@@ -644,7 +652,7 @@ button,input,select,textarea{font-family:inherit}
     <div class="fot">
       <button id="knBackup" class="skjult" title="Lagre komplett backup (JSON)">&#128190;</button>
       <button id="knFil" class="skjult" title="Fil">&#128196; Fil</button>
-      <span class="versjon" id="startVersjon">Versjon 3.1</span>
+      <span class="versjon" id="startVersjon">Versjon 3.2</span>
     </div>
     <div id="startBesk"></div>
     <button class="panelknapp andre" id="knInnstSkjul" style="margin-top:16px">Skjul innstillinger</button>
@@ -669,8 +677,8 @@ button,input,select,textarea{font-family:inherit}
 
 <script>
 "use strict";
-/* ===================== Kvitteringer, mjau mjau, versjon 3.1 ===================== */
-const APP_VERSJON = "3.1";
+/* ===================== Kvitteringer, mjau mjau, versjon 3.2 ===================== */
+const APP_VERSJON = "3.2";
 const LAGER = { eier: "OlavSve", repo: "Stine-app-data", gren: "main", fil: "bilag.kryptert.json", bilder: "bilder", backup: "backup" };
 const EK = { hemmelighet: "0df7552eec9d178481fda706b469d0305507b5ddc5c229a6292f863412d29d50", bildesalt: "m1jWj9kLvoyOxH+NuTrtpA==" };
 const DATA_TYPE = "stine-app-data";
@@ -1801,20 +1809,23 @@ function pkOppdaterIkon(){
   const pk=KAT?bilagListe("papirkurv").filter(b=>b.kat===KAT).length:0;
   $("pkAntall").textContent=pk; $("knPapirkurv").classList.toggle("skjult",!pk);
 }
+let pkAlle=false;
+function pkNavn(k){ return k==="gavekort"?"Gavekort":(KATNAVN[k]||k); }
 function tegnPapirkurv(){
-  const l=bilagListe("papirkurv").filter(b=>b.kat===KAT).sort((a,b)=>String(b.slettet).localeCompare(String(a.slettet)));
-  $("pkListe").innerHTML = l.length ? l.map(b=>`<div class="listerad" data-id="${b.id}"><div><div class="h">${esc(b.butikk)} · kr ${kr(b.kat==="gavekort"?gavekortRest(b):b.belop)}</div><div class="u">${esc(b.kat==="gavekort"?(b.type==="tilgodelapp"?"Tilgodelapp":"Gavekort"):b.beskrivelse)} · ${norskDato(b.kat==="gavekort"?b.utstedt:b.dato)} · slettet ${norskDato(b.slettet)}</div></div>
+  const l=bilagListe("papirkurv").filter(b=>pkAlle||b.kat===KAT).sort((a,b)=>String(b.slettet).localeCompare(String(a.slettet)));
+  $("pkListe").innerHTML = l.length ? l.map(b=>`<div class="listerad" data-id="${b.id}"><div><div class="h">${esc(b.butikk)} · kr ${kr(b.kat==="gavekort"?gavekortRest(b):b.belop)}${pkAlle?` <span class="k ${b.kat}" style="margin-left:6px">${pkNavn(b.kat)}</span>`:""}</div><div class="u">${esc(b.kat==="gavekort"?(b.type==="tilgodelapp"?"Tilgodelapp":"Gavekort"):b.beskrivelse)} · ${norskDato(b.kat==="gavekort"?b.utstedt:b.dato)} · slettet ${norskDato(b.slettet)}</div></div>
     <div class="knapper"><button data-gjen="${b.id}">Gjenopprett</button><button class="fare" data-godt="${b.id}">Slett for godt</button></div></div>`).join("")
     : `<div class="tomt">Papirkurven er tom.</div>`;
   $("pkTom").classList.toggle("skjult",!l.length);
   $("pkListe").querySelectorAll("[data-gjen]").forEach(k=>k.addEventListener("click",()=>{ const id=k.dataset.gjen, b=COMBINED.papirkurv.bilag[id]; if(!b) return;
     const kat=b.kat; delete COMBINED.papirkurv.bilag[id]; merkSti("papirkurv",{t:"bilag",id});
     const r=Object.assign({},b); delete r.kat; delete r.slettet; COMBINED[kat].bilag[id]=r; merkSti(kat,{t:"bilag",id});
-    uskrevetLagre(); persist(); tegnPapirkurv(); tegnListe(); pkOppdaterIkon(); }));
+    uskrevetLagre(); persist(); tegnPapirkurv(); if(KAT) tegnListe(); pkOppdaterIkon(); visPkTilstand(); oppsummer(); }));
   $("pkListe").querySelectorAll("[data-godt]").forEach(k=>k.addEventListener("click",()=>{ const id=k.dataset.godt, b=COMBINED.papirkurv.bilag[id]; if(!b) return;
     if(!confirm(`Slette bilaget fra ${b.butikk} for godt?`)) return;
-    delete COMBINED.papirkurv.bilag[id]; merkSti("papirkurv",{t:"bilag",id}); uskrevetLagre(); persist(); tegnPapirkurv(); tegnListe(); }));
+    delete COMBINED.papirkurv.bilag[id]; merkSti("papirkurv",{t:"bilag",id}); uskrevetLagre(); persist(); tegnPapirkurv(); if(KAT) tegnListe(); visPkTilstand(); }));
 }
+function visPkTilstand(){ const n=bilagListe("papirkurv").length; $("pkTilstand").textContent = n?`${n} ${n===1?"slettet":"slettede"}`:"Tom"; }
 
 /* ===================== HENDELSER ===================== */
 $("loginBtn").addEventListener("click",tryLogin);
@@ -1872,7 +1883,7 @@ $("kalForrige").addEventListener("click",()=>{ kalMnd--; if(kalMnd<0){ kalMnd=11
 $("kalNeste").addEventListener("click",()=>{ kalMnd++; if(kalMnd>11){ kalMnd=0; kalAar++; } kalTegn(); });
 $("kalIdag").addEventListener("click",()=>{ const i=idagIso(); kalAar=+i.slice(0,4); kalMnd=+i.slice(5,7)-1; kalValgt=i; kalTegn(); });
 $("knHjem").addEventListener("click",visStart);
-$("knInnst").addEventListener("click",()=>{ startBesk(""); visTolkTilstand(); visVarselTilstand(); $("innstOverlegg").classList.remove("skjult"); });
+$("knInnst").addEventListener("click",()=>{ startBesk(""); visTolkTilstand(); visVarselTilstand(); visPkTilstand(); $("innstOverlegg").classList.remove("skjult"); });
 $("knInnstSkjul").addEventListener("click",()=>$("innstOverlegg").classList.add("skjult"));
 document.querySelectorAll("#faner button").forEach(b=>b.addEventListener("click",()=>byttFane(b.dataset.fane)));
 $("inSok").addEventListener("input",tegnListe);
@@ -1930,11 +1941,12 @@ $("dRediger").addEventListener("click",()=>{
 $("dSlett").addEventListener("click",()=>{ const b=finnBilag(KAT,detaljId); if(!b) return;
   if(!confirm(erGavekort()?`Slette «${b.butikk} – kr ${kr(gavekortRest(b))}»? Kortet legges i papirkurven.`:`Slette «${b.butikk} – ${b.beskrivelse}»? Bilaget legges i papirkurven.`)) return;
   slettTilPapirkurv(detaljId); lukkDetalj(); tegnListe(); pkOppdaterIkon(); });
-$("knPapirkurv").addEventListener("click",()=>{ tegnPapirkurv(); $("papirkurvOverlegg").classList.remove("skjult"); });
+$("knPapirkurv").addEventListener("click",()=>{ pkAlle=false; tegnPapirkurv(); $("papirkurvOverlegg").classList.remove("skjult"); });
+$("knPapirkurvAlle").addEventListener("click",()=>{ pkAlle=true; tegnPapirkurv(); $("papirkurvOverlegg").classList.remove("skjult"); });
 $("pkLukk").addEventListener("click",()=>$("papirkurvOverlegg").classList.add("skjult"));
-$("pkTom").addEventListener("click",()=>{ const l=bilagListe("papirkurv").filter(b=>b.kat===KAT); if(!l.length) return;
+$("pkTom").addEventListener("click",()=>{ const l=bilagListe("papirkurv").filter(b=>pkAlle||b.kat===KAT); if(!l.length) return;
   if(!confirm(`Tømme papirkurven (${l.length} bilag)? Dette kan ikke angres.`)) return;
-  l.forEach(b=>{ delete COMBINED.papirkurv.bilag[b.id]; merkSti("papirkurv",{t:"bilag",id:b.id}); }); uskrevetLagre(); persist(); tegnPapirkurv(); tegnListe(); });
+  l.forEach(b=>{ delete COMBINED.papirkurv.bilag[b.id]; merkSti("papirkurv",{t:"bilag",id:b.id}); }); uskrevetLagre(); persist(); tegnPapirkurv(); if(KAT) tegnListe(); visPkTilstand(); });
 $("fristVarsel").addEventListener("click",()=>{
   const f=fristerDenneUka();
   $("fristListe").innerHTML=f.map(x=>{ const gk=x.k==="gavekort", fr=gk?gavekortFrist(x.b):{dato:x.b.returfrist};
