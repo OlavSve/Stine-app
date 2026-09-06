@@ -85,7 +85,9 @@ button,input,select,textarea{font-family:inherit}
 #start .spor{height:44px;margin:6px -20px 10px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='44' viewBox='0 0 96 44' fill='rgba(61,111,163,0.22)'%3E%3Cg transform='translate(8 6) rotate(-14)'%3E%3Cellipse cx='12' cy='14' rx='6.2' ry='5'/%3E%3Ccircle cx='4' cy='7' r='2.5'/%3E%3Ccircle cx='9' cy='3.2' r='2.7'/%3E%3Ccircle cx='15' cy='3.2' r='2.7'/%3E%3Ccircle cx='20' cy='7' r='2.5'/%3E%3C/g%3E%3Cg transform='translate(54 18) rotate(14)'%3E%3Cellipse cx='12' cy='14' rx='6.2' ry='5'/%3E%3Ccircle cx='4' cy='7' r='2.5'/%3E%3Ccircle cx='9' cy='3.2' r='2.7'/%3E%3Ccircle cx='15' cy='3.2' r='2.7'/%3E%3Ccircle cx='20' cy='7' r='2.5'/%3E%3C/g%3E%3C/svg%3E");background-repeat:repeat-x;background-position:center}
 #start .tittelrad{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin-bottom:18px}
 #start .tittelrad h1{margin:0}
-#start .sittekatt{width:64px;height:64px;flex:none}
+#start .sittekatt{width:64px;height:64px;flex:none;cursor:pointer;pointer-events:auto}
+#start .sittekatt circle{transition:transform .18s ease;transform-origin:center}
+#start .sittekatt.blunk circle{transform:scaleY(.12)}
 .tannhjul{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:80;width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.92);border:1px solid rgba(61,111,163,.3);box-shadow:0 4px 12px rgba(31,43,58,.16);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--privat-ink)}
 .tannhjul svg{width:24px;height:24px}
 #nokkelOverlegg,#filOverlegg,#papirkurvOverlegg{z-index:95}
@@ -660,7 +662,7 @@ button,input,select,textarea{font-family:inherit}
     <div class="fot">
       <button id="knBackup" class="skjult" title="Lagre komplett backup (JSON)">&#128190;</button>
       <button id="knFil" class="skjult" title="Fil">&#128196; Fil</button>
-      <span class="versjon" id="startVersjon">Versjon 3.3</span>
+      <span class="versjon" id="startVersjon">Versjon 3.4</span>
     </div>
     <div id="startBesk"></div>
     <button class="panelknapp andre" id="knInnstSkjul" style="margin-top:16px">Skjul innstillinger</button>
@@ -685,8 +687,8 @@ button,input,select,textarea{font-family:inherit}
 
 <script>
 "use strict";
-/* ===================== Kvitteringer, mjau mjau, versjon 3.3 ===================== */
-const APP_VERSJON = "3.3";
+/* ===================== Kvitteringer, mjau mjau, versjon 3.4 ===================== */
+const APP_VERSJON = "3.4";
 const LAGER = { eier: "OlavSve", repo: "Stine-app-data", gren: "main", fil: "bilag.kryptert.json", bilder: "bilder", backup: "backup" };
 const EK = { hemmelighet: "0df7552eec9d178481fda706b469d0305507b5ddc5c229a6292f863412d29d50", bildesalt: "m1jWj9kLvoyOxH+NuTrtpA==" };
 const DATA_TYPE = "stine-app-data";
@@ -1075,7 +1077,7 @@ async function varslerSlaaAv(){
 }
 
 /* ---------- Innlogging (8.10) ---------- */
-let innlogget = null;
+let innlogget = null, velkomstDryss = false;
 function settInn(navn){
   innlogget = navn;
   $("loginScreen").classList.add("skjult");
@@ -1092,6 +1094,7 @@ async function tryLogin(){
   if ($("loginRemember").checked) await idbSet("husk", u.navn);
   $("loginPassword").value = "";
   settInn(u.navn); broSkriv();
+  velkomstDryss = true;
   etterInnlogging();
 }
 async function loggUt(){
@@ -1434,19 +1437,26 @@ function kalNesteTekst(){
 
 /* ===================== KATTEMAT OG STJERNER ===================== */
 function reduserBevegelse(){ return !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches); }
-function kattemat(){
+function kattemat(styrke){
   if(reduserBevegelse()) return;
+  const antall=styrke==="liten"?14:styrke==="dobbel"?70:34, varighet=styrke==="dobbel"?1.8:1.1, spredning=styrke==="dobbel"?0.9:0.35;
+  const gammel=document.getElementById("dryss"); if(gammel) gammel.remove();
   const d=document.createElement("div"); d.id="dryss";
   const farger=["#8b5a2b","#a86f3a","#6f4420","#b8834a"];
-  for(let i=0;i<34;i++){
+  for(let i=0;i<antall;i++){
     const b=document.createElement("span"); b.className="bit";
     const st=7+Math.random()*7;
     b.style.left=(Math.random()*100)+"%"; b.style.width=st+"px"; b.style.height=(st*(0.8+Math.random()*0.4))+"px";
     b.style.background=farger[i%farger.length]; b.style.borderRadius=i%3?"50%":"50% 50% 50% 50% / 60% 60% 40% 40%";
-    b.style.setProperty("--t",(1.1+Math.random()*0.6)+"s"); b.style.setProperty("--r",(Math.random()*720-360)+"deg");
-    b.style.animationDelay=(Math.random()*0.35)+"s"; d.appendChild(b);
+    b.style.setProperty("--t",(varighet+Math.random()*0.6)+"s"); b.style.setProperty("--r",(Math.random()*720-360)+"deg");
+    b.style.animationDelay=(Math.random()*spredning)+"s"; d.appendChild(b);
   }
-  document.body.appendChild(d); setTimeout(()=>d.remove(),2300);
+  document.body.appendChild(d); setTimeout(()=>{ if(d.parentNode) d.remove(); },(varighet+0.6+spredning)*1000+200);
+}
+/* 36: første bilag hver dag gir dobbelt dryss */
+async function dryssVedLagring(){
+  const idag=idagIso(), sist=await idbGet("sisteDryss");
+  if(sist!==idag){ await idbSet("sisteDryss",idag); kattemat("dobbel"); } else kattemat();
 }
 function stjerner(el){
   if(reduserBevegelse()||!el) return;
@@ -1485,7 +1495,18 @@ const SETNINGER=[
   "Hvor mange pappesker har du prøvd i dag?",
   "Klar for kveldsgalskapen klokka 22?",
   "Er det tid for å legge seg oppå tastaturet?",
-  "Hvem er sjefen i huset i dag?"
+  "Hvem er sjefen i huset i dag?",
+  "Har du sittet i vinduskarmen og dømt naboene i dag?",
+  "Hvor mange ganger har du skiftet soveplass i dag?",
+  "Har du gnidd deg borti noen for å markere at de er dine?",
+  "Har du hoppet opp på kjøkkenbenken når ingen så det?",
+  "Har du sagt nei til mat og så bedt om den fem minutter senere?",
+  "Har du løpt gjennom hele huset uten grunn i dag?",
+  "Har du krevd å komme ut, og så inn igjen med det samme?",
+  "Har du funnet den varmeste plassen i huset ennå?",
+  "Er halen i godt humør i dag?",
+  "Har du blunket sakte til noen du liker?",
+  "Har du okkupert en stol som egentlig var opptatt?"
 ];
 const TID_IKON={
   morgen:'<path d="M20 62 A30 30 0 0 1 80 62 Z" fill="#f2c66d"/><rect x="12" y="62" width="76" height="4" rx="2" fill="#9fb9d6"/><path d="M50 14v10M26 26l7 7M74 26l-7 7M14 50h10M76 50h10" stroke="#e0a83a" stroke-width="5" stroke-linecap="round"/><rect x="30" y="72" width="40" height="4" rx="2" fill="#c9d8ea"/>',
@@ -1524,7 +1545,8 @@ function oppsummer(){
     const r=f.filter(x=>x.slag==="retur"), gk=f.filter(x=>x.slag!=="retur"), idag=f.filter(x=>x.d===0).length, deler=[];
     if(r.length) deler.push((r.length===1?"1 returfrist":r.length+" returfrister")+" denne uka");
     if(gk.length) deler.push((gk.length===1?"1 kort":gk.length+" kort")+" utløper snart");
-    e.textContent=deler.join(" · ")+(idag?" – "+(idag===1?"ett":idag)+" i dag":"")+". Trykk for å se."; e.classList.remove("skjult"); }
+    e.textContent=deler.join(" · ")+(idag?" – "+(idag===1?"ett":idag)+" i dag":"")+". Trykk for å se."; e.classList.remove("skjult");
+    if(idag&&!$("start").classList.contains("skjult")) setTimeout(()=>stjerner(e),350); }
   else e.classList.add("skjult");
   const nv=$("nokkelVarsel");
   if(nokkelUtlop){ const d=dagerTil(nokkelUtlop);
@@ -1536,6 +1558,7 @@ function oppsummer(){
 function visStart(){
   $("app").classList.add("skjult"); $("kalender").classList.add("skjult"); $("start").classList.remove("skjult");
   KAT=null; tegnHilsen(); oppsummer(); karTegn(0); window.scrollTo(0,0);
+  if(velkomstDryss){ velkomstDryss=false; setTimeout(()=>kattemat("liten"),250); }
 }
 function visTolkTilstand(){
   $("tolkTilstand").textContent = tolkeNokkel?"På":"Av";
@@ -1687,7 +1710,7 @@ async function lagreGavekort(){
   merkSti("gavekort",{t:"bilag",id:rec.id}); uskrevetLagre(); persist();
   fyllButikkliste(); skjemaBilder=skjemaBilder.map(bi=>({id:bi.id,w:bi.w,h:bi.h}));
   nullstillSkjema(); $("knLagre").disabled=false;
-  kattemat(); byttFane("liste");
+  dryssVedLagring(); byttFane("liste");
 }
 async function lagreBilag(){
   if(erGavekort()) return lagreGavekort();
@@ -1712,7 +1735,7 @@ async function lagreBilag(){
   $("pdfNavn").textContent=filnavnFor(rec); $("pdfBesk").textContent="";
   $("knDelPdf").disabled=true; $("knDelPdf").textContent="Lager PDF …";
   $("pdfOverlegg").classList.remove("skjult");
-  kattemat();
+  dryssVedLagring();
   pdfKlar=null;
   const kat=KAT; skjemaBilder=skjemaBilder.map(bi=>({id:bi.id,w:bi.w,h:bi.h}));
   nullstillSkjema(); $("knLagre").disabled=false;
@@ -1859,7 +1882,7 @@ function tegnPapirkurv(){
   $("pkListe").querySelectorAll("[data-gjen]").forEach(k=>k.addEventListener("click",()=>{ const id=k.dataset.gjen, b=COMBINED.papirkurv.bilag[id]; if(!b) return;
     const kat=b.kat; delete COMBINED.papirkurv.bilag[id]; merkSti("papirkurv",{t:"bilag",id});
     const r=Object.assign({},b); delete r.kat; delete r.slettet; COMBINED[kat].bilag[id]=r; merkSti(kat,{t:"bilag",id});
-    uskrevetLagre(); persist(); tegnPapirkurv(); if(KAT) tegnListe(); pkOppdaterIkon(); visPkTilstand(); oppsummer(); }));
+    uskrevetLagre(); persist(); tegnPapirkurv(); if(KAT) tegnListe(); pkOppdaterIkon(); visPkTilstand(); oppsummer(); kattemat("liten"); }));
   $("pkListe").querySelectorAll("[data-godt]").forEach(k=>k.addEventListener("click",()=>{ const id=k.dataset.godt, b=COMBINED.papirkurv.bilag[id]; if(!b) return;
     if(!confirm(`Slette bilaget fra ${b.butikk} for godt?`)) return;
     delete COMBINED.papirkurv.bilag[id]; merkSti("papirkurv",{t:"bilag",id}); uskrevetLagre(); persist(); tegnPapirkurv(); if(KAT) tegnListe(); visPkTilstand(); }));
@@ -1922,6 +1945,7 @@ $("kalForrige").addEventListener("click",()=>{ kalMnd--; if(kalMnd<0){ kalMnd=11
 $("kalNeste").addEventListener("click",()=>{ kalMnd++; if(kalMnd>11){ kalMnd=0; kalAar++; } kalTegn(); });
 $("kalIdag").addEventListener("click",()=>{ const i=idagIso(); kalAar=+i.slice(0,4); kalMnd=+i.slice(5,7)-1; kalValgt=i; kalTegn(); });
 $("knHjem").addEventListener("click",visStart);
+document.querySelector("#start .sittekatt").addEventListener("click",e=>{ const k=e.currentTarget; k.classList.add("blunk"); setTimeout(()=>k.classList.remove("blunk"),700); kattemat("liten"); });
 $("knInnst").addEventListener("click",()=>{ startBesk(""); visTolkTilstand(); visVarselTilstand(); visPkTilstand(); $("innstOverlegg").classList.remove("skjult"); });
 $("knInnstSkjul").addEventListener("click",()=>$("innstOverlegg").classList.add("skjult"));
 document.querySelectorAll("#faner button").forEach(b=>b.addEventListener("click",()=>byttFane(b.dataset.fane)));
@@ -1956,6 +1980,7 @@ $("dBrukt").addEventListener("click",()=>{
   const g=finnBilag("gavekort",detaljId); if(!g) return;
   g.brukt=!g.brukt; if(!g.brukt&&gavekortRest(g)<=0) g.rest=Number(g.palydende||0); g.endret=new Date().toISOString();
   merkSti("gavekort",{t:"bilag",id:g.id}); uskrevetLagre(); persist(); lukkDetalj(); tegnListe(); oppsummer();
+  if(g.brukt) kattemat();
 });
 $("knBrukte").addEventListener("click",()=>{ visBrukte=!visBrukte; tegnListe(); });
 document.querySelectorAll("#segType button").forEach(b=>b.addEventListener("click",()=>settType(b.dataset.v)));
