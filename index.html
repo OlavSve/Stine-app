@@ -75,10 +75,14 @@ button,input,select,textarea{font-family:inherit}
 .varsel.feil{background:var(--feil-bg);border-color:#e8c0b4;color:var(--feil)}
 
 /* ---------- Startside ---------- */
-#start{position:relative;overflow:hidden;min-height:100vh;min-height:100dvh;background:var(--himmel);display:flex;flex-direction:column;padding:calc(28px + env(safe-area-inset-top)) 20px calc(28px + env(safe-area-inset-bottom))}
-#start .midt{position:relative;z-index:1;width:100%;max-width:460px;margin:auto}
+#start{position:relative;overflow:hidden;min-height:100vh;min-height:100dvh;background:var(--himmel);display:flex;flex-direction:column;padding:calc(14px + env(safe-area-inset-top)) 20px calc(28px + env(safe-area-inset-bottom))}
+#start .midt{position:relative;z-index:1;width:100%;max-width:460px;margin:0 auto}
+#start .hilsen{display:flex;align-items:center;gap:14px;padding:6px 0 4px}
+#start .hilsen svg{width:58px;height:58px;flex:none}
+#start .hilsen .h{font-size:20px;font-weight:650;color:var(--ink);line-height:1.2}
+#start .hilsen .s{font-size:13.5px;color:var(--muted);margin-top:3px;line-height:1.35}
 #start .katt{position:absolute;left:7%;bottom:-6px;width:150px;height:auto;pointer-events:none;z-index:0}
-#start .spor{height:44px;margin:0 -20px 10px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='44' viewBox='0 0 96 44' fill='rgba(61,111,163,0.22)'%3E%3Cg transform='translate(8 6) rotate(-14)'%3E%3Cellipse cx='12' cy='14' rx='6.2' ry='5'/%3E%3Ccircle cx='4' cy='7' r='2.5'/%3E%3Ccircle cx='9' cy='3.2' r='2.7'/%3E%3Ccircle cx='15' cy='3.2' r='2.7'/%3E%3Ccircle cx='20' cy='7' r='2.5'/%3E%3C/g%3E%3Cg transform='translate(54 18) rotate(14)'%3E%3Cellipse cx='12' cy='14' rx='6.2' ry='5'/%3E%3Ccircle cx='4' cy='7' r='2.5'/%3E%3Ccircle cx='9' cy='3.2' r='2.7'/%3E%3Ccircle cx='15' cy='3.2' r='2.7'/%3E%3Ccircle cx='20' cy='7' r='2.5'/%3E%3C/g%3E%3C/svg%3E");background-repeat:repeat-x;background-position:center}
+#start .spor{height:44px;margin:6px -20px 10px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='44' viewBox='0 0 96 44' fill='rgba(61,111,163,0.22)'%3E%3Cg transform='translate(8 6) rotate(-14)'%3E%3Cellipse cx='12' cy='14' rx='6.2' ry='5'/%3E%3Ccircle cx='4' cy='7' r='2.5'/%3E%3Ccircle cx='9' cy='3.2' r='2.7'/%3E%3Ccircle cx='15' cy='3.2' r='2.7'/%3E%3Ccircle cx='20' cy='7' r='2.5'/%3E%3C/g%3E%3Cg transform='translate(54 18) rotate(14)'%3E%3Cellipse cx='12' cy='14' rx='6.2' ry='5'/%3E%3Ccircle cx='4' cy='7' r='2.5'/%3E%3Ccircle cx='9' cy='3.2' r='2.7'/%3E%3Ccircle cx='15' cy='3.2' r='2.7'/%3E%3Ccircle cx='20' cy='7' r='2.5'/%3E%3C/g%3E%3C/svg%3E");background-repeat:repeat-x;background-position:center}
 #start .tittelrad{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin-bottom:18px}
 #start .tittelrad h1{margin:0}
 #start .sittekatt{width:64px;height:64px;flex:none}
@@ -321,6 +325,10 @@ button,input,select,textarea{font-family:inherit}
 <!-- ===================== STARTSIDE ===================== -->
 <div id="start" class="skjult">
   <div class="midt">
+    <div class="hilsen">
+      <svg id="tidIkon" viewBox="0 0 100 100" aria-hidden="true"></svg>
+      <div><div class="h" id="hilsenTekst">Hei</div><div class="s" id="hilsenSetning"></div></div>
+    </div>
     <div class="spor" aria-hidden="true"></div>
     <div class="tittelrad">
       <h1>Kvitteringer, mjau mjau</h1>
@@ -652,7 +660,7 @@ button,input,select,textarea{font-family:inherit}
     <div class="fot">
       <button id="knBackup" class="skjult" title="Lagre komplett backup (JSON)">&#128190;</button>
       <button id="knFil" class="skjult" title="Fil">&#128196; Fil</button>
-      <span class="versjon" id="startVersjon">Versjon 3.2</span>
+      <span class="versjon" id="startVersjon">Versjon 3.3</span>
     </div>
     <div id="startBesk"></div>
     <button class="panelknapp andre" id="knInnstSkjul" style="margin-top:16px">Skjul innstillinger</button>
@@ -677,8 +685,8 @@ button,input,select,textarea{font-family:inherit}
 
 <script>
 "use strict";
-/* ===================== Kvitteringer, mjau mjau, versjon 3.2 ===================== */
-const APP_VERSJON = "3.2";
+/* ===================== Kvitteringer, mjau mjau, versjon 3.3 ===================== */
+const APP_VERSJON = "3.3";
 const LAGER = { eier: "OlavSve", repo: "Stine-app-data", gren: "main", fil: "bilag.kryptert.json", bilder: "bilder", backup: "backup" };
 const EK = { hemmelighet: "0df7552eec9d178481fda706b469d0305507b5ddc5c229a6292f863412d29d50", bildesalt: "m1jWj9kLvoyOxH+NuTrtpA==" };
 const DATA_TYPE = "stine-app-data";
@@ -1465,6 +1473,37 @@ function gavekortRest(g){ return g.rest===null||g.rest===undefined?Number(g.paly
 function bilagListe(k){ return Object.values((COMBINED&&COMBINED[k]&&COMBINED[k].bilag)||{}); }
 function finnBilag(k,id){ return COMBINED&&COMBINED[k]&&COMBINED[k].bilag[id]||null; }
 
+/* ===================== HILSEN MED TID PÅ DØGNET ===================== */
+const SETNINGER=[
+  "Har du strukket deg skikkelig i dag, eller bare litt?",
+  "Ligger du i en solflekk akkurat nå?",
+  "Har du dyttet noe ned fra et bord i dag?",
+  "Liten lur eller lang lur i dag?",
+  "Har du fått nok kos i dag, eller må du kreve mer?",
+  "Er det mat i skåla, eller må noen minnes på det?",
+  "Har du sett på fuglene ute i dag?",
+  "Hvor mange pappesker har du prøvd i dag?",
+  "Klar for kveldsgalskapen klokka 22?",
+  "Er det tid for å legge seg oppå tastaturet?",
+  "Hvem er sjefen i huset i dag?"
+];
+const TID_IKON={
+  morgen:'<path d="M20 62 A30 30 0 0 1 80 62 Z" fill="#f2c66d"/><rect x="12" y="62" width="76" height="4" rx="2" fill="#9fb9d6"/><path d="M50 14v10M26 26l7 7M74 26l-7 7M14 50h10M76 50h10" stroke="#e0a83a" stroke-width="5" stroke-linecap="round"/><rect x="30" y="72" width="40" height="4" rx="2" fill="#c9d8ea"/>',
+  dag:'<circle cx="50" cy="50" r="20" fill="#f2c66d"/><path d="M50 12v10M50 78v10M12 50h10M78 50h10M23 23l7 7M70 70l7 7M77 23l-7 7M30 70l-7 7" stroke="#e0a83a" stroke-width="5" stroke-linecap="round"/>',
+  kveld:'<path d="M26 66 A24 24 0 0 1 74 66 Z" fill="#e8955e"/><rect x="12" y="66" width="76" height="4" rx="2" fill="#b34a7c"/><path d="M50 26v8M30 34l5 5M70 34l-5 5" stroke="#e8955e" stroke-width="5" stroke-linecap="round"/><rect x="24" y="76" width="52" height="4" rx="2" fill="#dba9c0"/><rect x="34" y="86" width="32" height="4" rx="2" fill="#dba9c0"/>',
+  natt:'<path d="M60 18 A26 26 0 1 0 82 56 A20 20 0 0 1 60 18 Z" fill="#f6f0d8" stroke="#3d6fa3" stroke-width="3"/><circle cx="26" cy="30" r="2.5" fill="#3d6fa3"/><circle cx="18" cy="52" r="2" fill="#3d6fa3"/><path d="M30 78 h44 a10 10 0 0 0 0 -20 a14 14 0 0 0 -27 -4 a11 11 0 0 0 -17 10 a7 7 0 0 0 0 14 Z" fill="#dfe7f0" stroke="#3d6fa3" stroke-width="3" stroke-linejoin="round"/>'
+};
+function tidPaaDognet(t){ const h=t===undefined?new Date().getHours():t; return h>=5&&h<10?"morgen":h>=10&&h<17?"dag":h>=17&&h<22?"kveld":"natt"; }
+let sisteSetning=-1;
+function tegnHilsen(){
+  const tid=tidPaaDognet(), navn=innlogget||"";
+  const hilsen={morgen:"God morgen",dag:"Hei",kveld:"God kveld",natt:"God natt"}[tid];
+  $("hilsenTekst").textContent=hilsen+(navn?", "+navn:"");
+  $("tidIkon").innerHTML=TID_IKON[tid];
+  let i; do{ i=Math.floor(Math.random()*SETNINGER.length); }while(SETNINGER.length>1&&i===sisteSetning); sisteSetning=i;
+  $("hilsenSetning").textContent=SETNINGER[i];
+}
+
 /* ===================== STARTSIDE ===================== */
 function fristerDenneUka(){
   const ut=[];
@@ -1496,7 +1535,7 @@ function oppsummer(){
 }
 function visStart(){
   $("app").classList.add("skjult"); $("kalender").classList.add("skjult"); $("start").classList.remove("skjult");
-  KAT=null; oppsummer(); karTegn(0); window.scrollTo(0,0);
+  KAT=null; tegnHilsen(); oppsummer(); karTegn(0); window.scrollTo(0,0);
 }
 function visTolkTilstand(){
   $("tolkTilstand").textContent = tolkeNokkel?"På":"Av";
