@@ -313,12 +313,25 @@ button,input,select,textarea{font-family:inherit}
 #start .sittekatt .hode{transition:transform .5s ease;transform-box:fill-box;transform-origin:50% 90%}
 #start .sittekatt.folger .hode{transform:rotate(-14deg) translateY(-3px)}
 /* 57 snøre */
-@keyframes amb-lop{from{transform:translateX(110vw)}to{transform:translateX(-45vw)}}
+@keyframes amb-lop{0%{transform:translateX(110vw)}42%{transform:translateX(30vw)}56%{transform:translateX(28vw)}100%{transform:translateX(-45vw)}}
 @keyframes amb-galopp{from{transform:translateY(0) rotate(-3deg)}to{transform:translateY(-6px) rotate(3deg)}}
+@keyframes bein-a{from{transform:rotate(-24deg)}to{transform:rotate(24deg)}}
+@keyframes bein-b{from{transform:rotate(24deg)}to{transform:rotate(-24deg)}}
+#amb .bein,.pus-besok .bein{transform-box:fill-box;transform-origin:50% 0%}
+#amb .bein.b1,.pus-besok .bein.b1{animation:bein-a .24s ease-in-out infinite alternate}
+#amb .bein.b2,.pus-besok .bein.b2{animation:bein-b .24s ease-in-out infinite alternate}
+#amb .amb-skygge .bein.b1,#amb .amb-muslop .bein.b1{animation-duration:.32s}
+#amb .amb-skygge .bein.b2,#amb .amb-muslop .bein.b2{animation-duration:.32s}
+@keyframes halevift{from{transform:rotate(-12deg)}to{transform:rotate(12deg)}}
+#amb .halevift,.pus-besok .halevift{transform-box:fill-box;transform-origin:100% 100%;animation:halevift .5s ease-in-out infinite alternate}
+@keyframes vingesurr{from{transform:scaleY(1)}to{transform:scaleY(.3)}}
+#amb .vinger{transform-box:fill-box;transform-origin:50% 100%;animation:vingesurr .06s linear infinite alternate}
+#start .katt.spiss .ore-v{transform:rotate(8deg)}#start .katt.spiss .ore-h{transform:rotate(-8deg)}
+#start .katt{transition:transform .25s ease;transform-origin:50% 100%}
 @keyframes amb-snorevipp{from{transform:translateY(0)}to{transform:translateY(-8px)}}
-.amb-snore{top:44%;left:0;width:60vw;height:40px;animation:amb-lop 3.6s linear forwards}
+.amb-snore{top:44%;left:0;width:60vw;height:40px;animation:amb-lop 5.2s cubic-bezier(.4,0,.6,1) forwards}
 .amb-snore svg{width:100%;height:100%;animation:amb-snorevipp .35s ease-in-out infinite alternate}
-.amb-kattunge{top:calc(44% - 22px);left:0;width:72px;height:56px;animation:amb-lop 3.6s linear .25s forwards}
+.amb-kattunge{top:calc(44% - 30px);left:0;width:88px;height:68px;animation:amb-lop 5.2s cubic-bezier(.4,0,.6,1) .25s forwards}
 .amb-kattunge svg{width:100%;height:100%;animation:amb-galopp .22s ease-in-out infinite alternate}
 /* 58 laser */
 @keyframes amb-laser{0%{left:12%;top:30%}22%{left:78%;top:38%}45%{left:30%;top:52%}66%{left:70%;top:24%}85%{left:45%;top:60%;opacity:1}100%{left:50%;top:64%;opacity:0}}
@@ -359,14 +372,14 @@ button,input,select,textarea{font-family:inherit}
 .amb-skaal{bottom:calc(6px + env(safe-area-inset-bottom));left:calc(50% - 40px);width:80px;height:44px;animation:amb-skaal 3.6s ease-in-out forwards}
 .amb-skaal i{position:absolute;width:9px;height:9px;border-radius:50%;background:#8b5a2b;animation:amb-drypp 3.6s ease-in forwards}
 /* 67 skygge */
-@keyframes amb-skygge{from{transform:translateX(-70px)}to{transform:translateX(112vw)}}
-.amb-skygge{top:calc(80px + env(safe-area-inset-top));left:0;width:70px;height:44px;opacity:.28;filter:blur(1px);animation:amb-skygge 5s linear forwards}
+@keyframes amb-skygge{0%{transform:translateX(-70px)}45%{transform:translateX(40vw)}58%{transform:translateX(41vw)}100%{transform:translateX(112vw)}}
+.amb-skygge{top:calc(80px + env(safe-area-inset-top));left:0;width:84px;height:52px;opacity:.3;filter:blur(1px);animation:amb-skygge 5.8s cubic-bezier(.4,0,.6,1) forwards}
 /* 68 solflekk */
 @keyframes amb-sol{from{transform:translateX(-160px)}to{transform:translateX(112vw)}}
 .amb-sol{bottom:0;left:0;width:150px;height:170px;border-radius:50%;background:rgba(242,198,109,.28);filter:blur(14px);animation:amb-sol 4.2s linear forwards}
 /* ---------- v3.9: femten nye over skjermen ---------- */
 @keyframes amb-fjaer{0%{transform:translate(0,-60px) rotate(0)}25%{transform:translate(40px,25vh) rotate(25deg)}50%{transform:translate(-30px,50vh) rotate(-20deg)}75%{transform:translate(30px,75vh) rotate(20deg)}100%{transform:translate(-10px,105vh) rotate(-10deg)}}
-.amb-fjaer{top:0;left:55%;width:26px;height:46px;animation:amb-fjaer 4.6s ease-in-out forwards}
+.amb-fjaer{top:0;left:55%;width:38px;height:78px;animation:amb-fjaer 5.6s ease-in-out forwards}
 @keyframes amb-eske{0%{transform:translateY(90px)}25%,75%{transform:translateY(0)}100%{transform:translateY(90px)}}
 @keyframes amb-orer{0%,30%{transform:translateY(26px)}45%,70%{transform:translateY(0)}85%,100%{transform:translateY(26px)}}
 .amb-eske{bottom:calc(0px + env(safe-area-inset-bottom));left:calc(50% - 40px);width:80px;height:70px;animation:amb-eske 3.8s ease-in-out forwards;overflow:hidden}
@@ -375,12 +388,12 @@ button,input,select,textarea{font-family:inherit}
 .amb-kattspor{left:0;width:70px;height:44px;animation:amb-gaa 4.6s linear forwards}
 .amb-sporlys{width:20px;height:20px;opacity:0;animation:spor-inn 1.6s ease forwards}
 @keyframes amb-flue{0%{left:-5%;top:34%}20%{left:30%;top:28%}40%{left:22%;top:44%}60%{left:60%;top:36%}80%{left:50%;top:50%}100%{left:108%;top:30%}}
-.amb-flue{width:14px;height:10px;animation:amb-flue 3.6s ease-in-out forwards}
+.amb-flue{width:30px;height:22px;animation:amb-flue 4.2s ease-in-out forwards}
 @keyframes amb-slaa{0%,55%{transform:translateY(130px) rotate(0)}70%{transform:translateY(0) rotate(-20deg)}85%{transform:translateY(20px)}100%{transform:translateY(130px)}}
 .amb-slaapote{bottom:calc(60px + env(safe-area-inset-bottom));left:38%;width:70px;height:110px;animation:amb-slaa 3.6s ease-in-out forwards}
 @keyframes amb-senk{0%{transform:scaleY(0)}30%,70%{transform:scaleY(1)}100%{transform:scaleY(0)}}
 @keyframes amb-dingle{0%,100%{transform:rotate(0)}30%{transform:rotate(9deg)}60%{transform:rotate(-9deg)}}
-.amb-snoretopp{top:0;left:62%;width:30px;height:38vh;transform-origin:top center;animation:amb-senk 4s ease-in-out forwards}
+.amb-snoretopp{top:0;left:62%;width:40px;height:38vh;transform-origin:top center;animation:amb-senk 4.6s ease-in-out forwards}
 .amb-snoretopp .inner{width:100%;height:100%;transform-origin:top center;animation:amb-dingle 1.6s ease-in-out infinite}
 @keyframes amb-inn-ut{0%{transform:translateX(120px)}20%,78%{transform:translateX(0)}100%{transform:translateX(120px)}}
 .amb-sover{right:84px;bottom:calc(8px + env(safe-area-inset-bottom));width:70px;height:44px;animation:amb-inn-ut 5s ease-in-out forwards}
@@ -395,10 +408,11 @@ button,input,select,textarea{font-family:inherit}
 #start .katt.nys{animation:katt-nys .6s ease-out}
 #start .katt.nys .oye{transform:scaleY(.15)}
 #start .katt.nys .ore-v{transform:rotate(-30deg)}#start .katt.nys .ore-h{transform:rotate(30deg)}
-@keyframes amb-gaa-h{from{transform:translateX(-90px)}to{transform:translateX(112vw)}}
-.amb-ballkatt{bottom:calc(8px + env(safe-area-inset-bottom));left:0;width:72px;height:56px;animation:amb-gaa-h 4.2s linear forwards}
+@keyframes amb-gaa-h{0%{transform:translateX(-90px)}44%{transform:translateX(40vw)}58%{transform:translateX(42vw)}100%{transform:translateX(112vw)}}
+.amb-ballkatt{bottom:calc(8px + env(safe-area-inset-bottom));left:0;width:88px;height:68px;animation:amb-gaa-h 5.4s cubic-bezier(.4,0,.6,1) forwards}
 .amb-ballkatt svg{width:100%;height:100%;transform:scaleX(-1);animation:amb-galopp .22s ease-in-out infinite alternate}
-.amb-ball{bottom:calc(10px + env(safe-area-inset-bottom));left:70px;width:22px;height:22px;border-radius:50%;background:#b34a7c;animation:amb-gaa-h 4.2s linear forwards,amb-spinn 0.5s linear infinite}
+.amb-ball{bottom:calc(10px + env(safe-area-inset-bottom));left:84px;width:24px;height:24px;animation:amb-gaa-h 5.4s cubic-bezier(.4,0,.6,1) forwards}
+.amb-ball svg{width:100%;height:100%;animation:amb-spinn .5s linear infinite}
 @keyframes amb-spinn{to{transform:rotate(360deg)}}
 .amb-bolle{bottom:calc(6px + env(safe-area-inset-bottom));left:calc(50% - 44px);width:88px;height:70px;animation:amb-skaal 4.4s ease-in-out forwards}
 .amb-bolle .fisk{position:absolute;left:20px;top:24px;width:26px;height:16px;animation:amb-fiskrunde 1.4s linear infinite}
@@ -407,7 +421,7 @@ button,input,select,textarea{font-family:inherit}
 @keyframes katt-stryk{0%,100%{transform:rotate(0)}50%{transform:rotate(-24deg)}}
 .amb-vaskpote{bottom:calc(-2px + env(safe-area-inset-bottom));left:calc(7% + 42px);width:48px;height:60px;animation:katt-vask 2.6s ease-in-out forwards}
 .amb-vaskpote svg{width:100%;height:100%;transform-origin:bottom center;animation:katt-stryk .5s ease-in-out .7s 3 alternate}
-.amb-muslop{bottom:calc(4px + env(safe-area-inset-bottom));left:0;width:44px;height:30px;animation:amb-gaa-h 2.6s linear forwards}
+.amb-muslop{bottom:calc(4px + env(safe-area-inset-bottom));left:0;width:52px;height:36px;animation:amb-gaa-h 3.4s cubic-bezier(.4,0,.6,1) forwards}
 .amb-muslop svg{width:100%;height:100%;transform:scaleX(-1)}
 @keyframes amb-stjerneskudd{0%{transform:translate(0,0);opacity:0}10%{opacity:1}100%{transform:translate(70vw,26vh);opacity:0}}
 .amb-stjerneskudd{top:calc(60px + env(safe-area-inset-top));left:8%;width:90px;height:6px;animation:amb-stjerneskudd 2.2s ease-in forwards}
@@ -437,7 +451,7 @@ button,input,select,textarea{font-family:inherit}
 @keyframes pus-slikk{0%{transform:translateY(24px)}30%,70%{transform:translateY(0)}100%{transform:translateY(24px)}}
 .pus-slikkpote{width:14px;height:22px;animation:pus-slikk 1.4s ease-in-out forwards}
 @keyframes pus-besok{0%{transform:translateX(-120px)}30%,70%{transform:translateX(0)}100%{transform:translateX(-120px)}}
-.pus-besok{width:44px;height:34px;animation:pus-besok 3s ease-in-out forwards}
+.pus-besok{width:54px;height:42px;animation:pus-besok 3s ease-in-out forwards}
 .pus-besok svg{width:100%;height:100%;animation:amb-galopp .22s ease-in-out infinite alternate}
 /* Kattemat og stjerner */
 #dryss{position:fixed;inset:0;pointer-events:none;z-index:120;overflow:hidden}
@@ -847,10 +861,11 @@ button,input,select,textarea{font-family:inherit}
     <div class="fot">
       <button id="knBackup" class="skjult" title="Lagre komplett backup (JSON)">&#128190;</button>
       <button id="knFil" class="skjult" title="Fil">&#128196; Fil</button>
-      <span class="versjon" id="startVersjon">Versjon 3.9</span>
+      <span class="versjon" id="startVersjon">Versjon 3.10</span>
     </div>
     <div id="startBesk"></div>
-    <button class="panelknapp andre" id="knInnstSkjul" style="margin-top:16px">Skjul innstillinger</button>
+    <div class="hint" style="margin-top:14px;font-size:11px;line-height:1.45">Kattelyder fra freesound.org via ESC-50 (K. J. Piczak, CC BY-NC): sazman, dobroide, jslarve, telesik og xtrgamr (CC BY), og tuberatanka, aminut, peridactyloptrix, philsapphire, Oneirophile, temawas, Zabuhailo, missozzy og Jeanine2012 (CC0).</div>
+    <button class="panelknapp andre" id="knInnstSkjul" style="margin-top:12px">Skjul innstillinger</button>
   </div>
 </div>
 
@@ -872,8 +887,8 @@ button,input,select,textarea{font-family:inherit}
 
 <script>
 "use strict";
-/* ===================== Kvitteringer, mjau mjau, versjon 3.9 ===================== */
-const APP_VERSJON = "3.9";
+/* ===================== Kvitteringer, mjau mjau, versjon 3.10 ===================== */
+const APP_VERSJON = "3.10";
 const LAGER = { eier: "OlavSve", repo: "Stine-app-data", gren: "main", fil: "bilag.kryptert.json", bilder: "bilder", backup: "backup" };
 const EK = { hemmelighet: "0df7552eec9d178481fda706b469d0305507b5ddc5c229a6292f863412d29d50", bildesalt: "m1jWj9kLvoyOxH+NuTrtpA==" };
 const DATA_TYPE = "stine-app-data";
@@ -1765,9 +1780,38 @@ const LYD={
   rulle(c){ lydStoy(c,0.9,"lowpass",500,0.1,0,180); },
   flagre(c){ [0,0.1,0.2,0.3].forEach(t=>lydStoy(c,0.05,"bandpass",600,0.06,t)); }
 };
-function lydSpill(navn){ if(!lydPaa||!LYD[navn]) return; try{ const c=lydKtx(); if(!c) return; LYD[navn](c); }catch{} }
+/* Ekte katteopptak: små MP3-filer i mappa lyd/, hentes ved behov og hurtiglagres */
+const KLIPP_NR=[1,2,3,4,5,6,15,24,25,27,28,30,31,43,44,45,46,47,49,50,52,53,54,55,56,57,58,59,60];
+const klippData=new Map(), klippBuffer=new Map();
+function klippSti(nr){ return "./lyd/k"+String(nr).padStart(2,"0")+".mp3"; }
+async function klippHent(nr){
+  if(klippData.has(nr)) return klippData.get(nr);
+  const p=fetch(klippSti(nr)).then(r=>r.ok?r.arrayBuffer():null).catch(()=>null);
+  klippData.set(nr,p); return p;
+}
+function klippForhent(){ KLIPP_NR.forEach(n=>klippHent(n)); }
+async function klippDekod(c,nr){
+  if(klippBuffer.has(nr)) return klippBuffer.get(nr);
+  const data=await klippHent(nr); if(!data) return null;
+  try{ const buf=await new Promise((ok,nei)=>{ const r=c.decodeAudioData(data.slice(0),ok,nei); if(r&&r.then) r.then(ok,nei); }); klippBuffer.set(nr,buf); return buf; }catch{ return null; }
+}
+async function klippSpill(nr,gain,start){
+  const c=lydKtx(); if(!c) return 0;
+  const buf=await klippDekod(c,nr); if(!buf) return 0;
+  const src=c.createBufferSource(); src.buffer=buf; const g=c.createGain(); g.gain.value=gain||0.9; src.connect(g); g.connect(c.destination); src.start(c.currentTime+(start||0));
+  return buf.duration;
+}
+async function klippSekvens(liste,gap){ let t=0; for(const nr of liste){ const c=lydKtx(); if(!c) return; const buf=await klippDekod(c,nr); if(!buf) continue; const src=c.createBufferSource(); src.buffer=buf; const g=c.createGain(); g.gain.value=0.9; src.connect(g); g.connect(c.destination); src.start(c.currentTime+t); t+=buf.duration+(gap||0.08); } }
+function lydSpill(navn){
+  if(!lydPaa) return;
+  try{
+    if(Array.isArray(navn)){ klippSekvens(navn,0.08); return; }
+    if(typeof navn==="number"){ klippSpill(navn); return; }
+    if(!LYD[navn]) return; const c=lydKtx(); if(!c) return; LYD[navn](c);
+  }catch{}
+}
 function visLydTilstand(){ $("lydTilstand").textContent=lydPaa?"På":"Av"; $("knLyd").textContent=lydPaa?"Slå av":"Slå på"; }
-$("knLyd").addEventListener("click",async ()=>{ lydPaa=!lydPaa; await idbSet("lydPaa",lydPaa?"ja":"nei"); visLydTilstand(); if(lydPaa) lydSpill("mjau"); });
+$("knLyd").addEventListener("click",async ()=>{ lydPaa=!lydPaa; await idbSet("lydPaa",lydPaa?"ja":"nei"); visLydTilstand(); if(lydPaa) lydSpill(5); });
 
 /* ===================== LIV PÅ SKJERMEN: 27 animasjoner hvert 8. sekund ===================== */
 const AMB_INTERVALL=8000;
@@ -1777,68 +1821,68 @@ function ambLag(kl,html){ const e=document.createElement("div"); e.className=kl;
 function ambOye(dx,dy){ KATT_BUNN().querySelectorAll(".oye").forEach(o=>o.style.transform=`translate(${dx}px,${dy}px)`); }
 function ambOyeNull(){ KATT_BUNN().querySelectorAll(".oye").forEach(o=>o.style.transform=""); }
 function ambFolgPunkt(el,ms,paa){
-  const katt=KATT_BUNN(); const t0=performance.now(); let av=false;
+  const katt=KATT_BUNN(); const t0=performance.now(); let av=false; katt.classList.add("spiss");
   (function steg(){ if(av) return; const r=el.getBoundingClientRect(), k=katt.getBoundingClientRect();
     const cx=r.left+r.width/2, cy=r.top+r.height/2, kx=k.left+k.width/2, ky=k.top+k.height*0.55;
     const dx=cx-kx, dy=cy-ky, l=Math.max(1,Math.hypot(dx,dy)); ambOye(3.2*dx/l,2.4*dy/l);
+    katt.style.transform="rotate("+Math.max(-7,Math.min(7,dx/50)).toFixed(1)+"deg)";
     if(paa) paa(cx,cy,kx,ky);
-    if(performance.now()-t0<ms) requestAnimationFrame(steg); else ambOyeNull(); })();
-  return ()=>{ av=true; ambOyeNull(); };
+    if(performance.now()-t0<ms) requestAnimationFrame(steg); else { ambOyeNull(); katt.style.transform=""; katt.classList.remove("spiss"); } })();
+  return ()=>{ av=true; ambOyeNull(); katt.style.transform=""; katt.classList.remove("spiss"); };
 }
-const KATTUNGE_SVG='<svg viewBox="0 0 72 56"><path d="M8 40 Q2 30 10 24" fill="none" stroke="#3d6fa3" stroke-width="5" stroke-linecap="round"/><ellipse cx="34" cy="36" rx="22" ry="13" fill="#3d6fa3"/><circle cx="54" cy="26" r="12" fill="#3d6fa3"/><polygon points="45,18 47,6 55,14" fill="#3d6fa3"/><polygon points="63,18 61,6 53,14" fill="#3d6fa3"/><circle cx="51" cy="25" r="2" fill="#fff"/><circle cx="58" cy="25" r="2" fill="#fff"/><rect x="18" y="44" width="6" height="10" rx="3" fill="#3d6fa3"/><rect x="42" y="44" width="6" height="10" rx="3" fill="#3d6fa3"/></svg>';
+const KATTUNGE_SVG='<svg viewBox="0 0 72 56"><path class="halevift" d="M8 40 Q2 30 10 24" fill="none" stroke="#3d6fa3" stroke-width="5" stroke-linecap="round"/><g class="bein b1"><rect x="16" y="42" width="7" height="12" rx="3.5" fill="#2f5a87"/><rect x="40" y="42" width="7" height="12" rx="3.5" fill="#2f5a87"/></g><g class="bein b2"><rect x="24" y="42" width="7" height="12" rx="3.5" fill="#3d6fa3"/><rect x="48" y="42" width="7" height="12" rx="3.5" fill="#3d6fa3"/></g><ellipse cx="34" cy="36" rx="22" ry="13" fill="#3d6fa3"/><circle cx="54" cy="26" r="12" fill="#3d6fa3"/><polygon points="45,18 47,6 55,14" fill="#3d6fa3"/><polygon points="63,18 61,6 53,14" fill="#3d6fa3"/><circle cx="51" cy="25" r="2.2" fill="#fff"/><circle cx="58" cy="25" r="2.2" fill="#fff"/><polygon points="55,29 59,29 57,31" fill="#f4bdd4"/></svg>';
 const SNORE_SVG='<svg viewBox="0 0 300 40" preserveAspectRatio="none"><path d="M0 20 q 25 -18 50 0 t 50 0 t 50 0 t 50 0 t 50 0 t 50 0" fill="none" stroke="#b34a7c" stroke-width="3" stroke-linecap="round"/><circle cx="298" cy="20" r="6" fill="#b34a7c"/></svg>';
 const SOMMERFUGL_SVG='<svg viewBox="0 0 46 40"><ellipse cx="14" cy="14" rx="12" ry="10" fill="#f4bdd4"/><ellipse cx="32" cy="14" rx="12" ry="10" fill="#f4bdd4"/><ellipse cx="15" cy="28" rx="9" ry="8" fill="#dba9c0"/><ellipse cx="31" cy="28" rx="9" ry="8" fill="#dba9c0"/><rect x="21" y="8" width="4" height="26" rx="2" fill="#3d6fa3"/></svg>';
 const GARN_SVG='<svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" fill="#b34a7c"/><path d="M6 12 q14 10 28 0 M6 28 q14 -10 28 0 M12 6 q10 14 0 28" fill="none" stroke="#f4bdd4" stroke-width="2.5" stroke-linecap="round"/></svg>';
 const POTE_SVG='<svg viewBox="0 0 84 44"><rect x="0" y="12" width="60" height="20" rx="10" fill="#3d6fa3"/><ellipse cx="66" cy="24" rx="13" ry="11" fill="#3d6fa3"/><circle cx="58" cy="12" r="4.5" fill="#f4bdd4"/><circle cx="67" cy="9" r="4.5" fill="#f4bdd4"/><circle cx="75" cy="13" r="4.2" fill="#f4bdd4"/><ellipse cx="67" cy="27" rx="6" ry="5" fill="#f4bdd4"/></svg>';
 const FUGL_SVG='<svg viewBox="0 0 44 36"><ellipse cx="22" cy="22" rx="14" ry="10" fill="#3d6fa3"/><circle cx="34" cy="14" r="7" fill="#3d6fa3"/><polygon points="40,14 48,16 40,18" fill="#e0a83a"/><circle cx="36" cy="12" r="1.6" fill="#fff"/><path d="M8 22 l-8 -6 l0 12 z" fill="#3d6fa3"/><path d="M14 20 q8 -10 16 0" fill="#9fb9d6"/><rect x="18" y="31" width="2" height="5" fill="#e0a83a"/><rect x="25" y="31" width="2" height="5" fill="#e0a83a"/></svg>';
 const HALE_SVG='<svg viewBox="0 0 34 64"><path d="M17 64 Q17 30 8 20 Q4 12 14 6" fill="none" stroke="#3d6fa3" stroke-width="9" stroke-linecap="round"/></svg>';
-const MUS_SVG='<svg viewBox="0 0 52 36"><ellipse cx="34" cy="22" rx="18" ry="12" fill="#a9b3bd"/><circle cx="20" cy="14" r="6" fill="#a9b3bd"/><circle cx="28" cy="10" r="6" fill="#a9b3bd"/><circle cx="20" cy="14" r="3.5" fill="#f4bdd4"/><circle cx="28" cy="10" r="3.5" fill="#f4bdd4"/><circle cx="17" cy="24" r="2.2" fill="#f4bdd4"/><circle cx="22" cy="20" r="1.4" fill="#1f2b3a"/><path d="M14 22 l-8 -3 M14 25 l-9 0 M14 28 l-8 3" stroke="#6b7f99" stroke-width="1.2"/><path d="M52 22 q-4 10 -12 12" fill="none" stroke="#a9b3bd" stroke-width="2.5"/></svg>';
+const MUS_SVG='<svg viewBox="0 0 52 36"><g class="bein b1"><rect x="26" y="30" width="4" height="6" rx="2" fill="#8e99a4"/><rect x="42" y="30" width="4" height="6" rx="2" fill="#8e99a4"/></g><g class="bein b2"><rect x="32" y="30" width="4" height="6" rx="2" fill="#a9b3bd"/><rect x="47" y="30" width="4" height="6" rx="2" fill="#a9b3bd"/></g><ellipse cx="34" cy="22" rx="18" ry="12" fill="#a9b3bd"/><circle cx="20" cy="14" r="6" fill="#a9b3bd"/><circle cx="28" cy="10" r="6" fill="#a9b3bd"/><circle cx="20" cy="14" r="3.5" fill="#f4bdd4"/><circle cx="28" cy="10" r="3.5" fill="#f4bdd4"/><circle cx="17" cy="24" r="2.2" fill="#f4bdd4"/><circle cx="22" cy="20" r="1.4" fill="#1f2b3a"/><path d="M14 22 l-8 -3 M14 25 l-9 0 M14 28 l-8 3" stroke="#6b7f99" stroke-width="1.2"/><path d="M52 22 q-4 10 -12 12" fill="none" stroke="#a9b3bd" stroke-width="2.5"/></svg>';
 const SKAAL_SVG='<svg viewBox="0 0 80 44"><path d="M4 10 h72 q-4 26 -36 30 q-32 -4 -36 -30 z" fill="#3d6fa3"/><ellipse cx="40" cy="10" rx="36" ry="6" fill="#9fb9d6"/></svg>';
-const SKYGGE_SVG='<svg viewBox="0 0 70 44"><ellipse cx="34" cy="30" rx="26" ry="12" fill="#1f2b3a"/><circle cx="56" cy="20" r="11" fill="#1f2b3a"/><polygon points="48,12 50,2 57,9" fill="#1f2b3a"/><polygon points="64,12 62,2 55,9" fill="#1f2b3a"/><path d="M8 30 q-8 -14 4 -22" fill="none" stroke="#1f2b3a" stroke-width="5" stroke-linecap="round"/></svg>';
+const SKYGGE_SVG='<svg viewBox="0 0 70 44"><g class="bein b1"><rect x="16" y="34" width="7" height="10" rx="3" fill="#1f2b3a"/><rect x="42" y="34" width="7" height="10" rx="3" fill="#1f2b3a"/></g><g class="bein b2"><rect x="24" y="34" width="7" height="10" rx="3" fill="#1f2b3a"/><rect x="50" y="34" width="7" height="10" rx="3" fill="#1f2b3a"/></g><ellipse cx="34" cy="30" rx="26" ry="12" fill="#1f2b3a"/><circle cx="56" cy="20" r="11" fill="#1f2b3a"/><polygon points="48,12 50,2 57,9" fill="#1f2b3a"/><polygon points="64,12 62,2 55,9" fill="#1f2b3a"/><path d="M8 30 q-8 -14 4 -22" fill="none" stroke="#1f2b3a" stroke-width="5" stroke-linecap="round"/></svg>';
 
 const AMB={
-  snore(){ const s=ambLag("amb-snore",SNORE_SVG), k=ambLag("amb-kattunge",KATTUNGE_SVG); return {ms:4200,rydd:()=>{s.remove();k.remove();}}; },
+  snore(){ const s=ambLag("amb-snore",SNORE_SVG), k=ambLag("amb-kattunge",KATTUNGE_SVG); const av=ambFolgPunkt(k,5200); return {ms:5600,rydd:()=>{av();s.remove();k.remove();}}; },
   laser(){ const d=ambLag("amb-laser"); const av=ambFolgPunkt(d,3400); return {ms:3800,rydd:()=>{av();d.remove();}}; },
-  sommerfugl(){ const f=ambLag("amb-sommerfugl",SOMMERFUGL_SVG); const sk=document.querySelector("#start .sittekatt"); sk.classList.add("folger"); return {ms:4200,rydd:()=>{f.remove();sk.classList.remove("folger");}}; },
-  garn(){ const t=ambLag("amb-trad"), g=ambLag("amb-garn",GARN_SVG); return {ms:4400,rydd:()=>{t.remove();g.remove();}}; },
+  sommerfugl(){ const f=ambLag("amb-sommerfugl",SOMMERFUGL_SVG); const sk=document.querySelector("#start .sittekatt"); sk.classList.add("folger"); const av=ambFolgPunkt(f,4800); return {ms:5200,rydd:()=>{av();f.remove();sk.classList.remove("folger");}}; },
+  garn(){ const t=ambLag("amb-trad"), g=ambLag("amb-garn",GARN_SVG); const av=ambFolgPunkt(g,4600); return {ms:5000,rydd:()=>{av();t.remove();g.remove();}}; },
   pote(){ const h=ambLag("amb-hylle"), b=ambLag("amb-bit"), p=ambLag("amb-pote",POTE_SVG); return {ms:3600,rydd:()=>{h.remove();b.remove();p.remove();}}; },
-  fugl(){ const f=ambLag("amb-fugl",FUGL_SVG); const k=KATT_BUNN(); const t1=setTimeout(()=>{ k.classList.add("store"); lydSpill("kvitter"); },1100), t2=setTimeout(()=>k.classList.remove("store"),2900); return {ms:4200,rydd:()=>{clearTimeout(t1);clearTimeout(t2);k.classList.remove("store");f.remove();}}; },
+  fugl(){ const f=ambLag("amb-fugl",FUGL_SVG); const k=KATT_BUNN(); const t1=setTimeout(()=>{ k.classList.add("store"); lydSpill([1,2,3,4]); },1100), t2=setTimeout(()=>k.classList.remove("store"),2900); return {ms:4200,rydd:()=>{clearTimeout(t1);clearTimeout(t2);k.classList.remove("store");f.remove();}}; },
   strekk(){ const k=KATT_BUNN(); k.classList.add("gjesp"); return {ms:2600,rydd:()=>k.classList.remove("gjesp")}; },
-  hale(){ const h=ambLag("amb-hale",HALE_SVG); return {ms:4200,rydd:()=>h.remove()}; },
-  mus(){ const m=ambLag("amb-mus",MUS_SVG); const k=KATT_BUNN(); const t1=setTimeout(()=>{ ambOye(3,1); k.classList.add("store"); lydSpill("pip"); },900), t2=setTimeout(()=>{ ambOyeNull(); k.classList.remove("store"); },2700); return {ms:3800,rydd:()=>{clearTimeout(t1);clearTimeout(t2);ambOyeNull();k.classList.remove("store");m.remove();}}; },
+  hale(){ const h=ambLag("amb-hale",HALE_SVG); const av=ambFolgPunkt(h,5000); return {ms:5400,rydd:()=>{av();h.remove();}}; },
+  mus(){ const m=ambLag("amb-mus",MUS_SVG); const k=KATT_BUNN(); const t1=setTimeout(()=>{ ambOye(3,1); k.classList.add("store"); lydSpill([54,43]); },900), t2=setTimeout(()=>{ ambOyeNull(); k.classList.remove("store"); },2700); return {ms:3800,rydd:()=>{clearTimeout(t1);clearTimeout(t2);ambOyeNull();k.classList.remove("store");m.remove();}}; },
   skaal(){ const s=ambLag("amb-skaal",SKAAL_SVG+'<i style="left:28px;top:6px;animation-delay:.1s"></i><i style="left:40px;top:4px;animation-delay:.35s"></i><i style="left:50px;top:8px;animation-delay:.6s"></i>'); return {ms:3800,rydd:()=>s.remove()}; },
-  skygge(){ const e=ambLag("amb-skygge",SKYGGE_SVG); return {ms:5200,rydd:()=>e.remove()}; },
+  skygge(){ const e=ambLag("amb-skygge",SKYGGE_SVG); const av=ambFolgPunkt(e,5800); return {ms:6200,rydd:()=>{av();e.remove();}}; },
   solflekk(){ const e=ambLag("amb-sol"); const k=KATT_BUNN(); let inne=false;
     const av=ambFolgPunkt(e,4200,(cx,cy,kx)=>{ const naer=Math.abs(cx-kx)<90; if(naer!==inne){ inne=naer; k.classList.toggle("kos",naer); } });
     return {ms:4400,rydd:()=>{av();k.classList.remove("kos");e.remove();}}; },
   fjaer(){ const e=ambLag("amb-fjaer",FJAER_SVG); const av=ambFolgPunkt(e,4400); return {ms:4700,rydd:()=>{av();e.remove();}}; },
-  eske(){ const e=ambLag("amb-eske",ESKE_SVG+'<div class="orer">'+ORER_SVG+'</div>'); return {ms:3900,rydd:()=>e.remove()}; },
-  kattspor(){ const sp=document.querySelector("#start .spor").getBoundingClientRect(); const k=ambLag("amb-kattspor",SKYGGE_SVG.replace(/#1f2b3a/g,"#3d6fa3")); k.style.top=(sp.top+2)+"px"; k.style.opacity="0.9";
-    const spor=[]; for(let i=0;i<6;i++){ const t=setTimeout(()=>{ const e=ambLag("amb-sporlys",PUS_SVG.spor.replace("#b34a7c","#3d6fa3")); e.style.top=(sp.top+8+(i%2?18:0))+"px"; e.style.left=(6+i*15)+"vw"; spor.push(e); },500+i*600); spor.push({t}); }
-    return {ms:4800,rydd:()=>{ k.remove(); spor.forEach(x=>{ if(x.t) clearTimeout(x.t); else x.remove(); }); }}; },
+  eske(){ const e=ambLag("amb-eske",ESKE_SVG+'<div class="orer">'+ORER_SVG+'</div>'); const av=ambFolgPunkt(e,3800); return {ms:4200,rydd:()=>{av();e.remove();}}; },
+
   flue(){ const f=ambLag("amb-flue",FLUE_SVG), p=ambLag("amb-slaapote",POTE_OPP_SVG); const av=ambFolgPunkt(f,3400); return {ms:3800,rydd:()=>{av();f.remove();p.remove();}}; },
-  snoretopp(){ const e=ambLag("amb-snoretopp",'<div class="inner">'+SNORE_TOPP_SVG+'</div>'); return {ms:4200,rydd:()=>e.remove()}; },
+  snoretopp(){ const e=ambLag("amb-snoretopp",'<div class="inner">'+SNORE_TOPP_SVG+'</div>'); const av=ambFolgPunkt(e.firstChild,4400); return {ms:4800,rydd:()=>{av();e.remove();}}; },
   sover(){ const e=ambLag("amb-sover",SOVER_SVG); const zz=[]; for(let i=0;i<3;i++){ const t=setTimeout(()=>{ const r=e.getBoundingClientRect(); const z=document.createElement("span"); z.className="prr"; z.textContent=["z","z","Z"][i]; z.style.color="#3d6fa3"; z.style.left=(r.left+30+i*8)+"px"; z.style.top=(r.top-4)+"px"; z.style.fontSize=(13+i*4)+"px"; z.style.setProperty("--dx",(10+i*6)+"px"); z.style.setProperty("--v","0deg"); document.body.appendChild(z); zz.push(z); setTimeout(()=>z.remove(),1250); },1300+i*450); zz.push({t}); }
     return {ms:5200,rydd:()=>{ e.remove(); zz.forEach(x=>{ if(x.t) clearTimeout(x.t); else x.remove(); }); }}; },
   kloring(){ const r=$("tittelBoble").getBoundingClientRect(); const el=[]; for(let i=0;i<3;i++){ const k=document.createElement("div"); k.className="amb-klor"; k.style.left=(r.left+r.width*0.62+i*13)+"px"; k.style.top=(r.top+14)+"px"; k.style.width="38px"; k.style.animationDelay=(i*0.12)+"s"; document.body.appendChild(k); el.push(k); }
     const t=document.createElement("span"); t.className="prr"; t.textContent="krrrt"; t.style.left=(r.left+r.width*0.55)+"px"; t.style.top=(r.top-6)+"px"; t.style.fontSize="15px"; t.style.setProperty("--dx","14px"); t.style.setProperty("--v","-8deg"); document.body.appendChild(t); el.push(t);
     lydSpill("krrrt"); return {ms:2400,rydd:()=>el.forEach(x=>x.remove())}; },
-  haletopp(){ const e=ambLag("amb-haletopp",HALE_SVG); return {ms:3800,rydd:()=>e.remove()}; },
+
   nys(){ const k=KATT_BUNN(); const r=k.getBoundingClientRect(); const t=setTimeout(()=>{ k.classList.add("nys"); prrTekst(r.left+r.width*0.6,r.top+10); const e=document.querySelectorAll(".prr"); const sist=e[e.length-1]; if(sist) sist.textContent="Atsjoo!"; },500); return {ms:1800,rydd:()=>{clearTimeout(t);k.classList.remove("nys");}}; },
-  ball(){ const b=ambLag("amb-ball"), k=ambLag("amb-ballkatt",KATTUNGE_SVG); return {ms:4400,rydd:()=>{b.remove();k.remove();}}; },
-  sommerfuglhode(){ const k=KATT_BUNN(); const r=k.getBoundingClientRect(); const f=ambLag("pus-sommerfugl",SOMMERFUGL_SVG); f.style.left=(r.left+r.width*0.4)+"px"; f.style.top=(r.top-6)+"px"; const t1=setTimeout(()=>k.classList.add("store"),900), t2=setTimeout(()=>k.classList.remove("store"),2300); lydSpill("flagre"); return {ms:3400,rydd:()=>{clearTimeout(t1);clearTimeout(t2);k.classList.remove("store");f.remove();}}; },
+  ball(){ const b=ambLag("amb-ball",BALL_SVG), k=ambLag("amb-ballkatt",KATTUNGE_SVG); const av=ambFolgPunkt(k,5400); return {ms:5800,rydd:()=>{av();b.remove();k.remove();}}; },
+  sommerfuglhode(){ const k=KATT_BUNN(); const r=k.getBoundingClientRect(); const f=ambLag("pus-sommerfugl",SOMMERFUGL_SVG); f.style.left=(r.left+r.width*0.4)+"px"; f.style.top=(r.top-6)+"px"; const t1=setTimeout(()=>k.classList.add("store"),900), t2=setTimeout(()=>k.classList.remove("store"),2300); return {ms:3400,rydd:()=>{clearTimeout(t1);clearTimeout(t2);k.classList.remove("store");f.remove();}}; },
   fiskebolle(){ const e=ambLag("amb-bolle",BOLLE_SVG+'<div class="fisk">'+PUS_SVG.fisk+'</div>'); const fi=e.querySelector(".fisk"); const av=ambFolgPunkt(fi,4000); return {ms:4600,rydd:()=>{av();e.remove();}}; },
   vasker(){ const k=KATT_BUNN(); const p=ambLag("amb-vaskpote",VASKPOTE_SVG); const t1=setTimeout(()=>k.classList.add("kos"),600), t2=setTimeout(()=>k.classList.remove("kos"),2000); return {ms:2800,rydd:()=>{clearTimeout(t1);clearTimeout(t2);k.classList.remove("kos");p.remove();}}; },
-  muslop(){ const m=ambLag("amb-muslop",MUS_SVG); const k=KATT_BUNN(); k.classList.add("store"); const av=ambFolgPunkt(m,2500); lydSpill("pip"); return {ms:2800,rydd:()=>{av();k.classList.remove("store");m.remove();}}; },
+  muslop(){ const m=ambLag("amb-muslop",MUS_SVG); const k=KATT_BUNN(); k.classList.add("store"); const av=ambFolgPunkt(m,2500); lydSpill([54,43]); return {ms:2800,rydd:()=>{av();k.classList.remove("store");m.remove();}}; },
   stjerneskudd(){ if(tidPaaDognet()!=="natt") return {ms:1,rydd:()=>{}}; const e=ambLag("amb-stjerneskudd","<b></b><i></i>"); return {ms:2400,rydd:()=>e.remove()}; }
 };
-const FJAER_SVG='<svg viewBox="0 0 26 46"><path d="M13 2 Q26 18 13 44 Q0 18 13 2 Z" fill="#f4bdd4"/><path d="M13 6 L13 42" stroke="#b34a7c" stroke-width="1.5"/></svg>';
+const FJAER_SVG='<svg viewBox="0 0 34 70"><path d="M17 4 Q34 24 17 58 Q0 24 17 4 Z" fill="#f4bdd4"/><path d="M17 8 L17 68" stroke="#b34a7c" stroke-width="2"/>'+[14,20,26,32,38,44,50].map(y=>`<path d="M17 ${y} L6 ${y+7} M17 ${y} L28 ${y+7}" stroke="#dba9c0" stroke-width="1.3"/>`).join("")+'</svg>';
 const ESKE_SVG='<svg viewBox="0 0 80 70" style="position:absolute;left:0;top:26px;width:80px;height:44px"><rect x="4" y="6" width="72" height="38" rx="4" fill="#c9a26b"/><rect x="4" y="6" width="72" height="8" fill="#b08a55"/></svg>';
 const ORER_SVG='<svg viewBox="0 0 44 30"><polygon points="4,30 8,4 20,20" fill="#3d6fa3"/><polygon points="40,30 36,4 24,20" fill="#3d6fa3"/><polygon points="8,26 10,10 17,19" fill="#f4bdd4"/><polygon points="36,26 34,10 27,19" fill="#f4bdd4"/></svg>';
-const FLUE_SVG='<svg viewBox="0 0 14 10"><ellipse cx="7" cy="6" rx="4" ry="3" fill="#1f2b3a"/><ellipse cx="4" cy="3" rx="3" ry="1.5" fill="#9fb9d6"/><ellipse cx="10" cy="3" rx="3" ry="1.5" fill="#9fb9d6"/></svg>';
+const FLUE_SVG='<svg viewBox="0 0 28 20"><g class="vinger"><ellipse cx="8" cy="6" rx="7" ry="3.5" fill="rgba(159,185,214,.85)"/><ellipse cx="20" cy="6" rx="7" ry="3.5" fill="rgba(159,185,214,.85)"/></g><ellipse cx="14" cy="12" rx="7" ry="5" fill="#1f2b3a"/><circle cx="20" cy="10" r="3" fill="#1f2b3a"/><circle cx="21" cy="9" r="1" fill="#e0a83a"/></svg>';
 const POTE_OPP_SVG='<svg viewBox="0 0 70 110"><rect x="24" y="30" width="22" height="80" rx="11" fill="#3d6fa3"/><ellipse cx="35" cy="22" rx="14" ry="12" fill="#3d6fa3"/><circle cx="24" cy="10" r="5" fill="#f4bdd4"/><circle cx="35" cy="6" r="5" fill="#f4bdd4"/><circle cx="46" cy="10" r="5" fill="#f4bdd4"/><ellipse cx="35" cy="25" rx="7" ry="5.5" fill="#f4bdd4"/></svg>';
-const SNORE_TOPP_SVG='<svg viewBox="0 0 30 300" preserveAspectRatio="none"><line x1="15" y1="0" x2="15" y2="270" stroke="#b34a7c" stroke-width="2.5"/><circle cx="15" cy="282" r="12" fill="#b34a7c"/><circle cx="15" cy="282" r="5" fill="#f4bdd4"/></svg>';
+const SNORE_TOPP_SVG='<svg viewBox="0 0 40 300" preserveAspectRatio="none"><line x1="20" y1="0" x2="20" y2="262" stroke="#b34a7c" stroke-width="2.5"/><path d="M20 262 Q6 280 10 298 M20 262 Q20 284 20 300 M20 262 Q34 280 30 298 M20 262 Q0 272 4 290 M20 262 Q40 272 36 290" fill="none" stroke="#f4bdd4" stroke-width="5" stroke-linecap="round"/></svg>';
 const SOVER_SVG='<svg viewBox="0 0 70 44"><ellipse cx="34" cy="30" rx="30" ry="13" fill="#3d6fa3"/><circle cx="52" cy="24" r="11" fill="#3d6fa3"/><polygon points="44,16 46,6 53,13" fill="#3d6fa3"/><polygon points="60,16 58,6 51,13" fill="#3d6fa3"/><path d="M47 26 q3 2 6 0 M55 26 q3 2 6 0" stroke="#fff" stroke-width="1.6" fill="none"/><path d="M8 32 q-8 -10 2 -20" fill="none" stroke="#3d6fa3" stroke-width="5" stroke-linecap="round"/></svg>';
+const BALL_SVG='<svg viewBox="0 0 22 22"><circle cx="11" cy="11" r="11" fill="#b34a7c"/><path d="M0 11 Q11 4 22 11 Q11 18 0 11 Z" fill="#f4bdd4"/></svg>';
 const BOLLE_SVG='<svg viewBox="0 0 88 70" style="position:absolute;inset:0;width:100%;height:100%"><path d="M14 8 q-10 30 8 54 h44 q18 -24 8 -54 z" fill="rgba(159,185,214,.55)" stroke="#3d6fa3" stroke-width="2.5"/><rect x="18" y="26" width="52" height="30" fill="rgba(61,111,163,.18)"/></svg>';
 const VASKPOTE_SVG='<svg viewBox="0 0 48 60"><rect x="16" y="14" width="18" height="46" rx="9" fill="#3d6fa3"/><ellipse cx="25" cy="12" rx="11" ry="9" fill="#3d6fa3"/><circle cx="16" cy="4" r="3.6" fill="#f4bdd4"/><circle cx="25" cy="2" r="3.6" fill="#f4bdd4"/><circle cx="34" cy="4" r="3.6" fill="#f4bdd4"/></svg>';
 const AMB_NAVN=Object.keys(AMB);
@@ -2374,8 +2418,8 @@ const PUS=[
   ()=>{ const r=pusRekt(); const e=pusLag("pus-el pus-vinkpote",VINKPOTE_SVG,r.left-6,r.top+r.height*0.5); setTimeout(()=>e.remove(),1300); return 1200; },
   ()=>{ const r=pusRekt(); const e=pusLag("pus-el pus-krone",KRONE_SVG,r.left+r.width*0.37,r.top-8); setTimeout(()=>e.remove(),2200); setTimeout(()=>stjerner(document.querySelector("#start .sittekatt")),500); return 2100; }
 ];
-const PUS_LYD=["knask","glitter","glitter","mjau","flagre","dunk","sus","tapp5","plask","spinn","rulle","pop",
-  null,"gjesp","strekk","sporsmal","klikk3","plopp3","snork","nys","kattunge","pop","glitter","noter","sus","plopp3","fanfare"];
+const PUS_LYD=[28,55,57,5,[54,46],53,56,[44,45,46],58,60,50,54,
+  59,27,49,25,56,15,"purr",30,31,52,47,[53,5,57,60],27,24,6];
 const TANKE_FISK_SVG='<svg viewBox="0 0 48 36"><ellipse cx="24" cy="15" rx="22" ry="13" fill="#fff"/><circle cx="9" cy="30" r="4" fill="#fff"/><circle cx="3" cy="35" r="2" fill="#fff"/><g transform="translate(11 8)">'+'<ellipse cx="11" cy="7" rx="9" ry="5.5" fill="#3d6fa3"/><polygon points="18,7 26,1 26,13" fill="#3d6fa3"/><circle cx="7" cy="5.5" r="1.4" fill="#fff"/></g></svg>';
 const REGNBUE_SVG='<svg viewBox="0 0 70 36">'+["#b34a7c","#e0a83a","#2f8f7a","#3d6fa3","#f4bdd4"].map((f,i)=>`<path d="M${5+i*3} 36 A${30-i*3} ${30-i*3} 0 0 1 ${65-i*3} 36" fill="none" stroke="${f}" stroke-width="3"/>`).join("")+'</svg>';
 const BRILLER_SVG='<svg viewBox="0 0 34 14"><rect x="1" y="2" width="13" height="10" rx="4" fill="#1f2b3a"/><rect x="20" y="2" width="13" height="10" rx="4" fill="#1f2b3a"/><rect x="14" y="5" width="6" height="2" fill="#1f2b3a"/></svg>';
@@ -2385,10 +2429,12 @@ let pusSover=false, pusZ=0, pusZTimer=null;
 function pusVekk(){ pusSover=false; clearTimeout(pusZTimer); document.querySelector("#start .sittekatt").classList.remove("sover"); }
 function pusTrykk(nr){
   if(pusOpptatt||reduserBevegelse()) return;
-  if(pusSover&&nr===undefined){ pusVekk(); lydSpill("mjau"); pusKlasse("hopp",700); return; }
+  if(pusSover&&nr===undefined){ pusVekk(); lydSpill(53); pusKlasse("hopp",700); return; }
   let i=nr; if(i===undefined){ do{ i=Math.floor(Math.random()*PUS.length); }while(i===pusSist); }
   if(pusSover) pusVekk();
-  pusSist=i; pusOpptatt=true; if(PUS_LYD[i]) lydSpill(PUS_LYD[i]); const ms=PUS[i](); setTimeout(()=>{ pusOpptatt=false; },ms);
+  pusSist=i; pusOpptatt=true;
+  if(PUS_LYD[i]==="purr"){ if(lydPaa){ malingStart(); setTimeout(malingStopp,2200); } } else if(PUS_LYD[i]) lydSpill(PUS_LYD[i]);
+  const ms=PUS[i](); setTimeout(()=>{ pusOpptatt=false; },ms);
 }
 document.querySelector("#start .sittekatt").addEventListener("click",()=>{ lydKtx(); pusTrykk(); });
 $("knInnst").addEventListener("click",()=>{ startBesk(""); visTolkTilstand(); visVarselTilstand(); visPkTilstand(); $("innstOverlegg").classList.remove("skjult"); });
@@ -2555,7 +2601,7 @@ async function etterInnlogging(){
 }
 async function etterStart(){
   const n=await importerV1();
-  visStart(); pvStart(); sbkStart(); ambStart();
+  visStart(); pvStart(); sbkStart(); ambStart(); klippForhent();
   if(window.__apne){ const {k,id}=window.__apne; window.__apne=null; if(k==="kalender") visKalender(); else if(KATNAVN[k]&&finnBilag(k,id)){ aapneKat(k); byttFane("liste"); visDetalj(id); } }
   if(n) startBesk(`Tok med ${n} bilag fra forrige utgave av appen.`,"ok");
 }
