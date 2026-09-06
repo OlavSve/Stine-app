@@ -1,0 +1,1496 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Bilag">
+<meta name="theme-color" content="#cfe0f5">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="apple-touch-icon" href="./ikon-192.png">
+<link rel="icon" href="./ikon-192.png">
+<title>Bilag, mjau mjau</title>
+<style>
+:root{
+  --bg:#f4f7fb; --card:#ffffff; --ink:#1f2b3a; --muted:#5b6675; --line:#d8e0ea; --linje-lys:#e9eef4;
+  --privat:#3d6fa3; --privat-tint:#e3eef9; --privat-ink:#1f4a7a;
+  --puser:#b34a7c; --puser-tint:#fbe4ee; --puser-ink:#72243e;
+  --frist:#b8641b; --frist-bg:#fdebd3; --frist-ink:#7a4410;
+  --feil:#b3422e; --feil-bg:#fbeeea; --good:#2e7d5b; --good-bg:#e4f3ec;
+  --forslag-bg:#fdf8ec; --forslag-line:#d6bd7f; --forslag-ink:#8a6d1f;
+  --akt:var(--privat); --akt-tint:var(--privat-tint); --akt-ink:var(--privat-ink);
+  --himmel:linear-gradient(165deg,#cfe0f5 0%,#dcdcef 45%,#f6d9e6 100%);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.45;-webkit-font-smoothing:antialiased}
+.skjult{display:none !important}
+button,input,select,textarea{font-family:inherit}
+.tall{font-variant-numeric:tabular-nums}
+:focus-visible{outline:2px solid var(--akt);outline-offset:2px}
+
+/* ---------- Fullskjermer: innlogging og nøkkel ---------- */
+.fullskjerm{position:fixed;inset:0;z-index:200;background:var(--himmel);display:flex;align-items:center;justify-content:center;padding:calc(20px + env(safe-area-inset-top)) 20px calc(20px + env(safe-area-inset-bottom));overflow-y:auto}
+.fullskjerm .boks{width:100%;max-width:400px;background:rgba(255,255,255,.86);border:1px solid rgba(255,255,255,.9);border-radius:16px;padding:24px 22px 20px}
+.fullskjerm h1{font-size:24px;margin:0 0 2px;font-weight:700;letter-spacing:.2px}
+.fullskjerm .under{color:var(--muted);font-size:13.5px;margin:0 0 18px}
+.fullskjerm p.info{color:var(--muted);font-size:13.5px;margin:0 0 16px;line-height:1.5}
+.fullskjerm .knapp{display:block;width:100%;background:var(--privat);color:#fff;border:none;border-radius:11px;padding:14px;font-size:16px;font-weight:650;cursor:pointer;margin-top:6px}
+.fullskjerm .feilmelding{color:var(--feil);font-size:13px;min-height:18px;margin:6px 0 2px}
+.husk{display:flex;align-items:center;gap:9px;font-size:14px;color:var(--ink);margin:4px 0 12px}
+.husk input{width:19px;height:19px;accent-color:var(--privat)}
+
+/* ---------- Felt ---------- */
+.felt{margin-bottom:15px}
+.felt label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.9px;color:var(--muted);font-weight:600;margin-bottom:5px}
+.felt label .valg{text-transform:none;letter-spacing:0;font-weight:400;opacity:.75}
+.felt input,.felt textarea,.felt select{width:100%;font-size:16px;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:9px;padding:11px 12px}
+.felt input:focus,.felt textarea:focus,.felt select:focus{outline:none;border-color:var(--akt);box-shadow:0 0 0 3px rgba(61,111,163,.12)}
+.felt textarea{min-height:64px;resize:vertical}
+.felt .hint{font-size:11.5px;color:var(--muted);margin-top:5px}
+.felt.mangler input,.felt.mangler textarea{border-color:var(--feil)}
+.felt.foreslatt input{background:var(--forslag-bg);border-color:var(--forslag-line)}
+.felt .foreslag{font-size:11.5px;color:var(--forslag-ink);margin-top:5px;display:none}
+.felt.foreslatt .foreslag{display:block}
+.par{display:flex;gap:11px}
+.par .felt{flex:1}
+.segment{display:flex;background:var(--card);border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.segment button{flex:1;background:none;border:none;padding:11px 6px;font-size:14px;color:var(--muted);cursor:pointer;border-right:1px solid var(--line)}
+.segment button:last-child{border-right:none}
+.segment button.pa{background:var(--akt-tint);color:var(--akt-ink);font-weight:600}
+
+/* ---------- Statuslinje og varsler ---------- */
+#nettStatus{position:fixed;left:0;right:0;top:0;z-index:150;background:#2f3a48;color:#fff;font-size:12.5px;text-align:center;padding:calc(7px + env(safe-area-inset-top)) 14px 7px;display:none}
+#nettStatus.vis{display:block}
+#pvVarsel{position:fixed;left:12px;right:12px;bottom:calc(88px + env(safe-area-inset-bottom));z-index:140;background:#2f3a48;color:#fff;border-radius:11px;padding:12px 14px;font-size:13.5px;display:none;align-items:center;gap:10px;box-shadow:0 4px 14px rgba(0,0,0,.18);cursor:pointer}
+#pvVarsel.vis{display:flex}
+#pvVarsel .tekst{flex:1}
+#pvVarsel button{background:transparent;color:#fff;border:none;font-size:18px;line-height:1;padding:4px 6px;cursor:pointer}
+.varsel{background:var(--frist-bg);border:1px solid #e6c9a0;color:var(--frist-ink);padding:11px 13px;border-radius:9px;font-size:13px;margin-bottom:14px}
+.varsel.klikk{cursor:pointer}
+.varsel.god{background:var(--good-bg);border-color:#bfe0cf;color:var(--good)}
+.varsel.feil{background:var(--feil-bg);border-color:#e8c0b4;color:var(--feil)}
+
+/* ---------- Startside ---------- */
+#start{min-height:100vh;min-height:100dvh;background:var(--himmel);display:flex;flex-direction:column;padding:calc(28px + env(safe-area-inset-top)) 20px calc(28px + env(safe-area-inset-bottom))}
+#start .midt{width:100%;max-width:460px;margin:auto}
+#start .merke{color:var(--muted);font-size:11px;letter-spacing:3.2px;text-transform:uppercase;margin-bottom:6px}
+#start h1{font-size:30px;font-weight:700;letter-spacing:.2px;margin:0 0 4px;color:var(--ink)}
+#start .ingress{color:var(--muted);font-size:13.5px;margin:0 0 22px;display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+#start .ingress button{background:transparent;border:none;color:var(--privat-ink);font-size:13px;cursor:pointer;padding:0;text-decoration:underline}
+.velg{position:relative;display:block;width:100%;text-align:left;cursor:pointer;background:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.95);border-radius:14px;padding:18px 74px 18px 20px;margin-bottom:12px;color:var(--ink)}
+.velg:active{background:rgba(255,255,255,.95)}
+.velg .navn{font-size:21px;font-weight:650;display:flex;align-items:center;gap:10px}
+.velg .prikk{width:10px;height:10px;border-radius:50%;flex:none}
+.velg .tall-linje{font-size:12.5px;color:var(--muted);margin-top:5px}
+.velg .kamera{position:absolute;right:14px;top:50%;transform:translateY(-50%);width:46px;height:46px;border-radius:50%;border:none;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.velg .kamera svg{width:24px;height:24px}
+.velg[data-kat="privat"] .kamera{background:var(--privat)}
+.velg[data-kat="kattepuser"] .kamera{background:var(--puser)}
+.tolkrad{display:flex;justify-content:space-between;align-items:center;gap:12px;background:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.9);border-radius:11px;padding:11px 14px;margin-top:14px}
+.tolkrad .n{font-size:13px}
+.tolkrad .t{font-size:11.5px;color:var(--muted);margin-top:2px}
+.tolkrad button,#start .fot button{background:transparent;color:var(--privat-ink);border:1px solid rgba(61,111,163,.35);border-radius:7px;padding:8px 13px;font-size:12.5px;cursor:pointer;flex:none}
+#start .fot{margin-top:14px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+#start .versjon{margin-left:auto;font-size:11.5px;color:var(--muted)}
+#startBesk{color:var(--muted);font-size:12px;margin-top:12px;min-height:16px}
+#startBesk.ok{color:var(--good)} #startBesk.feil{color:var(--feil)}
+
+/* ---------- Kategori ---------- */
+#topp{position:sticky;top:0;z-index:60;background:var(--akt);color:#fff;padding:calc(9px + env(safe-area-inset-top)) 14px 9px;display:flex;align-items:center;gap:10px;box-shadow:0 1px 5px rgba(0,0,0,.14)}
+#topp .tilbake{background:rgba(255,255,255,.16);border:none;color:#fff;font-size:20px;width:34px;height:34px;border-radius:8px;cursor:pointer;line-height:1;flex:none}
+#topp .tittel{font-size:16.5px;font-weight:650}
+#topp .undertekst{font-size:11px;opacity:.82}
+#faner{display:flex;background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:55}
+#faner button{flex:1;background:none;border:none;padding:13px 6px;font-size:14px;font-weight:550;color:var(--muted);cursor:pointer;border-bottom:2.5px solid transparent}
+#faner button.pa{color:var(--ink);border-bottom-color:var(--akt)}
+.ark{max-width:560px;margin:0 auto;padding:14px 14px calc(110px + env(safe-area-inset-bottom))}
+
+/* ---------- Bilder i skjemaet ---------- */
+.bildeboks{background:var(--card);border:1.5px dashed var(--line);border-radius:12px;padding:22px 16px;text-align:center;margin-bottom:15px}
+.bildeboks.mangler{border-color:var(--feil)}
+.bildeboks p{margin:0 0 12px;font-size:13px;color:var(--muted)}
+.bildeknapper{display:flex;gap:9px;justify-content:center;flex-wrap:wrap}
+.bildeknapper button{background:var(--akt);color:#fff;border:none;border-radius:9px;padding:11px 18px;font-size:14.5px;font-weight:550;cursor:pointer}
+.bildeknapper button.andre{background:var(--card);color:var(--ink);border:1px solid var(--line)}
+.bildestripe{display:flex;gap:9px;overflow-x:auto;padding:2px 0 8px;margin-bottom:6px;-webkit-overflow-scrolling:touch}
+.bildestripe .b{position:relative;flex:none;width:96px;height:120px;border-radius:10px;overflow:hidden;border:1px solid var(--line);background:#eef2f6}
+.bildestripe .b img{width:100%;height:100%;object-fit:cover;display:block}
+.bildestripe .b .fjern{position:absolute;top:5px;right:5px;width:26px;height:26px;border-radius:50%;border:none;background:rgba(0,0,0,.6);color:#fff;font-size:15px;line-height:1;cursor:pointer}
+.bildestripe .b .nr{position:absolute;left:6px;bottom:5px;background:rgba(0,0,0,.55);color:#fff;font-size:11px;padding:2px 6px;border-radius:5px}
+.bildestripe .legg{flex:none;width:96px;height:120px;border-radius:10px;border:1.5px dashed var(--line);background:var(--card);color:var(--muted);font-size:13px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px}
+.bildestripe .legg svg{width:22px;height:22px}
+#tolkStatus{font-size:12.5px;color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:9px;padding:9px 12px;margin-bottom:14px;display:none}
+#tolkStatus.vis{display:block}
+#tolkStatus.usikker{background:var(--frist-bg);border-color:#e6c9a0;color:var(--frist-ink)}
+#tolkStatus.feil{background:var(--feil-bg);border-color:#e8c0b4;color:var(--feil)}
+
+.bunnlinje{position:fixed;left:0;right:0;bottom:0;z-index:70;background:var(--card);border-top:1px solid var(--line);padding:10px 14px calc(11px + env(safe-area-inset-bottom))}
+#skjemaBesk{font-size:12.5px;color:var(--feil);margin:0 0 8px;text-align:center;font-weight:550}
+#skjemaBesk.info{color:var(--muted);font-weight:400}
+#skjemaBesk:empty{display:none}
+.knapperad{display:flex;gap:10px;align-items:center;max-width:560px;margin:0 auto}
+.knapperad .stor{flex:1;background:var(--akt);color:#fff;border:none;border-radius:10px;padding:14px;font-size:16px;font-weight:650;cursor:pointer}
+.knapperad .stor:disabled{opacity:.5}
+.knapperad .avbryt{background:var(--card);color:var(--muted);border:1px solid var(--line);border-radius:10px;padding:14px 16px;font-size:14.5px;cursor:pointer}
+
+/* ---------- Oversikt ---------- */
+.sokerad{display:flex;gap:9px;margin-bottom:13px}
+.sokerad input{flex:1;font-size:16px;border:1px solid var(--line);border-radius:9px;padding:10px 12px;background:var(--card)}
+.sokerad input:focus{outline:none;border-color:var(--akt)}
+.sumstripe{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:11px 14px;margin-bottom:15px;display:flex;justify-content:space-between;align-items:baseline}
+.sumstripe .etikett{font-size:11px;text-transform:uppercase;letter-spacing:.9px;color:var(--muted);font-weight:600}
+.sumstripe .verdi{font-size:19px;font-weight:700}
+.maned{font-size:11px;text-transform:uppercase;letter-spacing:1.1px;color:var(--muted);font-weight:650;margin:20px 2px 8px;display:flex;justify-content:space-between}
+.maned:first-of-type{margin-top:2px}
+.maned .sum{text-transform:none;letter-spacing:.2px}
+.bilag{position:relative;background:var(--card);border:1px solid var(--line);border-bottom:none;border-radius:11px 11px 0 0;padding:12px;display:flex;gap:12px;cursor:pointer;margin-top:12px}
+.bilag:active{background:#f7f9fb}
+.rift{height:7px;margin-bottom:2px;background:var(--card);border-left:1px solid var(--line);border-right:1px solid var(--line);-webkit-mask:radial-gradient(circle at 50% 100%,transparent 4.6px,#000 5px) repeat-x 0 0/13px 7px;mask:radial-gradient(circle at 50% 100%,transparent 4.6px,#000 5px) repeat-x 0 0/13px 7px}
+.bilag .mini{width:56px;height:70px;border-radius:7px;object-fit:cover;flex:none;border:1px solid var(--line);background:#eef2f6}
+.bilag .mini.tom{display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:10px;text-align:center;padding:4px;line-height:1.2}
+.bilag .midt{flex:1;min-width:0}
+.bilag .butikk{font-weight:650;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bilag .besk{font-size:13px;color:var(--muted);margin-top:1px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.bilag .under{margin-top:6px;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.bilag .dato{font-size:12px;color:var(--muted)}
+.bilag .belop{font-weight:650;font-size:15px;white-space:nowrap;align-self:flex-start}
+.merkelapp{font-size:10.5px;font-weight:650;letter-spacing:.3px;padding:2.5px 7px;border-radius:5px;background:var(--linje-lys);color:var(--muted);white-space:nowrap}
+.merkelapp.snart{background:var(--frist-bg);color:var(--frist-ink)}
+.merkelapp.utgatt{background:var(--linje-lys);color:#8a9295;text-decoration:line-through}
+.merkelapp.flere{background:var(--akt-tint);color:var(--akt-ink)}
+.tomt{text-align:center;color:var(--muted);font-size:14px;padding:52px 20px;line-height:1.6}
+.tomt strong{display:block;color:var(--ink);font-size:16px;margin-bottom:5px}
+.papirkurvlenke{display:block;width:100%;background:transparent;border:none;color:var(--muted);font-size:13px;padding:22px 0 0;cursor:pointer;text-decoration:underline}
+
+/* ---------- Paneler nedenfra ---------- */
+.overlegg{position:fixed;inset:0;z-index:90;background:rgba(31,43,58,.45);display:flex;align-items:flex-end;justify-content:center}
+.panel{background:var(--bg);width:100%;max-width:560px;border-radius:16px 16px 0 0;max-height:92vh;max-height:92dvh;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:8px 14px calc(18px + env(safe-area-inset-bottom))}
+.panel .grep{width:38px;height:4px;border-radius:2px;background:var(--line);margin:5px auto 14px}
+.panel h2{font-size:19px;margin:0 0 4px;font-weight:700}
+.panel .ledetekst{font-size:13.5px;color:var(--muted);margin:0 0 16px;line-height:1.5}
+.panel .rad{display:flex;justify-content:space-between;gap:14px;padding:10px 0;border-top:1px solid var(--line);font-size:14.5px}
+.panel .rad .n{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.9px;font-weight:600;padding-top:3px;flex:none;width:112px}
+.panel .rad .v{text-align:right;word-break:break-word}
+.panel .rad.stablet{display:block}
+.panel .rad.stablet .n{width:auto;padding:0 0 4px}
+.panel .rad.stablet .v{text-align:left;font-size:13.5px;color:#3b4548}
+.panel .galleri{display:flex;flex-direction:column;gap:10px;margin:16px 0 4px}
+.panel .galleri img{width:100%;border-radius:11px;border:1px solid var(--line);display:block}
+.panel .galleri .tomtbilde{background:var(--card);border:1px dashed var(--line);border-radius:11px;padding:26px;text-align:center;color:var(--muted);font-size:13px}
+.panelknapp{display:block;width:100%;text-align:center;text-decoration:none;background:var(--akt);color:#fff;border:none;border-radius:11px;padding:15px;font-size:16px;font-weight:650;cursor:pointer;margin-top:12px}
+.panelknapp:disabled{opacity:.55}
+.panelknapp.andre{background:var(--card);color:var(--ink);border:1px solid var(--line)}
+.panelknapp.fare{background:var(--card);color:var(--feil);border:1px solid var(--line)}
+.tolinje{display:flex;gap:10px;margin-top:12px}
+.tolinje .panelknapp{margin-top:0}
+.panelbesk{font-size:12.5px;color:var(--muted);text-align:center;margin-top:11px;min-height:17px}
+.panelbesk.feil{color:var(--feil)}
+.listerad{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-top:1px solid var(--line);cursor:pointer}
+.listerad .h{font-weight:600;font-size:14.5px}
+.listerad .u{font-size:12.5px;color:var(--muted);margin-top:2px}
+.listerad .k{font-size:11px;font-weight:650;padding:2px 7px;border-radius:5px;white-space:nowrap}
+.listerad .k.privat{background:var(--privat-tint);color:var(--privat-ink)}
+.listerad .k.kattepuser{background:var(--puser-tint);color:var(--puser-ink)}
+.listerad .knapper{display:flex;gap:6px;flex:none}
+.listerad .knapper button{background:var(--card);border:1px solid var(--line);border-radius:7px;padding:7px 10px;font-size:12.5px;cursor:pointer;color:var(--ink)}
+.listerad .knapper button.fare{color:var(--feil)}
+@media (prefers-reduced-motion:no-preference){
+  .panel{animation:opp .2s ease-out}
+  @keyframes opp{from{transform:translateY(22px)}to{transform:translateY(0)}}
+}
+@media print{ #nettStatus,#pvVarsel{display:none !important} }
+</style>
+</head>
+<body>
+
+<div id="nettStatus"></div>
+
+<!-- ===================== INNLOGGING ===================== -->
+<div id="loginScreen" class="fullskjerm">
+  <div class="boks">
+    <h1>Bilag, mjau mjau</h1>
+    <p class="under">Logg inn for å åpne kvitteringene.</p>
+    <div class="felt">
+      <label for="loginName">Fornavn</label>
+      <input type="text" id="loginName" autocomplete="username" autocapitalize="words" autocorrect="off" spellcheck="false">
+    </div>
+    <div class="felt">
+      <label for="loginPassword">Passord</label>
+      <input type="password" id="loginPassword" autocomplete="current-password">
+    </div>
+    <label class="husk"><input type="checkbox" id="loginRemember" checked> Husk meg på denne telefonen</label>
+    <div class="feilmelding" id="loginError"></div>
+    <button class="knapp" id="loginBtn">Logg inn</button>
+  </div>
+</div>
+
+<!-- ===================== NØKKEL ===================== -->
+<div id="nokkelScreen" class="fullskjerm skjult">
+  <div class="boks">
+    <h1>Nøkkel</h1>
+    <p class="info">Appen trenger nøkkelen til lageret for å hente og lagre kvitteringer. Den legges inn én gang på denne telefonen.</p>
+    <div class="felt">
+      <label for="nokkelInput">Nøkkel til lageret</label>
+      <input type="password" id="nokkelInput" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Lim inn nøkkelen">
+    </div>
+    <div class="felt">
+      <label for="nokkelTolkInput">Nøkkel til kvitteringslesing <span class="valg">– valgfritt</span></label>
+      <input type="password" id="nokkelTolkInput" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Kan legges inn senere">
+    </div>
+    <div class="feilmelding" id="nokkelFeil"></div>
+    <button class="knapp" id="nokkelBtn">Lagre</button>
+  </div>
+</div>
+
+<!-- ===================== STARTSIDE ===================== -->
+<div id="start" class="skjult">
+  <div class="midt">
+    <div class="merke">Kvitteringer</div>
+    <h1>Bilag, mjau mjau</h1>
+    <p class="ingress"><span id="startBruker">Innlogget</span><button id="knLoggUt">Logg ut</button></p>
+
+    <div id="fristVarsel" class="varsel klikk skjult"></div>
+    <div id="nokkelVarsel" class="varsel skjult"></div>
+
+    <button class="velg" data-kat="privat">
+      <div class="navn"><span class="prikk" style="background:var(--privat)"></span>Privat</div>
+      <div class="tall-linje" id="oppsumPrivat">Ingen bilag ennå</div>
+      <span class="kamera" data-kamera="privat" role="button" aria-label="Ta bilde til Privat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg></span>
+    </button>
+    <button class="velg" data-kat="kattepuser">
+      <div class="navn"><span class="prikk" style="background:var(--puser)"></span>Kattepuser</div>
+      <div class="tall-linje" id="oppsumPuser">Ingen bilag ennå</div>
+      <span class="kamera" data-kamera="kattepuser" role="button" aria-label="Ta bilde til Kattepuser"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg></span>
+    </button>
+
+    <div class="tolkrad">
+      <div>
+        <div class="n">Les kvitteringen automatisk</div>
+        <div class="t" id="tolkTilstand">Av</div>
+      </div>
+      <button id="knTolkNokkel">Slå på</button>
+    </div>
+
+    <div class="fot">
+      <button id="knFil" class="skjult">Fil</button>
+      <span class="versjon" id="startVersjon">Versjon 2.0</span>
+    </div>
+    <div id="startBesk"></div>
+  </div>
+</div>
+
+<!-- ===================== KATEGORI ===================== -->
+<div id="app" class="skjult">
+  <div id="topp">
+    <button class="tilbake" id="knHjem" aria-label="Tilbake til start">‹</button>
+    <div>
+      <div class="tittel" id="katNavn">Privat</div>
+      <div class="undertekst" id="katUnder"></div>
+    </div>
+  </div>
+
+  <div id="faner">
+    <button data-fane="ny" class="pa">Ny kvittering</button>
+    <button data-fane="liste">Oversikt</button>
+  </div>
+
+  <!-- Skjema -->
+  <div id="faneNy" class="ark">
+    <div id="bildeTom" class="bildeboks">
+      <p>Ta bilde av kvitteringen</p>
+      <div class="bildeknapper">
+        <button id="knKamera">Ta bilde</button>
+        <button id="knGalleri" class="andre">Velg fra bilder</button>
+      </div>
+    </div>
+    <div id="bildeStripe" class="bildestripe skjult"></div>
+
+    <div id="tolkStatus"></div>
+
+    <div class="par">
+      <div class="felt" id="feltDato">
+        <label for="inDato">Dato</label>
+        <input type="date" id="inDato">
+        <div class="foreslag">Foreslått fra bildet</div>
+      </div>
+      <div class="felt" id="feltBelop">
+        <label for="inBelop">Beløp</label>
+        <input type="text" id="inBelop" inputmode="decimal" placeholder="0,00">
+        <div class="foreslag">Foreslått fra bildet — sjekk mot kvitteringen</div>
+      </div>
+    </div>
+
+    <div class="felt" id="feltButikk">
+      <label for="inButikk">Butikk</label>
+      <input type="text" id="inButikk" autocapitalize="words" placeholder="Rema 1000 Storo" list="butikker">
+      <datalist id="butikker"></datalist>
+      <div class="foreslag">Foreslått fra bildet</div>
+    </div>
+
+    <div class="felt" id="feltBesk">
+      <label for="inBesk">Beskrivelse</label>
+      <input type="text" id="inBesk" autocapitalize="sentences" placeholder="Kattemat">
+      <div class="foreslag">Foreslått fra bildet</div>
+      <div class="hint">Går rett inn i filnavnet. Hold den kort.</div>
+    </div>
+
+    <div class="felt">
+      <label>Reklamasjonsfrist</label>
+      <div class="segment" id="segReklamasjon">
+        <button type="button" data-v="2" class="pa">2 år</button>
+        <button type="button" data-v="5">5 år</button>
+        <button type="button" data-v="0">Ikke aktuelt</button>
+      </div>
+      <div class="hint" id="reklHint"></div>
+    </div>
+
+    <div class="felt">
+      <label for="inRetur">Returfrist <span class="valg">– valgfritt</span></label>
+      <input type="date" id="inRetur">
+    </div>
+
+    <div class="felt">
+      <label for="inKomm">Kommentar <span class="valg">– valgfritt</span></label>
+      <textarea id="inKomm" placeholder="Byttet størrelse, ligger i skuffen …"></textarea>
+    </div>
+
+    <div class="felt">
+      <label>Filnavn på PDF-en</label>
+      <div class="hint tall" id="filnavnVis" style="font-size:12.5px">Fyll ut dato, butikk og beskrivelse.</div>
+    </div>
+  </div>
+
+  <!-- Oversikt -->
+  <div id="faneListe" class="ark skjult">
+    <div class="sokerad">
+      <input type="search" id="inSok" placeholder="Søk i butikk, beskrivelse eller kommentar">
+    </div>
+    <div class="sumstripe">
+      <span class="etikett" id="sumEtikett">Totalt</span>
+      <span class="verdi tall" id="sumVerdi">kr 0,00</span>
+    </div>
+    <div id="listeInnhold"></div>
+    <button class="papirkurvlenke skjult" id="knPapirkurv">Papirkurv</button>
+  </div>
+
+  <div class="bunnlinje" id="bunnNy">
+    <div id="skjemaBesk"></div>
+    <div class="knapperad">
+      <button class="avbryt skjult" id="knAvbryt">Avbryt</button>
+      <button class="stor" id="knLagre">Lagre bilag</button>
+    </div>
+  </div>
+</div>
+
+<div id="pvVarsel"><span class="tekst">Fila er oppdatert av den andre – trykk for å hente inn</span><button id="pvLukk" aria-label="Lukk">✕</button></div>
+
+<!-- ===================== PANELER ===================== -->
+<div id="pdfOverlegg" class="overlegg skjult">
+  <div class="panel">
+    <div class="grep"></div>
+    <h2 id="pdfTittel">Bilaget er lagret</h2>
+    <p class="ledetekst">Lagre PDF-en i Filer, eller send den videre. PDF-en er arkivet — appen er oversikten.</p>
+    <div class="rad stablet"><span class="n">Filnavn på PDF-en</span><span class="v tall" id="pdfNavn"></span></div>
+    <button class="panelknapp" id="knDelPdf" disabled>Lager PDF …</button>
+    <button class="panelknapp andre" id="knPdfFerdig">Ferdig</button>
+    <div class="panelbesk" id="pdfBesk"></div>
+  </div>
+</div>
+
+<div id="detaljOverlegg" class="overlegg skjult">
+  <div class="panel">
+    <div class="grep"></div>
+    <h2 id="dButikk"></h2>
+    <p class="ledetekst" id="dBesk"></p>
+    <div id="dRader"></div>
+    <div class="galleri" id="dGalleri"></div>
+    <button class="panelknapp" id="dPdf" disabled>Lager PDF …</button>
+    <button class="panelknapp andre skjult" id="dKalender">Legg returfristen i kalenderen</button>
+    <div class="tolinje">
+      <button class="panelknapp andre" id="dRediger">Rediger</button>
+      <button class="panelknapp fare" id="dSlett">Slett</button>
+    </div>
+    <button class="panelknapp andre" id="dLukk">Lukk</button>
+    <div class="panelbesk" id="dBesk2"></div>
+  </div>
+</div>
+
+<div id="papirkurvOverlegg" class="overlegg skjult">
+  <div class="panel">
+    <div class="grep"></div>
+    <h2>Papirkurv</h2>
+    <p class="ledetekst">Slettede bilag kan hentes tilbake herfra.</p>
+    <div id="pkListe"></div>
+    <button class="panelknapp fare" id="pkTom">Tøm papirkurv</button>
+    <button class="panelknapp andre" id="pkLukk">Lukk</button>
+  </div>
+</div>
+
+<div id="fristOverlegg" class="overlegg skjult">
+  <div class="panel">
+    <div class="grep"></div>
+    <h2>Returfrister</h2>
+    <p class="ledetekst">Bilag med returfrist de neste sju dagene.</p>
+    <div id="fristListe"></div>
+    <button class="panelknapp andre" id="fristLukk">Lukk</button>
+  </div>
+</div>
+
+<div id="nokkelOverlegg" class="overlegg skjult">
+  <div class="panel">
+    <div class="grep"></div>
+    <h2>Les kvitteringen automatisk</h2>
+    <p class="ledetekst">Når du har tatt bildet, leser appen butikk, dato og beløp for deg. Du får forslag som du sjekker før du lagrer. Bildet sendes ut fra telefonen for å bli lest.</p>
+    <div class="felt">
+      <label for="inTolkNokkel">Nøkkel til kvitteringslesing</label>
+      <input type="password" id="inTolkNokkel" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Lim inn nøkkelen">
+      <div class="hint">Du taster den inn én gang på denne telefonen.</div>
+    </div>
+    <div class="panelbesk feil" id="tolkNokkelBesk"></div>
+    <button class="panelknapp" id="knTolkLagre">Slå på</button>
+    <button class="panelknapp fare skjult" id="knTolkAv">Slå av</button>
+    <button class="panelknapp andre" id="knTolkLukk">Avbryt</button>
+  </div>
+</div>
+
+<div id="filOverlegg" class="overlegg skjult">
+  <div class="panel">
+    <div class="grep"></div>
+    <h2>Fil</h2>
+    <div class="rad"><span class="n">Sist lagret</span><span class="v tall" id="filSistLagret">–</span></div>
+    <div class="rad"><span class="n">Tilgang utløper</span><span class="v tall" id="filUtlop">–</span></div>
+    <div class="rad"><span class="n">Bilag</span><span class="v tall" id="filAntall">–</span></div>
+    <button class="panelknapp" id="filOppdaterBtn">Oppdater fil</button>
+    <button class="panelknapp andre" id="filBackupBtn">Last ned sikkerhetskopi</button>
+    <button class="panelknapp andre" id="filLukkBtn">Lukk</button>
+    <div class="panelbesk" id="filBesk"></div>
+  </div>
+</div>
+
+<input type="file" id="filKamera" accept="image/*" capture="environment" class="skjult">
+<input type="file" id="filGalleri" accept="image/*" multiple class="skjult">
+
+<script>
+"use strict";
+/* ===================== Bilag, mjau mjau — versjon 2.0 ===================== */
+const APP_VERSJON = "2.0";
+const LAGER = { eier: "OlavSve", repo: "Stine-app-data", gren: "main", fil: "bilag.kryptert.json", bilder: "bilder", backup: "backup" };
+const EK = { hemmelighet: "0df7552eec9d178481fda706b469d0305507b5ddc5c229a6292f863412d29d50", bildesalt: "m1jWj9kLvoyOxH+NuTrtpA==" };
+const DATA_TYPE = "stine-app-data";
+const SBK_MAKS = 60, SBK_INTERVALL = 30 * 60 * 1000, PV_INTERVALL = 20000, NETT_PAUSE = 15000;
+const BACKUP_MONSTER = /^\d{4} \d{2}-\d{2} Backup Bilag \d{2}-\d{2}-\d{2}\.json$/;
+const USERS = { stine: { navn: "Stine", sjekk: "e98867470e6a2680aa174231e3711d5ffb1dbbc74f66c2f5d3a71dbd1e65852d" }, olav: { navn: "Olav", sjekk: "db676bb2e8827fbb3235fe61402d6a342434744a7952dcf8d5896766b4a4a500" } };
+const KATNAVN = { privat: "Privat", kattepuser: "Kattepuser" };
+const GRENER = ["privat", "kattepuser", "papirkurv"];
+const MAKS_BILDER = 6;
+
+const $ = (id) => document.getElementById(id);
+const tbo = { enc: new TextEncoder(), dec: new TextDecoder() };
+const klon = (o) => o === undefined ? undefined : JSON.parse(JSON.stringify(o));
+
+/* ---------- Små hjelpere ---------- */
+function kr(n){ const t = (Math.round(Number(n || 0) * 100) / 100).toFixed(2).replace(".", ","); const [h, d] = t.split(","); return h.replace(/\B(?=(\d{3})+(?!\d))/g, " ") + "," + d; }
+function norskDato(iso){ if (!iso) return ""; const [y, m, d] = String(iso).slice(0, 10).split("-"); return `${d}.${m}.${y}`; }
+function idagIso(){ const d = new Date(); return new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 10); }
+function leggTilAar(iso, aar){ if (!iso) return ""; const [y, m, d] = iso.split("-").map(Number); const dt = new Date(y + aar, m - 1, d); return `${dt.getFullYear()}-${String(dt.getMonth() + 1).padStart(2, "0")}-${String(dt.getDate()).padStart(2, "0")}`; }
+function dagerTil(iso){ if (!iso) return null; const i = new Date(idagIso() + "T00:00:00"), f = new Date(iso + "T00:00:00"); return Math.round((f - i) / 86400000); }
+function rensNavn(s){ return String(s || "").replace(/[\\/:*?"<>|]/g, " ").replace(/\s+/g, " ").trim().slice(0, 70); }
+function filnavnFor(b){ const [y, m, d] = String(b.dato || "").split("-"); return `${y} ${m}-${d} - ${rensNavn(b.butikk)} - ${rensNavn(b.beskrivelse)}.pdf`; }
+function tolkBelop(v){ const t = String(v || "").replace(/[^\d.,-]/g, "").replace(/\.(?=\d{3}\b)/g, "").replace(",", "."); const n = parseFloat(t); return isNaN(n) ? null : n; }
+function esc(s){ return String(s == null ? "" : s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
+function nyId(p){ return p + Date.now().toString(36) + Math.random().toString(36).slice(2, 8); }
+function b64til(a){ const u = new Uint8Array(a); let s = ""; for (let i = 0; i < u.length; i += 8192) s += String.fromCharCode.apply(null, u.subarray(i, i + 8192)); return btoa(s); }
+function b64fra(s){ const b = atob(String(s).replace(/\s/g, "")); const u = new Uint8Array(b.length); for (let i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; }
+async function sha256Hex(t){ const h = await crypto.subtle.digest("SHA-256", tbo.enc.encode(t)); return Array.from(new Uint8Array(h)).map(b => b.toString(16).padStart(2, "0")).join(""); }
+
+/* ---------- Enhetens lager (IndexedDB) ---------- */
+const DBN = "stine-app", DBS = "data";
+function dbAapne(){ return new Promise((ok, nei) => { const r = indexedDB.open(DBN, 1); r.onupgradeneeded = () => r.result.createObjectStore(DBS); r.onsuccess = () => ok(r.result); r.onerror = () => nei(r.error || new Error("indexedDB")); }); }
+async function idbGet(k){ try{ const d = await dbAapne(); return await new Promise(ok => { const g = d.transaction(DBS, "readonly").objectStore(DBS).get(k); g.onsuccess = () => ok(g.result === undefined ? null : g.result); g.onerror = () => ok(null); }); }catch{ return null; } }
+async function idbSet(k, v){ try{ const d = await dbAapne(); return await new Promise(ok => { const t = d.transaction(DBS, "readwrite"); const o = t.objectStore(DBS); if (v === null || v === undefined) o.delete(k); else o.put(v, k); t.oncomplete = () => ok(true); t.onerror = () => ok(false); }); }catch{ return false; } }
+
+/* ---------- Kryptering: PBKDF2 → AES-GCM, samme konvolutt som 8.10 ---------- */
+const nokkelCache = new Map();
+async function ekNokkel(saltB64, saltBytes){
+  if (saltB64 && nokkelCache.has(saltB64)) return nokkelCache.get(saltB64);
+  const m = await crypto.subtle.importKey("raw", tbo.enc.encode(EK.hemmelighet), "PBKDF2", false, ["deriveKey"]);
+  const k = await crypto.subtle.deriveKey({ name: "PBKDF2", salt: saltBytes, iterations: 120000, hash: "SHA-256" }, m, { name: "AES-GCM", length: 256 }, false, ["encrypt", "decrypt"]);
+  if (saltB64) nokkelCache.set(saltB64, k);
+  return k;
+}
+async function krypterBytes(bytes, fastSaltB64){
+  const salt = fastSaltB64 ? b64fra(fastSaltB64) : crypto.getRandomValues(new Uint8Array(16));
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  const n = await ekNokkel(fastSaltB64 || null, salt);
+  const ct = await crypto.subtle.encrypt({ name: "AES-GCM", iv }, n, bytes);
+  return JSON.stringify({ v: 1, salt: fastSaltB64 || b64til(salt), iv: b64til(iv), data: b64til(ct) });
+}
+async function dekrypterBytes(konvolutt){
+  const o = JSON.parse(konvolutt);
+  const n = await ekNokkel(o.salt === EK.bildesalt ? o.salt : null, b64fra(o.salt));
+  return new Uint8Array(await crypto.subtle.decrypt({ name: "AES-GCM", iv: b64fra(o.iv) }, n, b64fra(o.data)));
+}
+const ekKrypter = (tekst) => krypterBytes(tbo.enc.encode(tekst), null);
+const ekDekrypter = async (konvolutt) => tbo.dec.decode(await dekrypterBytes(konvolutt));
+
+/* ---------- Lageret (GitHub, innholds-API) ---------- */
+let tilgang = null, tolkeNokkel = null, nokkelUtlop = null;
+let ekSha = null, ekEtag = null, eksternStartet = false, nettPause = null, sisteKjenteDisk = null;
+function ghHoder(){ return { "Authorization": "Bearer " + (tilgang || ""), "Accept": "application/vnd.github+json", "X-GitHub-Api-Version": "2022-11-28" }; }
+function ghAdresse(sti){ return `https://api.github.com/repos/${LAGER.eier}/${LAGER.repo}/contents/` + String(sti).split("/").map(encodeURIComponent).join("/"); }
+function ekAvvist(e){ return !!(e && e.message && /\s40[13]$/.test(e.message)); }
+async function ghLes(sti, etag){
+  const h = ghHoder(); if (etag) h["If-None-Match"] = etag;
+  const r = await fetch(ghAdresse(sti) + "?ref=" + LAGER.gren, { headers: h, cache: "no-store" });
+  if (r.status === 304) return { uendret: true };
+  if (r.status === 404) return { mangler: true };
+  if (!r.ok) throw new Error("lesing " + r.status);
+  const j = await r.json();
+  return { sha: j.sha, etag: r.headers.get("ETag"), bytes: b64fra(j.content || "") };
+}
+async function ghSkriv(sti, bytes, sha, melding){
+  const kropp = { message: melding || ("Oppdatering " + new Date().toISOString()), branch: LAGER.gren, content: b64til(bytes) };
+  if (sha) kropp.sha = sha;
+  const r = await fetch(ghAdresse(sti), { method: "PUT", headers: Object.assign({ "Content-Type": "application/json" }, ghHoder()), body: JSON.stringify(kropp) });
+  if (r.status === 409 || r.status === 422) return { kollisjon: true };
+  if (!r.ok) throw new Error("skriving " + r.status);
+  const j = await r.json();
+  return { sha: j.content && j.content.sha };
+}
+async function ghListe(sti){
+  const r = await fetch(ghAdresse(sti) + "?ref=" + LAGER.gren, { headers: ghHoder(), cache: "no-store" });
+  if (r.status === 404) return [];
+  if (!r.ok) throw new Error("liste " + r.status);
+  const j = await r.json();
+  return Array.isArray(j) ? j.filter(o => o && o.type === "file") : [];
+}
+async function ghSlett(sti, sha, melding){
+  const r = await fetch(ghAdresse(sti), { method: "DELETE", headers: Object.assign({ "Content-Type": "application/json" }, ghHoder()), body: JSON.stringify({ message: melding || ("Rydding " + new Date().toISOString()), sha, branch: LAGER.gren }) });
+  if (!r.ok && r.status !== 404) throw new Error("sletting " + r.status);
+}
+async function ekLes(medEtag){
+  const r = await ghLes(LAGER.fil, medEtag ? ekEtag : null);
+  if (r.uendret || r.mangler) return r;
+  return { sha: r.sha, etag: r.etag, tekst: await ekDekrypter(tbo.dec.decode(r.bytes)) };
+}
+async function ekSkriv(tekst, sha){ return ghSkriv(LAGER.fil, tbo.enc.encode(await ekKrypter(tekst)), sha, "Oppdatering " + new Date().toISOString()); }
+
+/* ---------- Nettstatus ---------- */
+function settNettStatus(m){ const e = $("nettStatus"); e.textContent = m || ""; e.classList.toggle("vis", !!m); }
+function ekNettFeil(){
+  settNettStatus("Ingen nettforbindelse – endringer lagres når nettet er tilbake");
+  if (nettPause) clearTimeout(nettPause);
+  nettPause = setTimeout(() => { nettPause = null; if (endredeGrener.size || ventende.length) persist(); }, NETT_PAUSE);
+}
+function ekNettOk(){ settNettStatus(""); }
+let nokkelEtterpaa = null;
+function ekBeOmNokkel(etterpaa){ nokkelEtterpaa = etterpaa; nokkelVis("Nøkkelen ble avvist av lageret. Lim inn gyldig nøkkel."); }
+
+/* ---------- Datamodell og fletting per bilag ---------- */
+let COMBINED = null;
+const endredeGrener = new Map(), grenVersjon = {};
+function tomBase(){ const o = { type: DATA_TYPE, version: 2, lagret: new Date().toISOString() }; GRENER.forEach(g => o[g] = { bilag: {} }); return o; }
+function normaliser(o){ if (!o || o.type !== DATA_TYPE) return null; GRENER.forEach(g => { if (!o[g] || typeof o[g] !== "object" || !o[g].bilag || typeof o[g].bilag !== "object") o[g] = { bilag: {} }; }); return o; }
+function bumpGren(g){ grenVersjon[g] = (grenVersjon[g] || 0) + 1; }
+function merkGren(g){ endredeGrener.set(g, true); bumpGren(g); }
+function merkSti(g, sti){
+  const n = endredeGrener.get(g);
+  if (n === true){ bumpGren(g); return; }
+  const s = n instanceof Set ? n : new Set();
+  s.add(JSON.stringify(sti)); endredeGrener.set(g, s); bumpGren(g);
+}
+function poddGren(gren, diskGren, minGren, stiNokler){
+  const base = klon(diskGren && typeof diskGren === "object" ? diskGren : { bilag: {} }) || { bilag: {} };
+  if (!base.bilag || typeof base.bilag !== "object") base.bilag = {};
+  const min = minGren && typeof minGren === "object" ? minGren : { bilag: {} };
+  const stier = []; (stiNokler || []).forEach(s => { try{ stier.push(typeof s === "string" ? JSON.parse(s) : s); }catch{} });
+  stier.forEach(sti => {
+    if (sti && sti.t === "bilag" && sti.id){
+      const mv = min.bilag && min.bilag[sti.id];
+      if (mv) base.bilag[sti.id] = klon(mv); else delete base.bilag[sti.id];
+      return;
+    }
+    Object.keys(min).forEach(k => { base[k] = klon(min[k]); });
+  });
+  return base;
+}
+
+/* ---------- Uskrevne endringer speiles på enheten (v8.9) ---------- */
+const USKREVET_ID = "uskrevet";
+let uskrevetTimer = null;
+function uskrevetLagre(){
+  clearTimeout(uskrevetTimer);
+  uskrevetTimer = setTimeout(() => {
+    try{
+      if (!endredeGrener.size){ idbSet(USKREVET_ID, null); return; }
+      const grener = {};
+      endredeGrener.forEach((alt, g) => { grener[g] = { alt: alt === true ? true : Array.from(alt), data: klon(COMBINED[g]) }; });
+      idbSet(USKREVET_ID, { naar: new Date().toISOString(), grener });
+    }catch{}
+  }, 250);
+}
+async function uskrevetGjenopprett(){
+  const u = await idbGet(USKREVET_ID);
+  if (!u || !u.grener || typeof u.grener !== "object") return 0;
+  let antall = 0;
+  Object.entries(u.grener).forEach(([g, info]) => {
+    if (!info || !info.data || typeof info.data !== "object") return;
+    if (info.alt === true){ COMBINED[g] = klon(info.data); merkGren(g); antall++; return; }
+    if (Array.isArray(info.alt) && info.alt.length){
+      COMBINED[g] = poddGren(g, COMBINED[g] || { bilag: {} }, info.data, info.alt);
+      info.alt.forEach(s => { try{ merkSti(g, JSON.parse(s)); }catch{} });
+      antall++;
+    }
+  });
+  return antall;
+}
+
+/* ---------- Bilder: lokal kopi, opplastingskø og henting ---------- */
+let ventende = [];
+const bildeUrl = new Map();
+function bildeSti(id, mini){ return `${LAGER.bilder}/${id}${mini ? ".mini" : ""}.kryptert.json`; }
+async function bildeLagreLokalt(id, bytes, miniBytes){
+  await idbSet("bilde:" + id, bytes); await idbSet("mini:" + id, miniBytes);
+  if (!ventende.includes(id)) ventende.push(id);
+  await idbSet("ventende", ventende.slice());
+}
+async function bildeSkrivTilLager(id){
+  for (const mini of [true, false]){
+    const bytes = await idbGet((mini ? "mini:" : "bilde:") + id);
+    if (!bytes) continue;
+    const env = await krypterBytes(bytes, EK.bildesalt);
+    const r = await ghSkriv(bildeSti(id, mini), tbo.enc.encode(env), null, "Bilde " + id);
+    if (r.kollisjon){ /* finnes allerede – regnes som lastet opp */ }
+  }
+}
+async function bilderLastOpp(){
+  while (ventende.length){
+    const id = ventende[0];
+    await bildeSkrivTilLager(id);
+    ventende = ventende.filter(x => x !== id);
+    await idbSet("ventende", ventende.slice());
+  }
+}
+async function bildeHent(id, mini){
+  const n = id + (mini ? ":m" : ":f");
+  if (bildeUrl.has(n)) return bildeUrl.get(n);
+  let bytes = await idbGet((mini ? "mini:" : "bilde:") + id);
+  if (!bytes && eksternStartet){
+    try{
+      const r = await ghLes(bildeSti(id, mini), null);
+      if (r.bytes){ bytes = await dekrypterBytes(tbo.dec.decode(r.bytes)); await idbSet((mini ? "mini:" : "bilde:") + id, bytes); }
+    }catch{}
+  }
+  if (!bytes) return null;
+  const url = URL.createObjectURL(new Blob([bytes], { type: "image/jpeg" }));
+  bildeUrl.set(n, url);
+  return url;
+}
+async function bildeBytes(id){
+  let bytes = await idbGet("bilde:" + id);
+  if (!bytes && eksternStartet){ try{ const r = await ghLes(bildeSti(id, false), null); if (r.bytes){ bytes = await dekrypterBytes(tbo.dec.decode(r.bytes)); await idbSet("bilde:" + id, bytes); } }catch{} }
+  return bytes || null;
+}
+
+/* ---------- Skriving med fletting og kollisjonsvakt (8.10) ---------- */
+let lagreKo = Promise.resolve();
+function persist(){ lagreKo = lagreKo.then(() => persistFlett()).catch(() => false); return lagreKo; }
+async function persistFlett(){
+  if (!COMBINED || !eksternStartet) return false;
+  if (!tilgang){ ekBeOmNokkel(() => persist()); return false; }
+  try{ await bilderLastOpp(); }
+  catch(e){ if (ekAvvist(e)){ ekBeOmNokkel(() => persist()); return false; } ekNettFeil(); return false; }
+  if (!endredeGrener.size){ ekNettOk(); return true; }
+  const mine = new Map();
+  endredeGrener.forEach((alt, g) => mine.set(g, { v: grenVersjon[g] || 0, alt: alt === true ? true : new Set(alt) }));
+  for (let fors = 0; fors < 6; fors++){
+    let grunnlag = null, raaTekst = null, sha = null;
+    try{
+      const r = await ekLes(false);
+      if (!r.mangler){ raaTekst = r.tekst; sha = r.sha; ekEtag = r.etag; try{ const d = normaliser(JSON.parse(raaTekst)); if (d) grunnlag = d; }catch{} }
+    }catch(e){ if (ekAvvist(e)){ ekBeOmNokkel(() => persist()); return false; } ekNettFeil(); return false; }
+    let ut;
+    if (grunnlag){
+      ut = grunnlag;
+      mine.forEach((info, g) => {
+        if (info.alt === true){ ut[g] = COMBINED[g]; return; }
+        const flettet = poddGren(g, ut[g], COMBINED[g], Array.from(info.alt));
+        ut[g] = flettet; COMBINED[g] = flettet;
+      });
+      Object.keys(ut).forEach(k => { if (k === "lagret" || k === "type") return; if (!mine.has(k) && !endredeGrener.has(k)) COMBINED[k] = ut[k]; });
+      if (raaTekst != null && JSON.stringify(ut, null, 1) === raaTekst){
+        ekSha = sha; sisteKjenteDisk = raaTekst; idbSet("sisteDisk", raaTekst);
+        mine.forEach((info, g) => { if ((grenVersjon[g] || 0) === info.v) endredeGrener.delete(g); });
+        uskrevetLagre(); ekNettOk(); return true;
+      }
+    } else ut = COMBINED;
+    ut.lagret = new Date().toISOString(); COMBINED.lagret = ut.lagret;
+    const utTekst = JSON.stringify(ut, null, 1);
+    let res;
+    try{ res = await ekSkriv(utTekst, sha); }
+    catch(e){ if (ekAvvist(e)){ ekBeOmNokkel(() => persist()); return false; } ekNettFeil(); return false; }
+    if (res.kollisjon) continue;
+    ekSha = res.sha || ekSha; ekEtag = null; sisteKjenteDisk = utTekst; idbSet("sisteDisk", utTekst);
+    mine.forEach((info, g) => { if ((grenVersjon[g] || 0) === info.v) endredeGrener.delete(g); });
+    uskrevetLagre(); ekNettOk();
+    sbkSkriv(utTekst);
+    try{ tegnAlt(); }catch{}
+    return true;
+  }
+  return false;
+}
+async function lesFersktFraDisk(){
+  let r;
+  try{ r = await ekLes(false); }catch(e){ if (ekAvvist(e)) ekBeOmNokkel(null); else ekNettFeil(); return false; }
+  if (r.mangler) return false;
+  let d; try{ d = normaliser(JSON.parse(r.tekst)); }catch{ return false; }
+  if (!d) return false;
+  ekSha = r.sha; ekEtag = r.etag; sisteKjenteDisk = r.tekst; idbSet("sisteDisk", r.tekst);
+  GRENER.forEach(g => {
+    const alt = endredeGrener.get(g);
+    if (alt === true) return;
+    if (alt instanceof Set && alt.size){ COMBINED[g] = poddGren(g, d[g], COMBINED[g], Array.from(alt)); return; }
+    COMBINED[g] = d[g];
+  });
+  COMBINED.lagret = d.lagret;
+  ekNettOk();
+  return true;
+}
+
+/* ---------- Bakgrunnsvakt hvert 20. sekund (8.10) ---------- */
+let pvTimer = null, pvSkjultTekst = null;
+function pvVis(){ $("pvVarsel").classList.add("vis"); }
+function pvSkjul(){ $("pvVarsel").classList.remove("vis"); }
+async function pvSjekk(){
+  if (!eksternStartet || !COMBINED || !tilgang) return;
+  let r; try{ r = await ekLes(true); }catch{ return; }
+  if (r.uendret || r.mangler) return;
+  ekEtag = r.etag;
+  if (r.sha === ekSha){ sisteKjenteDisk = r.tekst; return; }
+  let d; try{ d = JSON.parse(r.tekst); }catch{ return; }
+  if (!d || d.type !== DATA_TYPE) return;
+  if (d.lagret && COMBINED.lagret && d.lagret === COMBINED.lagret){ ekSha = r.sha; sisteKjenteDisk = r.tekst; return; }
+  if (pvSkjultTekst !== null && r.tekst === pvSkjultTekst) return;
+  pvVis();
+}
+function pvStart(){ pvStopp(); pvTimer = setInterval(pvSjekk, PV_INTERVALL); }
+function pvStopp(){ if (pvTimer){ clearInterval(pvTimer); pvTimer = null; } pvSkjul(); pvSkjultTekst = null; }
+async function pvHentInn(){ pvSkjul(); pvSkjultTekst = null; const ok = await lesFersktFraDisk(); if (ok) tegnAlt(); return ok; }
+
+/* ---------- Skybackup: hvert 30. minutt og ved hver lagring (8.10, 3.7) ---------- */
+let sbkSisteTekst = null, sbkTimer = null, sbkOpptatt = false, sbkVenter = null;
+function sbkFilnavn(){ const d = new Date(), p = n => String(n).padStart(2, "0"); return `${d.getFullYear()} ${p(d.getMonth() + 1)}-${p(d.getDate())} Backup Bilag ${p(d.getHours())}-${p(d.getMinutes())}-${p(d.getSeconds())}.json`; }
+async function sbkListe(){ return (await ghListe(LAGER.backup)).filter(o => BACKUP_MONSTER.test(o.name)); }
+async function sbkRydd(){
+  try{ const alle = (await sbkListe()).sort((a, b) => (a.name < b.name ? -1 : 1)); while (alle.length > SBK_MAKS){ const g = alle.shift(); await ghSlett(LAGER.backup + "/" + g.name, g.sha); } }catch{}
+}
+async function sbkSkriv(tekst){
+  if (typeof tekst !== "string" || !tilgang) return;
+  if (sbkOpptatt){ sbkVenter = tekst; return; }
+  sbkOpptatt = true;
+  try{
+    if (sbkSisteTekst == null){
+      try{ const alle = (await sbkListe()).sort((a, b) => (a.name < b.name ? -1 : 1)); const nyest = alle[alle.length - 1];
+        if (nyest){ const r = await ghLes(LAGER.backup + "/" + nyest.name, null); if (r.bytes) sbkSisteTekst = await ekDekrypter(tbo.dec.decode(r.bytes)); } }catch{}
+    }
+    if (tekst !== sbkSisteTekst){
+      const r = await ghSkriv(LAGER.backup + "/" + sbkFilnavn(), tbo.enc.encode(await ekKrypter(tekst)), null, "Backup " + new Date().toISOString());
+      if (!r.kollisjon){ sbkSisteTekst = tekst; await sbkRydd(); }
+    }
+  }catch{}
+  finally{ sbkOpptatt = false; if (sbkVenter){ const v = sbkVenter; sbkVenter = null; sbkSkriv(v); } }
+}
+function sbkStart(){ if (sbkTimer) clearInterval(sbkTimer); sbkTimer = setInterval(() => { if (COMBINED && !endredeGrener.size) sbkSkriv(JSON.stringify(COMBINED, null, 1)); }, SBK_INTERVALL); }
+
+/* ---------- Oppstart mot lageret ---------- */
+async function startEkstern(){
+  if (!tilgang){ nokkelVis(""); return false; }
+  let r;
+  try{ r = await ekLes(false); }
+  catch(e){
+    if (ekAvvist(e)){ ekBeOmNokkel(() => startEkstern().then(ok => { if (ok) etterStart(); })); return false; }
+    let d = null; try{ const t = await idbGet("sisteDisk"); if (t) d = normaliser(JSON.parse(t)); }catch{}
+    COMBINED = d || tomBase();
+    await uskrevetGjenopprett();
+    eksternStartet = true; ekNettFeil(); return true;
+  }
+  if (r.mangler){ COMBINED = tomBase(); GRENER.forEach(merkGren); }
+  else { let d = null; try{ d = normaliser(JSON.parse(r.tekst)); }catch{} if (!d){ COMBINED = tomBase(); GRENER.forEach(merkGren); } else { COMBINED = d; ekSha = r.sha; ekEtag = r.etag; sisteKjenteDisk = r.tekst; idbSet("sisteDisk", r.tekst); } }
+  eksternStartet = true;
+  const n = await uskrevetGjenopprett();
+  if (n || endredeGrener.size || ventende.length) await persist();
+  ekNettOk();
+  return true;
+}
+
+/* ---------- Innlogging (8.10) ---------- */
+let innlogget = null;
+function settInn(navn){
+  innlogget = navn;
+  $("loginScreen").classList.add("skjult");
+  $("startBruker").textContent = "Innlogget: " + navn;
+  $("knFil").classList.toggle("skjult", navn !== "Olav");
+}
+async function tryLogin(){
+  const key = ($("loginName").value || "").trim().toLowerCase();
+  const u = USERS[key];
+  let ok = false;
+  if (u){ try{ ok = (await sha256Hex("Bilag-los:" + $("loginPassword").value)) === u.sjekk; }catch{} }
+  if (!ok){ $("loginError").textContent = "Feil fornavn eller passord."; $("loginPassword").value = ""; $("loginPassword").focus(); return; }
+  if ($("loginRemember").checked) await idbSet("husk", u.navn);
+  $("loginPassword").value = "";
+  settInn(u.navn); broSkriv();
+  etterInnlogging();
+}
+async function loggUt(){
+  await idbSet("husk", null); broSkriv();
+  innlogget = null; pvStopp();
+  $("app").classList.add("skjult"); $("start").classList.add("skjult");
+  $("loginScreen").classList.remove("skjult");
+  $("loginName").value = ""; $("loginPassword").value = ""; $("loginError").textContent = "";
+}
+
+/* ---------- Nøkkelskjerm og engangslenke (8.5) ---------- */
+function nokkelVis(melding){
+  $("nokkelFeil").textContent = melding || "";
+  $("nokkelInput").value = ""; $("nokkelTolkInput").value = "";
+  $("nokkelScreen").classList.remove("skjult");
+  setTimeout(() => $("nokkelInput").focus(), 60);
+}
+function nokkelSkjul(){ $("nokkelScreen").classList.add("skjult"); }
+async function nokkelLagre(){
+  const v = ($("nokkelInput").value || "").trim(), t = ($("nokkelTolkInput").value || "").trim();
+  if (v.length < 20){ $("nokkelFeil").textContent = "Dette ser ikke ut som en gyldig nøkkel."; return; }
+  await idbSet("tilgang", v); tilgang = v;
+  if (t){ await idbSet("tolk", t); tolkeNokkel = t; }
+  nokkelSkjul(); visTolkTilstand(); broSkriv();
+  if (nokkelEtterpaa){ const fn = nokkelEtterpaa; nokkelEtterpaa = null; try{ fn(); }catch{} }
+  else if (innlogget && !eksternStartet) etterInnlogging();
+}
+async function lesLenke(){
+  const h = (location.hash || "").replace(/^#/, "");
+  if (!h || !/(^|&)nokkel=/.test(h)) return;
+  const p = new URLSearchParams(h);
+  const n = (p.get("nokkel") || "").trim(), t = (p.get("tolk") || "").trim(), u = (p.get("utlop") || "").trim();
+  if (n.length >= 20) await idbSet("tilgang", n);
+  if (t.length >= 20) await idbSet("tolk", t);
+  if (/^\d{4}-\d{2}-\d{2}$/.test(u)) await idbSet("utlop", u); else if (n.length >= 20 && !t) await idbSet("utlop", null);
+  try{ history.replaceState(null, "", location.pathname + location.search); }catch{}
+}
+
+/* ---------- Bro mellom Safari og Hjem-skjerm-appen: iPhone gir dem hvert sitt lager, men hurtiglageret er felles ---------- */
+const BRO_LAGER = "stine-app-nokler";
+async function broSkriv(){
+  try{ if (!("caches" in window)) return; const c = await caches.open(BRO_LAGER);
+    await c.put("/nokler", new Response(JSON.stringify({ tilgang: tilgang || null, tolk: tolkeNokkel || null, utlop: nokkelUtlop || null, husk: await idbGet("husk") }), { headers: { "content-type": "application/json" } })); }catch{}
+}
+async function broLes(){
+  try{ if (!("caches" in window)) return null; const c = await caches.open(BRO_LAGER); const r = await c.match("/nokler"); return r ? await r.json() : null; }catch{ return null; }
+}
+async function broHentInn(){
+  if (tilgang) return;
+  const b = await broLes(); if (!b || !b.tilgang) return;
+  await idbSet("tilgang", b.tilgang); tilgang = b.tilgang;
+  if (b.tolk && !tolkeNokkel){ await idbSet("tolk", b.tolk); tolkeNokkel = b.tolk; }
+  if (b.utlop && !nokkelUtlop){ await idbSet("utlop", b.utlop); nokkelUtlop = b.utlop; }
+  if (b.husk && !(await idbGet("husk"))) await idbSet("husk", b.husk);
+}
+
+/* ---------- Kvitteringslesing: rett fra telefonen til Anthropic ---------- */
+const TOLK_OPPGAVE = `Du får ett eller flere bilder av en norsk kvittering. Svar KUN med JSON. Ingen forklaring, ingen kodeblokk, ingen tekst utenom objektet.
+
+Formatet er nøyaktig:
+{"butikk":"","dato":"","belop":null,"beskrivelse":"","sikker":true}
+
+Regler:
+- butikk: navnet slik det står på kvitteringen. Ta med filial hvis den står der, f.eks. "Rema 1000 Storo". Tom streng hvis du ikke ser det.
+- dato: kjøpsdatoen, skrevet som ÅÅÅÅ-MM-DD. Norske kvitteringer skriver den som regel dd.mm.åååå. Tom streng hvis du ikke ser den.
+- belop: totalbeløpet som ble betalt, som tall med punktum som desimalskille. Bruk linja merket "Totalt", "Total", "Å betale" eller "Sum". Ikke bruk "Herav mva", ikke enkeltvarer, ikke "Avrunding". Bruk null hvis du ikke ser totalen.
+- beskrivelse: to til fire ord om hva som ble kjøpt, basert på varelinjene, f.eks. "Kattemat og strø". Tom streng hvis varelinjene ikke er lesbare.
+- sikker: false hvis bildet er uskarpt, avkuttet, skjevt eller vanskelig å lese. Ellers true.
+
+Gjett aldri på et beløp du ikke kan lese. Da er belop null og sikker false.`;
+function ryddDato(v){
+  const s = String(v || "").trim(); let y, m, d;
+  let t = s.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (t){ y = +t[1]; m = +t[2]; d = +t[3]; }
+  else { t = s.match(/^(\d{1,2})[.\/-](\d{1,2})[.\/-](\d{4})$/); if (!t) return ""; d = +t[1]; m = +t[2]; y = +t[3]; }
+  if (m < 1 || m > 12 || d < 1 || d > 31) return "";
+  const iAar = new Date().getFullYear(); if (y < 2000 || y > iAar + 1) return "";
+  return `${y}-${String(m).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
+}
+function tolkSvaret(tekst){
+  let t = String(tekst || "").trim().replace(/^```(?:json)?\s*/i, "").replace(/```\s*$/, "").trim();
+  const a = t.indexOf("{"), b = t.lastIndexOf("}"); if (a === -1 || b === -1) return null;
+  let o; try{ o = JSON.parse(t.slice(a, b + 1)); }catch{ return null; }
+  let belop = o.belop; if (typeof belop === "string") belop = parseFloat(belop.replace(/\s/g, "").replace(",", "."));
+  if (typeof belop !== "number" || !isFinite(belop) || belop <= 0) belop = null;
+  return { butikk: String(o.butikk || "").trim().slice(0, 80), dato: ryddDato(o.dato), belop, beskrivelse: String(o.beskrivelse || "").trim().slice(0, 60), sikker: o.sikker !== false };
+}
+async function tolkBilder(b64Liste){
+  const innhold = b64Liste.slice(0, MAKS_BILDER).map(b => ({ type: "image", source: { type: "base64", media_type: "image/jpeg", data: b } }));
+  innhold.push({ type: "text", text: TOLK_OPPGAVE });
+  let r;
+  try{
+    r = await fetch("https://api.anthropic.com/v1/messages", { method: "POST",
+      headers: { "content-type": "application/json", "x-api-key": tolkeNokkel, "anthropic-version": "2023-06-01", "anthropic-dangerous-direct-browser-access": "true" },
+      body: JSON.stringify({ model: "claude-haiku-4-5", max_tokens: 300, messages: [{ role: "user", content: innhold }] }) });
+  }catch{ throw new Error("Ingen nettforbindelse. Fyll ut selv."); }
+  if (!r.ok){
+    if (r.status === 401 || r.status === 403) throw new Error("Nøkkelen til kvitteringslesingen blir avvist. Legg den inn på nytt fra startsiden.");
+    if (r.status === 429) throw new Error("For mange forespørsler akkurat nå. Fyll ut selv.");
+    throw new Error("Tolkningen feilet. Fyll ut selv.");
+  }
+  const data = await r.json();
+  const ut = tolkSvaret((data.content || []).filter(d => d.type === "text").map(d => d.text).join("\n"));
+  if (!ut) throw new Error("Klarte ikke å lese kvitteringen. Fyll ut selv.");
+  return ut;
+}
+</script>
+<script>
+"use strict";
+/* ===================== PDF-SKRIVER (A4, Helvetica, én side per bilde) ===================== */
+const W_REG={32:278,33:278,34:355,35:556,36:556,37:889,38:667,39:191,40:333,41:333,42:389,43:584,44:278,45:333,46:278,47:278,48:556,49:556,50:556,51:556,52:556,53:556,54:556,55:556,56:556,57:556,58:278,59:278,60:584,61:584,62:584,63:556,64:1015,65:667,66:667,67:722,68:722,69:667,70:611,71:778,72:722,73:278,74:500,75:667,76:556,77:833,78:722,79:778,80:667,81:778,82:722,83:667,84:611,85:722,86:667,87:944,88:667,89:667,90:611,91:278,92:278,93:278,94:469,95:556,96:333,97:556,98:556,99:500,100:556,101:556,102:278,103:556,104:556,105:222,106:222,107:500,108:222,109:833,110:556,111:556,112:556,113:556,114:333,115:500,116:278,117:556,118:500,119:722,120:500,121:500,122:500,123:334,124:260,125:334,126:584,197:667,198:1000,216:778,229:556,230:889,248:611};
+const W_BOLD={32:278,33:333,34:474,35:556,36:556,37:889,38:722,39:238,40:333,41:333,42:389,43:584,44:278,45:333,46:278,47:278,48:556,49:556,50:556,51:556,52:556,53:556,54:556,55:556,56:556,57:556,58:333,59:333,60:584,61:584,62:584,63:611,64:975,65:722,66:722,67:722,68:722,69:667,70:611,71:778,72:722,73:278,74:556,75:722,76:611,77:833,78:722,79:778,80:667,81:778,82:722,83:667,84:611,85:722,86:667,87:944,88:667,89:667,90:611,91:333,92:278,93:333,94:584,95:556,96:333,97:556,98:611,99:556,100:611,101:556,102:333,103:611,104:611,105:278,106:278,107:556,108:278,109:889,110:611,111:611,112:611,113:611,114:389,115:556,116:333,117:611,118:556,119:778,120:556,121:556,122:500,123:389,124:280,125:389,126:584,197:722,198:1000,216:778,229:556,230:889,248:611};
+const HOY={0x2013:0x96,0x2014:0x97,0x2018:0x91,0x2019:0x92,0x201C:0x93,0x201D:0x94,0x2026:0x85,0x2022:0x95,0x20AC:0x80};
+function winansi(s){const u=[];for(const c of String(s==null?"":s)){const k=c.codePointAt(0);if(k<256)u.push(k);else if(HOY[k])u.push(HOY[k]);else u.push(63);}return u;}
+function bredde(s,st,fet){const t=fet?W_BOLD:W_REG;let n=0;for(const c of winansi(s))n+=(t[c]||(fet?611:556));return n*st/1000;}
+function pstr(s){let u="";for(const c of winansi(s)){if(c===40||c===41||c===92)u+="\\"+String.fromCharCode(c);else if(c<32)u+=" ";else u+=String.fromCharCode(c);}return "("+u+")";}
+function bryt(s,st,fet,maks){const ord=String(s||"").split(/\s+/).filter(Boolean);const ut=[];let l="";for(const o of ord){const t=l?l+" "+o:o;if(bredde(t,st,fet)<=maks)l=t;else{if(l)ut.push(l);l=o;}}if(l)ut.push(l);return ut;}
+function latin1(s){const u=new Uint8Array(s.length);for(let i=0;i<s.length;i++)u[i]=s.charCodeAt(i)&255;return u;}
+function jpegMal(b){let i=2;while(i<b.length-9){if(b[i]!==255){i++;continue;}const m=b[i+1];if(m===216||m===1||(m>=208&&m<=215)){i+=2;continue;}if(m===217||m===218)break;const len=(b[i+2]<<8)|b[i+3];if(m>=192&&m<=207&&m!==196&&m!==200&&m!==204)return{h:(b[i+5]<<8)|b[i+6],w:(b[i+7]<<8)|b[i+8]};i+=2+len;}return{w:1000,h:1400};}
+function reklamasjonTekst(b){ if(!b.reklamasjon||b.reklamasjon==="0") return ""; return "til "+norskDato(leggTilAar(b.dato,Number(b.reklamasjon)))+" ("+b.reklamasjon+" år)"; }
+
+function byggPdf(b, katNavn, bilder){
+  const SB=595.28,SH=841.89,M=44,innB=SB-M*2, n=Math.max(1,bilder.length);
+  const T=(x,y,st,fet,txt)=>`BT /${fet?"F2":"F1"} ${st} Tf 1 0 0 1 ${x.toFixed(2)} ${y.toFixed(2)} Tm ${pstr(txt)} Tj ET\n`;
+  const gr=v=>`${v} ${v} ${v} rg\n`;
+  const strek=(y,v)=>`${v} ${v} ${v} RG 0.8 w ${M} ${y.toFixed(2)} m ${(SB-M).toFixed(2)} ${y.toFixed(2)} l S\n`;
+  const bunntekst=()=>gr(0.55)+T(M,M,8,false,"Registrert "+norskDato(String(b.opprettet||"").slice(0,10))+(b.av?" av "+b.av:""));
+  const bildeBoks=(c,y,bunn,bi)=>{
+    const boksH=y-bunn;
+    if(!bi||!bi.bytes){ c+=gr(0.55)+T(M,y-16,10,false,"Bildet er ikke lastet opp ennå."); return c; }
+    const sk=Math.min(innB/bi.w,boksH/bi.h), bw=bi.w*sk, bh=bi.h*sk, bx=M+(innB-bw)/2, by=y-bh;
+    c+=`q ${bw.toFixed(2)} 0 0 ${bh.toFixed(2)} ${bx.toFixed(2)} ${by.toFixed(2)} cm /Im${bi.nr} Do Q\n`;
+    c+=`0.82 0.82 0.82 RG 0.6 w ${bx.toFixed(2)} ${by.toFixed(2)} ${bw.toFixed(2)} ${bh.toFixed(2)} re S\n`;
+    return c;
+  };
+  bilder.forEach((bi,i)=>{ bi.nr=i; if(bi.bytes&&(!bi.w||!bi.h)){const m=jpegMal(bi.bytes);bi.w=m.w;bi.h=m.h;} });
+
+  const sider=[];
+  let c="", y=SH-M;
+  c+=gr(0.42)+T(M,y-9,8.5,false,"BILAG – "+katNavn.toUpperCase()+(n>1?"   ·   SIDE 1 AV "+n:""))+gr(0.07); y-=30;
+  c+=T(M,y-15,19,true,b.butikk||""); y-=24;
+  c+=gr(0.28); for(const l of bryt(b.beskrivelse||"",12,false,innB)){c+=T(M,y-12,12,false,l);y-=16;} y-=10;
+  c+=strek(y,0.72); y-=22;
+  const rad=(e,v,fet)=>{ if(!v)return; c+=gr(0.45)+T(M,y-10,9,false,e.toUpperCase())+gr(0.07); let yy=y-10;
+    for(const l of bryt(v,fet?12.5:11.5,!!fet,innB-120)){c+=T(M+120,yy,fet?12.5:11.5,!!fet,l);yy-=15;} y=Math.min(y-22,yy-7); };
+  rad("Dato",norskDato(b.dato)); rad("Beløp","kr "+kr(b.belop),true);
+  rad("Reklamasjon",reklamasjonTekst(b));
+  if(b.returfrist)rad("Returfrist",norskDato(b.returfrist));
+  if(b.kommentar)rad("Kommentar",b.kommentar);
+  y-=6; c+=strek(y,0.86); y-=16;
+  c=bildeBoks(c,y,M+26,bilder[0]||null);
+  c+=bunntekst();
+  sider.push({c,img:bilder[0]&&bilder[0].bytes?0:null});
+  for(let i=1;i<bilder.length;i++){
+    let s="", yy=SH-M;
+    s+=gr(0.42)+T(M,yy-9,8.5,false,"BILAG – "+katNavn.toUpperCase()+"   ·   SIDE "+(i+1)+" AV "+n)+gr(0.07); yy-=26;
+    s+=T(M,yy-12,12,true,(b.butikk||"")+" – "+(b.beskrivelse||"")); yy-=20;
+    s+=strek(yy,0.86); yy-=14;
+    s=bildeBoks(s,yy,M+26,bilder[i]);
+    s+=bunntekst();
+    sider.push({c:s,img:bilder[i].bytes?i:null});
+  }
+
+  const objekter=[]; const legg=(o)=>{objekter.push(o);return objekter.length;};
+  const katalog=legg(null), sideRot=legg(null);
+  const f1=legg(latin1("<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>"));
+  const f2=legg(latin1("<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>"));
+  const bildeObj={};
+  bilder.forEach((bi,i)=>{ if(!bi.bytes)return; bildeObj[i]=legg({pre:`<< /Type /XObject /Subtype /Image /Width ${bi.w} /Height ${bi.h} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${bi.bytes.length} >>\nstream\n`,data:bi.bytes,post:"\nendstream"}); });
+  const sideNr=[];
+  sider.forEach(s=>{
+    const inn=latin1(s.c);
+    const innNr=legg({pre:`<< /Length ${inn.length} >>\nstream\n`,data:inn,post:"\nendstream"});
+    const xo=s.img!==null&&bildeObj[s.img]?` /XObject << /Im${s.img} ${bildeObj[s.img]} 0 R >>`:"";
+    sideNr.push(legg(latin1(`<< /Type /Page /Parent ${sideRot} 0 R /MediaBox [0 0 ${SB} ${SH}] /Resources << /Font << /F1 ${f1} 0 R /F2 ${f2} 0 R >>${xo} >> /Contents ${innNr} 0 R >>`)));
+  });
+  const info=legg(latin1(`<< /Title ${pstr((b.butikk||"")+" "+(b.beskrivelse||""))} /Producer (Bilag) >>`));
+  objekter[katalog-1]=latin1(`<< /Type /Catalog /Pages ${sideRot} 0 R >>`);
+  objekter[sideRot-1]=latin1(`<< /Type /Pages /Kids [${sideNr.map(nr=>nr+" 0 R").join(" ")}] /Count ${sideNr.length} >>`);
+
+  const biter=[]; let len=0; const skriv=u=>{biter.push(u);len+=u.length;}; const st=s=>skriv(latin1(s));
+  st("%PDF-1.4\n%\xE2\xE3\xCF\xD3\n");
+  const off=[];
+  objekter.forEach((o,i)=>{ off[i+1]=len; st(`${i+1} 0 obj\n`); if(o instanceof Uint8Array)skriv(o); else{st(o.pre);skriv(o.data);st(o.post);} st("\nendobj\n"); });
+  const xr=len; let x=`xref\n0 ${objekter.length+1}\n0000000000 65535 f \n`;
+  for(let i=1;i<=objekter.length;i++)x+=String(off[i]).padStart(10,"0")+" 00000 n \n";
+  x+=`trailer\n<< /Size ${objekter.length+1} /Root ${katalog} 0 R /Info ${info} 0 R >>\nstartxref\n${xr}\n%%EOF\n`;
+  st(x);
+  const ut=new Uint8Array(len); let p=0; for(const bit of biter){ut.set(bit,p);p+=bit.length;} return ut;
+}
+async function pdfForBilag(b){
+  const bilder=[];
+  for(const bi of (b.bilder||[])){ const bytes=await bildeBytes(bi.id); bilder.push({bytes:bytes||null,w:bi.w,h:bi.h}); }
+  return byggPdf(b, KATNAVN[b.kat||KAT]||"", bilder);
+}
+
+/* ===================== DELING OG NEDLASTING ===================== */
+async function delEllerLastNed(bytes, navn, mime){
+  const fil=new File([bytes],navn,{type:mime});
+  if(navigator.canShare&&navigator.canShare({files:[fil]})){
+    try{ await navigator.share({files:[fil],title:navn}); return "delt"; }
+    catch(e){ if(e&&e.name==="AbortError") return "avbrutt"; }
+  }
+  const url=URL.createObjectURL(fil); const a=document.createElement("a"); a.href=url; a.download=navn;
+  document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(url),60000);
+  return "lastet";
+}
+function icsFor(b){
+  const d=String(b.returfrist||"").replace(/-/g,""); if(!d) return null;
+  const neste=(()=>{const [y,m,dd]=b.returfrist.split("-").map(Number); const t=new Date(y,m-1,dd+1); return `${t.getFullYear()}${String(t.getMonth()+1).padStart(2,"0")}${String(t.getDate()).padStart(2,"0")}`;})();
+  const r=s=>String(s||"").replace(/\\/g,"\\\\").replace(/;/g,"\\;").replace(/,/g,"\\,").replace(/\n/g,"\\n");
+  const stamp=new Date().toISOString().replace(/[-:]/g,"").replace(/\.\d{3}/,"");
+  return ["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Bilag mjau mjau//NO","CALSCALE:GREGORIAN","BEGIN:VEVENT",
+    "UID:"+b.id+"@bilag","DTSTAMP:"+stamp,"DTSTART;VALUE=DATE:"+d,"DTEND;VALUE=DATE:"+neste,
+    "SUMMARY:"+r("Returfrist: "+b.butikk+" – "+b.beskrivelse),
+    "DESCRIPTION:"+r("Kjøpt "+norskDato(b.dato)+", kr "+kr(b.belop)+(b.kommentar?". "+b.kommentar:"")),
+    "END:VEVENT","END:VCALENDAR"].join("\r\n")+"\r\n";
+}
+
+/* ===================== BILDER INN ===================== */
+function skalerTilBlob(img,maks,kval){
+  let w=img.naturalWidth,h=img.naturalHeight; const s=Math.min(1,maks/Math.max(w,h));
+  w=Math.max(1,Math.round(w*s)); h=Math.max(1,Math.round(h*s));
+  const c=document.createElement("canvas"); c.width=w; c.height=h;
+  const g=c.getContext("2d"); g.fillStyle="#fff"; g.fillRect(0,0,w,h); g.drawImage(img,0,0,w,h);
+  return new Promise(ok=>c.toBlob(b=>ok({blob:b,w,h}),"image/jpeg",kval));
+}
+async function lesBildeFil(fil){
+  const url=URL.createObjectURL(fil);
+  try{
+    const img=await new Promise((ok,nei)=>{const i=new Image(); i.onload=()=>ok(i); i.onerror=()=>nei(new Error("Klarte ikke å lese bildet.")); i.src=url;});
+    const stor=await skalerTilBlob(img,1600,0.72), liten=await skalerTilBlob(img,320,0.6), lesbar=await skalerTilBlob(img,1500,0.85);
+    return { id:nyId("i"), w:stor.w, h:stor.h, bytes:new Uint8Array(await stor.blob.arrayBuffer()), mini:new Uint8Array(await liten.blob.arrayBuffer()), lesbarB64:b64til(await lesbar.blob.arrayBuffer()), ny:true };
+  } finally { URL.revokeObjectURL(url); }
+}
+
+/* ===================== TILSTAND ===================== */
+let KAT=null, redigerId=null, skjemaBilder=[], detaljId=null, pdfKlar=null, detaljPdf=null;
+let rort={dato:false,butikk:false,belop:false,besk:false};
+let reklamasjon="2";
+function bilagListe(k){ return Object.values((COMBINED&&COMBINED[k]&&COMBINED[k].bilag)||{}); }
+function finnBilag(k,id){ return COMBINED&&COMBINED[k]&&COMBINED[k].bilag[id]||null; }
+
+/* ===================== STARTSIDE ===================== */
+function fristerDenneUka(){
+  const ut=[];
+  for(const k of ["privat","kattepuser"]) for(const b of bilagListe(k)){ const d=dagerTil(b.returfrist); if(d!==null&&d>=0&&d<=7) ut.push({b,k,d}); }
+  return ut.sort((a,b)=>a.d-b.d);
+}
+function oppsummer(){
+  for(const k of ["privat","kattepuser"]){
+    const l=bilagListe(k), sum=l.reduce((a,b)=>a+Number(b.belop||0),0);
+    $(k==="privat"?"oppsumPrivat":"oppsumPuser").textContent = l.length?`${l.length} bilag · kr ${kr(sum)}`:"Ingen bilag ennå";
+  }
+  const f=fristerDenneUka(), e=$("fristVarsel");
+  if(f.length){ const idag=f.filter(x=>x.d===0).length; e.textContent=(f.length===1?"1 returfrist":f.length+" returfrister")+" denne uka"+(idag?" – "+(idag===1?"én":idag)+" i dag":"")+". Trykk for å se."; e.classList.remove("skjult"); }
+  else e.classList.add("skjult");
+  const nv=$("nokkelVarsel");
+  if(nokkelUtlop){ const d=dagerTil(nokkelUtlop);
+    if(d!==null&&d<0){ nv.textContent="Nøkkelen til lageret utløp "+norskDato(nokkelUtlop)+". Olav må lage en ny og sende ny lenke."; nv.className="varsel feil"; }
+    else if(d!==null&&d<=30){ nv.textContent="Nøkkelen til lageret utløper "+norskDato(nokkelUtlop)+". Olav må lage en ny og sende ny lenke før den dagen."; nv.className="varsel"; }
+    else nv.className="varsel skjult";
+  } else nv.className="varsel skjult";
+}
+function visStart(){
+  $("app").classList.add("skjult"); $("start").classList.remove("skjult");
+  KAT=null; oppsummer(); window.scrollTo(0,0);
+}
+function visTolkTilstand(){
+  $("tolkTilstand").textContent = tolkeNokkel?"På":"Av";
+  $("knTolkNokkel").textContent = tolkeNokkel?"Endre":"Slå på";
+  $("knTolkAv").classList.toggle("skjult",!tolkeNokkel);
+  $("knTolkLagre").textContent = tolkeNokkel?"Lagre ny nøkkel":"Slå på";
+}
+function tegnAlt(){
+  if(!$("start").classList.contains("skjult")) oppsummer();
+  if(KAT){ fyllButikkliste(); if(!$("faneListe").classList.contains("skjult")) tegnListe(); $("katUnder").textContent=`${bilagListe(KAT).length} bilag`; }
+}
+
+/* ===================== KATEGORI ===================== */
+function aapneKat(k){
+  KAT=k;
+  const r=document.documentElement.style;
+  r.setProperty("--akt",k==="privat"?"var(--privat)":"var(--puser)");
+  r.setProperty("--akt-tint",k==="privat"?"var(--privat-tint)":"var(--puser-tint)");
+  r.setProperty("--akt-ink",k==="privat"?"var(--privat-ink)":"var(--puser-ink)");
+  $("katNavn").textContent=KATNAVN[k];
+  $("start").classList.add("skjult"); $("app").classList.remove("skjult");
+  nullstillSkjema(); byttFane("ny"); fyllButikkliste(); window.scrollTo(0,0);
+}
+function byttFane(f){
+  document.querySelectorAll("#faner button").forEach(b=>b.classList.toggle("pa",b.dataset.fane===f));
+  $("faneNy").classList.toggle("skjult",f!=="ny"); $("faneListe").classList.toggle("skjult",f!=="liste"); $("bunnNy").classList.toggle("skjult",f!=="ny");
+  if(f==="liste")tegnListe();
+  $("katUnder").textContent = f==="liste"?`${bilagListe(KAT).length} bilag`:"";
+  window.scrollTo(0,0);
+}
+function fyllButikkliste(){
+  const sett=new Set(); for(const k of ["privat","kattepuser"]) bilagListe(k).forEach(b=>b.butikk&&sett.add(b.butikk));
+  $("butikker").innerHTML=[...sett].sort().map(s=>`<option value="${esc(s)}">`).join("");
+}
+
+/* ===================== SKJEMA ===================== */
+function settSkjemaBesk(m,k){ const e=$("skjemaBesk"); e.textContent=m||""; e.className=k==="info"?"info":""; }
+function tolkStatus(m,k){ const e=$("tolkStatus"); e.textContent=m||""; e.className=m?("vis "+(k||"")):""; }
+function merkForeslatt(id,pa){ $(id).classList.toggle("foreslatt",!!pa); }
+function nullstillForslag(){ ["feltDato","feltBelop","feltButikk","feltBesk"].forEach(i=>merkForeslatt(i,false)); rort={dato:false,butikk:false,belop:false,besk:false}; tolkStatus(""); }
+function settReklamasjon(v){ reklamasjon=v; document.querySelectorAll("#segReklamasjon button").forEach(b=>b.classList.toggle("pa",b.dataset.v===v)); oppdaterFilnavn(); }
+function oppdaterFilnavn(){
+  const d=$("inDato").value, bu=$("inButikk").value.trim(), be=$("inBesk").value.trim();
+  $("filnavnVis").textContent=(d&&bu&&be)?filnavnFor({dato:d,butikk:bu,beskrivelse:be}):"Fyll ut dato, butikk og beskrivelse.";
+  $("reklHint").textContent = (d&&reklamasjon!=="0")?"Reklamasjon "+reklamasjonTekst({dato:d,reklamasjon}):"";
+}
+function nullstillSkjema(){
+  redigerId=null; skjemaBilder.forEach(b=>{ if(b.url) URL.revokeObjectURL(b.url); }); skjemaBilder=[];
+  $("inDato").value=idagIso(); $("inBelop").value=""; $("inButikk").value=""; $("inBesk").value=""; $("inRetur").value=""; $("inKomm").value="";
+  settReklamasjon("2");
+  ["feltDato","feltBelop","feltButikk","feltBesk"].forEach(i=>$(i).classList.remove("mangler"));
+  $("bildeTom").classList.remove("mangler");
+  $("knLagre").textContent="Lagre bilag"; $("knAvbryt").classList.add("skjult");
+  settSkjemaBesk(""); nullstillForslag(); tegnBildestripe(); oppdaterFilnavn();
+}
+function tegnBildestripe(){
+  const s=$("bildeStripe"), tom=$("bildeTom");
+  if(!skjemaBilder.length){ s.classList.add("skjult"); tom.classList.remove("skjult"); return; }
+  tom.classList.add("skjult"); s.classList.remove("skjult");
+  let h="";
+  skjemaBilder.forEach((b,i)=>{ h+=`<div class="b"><img data-i="${i}" alt="Bilde ${i+1}"><span class="nr">${i+1} av ${skjemaBilder.length}</span><button class="fjern" data-fjern="${i}" aria-label="Fjern bilde ${i+1}">✕</button></div>`; });
+  if(skjemaBilder.length<MAKS_BILDER){
+    h+=`<button class="legg" id="knLeggKamera" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg>Ta bilde</button>`;
+    h+=`<button class="legg" id="knLeggGalleri" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>Fra bilder</button>`;
+  }
+  s.innerHTML=h;
+  s.querySelectorAll("img[data-i]").forEach(async img=>{
+    const b=skjemaBilder[Number(img.dataset.i)]; if(!b) return;
+    if(!b.url){ b.url = b.bytes ? URL.createObjectURL(new Blob([b.mini||b.bytes],{type:"image/jpeg"})) : (await bildeHent(b.id,true)); }
+    if(b.url) img.src=b.url;
+  });
+  s.querySelectorAll("[data-fjern]").forEach(k=>k.addEventListener("click",()=>{ const i=Number(k.dataset.fjern); const b=skjemaBilder[i]; if(b&&b.url&&b.bytes) URL.revokeObjectURL(b.url); skjemaBilder.splice(i,1); tegnBildestripe(); }));
+  const lk=$("knLeggKamera"), lg=$("knLeggGalleri");
+  if(lk) lk.addEventListener("click",()=>$("filKamera").click());
+  if(lg) lg.addEventListener("click",()=>$("filGalleri").click());
+}
+async function taImotFiler(filer){
+  const plass=MAKS_BILDER-skjemaBilder.length;
+  if(plass<=0){ settSkjemaBesk("Maks "+MAKS_BILDER+" bilder per bilag.","feil"); return; }
+  const liste=Array.from(filer).slice(0,plass);
+  if(filer.length>plass) settSkjemaBesk("Bare "+plass+" av bildene ble tatt med – maks "+MAKS_BILDER+" per bilag.","feil"); else settSkjemaBesk("Behandler bildet …","info");
+  let forsteNye=!skjemaBilder.length;
+  for(const f of liste){ try{ skjemaBilder.push(await lesBildeFil(f)); }catch(e){ settSkjemaBesk(e.message,"feil"); } }
+  if(!/Maks|Bare/.test($("skjemaBesk").textContent)) settSkjemaBesk("");
+  $("bildeTom").classList.remove("mangler"); tegnBildestripe();
+  if(tolkeNokkel && (forsteNye || tolkBelop($("inBelop").value)===null)) tolkBildet();
+}
+async function tolkBildet(){
+  const b64=skjemaBilder.filter(b=>b.lesbarB64).map(b=>b.lesbarB64);
+  if(!tolkeNokkel||!b64.length) return;
+  tolkStatus("Leser kvitteringen …","jobber");
+  let sv;
+  try{ sv=await tolkBilder(b64); }catch(e){ tolkStatus(e.message,"feil"); return; }
+  let fylt=0;
+  if(sv.butikk&&!rort.butikk&&!$("inButikk").value){ $("inButikk").value=sv.butikk; merkForeslatt("feltButikk",true); fylt++; }
+  if(sv.dato&&!rort.dato){ $("inDato").value=sv.dato; merkForeslatt("feltDato",true); fylt++; }
+  if(sv.belop!==null&&sv.belop!==undefined&&!rort.belop&&!$("inBelop").value){ $("inBelop").value=(sv.belop%1?sv.belop.toFixed(2):String(sv.belop)).replace(".",","); merkForeslatt("feltBelop",true); fylt++; }
+  if(sv.beskrivelse&&!rort.besk&&!$("inBesk").value){ $("inBesk").value=sv.beskrivelse; merkForeslatt("feltBesk",true); fylt++; }
+  oppdaterFilnavn();
+  if(!fylt) tolkStatus("Fikk ikke lest noe sikkert ut av bildet. Fyll ut selv.","feil");
+  else if(!sv.sikker||sv.belop===null||sv.belop===undefined) tolkStatus("Bildet var vanskelig å lese. Sjekk alle feltene mot kvitteringen.","usikker");
+  else tolkStatus("Lest fra bildet. Sjekk at beløpet stemmer før du lagrer.","");
+}
+async function lagreBilag(){
+  const b={ dato:$("inDato").value, butikk:$("inButikk").value.trim(), beskrivelse:$("inBesk").value.trim(), belop:tolkBelop($("inBelop").value),
+            returfrist:$("inRetur").value, kommentar:$("inKomm").value.trim(), reklamasjon };
+  const mangler=[];
+  $("feltDato").classList.toggle("mangler",!b.dato); if(!b.dato)mangler.push("dato");
+  $("feltButikk").classList.toggle("mangler",!b.butikk); if(!b.butikk)mangler.push("butikk");
+  $("feltBesk").classList.toggle("mangler",!b.beskrivelse); if(!b.beskrivelse)mangler.push("beskrivelse");
+  $("feltBelop").classList.toggle("mangler",b.belop===null); if(b.belop===null)mangler.push("beløp");
+  $("bildeTom").classList.toggle("mangler",!skjemaBilder.length); if(!skjemaBilder.length)mangler.push("bilde");
+  if(mangler.length){ settSkjemaBesk("Mangler "+mangler.join(", ")+".","feil"); window.scrollTo({top:0,behavior:"smooth"}); return; }
+  $("knLagre").disabled=true;
+  for(const bi of skjemaBilder){ if(bi.ny&&bi.bytes){ await bildeLagreLokalt(bi.id,bi.bytes,bi.mini); bi.ny=false; } }
+  const bilder=skjemaBilder.map(bi=>({id:bi.id,w:bi.w,h:bi.h}));
+  let rec;
+  if(redigerId&&finnBilag(KAT,redigerId)){ rec=finnBilag(KAT,redigerId); Object.assign(rec,b,{bilder,endret:new Date().toISOString()}); }
+  else { rec=Object.assign({id:nyId("b")},b,{bilder,opprettet:new Date().toISOString(),av:innlogget||""}); COMBINED[KAT].bilag[rec.id]=rec; }
+  merkSti(KAT,{t:"bilag",id:rec.id}); uskrevetLagre(); persist();
+  fyllButikkliste();
+  $("pdfTittel").textContent=redigerId?"Bilaget er oppdatert":"Bilaget er lagret";
+  $("pdfNavn").textContent=filnavnFor(rec); $("pdfBesk").textContent="";
+  $("knDelPdf").disabled=true; $("knDelPdf").textContent="Lager PDF …";
+  $("pdfOverlegg").classList.remove("skjult");
+  pdfKlar=null;
+  const kat=KAT; skjemaBilder=skjemaBilder.map(bi=>({id:bi.id,w:bi.w,h:bi.h}));
+  nullstillSkjema(); $("knLagre").disabled=false;
+  try{ pdfKlar={bytes:await pdfForBilag(Object.assign({kat},rec)),navn:filnavnFor(rec)}; $("knDelPdf").disabled=false; $("knDelPdf").textContent="Lagre PDF"; }
+  catch(e){ $("knDelPdf").textContent="Klarte ikke å lage PDF"; }
+}
+
+/* ===================== OVERSIKT ===================== */
+function fristLapp(b){
+  const dt=dagerTil(b.returfrist); if(dt===null) return "";
+  if(dt<0) return `<span class="merkelapp utgatt">Returfrist utløpt</span>`;
+  if(dt===0) return `<span class="merkelapp snart">Returfrist i dag</span>`;
+  if(dt<=7) return `<span class="merkelapp snart">Returfrist om ${dt} ${dt===1?"dag":"dager"}</span>`;
+  return `<span class="merkelapp">Retur innen ${norskDato(b.returfrist)}</span>`;
+}
+function fyllMini(rot){
+  rot.querySelectorAll("img.mini[data-bilde]").forEach(async img=>{
+    const url=await bildeHent(img.dataset.bilde,true);
+    if(url) img.src=url; else { const d=document.createElement("div"); d.className="mini tom"; d.textContent="Bildet er ikke lastet opp ennå"; img.replaceWith(d); }
+  });
+}
+function tegnListe(){
+  const sok=$("inSok").value.trim().toLowerCase();
+  let l=bilagListe(KAT);
+  if(sok) l=l.filter(b=>((b.butikk||"")+" "+(b.beskrivelse||"")+" "+(b.kommentar||"")).toLowerCase().includes(sok));
+  l.sort((a,b)=>(b.dato||"").localeCompare(a.dato||"")||String(b.opprettet||"").localeCompare(String(a.opprettet||"")));
+  $("sumEtikett").textContent=sok?`${l.length} treff`:"Totalt";
+  $("sumVerdi").textContent="kr "+kr(l.reduce((a,b)=>a+Number(b.belop||0),0));
+  const pk=bilagListe("papirkurv").filter(b=>b.kat===KAT).length;
+  $("knPapirkurv").classList.toggle("skjult",!pk); $("knPapirkurv").textContent=`Papirkurv (${pk})`;
+  const boks=$("listeInnhold");
+  if(!l.length){ boks.innerHTML=`<div class="tomt"><strong>${sok?"Ingen treff":"Ingen bilag her ennå"}</strong>${sok?"Prøv et annet søkeord.":"Gå til «Ny kvittering» og ta det første bildet."}</div>`; return; }
+  let h="", forrige="";
+  for(const b of l){
+    const md=(b.dato||"").slice(0,7);
+    if(md!==forrige){ forrige=md; const d=new Date((b.dato||idagIso())+"T00:00:00"); const navn=d.toLocaleDateString("nb-NO",{month:"long",year:"numeric"});
+      const msum=l.filter(x=>(x.dato||"").slice(0,7)===md).reduce((a,x)=>a+Number(x.belop||0),0);
+      h+=`<div class="maned"><span>${esc(navn)}</span><span class="sum tall">kr ${kr(msum)}</span></div>`; }
+    const forste=(b.bilder&&b.bilder[0])?b.bilder[0].id:null;
+    const flere=(b.bilder&&b.bilder.length>1)?`<span class="merkelapp flere">${b.bilder.length} bilder</span>`:"";
+    h+=`<div class="bilag" data-id="${b.id}">${forste?`<img class="mini" data-bilde="${forste}" alt="">`:`<div class="mini tom">Uten bilde</div>`}
+      <div class="midt"><div class="butikk">${esc(b.butikk)}</div><div class="besk">${esc(b.beskrivelse)}</div>
+      <div class="under"><span class="dato tall">${norskDato(b.dato)}</span>${fristLapp(b)}${flere}</div></div>
+      <div class="belop tall">kr ${kr(b.belop)}</div></div><div class="rift"></div>`;
+  }
+  boks.innerHTML=h; fyllMini(boks);
+  boks.querySelectorAll(".bilag").forEach(e=>e.addEventListener("click",()=>visDetalj(e.dataset.id)));
+}
+
+/* ===================== DETALJ ===================== */
+async function visDetalj(id){
+  const b=finnBilag(KAT,id); if(!b) return;
+  detaljId=id; detaljPdf=null;
+  $("dButikk").textContent=b.butikk; $("dBesk").textContent=b.beskrivelse;
+  let h=`<div class="rad"><span class="n">Dato</span><span class="v tall">${norskDato(b.dato)}</span></div>
+         <div class="rad"><span class="n">Beløp</span><span class="v tall"><strong>kr ${kr(b.belop)}</strong></span></div>`;
+  const rt=reklamasjonTekst(b); if(rt) h+=`<div class="rad"><span class="n">Reklamasjon</span><span class="v tall">${esc(rt)}</span></div>`;
+  if(b.returfrist) h+=`<div class="rad"><span class="n">Returfrist</span><span class="v tall">${norskDato(b.returfrist)}</span></div>`;
+  if(b.kommentar) h+=`<div class="rad"><span class="n">Kommentar</span><span class="v">${esc(b.kommentar)}</span></div>`;
+  if(b.av) h+=`<div class="rad"><span class="n">Registrert av</span><span class="v">${esc(b.av)}</span></div>`;
+  $("dRader").innerHTML=h;
+  const g=$("dGalleri"); g.innerHTML=(b.bilder||[]).map((bi,i)=>`<img data-full="${bi.id}" alt="Bilde ${i+1} av ${b.bilder.length}">`).join("")||`<div class="tomtbilde">Uten bilde</div>`;
+  $("dKalender").classList.toggle("skjult",!b.returfrist);
+  $("dPdf").disabled=true; $("dPdf").textContent="Lager PDF …"; $("dBesk2").textContent="";
+  $("detaljOverlegg").classList.remove("skjult");
+  g.querySelectorAll("img[data-full]").forEach(async img=>{ const url=await bildeHent(img.dataset.full,false); if(url) img.src=url; else { const d=document.createElement("div"); d.className="tomtbilde"; d.textContent="Bildet er ikke lastet opp ennå – det hentes når det er i lageret."; img.replaceWith(d); } });
+  try{ detaljPdf={bytes:await pdfForBilag(Object.assign({kat:KAT},b)),navn:filnavnFor(b)}; if(detaljId===id){ $("dPdf").disabled=false; $("dPdf").textContent="Lagre PDF"; } }
+  catch(e){ $("dPdf").textContent="Klarte ikke å lage PDF"; }
+}
+function lukkDetalj(){ $("detaljOverlegg").classList.add("skjult"); detaljId=null; }
+function slettTilPapirkurv(id){
+  const b=finnBilag(KAT,id); if(!b) return;
+  delete COMBINED[KAT].bilag[id]; merkSti(KAT,{t:"bilag",id});
+  COMBINED.papirkurv.bilag[id]=Object.assign({},b,{kat:KAT,slettet:new Date().toISOString()}); merkSti("papirkurv",{t:"bilag",id});
+  uskrevetLagre(); persist();
+}
+
+/* ===================== PAPIRKURV ===================== */
+function tegnPapirkurv(){
+  const l=bilagListe("papirkurv").filter(b=>b.kat===KAT).sort((a,b)=>String(b.slettet).localeCompare(String(a.slettet)));
+  $("pkListe").innerHTML = l.length ? l.map(b=>`<div class="listerad" data-id="${b.id}"><div><div class="h">${esc(b.butikk)} · kr ${kr(b.belop)}</div><div class="u">${esc(b.beskrivelse)} · ${norskDato(b.dato)} · slettet ${norskDato(b.slettet)}</div></div>
+    <div class="knapper"><button data-gjen="${b.id}">Hent tilbake</button><button class="fare" data-godt="${b.id}">Slett for godt</button></div></div>`).join("")
+    : `<div class="tomt">Papirkurven er tom.</div>`;
+  $("pkTom").classList.toggle("skjult",!l.length);
+  $("pkListe").querySelectorAll("[data-gjen]").forEach(k=>k.addEventListener("click",()=>{ const id=k.dataset.gjen, b=COMBINED.papirkurv.bilag[id]; if(!b) return;
+    const kat=b.kat; delete COMBINED.papirkurv.bilag[id]; merkSti("papirkurv",{t:"bilag",id});
+    const r=Object.assign({},b); delete r.kat; delete r.slettet; COMBINED[kat].bilag[id]=r; merkSti(kat,{t:"bilag",id});
+    uskrevetLagre(); persist(); tegnPapirkurv(); tegnListe(); }));
+  $("pkListe").querySelectorAll("[data-godt]").forEach(k=>k.addEventListener("click",()=>{ const id=k.dataset.godt, b=COMBINED.papirkurv.bilag[id]; if(!b) return;
+    if(!confirm(`Slette bilaget fra ${b.butikk} for godt?`)) return;
+    delete COMBINED.papirkurv.bilag[id]; merkSti("papirkurv",{t:"bilag",id}); uskrevetLagre(); persist(); tegnPapirkurv(); tegnListe(); }));
+}
+
+/* ===================== HENDELSER ===================== */
+$("loginBtn").addEventListener("click",tryLogin);
+["loginName","loginPassword"].forEach(i=>$(i).addEventListener("keydown",e=>{ if(e.key==="Enter") tryLogin(); }));
+$("knLoggUt").addEventListener("click",loggUt);
+$("nokkelBtn").addEventListener("click",nokkelLagre);
+$("nokkelInput").addEventListener("keydown",e=>{ if(e.key==="Enter") nokkelLagre(); });
+document.querySelectorAll(".velg").forEach(b=>b.addEventListener("click",e=>{
+  const kam=e.target.closest("[data-kamera]");
+  aapneKat(b.dataset.kat);
+  if(kam) $("filKamera").click();
+}));
+$("knHjem").addEventListener("click",visStart);
+document.querySelectorAll("#faner button").forEach(b=>b.addEventListener("click",()=>byttFane(b.dataset.fane)));
+$("inSok").addEventListener("input",tegnListe);
+["inDato","inButikk","inBesk"].forEach(i=>$(i).addEventListener("input",oppdaterFilnavn));
+for(const [inn,felt,flagg] of [["inDato","feltDato","dato"],["inBelop","feltBelop","belop"],["inButikk","feltButikk","butikk"],["inBesk","feltBesk","besk"]]){
+  $(inn).addEventListener("input",()=>{ rort[flagg]=true; merkForeslatt(felt,false); });
+}
+document.querySelectorAll("#segReklamasjon button").forEach(b=>b.addEventListener("click",()=>settReklamasjon(b.dataset.v)));
+$("knKamera").addEventListener("click",()=>$("filKamera").click());
+$("knGalleri").addEventListener("click",()=>$("filGalleri").click());
+for(const id of ["filKamera","filGalleri"]) $(id).addEventListener("change",async e=>{ const f=e.target.files; const liste=f?Array.from(f):[]; e.target.value=""; if(liste.length) await taImotFiler(liste); });
+$("knLagre").addEventListener("click",lagreBilag);
+$("knAvbryt").addEventListener("click",()=>{ nullstillSkjema(); byttFane("liste"); });
+$("knDelPdf").addEventListener("click",async ()=>{ if(!pdfKlar) return; const r=await delEllerLastNed(pdfKlar.bytes,pdfKlar.navn,"application/pdf");
+  $("pdfBesk").textContent = r==="delt"?"PDF-en er sendt videre.":(r==="lastet"?"PDF-en er lastet ned.":""); });
+$("knPdfFerdig").addEventListener("click",()=>{ $("pdfOverlegg").classList.add("skjult"); byttFane("liste"); });
+$("dLukk").addEventListener("click",lukkDetalj);
+$("dPdf").addEventListener("click",async ()=>{ if(!detaljPdf) return; const r=await delEllerLastNed(detaljPdf.bytes,detaljPdf.navn,"application/pdf");
+  $("dBesk2").textContent = r==="delt"?"PDF-en er sendt videre.":(r==="lastet"?"PDF-en er lastet ned.":""); });
+$("dKalender").addEventListener("click",async ()=>{ const b=finnBilag(KAT,detaljId); if(!b) return; const ics=icsFor(b); if(!ics) return;
+  const r=await delEllerLastNed(tbo.enc.encode(ics),"Returfrist "+rensNavn(b.butikk)+".ics","text/calendar");
+  $("dBesk2").textContent = r==="avbrutt"?"":"Åpne fila i Kalender for å legge inn fristen."; });
+$("dRediger").addEventListener("click",()=>{
+  const b=finnBilag(KAT,detaljId); if(!b) return;
+  redigerId=b.id; skjemaBilder=(b.bilder||[]).map(bi=>({id:bi.id,w:bi.w,h:bi.h,ny:false}));
+  $("inDato").value=b.dato; $("inBelop").value=String(b.belop).replace(".",","); $("inButikk").value=b.butikk; $("inBesk").value=b.beskrivelse;
+  $("inRetur").value=b.returfrist||""; $("inKomm").value=b.kommentar||""; settReklamasjon(b.reklamasjon||"0");
+  nullstillForslag(); tegnBildestripe();
+  $("knLagre").textContent="Lagre endringer"; $("knAvbryt").classList.remove("skjult");
+  oppdaterFilnavn(); lukkDetalj(); byttFane("ny");
+});
+$("dSlett").addEventListener("click",()=>{ const b=finnBilag(KAT,detaljId); if(!b) return;
+  if(!confirm(`Slette bilaget fra ${b.butikk}?\n\nDet legges i papirkurven og kan hentes tilbake.`)) return;
+  slettTilPapirkurv(detaljId); lukkDetalj(); tegnListe(); });
+$("knPapirkurv").addEventListener("click",()=>{ tegnPapirkurv(); $("papirkurvOverlegg").classList.remove("skjult"); });
+$("pkLukk").addEventListener("click",()=>$("papirkurvOverlegg").classList.add("skjult"));
+$("pkTom").addEventListener("click",()=>{ const l=bilagListe("papirkurv").filter(b=>b.kat===KAT); if(!l.length) return;
+  if(!confirm(`Slette ${l.length} bilag for godt?`)) return;
+  l.forEach(b=>{ delete COMBINED.papirkurv.bilag[b.id]; merkSti("papirkurv",{t:"bilag",id:b.id}); }); uskrevetLagre(); persist(); tegnPapirkurv(); tegnListe(); });
+$("fristVarsel").addEventListener("click",()=>{
+  const f=fristerDenneUka();
+  $("fristListe").innerHTML=f.map(x=>`<div class="listerad" data-kat="${x.k}" data-id="${x.b.id}"><div><div class="h">${esc(x.b.butikk)} · kr ${kr(x.b.belop)}</div><div class="u">${esc(x.b.beskrivelse)} · ${x.d===0?"i dag":"om "+x.d+(x.d===1?" dag":" dager")} (${norskDato(x.b.returfrist)})</div></div><span class="k ${x.k}">${KATNAVN[x.k]}</span></div>`).join("");
+  $("fristListe").querySelectorAll(".listerad").forEach(r=>r.addEventListener("click",()=>{ $("fristOverlegg").classList.add("skjult"); aapneKat(r.dataset.kat); byttFane("liste"); visDetalj(r.dataset.id); }));
+  $("fristOverlegg").classList.remove("skjult");
+});
+$("fristLukk").addEventListener("click",()=>$("fristOverlegg").classList.add("skjult"));
+for(const id of ["pdfOverlegg","detaljOverlegg","papirkurvOverlegg","fristOverlegg","nokkelOverlegg","filOverlegg"]){
+  $(id).addEventListener("click",e=>{ if(e.target.id!==id) return;
+    if(id==="detaljOverlegg") lukkDetalj(); else if(id==="pdfOverlegg"){ $("pdfOverlegg").classList.add("skjult"); byttFane("liste"); } else $(id).classList.add("skjult"); });
+}
+$("pvVarsel").addEventListener("click",e=>{ if(e.target&&e.target.id==="pvLukk") return; pvHentInn(); });
+$("pvLukk").addEventListener("click",async e=>{ e.stopPropagation(); pvSkjul(); try{ const r=await ekLes(false); pvSkjultTekst=r&&r.tekst?r.tekst:null; if(r&&r.etag) ekEtag=r.etag; }catch{ pvSkjultTekst=null; } });
+
+/* ---------- Kvitteringslesing av/på ---------- */
+$("knTolkNokkel").addEventListener("click",()=>{ $("inTolkNokkel").value=""; $("tolkNokkelBesk").textContent=""; visTolkTilstand(); $("nokkelOverlegg").classList.remove("skjult"); });
+$("knTolkLukk").addEventListener("click",()=>$("nokkelOverlegg").classList.add("skjult"));
+$("knTolkLagre").addEventListener("click",async ()=>{ const v=$("inTolkNokkel").value.trim(); if(v.length<20){ $("tolkNokkelBesk").textContent="Dette ser ikke ut som en gyldig nøkkel."; return; }
+  await idbSet("tolk",v); tolkeNokkel=v; visTolkTilstand(); broSkriv(); $("nokkelOverlegg").classList.add("skjult"); startBesk("Kvitteringslesing slått på. Neste bilde blir lest automatisk.","ok"); });
+$("knTolkAv").addEventListener("click",async ()=>{ await idbSet("tolk",null); tolkeNokkel=null; visTolkTilstand(); broSkriv(); $("nokkelOverlegg").classList.add("skjult"); startBesk("Kvitteringslesing slått av. Bildene forlater ikke telefonen.","ok"); });
+function startBesk(m,k){ const e=$("startBesk"); e.textContent=m||""; e.className=k||""; }
+
+/* ---------- Filpanel (bare Olav) ---------- */
+$("knFil").addEventListener("click",async ()=>{
+  const p=prompt("Passord:"); if(p===null) return;
+  let rett=false; try{ rett=(await sha256Hex("Bilag-los:"+p))===USERS.olav.sjekk; }catch{}
+  if(!rett){ alert("Feil passord."); return; }
+  $("filSistLagret").textContent = COMBINED&&COMBINED.lagret ? new Date(COMBINED.lagret).toLocaleString("nb-NO") : "–";
+  $("filUtlop").textContent = nokkelUtlop ? norskDato(nokkelUtlop) : "Ingen utløpsdato";
+  $("filAntall").textContent = `${bilagListe("privat").length} privat · ${bilagListe("kattepuser").length} kattepuser · ${bilagListe("papirkurv").length} i papirkurv`;
+  $("filBesk").textContent=""; $("filOverlegg").classList.remove("skjult");
+});
+$("filLukkBtn").addEventListener("click",()=>$("filOverlegg").classList.add("skjult"));
+$("filOppdaterBtn").addEventListener("click",async ()=>{ $("filOverlegg").classList.add("skjult"); await pvHentInn(); });
+$("filBackupBtn").addEventListener("click",()=>{
+  const tekst=JSON.stringify(COMBINED,null,1); const [y,m,d]=idagIso().split("-");
+  delEllerLastNed(tbo.enc.encode(tekst),`${y} ${m}-${d} - Bilag - Sikkerhetskopi.json`,"application/json");
+  $("filBesk").textContent="Sikkerhetskopien inneholder feltene, ikke bildene. Bildene ligger i lageret.";
+});
+
+/* ===================== IMPORT FRA V1 ===================== */
+async function importerV1(){
+  if(await idbGet("v1import")) return 0;
+  let finnes=true;
+  if(indexedDB.databases){ try{ finnes=(await indexedDB.databases()).some(d=>d.name==="stine-bilag"); }catch{} }
+  if(!finnes){ await idbSet("v1import","ingen"); return 0; }
+  const gammel=await new Promise(ok=>{ try{ const r=indexedDB.open("stine-bilag",1);
+    r.onupgradeneeded=()=>{}; r.onsuccess=()=>{ const d=r.result; if(!d.objectStoreNames.contains("data")){ d.close(); ok(null); return; }
+      const g=d.transaction("data","readonly").objectStore("data").get("base"); g.onsuccess=()=>ok(g.result||null); g.onerror=()=>ok(null); };
+    r.onerror=()=>ok(null); }catch{ ok(null); } });
+  let n=0;
+  if(gammel&&gammel.type==="bilagsapp-data"){
+    for(const k of ["privat","kattepuser"]){
+      for(const g of ((gammel[k]&&gammel[k].bilag)||[])){
+        try{
+          const bid=nyId("i"); const bytes=b64fra(String(g.bilde||"").split(",")[1]||""); const mini=g.mini?b64fra(String(g.mini).split(",")[1]||""):bytes;
+          if(!bytes.length) continue;
+          await bildeLagreLokalt(bid,bytes,mini);
+          const id=g.id||nyId("b");
+          COMBINED[k].bilag[id]={ id, dato:g.dato||"", butikk:g.butikk||"", beskrivelse:g.beskrivelse||"", belop:Number(g.belop||0), returfrist:g.returfrist||"", kommentar:g.kommentar||"", reklamasjon:"2",
+            bilder:[{id:bid,w:g.bw||0,h:g.bh||0}], opprettet:g.opprettet||new Date().toISOString(), av:innlogget||"" };
+          merkSti(k,{t:"bilag",id}); n++;
+        }catch{}
+      }
+    }
+  }
+  await idbSet("v1import","ferdig");
+  if(n){ uskrevetLagre(); persist(); }
+  return n;
+}
+
+/* ===================== OPPSTART ===================== */
+async function etterInnlogging(){
+  if(eksternStartet){ visStart(); return; }
+  const ok=await startEkstern(); if(!ok) return;
+  await etterStart();
+}
+async function etterStart(){
+  const n=await importerV1();
+  visStart(); pvStart(); sbkStart();
+  if(n) startBesk(`Tok med ${n} bilag fra forrige utgave av appen.`,"ok");
+}
+(async ()=>{
+  await lesLenke();
+  tilgang=await idbGet("tilgang"); tolkeNokkel=await idbGet("tolk"); nokkelUtlop=await idbGet("utlop");
+  await broHentInn(); if(tilgang) broSkriv();
+  ventende=(await idbGet("ventende"))||[];
+  visTolkTilstand(); $("inDato").value=idagIso();
+  const husket=await idbGet("husk");
+  if(typeof husket==="string"&&USERS[husket.toLowerCase()]){ settInn(USERS[husket.toLowerCase()].navn); etterInnlogging(); }
+  else $("loginName").focus();
+  if("serviceWorker" in navigator && location.protocol==="https:") navigator.serviceWorker.register("./sw.js").catch(()=>{});
+})();
+/* Lenka åpnes mens appen allerede står åpen: nøklene leses inn uten ny innlasting */
+window.addEventListener("hashchange", async ()=>{
+  if(!/(^|&)nokkel=/.test((location.hash||"").replace(/^#/,""))) return;
+  await lesLenke();
+  tilgang=await idbGet("tilgang"); tolkeNokkel=await idbGet("tolk"); nokkelUtlop=await idbGet("utlop");
+  visTolkTilstand();
+  if(!$("nokkelScreen").classList.contains("skjult")){ nokkelSkjul(); if(nokkelEtterpaa){ const fn=nokkelEtterpaa; nokkelEtterpaa=null; try{ fn(); }catch{} } else if(innlogget&&!eksternStartet) etterInnlogging(); }
+});
+/* Lenka åpnes mens appen allerede står åpen: les nøklene på nytt */
+window.addEventListener("hashchange",async ()=>{
+  if(!/(^#|&)nokkel=/.test(location.hash)) return;
+  await lesLenke();
+  tilgang=await idbGet("tilgang"); tolkeNokkel=await idbGet("tolk"); nokkelUtlop=await idbGet("utlop");
+  nokkelSkjul(); visTolkTilstand();
+  if(nokkelEtterpaa){ const fn=nokkelEtterpaa; nokkelEtterpaa=null; try{ fn(); }catch{} }
+  else if(innlogget&&!eksternStartet) etterInnlogging();
+  else if(innlogget) oppsummer();
+});
+/* Lenke med nøkkel åpnet mens appen allerede kjører: lagre og start på nytt */
+window.addEventListener("hashchange",()=>{ if(/(^#|&)nokkel=/.test(location.hash||"")) lesLenke().then(()=>location.reload()); });
+</script>
+</body>
+</html>
