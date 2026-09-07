@@ -1041,7 +1041,7 @@ button,input,select,textarea{font-family:inherit}
   </div>
   <div class="ark">
     <div class="flink-rad"><div class="h">Fra kvitteringene</div><div class="album" id="drivhusKvitt"></div></div>
-    <div class="flink-rad"><div class="h">Fra prosjektene</div><div class="album" id="drivhusProsjekt"></div><div class="u" id="drivhusTom" style="font-size:13px;color:var(--muted)"></div></div>
+    <div class="flink-rad"><div class="h">Fra prosjekter og poeng</div><div class="album" id="drivhusProsjekt"></div><div class="u" id="drivhusTom" style="font-size:13px;color:var(--muted)"></div></div>
   </div>
 </div>
 
@@ -1244,7 +1244,7 @@ button,input,select,textarea{font-family:inherit}
     <div class="fot">
       <button id="knBackup" class="skjult" title="Lagre komplett backup (JSON)">&#128190;</button>
       <button id="knFil" class="skjult" title="Fil">&#128196; Fil</button>
-      <span class="versjon" id="startVersjon">Versjon 3.19</span>
+      <span class="versjon" id="startVersjon">Versjon 3.20</span>
     </div>
     <div id="startBesk"></div>
     <button class="panelknapp andre" id="knInnstSkjul" style="margin-top:16px">✋ Skjul innstillinger</button>
@@ -1270,8 +1270,8 @@ button,input,select,textarea{font-family:inherit}
 
 <script>
 "use strict";
-/* ===================== Kvitteringer, mjau mjau, versjon 3.19 ===================== */
-const APP_VERSJON = "3.19";
+/* ===================== Kvitteringer, mjau mjau, versjon 3.20 ===================== */
+const APP_VERSJON = "3.20";
 const LAGER = { eier: "OlavSve", repo: "Stine-app-data", gren: "main", fil: "bilag.kryptert.json", bilder: "bilder", backup: "backup" };
 const EK = { hemmelighet: "0df7552eec9d178481fda706b469d0305507b5ddc5c229a6292f863412d29d50", bildesalt: "m1jWj9kLvoyOxH+NuTrtpA==" };
 const DATA_TYPE = "stine-app-data";
@@ -2516,6 +2516,9 @@ function giPoeng(p,hva,id){
   const for_=nivaFor(f.poeng[n].sum); f.poeng[n].sum+=p; f.poeng[n].hendelser.push({t:new Date().toISOString(),p,hva,id}); if(f.poeng[n].hendelser.length>400) f.poeng[n].hendelser.splice(0,f.poeng[n].hendelser.length-400);
   if(f.poeng[n].sum>Number(f.rekord.poeng||0)) f.rekord={mnd:n,poeng:f.poeng[n].sum};
   merkGren(flinkGren());
+  /* 195: hvert hundrede poeng i måneden gir en plante fra banken */
+  const forHundre=Math.floor((f.poeng[n].sum-p)/100), etterHundre=Math.floor(f.poeng[n].sum/100);
+  for(let h=forHundre;h<etterHundre;h++){ const neste=(f.prosjektPlanter||[]).length; if(neste<PLANTEBANK.length){ f.prosjektPlanter=(f.prosjektPlanter||[]).concat([neste]); f.planteLogg=(f.planteLogg||[]).concat([{nr:neste,kilde:"poeng",t:new Date().toISOString()}]); setTimeout(()=>visRos("100 poeng til. Ny plante i drivhuset: "+PLANTEBANK[neste][0]+"."),600); } }
   const etter=nivaFor(f.poeng[n].sum);
   if(etter>for_){ const [y,m]=n.split("-").map(Number); const sist=new Date(y,m,0); f.kroneTil=`${sist.getFullYear()}-${String(sist.getMonth()+1).padStart(2,"0")}-${String(sist.getDate()).padStart(2,"0")}`; setTimeout(()=>{ kattemat("dobbel"); visRos("Nytt nivå: "+NIVAER[etter][0]+"! Pusen får krone ut måneden."); },900); }
   tegnPoengStripe(); visPynt();
@@ -2556,7 +2559,7 @@ function tegnFlink(){
   const har=f.merker||[], pp=f.prosjektPlanter||[]; $("flinkMerkerTekst").textContent=`${har.length+pp.length} planter · de siste du har fått`;
   const logg=(f.planteLogg||[]).slice(-5).reverse(); const siste=logg.length?logg:har.slice(-5).reverse().map(nr=>({nr,kilde:"kvitt"}));
   $("flinkAlbum").innerHTML=siste.length?siste.map(x=>`<div class="har" title="${x.kilde==="kvitt"?MERKER[x.nr][0]:PLANTEBANK[x.nr][0]}">${planteSvg(x.kilde,x.nr)}</div>`).join(""):`<div class="hint" style="grid-column:1/-1">Ingen ennå. Den første kommer med første kvittering.</div>`;
-  $("flinkNesteTekst").textContent="Neste tre du kan få ved å fullføre prosjekter:"; $("flinkNestePlanter").innerHTML=[0,1,2].map(k=>pp.length+k).filter(nr=>nr<PLANTEBANK.length).map(nr=>`<div title="${PLANTEBANK[nr][0]}">${planteSvg("bank",nr)}</div>`).join("");
+  $("flinkNesteTekst").textContent="Neste tre, for prosjekter og hvert hundrede poeng:"; $("flinkNestePlanter").innerHTML=[0,1,2].map(k=>pp.length+k).filter(nr=>nr<PLANTEBANK.length).map(nr=>`<div title="${PLANTEBANK[nr][0]}">${planteSvg("bank",nr)}</div>`).join("");
   const prl=prosjektListe(); const stegUka=prl.reduce((a,p)=>a+(p.steg||[]).filter(x=>x.ferdig&&x.ferdigDato&&dagerTil(x.ferdigDato)>=-7).length,0);
   $("flinkProsjekter").textContent=`${prl.filter(p=>p.status==="igang").length} i gang · ${prl.filter(p=>p.status==="ferdig").length} ferdige · ${stegUka} steg denne uka`;
   const g=Object.entries(f.gylne||{}).sort((a,b)=>b[1].localeCompare(a[1])); $("flinkGylne").textContent=g.length?`${g.length} ${g.length===1?"kvittering":"kvitteringer"} med gullpoten til nå · sist ${norskDato(g[0][1].slice(0,10))}`:"Ingen ennå. Gullpoten kommer når den vil.";
