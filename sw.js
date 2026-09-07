@@ -1,5 +1,5 @@
-/* Kvitteringer, mjau mjau - bakgrunnsskript v3.20: nett først, hurtiglager som reserve (samme som NFK Operations 8.10) */
-const LAGER = "stine-app-v3-20";
+/* Kvitteringer, mjau mjau - bakgrunnsskript v3.21: nett først, hurtiglager som reserve (samme som NFK Operations 8.10) */
+const LAGER = "stine-app-v3-21";
 const GRUNN = ["./index.html", "./manifest.webmanifest", "./ikon-192.png", "./ikon-512.png"];
 
 self.addEventListener("install", h => {
