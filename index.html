@@ -1349,7 +1349,7 @@ button,input,select,textarea{font-family:inherit}
     <div class="fot">
       <button id="knBackup" class="skjult" title="Lagre komplett backup (JSON)">&#128190;</button>
       <button id="knFil" class="skjult" title="Fil">&#128196; Fil</button>
-      <span class="versjon" id="startVersjon">Versjon 3.23</span>
+      <span class="versjon" id="startVersjon">Versjon 3.24</span>
     </div>
     <div id="startBesk"></div>
     <button class="panelknapp andre" id="knInnstSkjul" style="margin-top:16px">✋ Skjul innstillinger</button>
@@ -1376,8 +1376,8 @@ button,input,select,textarea{font-family:inherit}
 
 <script>
 "use strict";
-/* ===================== Kvitteringer, mjau mjau, versjon 3.23 ===================== */
-const APP_VERSJON = "3.23";
+/* ===================== Kvitteringer, mjau mjau, versjon 3.24 ===================== */
+const APP_VERSJON = "3.24";
 const LAGER = { eier: "OlavSve", repo: "Stine-app-data", gren: "main", fil: "bilag.kryptert.json", bilder: "bilder", backup: "backup" };
 const EK = { hemmelighet: "0df7552eec9d178481fda706b469d0305507b5ddc5c229a6292f863412d29d50", bildesalt: "m1jWj9kLvoyOxH+NuTrtpA==" };
 const DATA_TYPE = "stine-app-data";
@@ -2239,7 +2239,7 @@ const TID_IKON={
 function tidPaaDognet(t){ const h=t===undefined?new Date().getHours():t; return h>=5&&h<10?"morgen":h>=10&&h<17?"dag":h>=17&&h<22?"kveld":"natt"; }
 let sisteSetning=-1;
 function tegnHilsen(){
-  const tid=tidPaaDognet(), navn=innlogget||"";
+  const tid=tidPaaDognet(), navn=eierNaa()||"";
   const hilsen={morgen:"God morgen",dag:"Hei",kveld:"God kveld",natt:"God natt"}[tid];
   $("hilsenTekst").textContent=hilsen+(navn?", "+navn:"");
   $("tidIkon").innerHTML=TID_IKON[tid];
@@ -3505,7 +3505,7 @@ function pusTrykk(nr){
 document.querySelector("#start .sittekatt").addEventListener("click",()=>{ lydKtx(); pusTrykk(); });
 $("knInnst").addEventListener("click",()=>{ startBesk(""); visTolkTilstand(); visVarselTilstand(); visPkTilstand(); visOye(); $("innstOverlegg").classList.remove("skjult"); });
 function visOye(){ const kn=$("knOye"); kn.classList.toggle("skjult",innlogget!=="Olav"); kn.classList.toggle("pa",visning==="Stine"&&innlogget==="Olav"); }
-$("knOye").addEventListener("click",()=>{ if(innlogget!=="Olav") return; visning=(visning==="Stine")?"Olav":"Stine"; visOye(); tegnAlt(); if(!$("start").classList.contains("skjult")){ oppsummer(); karTegn(0); } });
+$("knOye").addEventListener("click",()=>{ if(innlogget!=="Olav") return; visning=(visning==="Stine")?"Olav":"Stine"; visOye(); tegnAlt(); if(!$("start").classList.contains("skjult")){ tegnHilsen(); oppsummer(); karTegn(0); } });
 $("knInnstSkjul").addEventListener("click",()=>$("innstOverlegg").classList.add("skjult"));
 document.querySelectorAll("#faner button").forEach(b=>b.addEventListener("click",()=>byttFane(b.dataset.fane)));
 $("inSok").addEventListener("input",tegnListe);
