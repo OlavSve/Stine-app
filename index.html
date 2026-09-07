@@ -729,7 +729,6 @@ button,input,select,textarea{font-family:inherit}
       <svg id="tidIkon" viewBox="0 0 100 100" aria-hidden="true"></svg>
       <div><div class="h" id="hilsenTekst">Hei</div><div class="s" id="hilsenSetning"></div></div>
     </div>
-    <div class="sokrad-start"><input type="search" id="inSokAlt" placeholder="🔎 Søk i alt" autocomplete="off"></div>
     <button class="dagen-rad" id="dagenRad"><svg viewBox="0 0 140 150" id="dagenTre" aria-hidden="true"></svg><div class="t"><div class="h">Dagens tre</div><div id="dagenLinjer"></div></div><span class="pil">›</span></button>
     <div class="spor" aria-hidden="true"></div>
     <div class="tittelrad">
@@ -983,6 +982,7 @@ button,input,select,textarea{font-family:inherit}
   </div>
   <div id="sakerFaner" class="faner-modul"><button data-fane="aapne" class="pa">Åpne saker</button><button data-fane="ordnet">Ordnet</button><button data-fane="garanti">Garanti nå</button></div>
   <div class="ark">
+    <div class="sokerad" style="margin-bottom:12px"><input type="search" id="inSokSaker" placeholder="🔎 Søk i butikk, vare eller sak" autocomplete="off"></div>
     <div class="sumstripe"><span class="etikett" id="sakerSumEtikett">Tilbake denne måneden</span><span class="verdi tall" id="sakerSum">kr 0,00</span></div>
     <div id="sakerListe"></div>
   </div>
@@ -1062,6 +1062,7 @@ button,input,select,textarea{font-family:inherit}
     <div><div class="tittel">Mat og hjem</div><div class="undertekst">Felles for begge</div></div>
   </div>
   <div id="hjemFaner" class="faner-modul"><button data-fane="lister" class="pa">Handlelister</button><button data-fane="middag">Middag</button><button data-fane="onsker">Ønsker</button></div>
+  <div class="sokerad" style="margin:12px 20px 0"><input type="search" id="inSokHjem" placeholder="🔎 Søk" autocomplete="off"></div>
   <div class="ark" id="hjemLister">
     <div class="segment" id="segListe" style="margin-bottom:12px"><button type="button" data-v="felles" class="pa">Felles</button><button type="button" data-v="min">Min</button></div>
     <div class="sokerad"><input type="text" id="inVare" placeholder="Melk, 2 l" list="varer" autocapitalize="sentences"><button class="panelknapp" id="knVare" style="width:auto;margin:0;padding:10px 14px">➕ Legg til</button></div>
@@ -1114,6 +1115,7 @@ button,input,select,textarea{font-family:inherit}
   </div>
   <div id="prosjektFaner" class="faner-modul"><button data-fane="igang" class="pa">I gang</button><button data-fane="ide">Ideer</button><button data-fane="ferdig">Ferdige</button></div>
   <div class="ark">
+    <div class="sokerad" style="margin-bottom:12px"><input type="search" id="inSokProsjekt" placeholder="🔎 Søk i navn, steg eller dagbok" autocomplete="off"></div>
     <div class="tolinje" style="margin:0 0 14px"><button class="panelknapp" id="knNyIde" style="margin:0">💡 Ny idé</button><button class="panelknapp andre" id="knNyttProsjekt" style="margin:0">🧰 Nytt prosjekt</button></div>
     <div id="prosjektListe"></div>
   </div>
@@ -1347,7 +1349,7 @@ button,input,select,textarea{font-family:inherit}
     <div class="fot">
       <button id="knBackup" class="skjult" title="Lagre komplett backup (JSON)">&#128190;</button>
       <button id="knFil" class="skjult" title="Fil">&#128196; Fil</button>
-      <span class="versjon" id="startVersjon">Versjon 3.22</span>
+      <span class="versjon" id="startVersjon">Versjon 3.23</span>
     </div>
     <div id="startBesk"></div>
     <button class="panelknapp andre" id="knInnstSkjul" style="margin-top:16px">✋ Skjul innstillinger</button>
@@ -1374,8 +1376,8 @@ button,input,select,textarea{font-family:inherit}
 
 <script>
 "use strict";
-/* ===================== Kvitteringer, mjau mjau, versjon 3.22 ===================== */
-const APP_VERSJON = "3.22";
+/* ===================== Kvitteringer, mjau mjau, versjon 3.23 ===================== */
+const APP_VERSJON = "3.23";
 const LAGER = { eier: "OlavSve", repo: "Stine-app-data", gren: "main", fil: "bilag.kryptert.json", bilder: "bilder", backup: "backup" };
 const EK = { hemmelighet: "0df7552eec9d178481fda706b469d0305507b5ddc5c229a6292f863412d29d50", bildesalt: "m1jWj9kLvoyOxH+NuTrtpA==" };
 const DATA_TYPE = "stine-app-data";
@@ -2522,12 +2524,13 @@ function tilbakeDenneMnd(){ const m=idagIso().slice(0,7); return alleSaker().fil
 let sakerFane="aapne";
 function tegnSaker(){
   document.querySelectorAll("#sakerFaner button").forEach(b=>b.classList.toggle("pa",b.dataset.fane===sakerFane));
-  if(sakerFane==="garanti"){ const g=[]; for(const k of ["privat","kattepuser"]) for(const b of bilagListe(k)){ if(b.reklamasjon&&b.reklamasjon!=="0"&&b.dato){ const f=leggTilAar(b.dato,Number(b.reklamasjon)); const d=dagerTil(f); if(d!==null&&d>=0) g.push({k,b,f,d}); } } g.sort((a,b)=>a.d-b.d);
+  if(sakerFane==="garanti"){ const qg=($("inSokSaker").value||"").trim().toLowerCase(); const g=[]; for(const k of ["privat","kattepuser"]) for(const b of bilagListe(k)){ if(qg&&!(b.butikk+" "+b.beskrivelse).toLowerCase().includes(qg)) continue; if(b.reklamasjon&&b.reklamasjon!=="0"&&b.dato){ const f=leggTilAar(b.dato,Number(b.reklamasjon)); const d=dagerTil(f); if(d!==null&&d>=0) g.push({k,b,f,d}); } } g.sort((a,b)=>a.d-b.d);
     $("sakerSumEtikett").textContent="Under garanti"; $("sakerSum").textContent="kr "+kr(g.reduce((a,x)=>a+Number(x.b.belop||0),0));
     $("sakerListe").innerHTML=g.length?g.map(x=>`<div class="sak" data-k="${x.k}" data-id="${x.b.id}"><div class="h"><span>${esc(x.b.butikk)} – ${esc(x.b.beskrivelse)}</span><span class="type garanti">${x.b.reklamasjon} år</span></div><div class="u">kr ${kr(x.b.belop)} · til ${norskDato(x.f)} · ${x.d===0?"siste dag":x.d+" dager igjen"}</div><div class="knapper"><button data-aapne>📂 Åpne bilaget</button></div></div>`).join(""):`<div class="tomt"><strong>Ingenting under garanti</strong></div>`;
     $("sakerListe").querySelectorAll("[data-aapne]").forEach(kn=>kn.addEventListener("click",e=>{ const r=e.target.closest(".sak"); $("saker").classList.add("skjult"); aapneKat(r.dataset.k); byttFane("liste"); visDetalj(r.dataset.id); })); return; }
   $("sakerSumEtikett").textContent="Tilbake denne måneden";
-  const l=alleSaker().filter(({x})=>sakerFane==="aapne"?x.status!=="ordnet":x.status==="ordnet").sort((p,q)=>String(q.x.ordnetDato||q.x.dato).localeCompare(String(p.x.ordnetDato||p.x.dato)));
+  const q=($("inSokSaker").value||"").trim().toLowerCase();
+  const l=alleSaker().filter(({x})=>sakerFane==="aapne"?x.status!=="ordnet":x.status==="ordnet").filter(({b,x})=>!q||(b.butikk+" "+b.beskrivelse+" "+(x.beskrivelse||"")+" "+(x.notat||"")).toLowerCase().includes(q)).sort((p,q2)=>String(q2.x.ordnetDato||q2.x.dato).localeCompare(String(p.x.ordnetDato||p.x.dato)));
   $("sakerSum").textContent="kr "+kr(tilbakeDenneMnd()); $("sakerUnder").textContent=`${alleSaker().filter(({x})=>x.status!=="ordnet").length} åpne`;
   $("sakerListe").innerHTML = l.length ? l.map(({k,b,x})=>`<div class="sak" data-k="${k}" data-id="${b.id}" data-sak="${x.id}"><div class="h"><span>${esc(b.butikk)} – ${esc(b.beskrivelse)}</span><span class="type ${x.status==="ordnet"?"ordnet":x.type}">${x.status==="ordnet"?UTFALL_NAVN[x.utfall]||"Ordnet":SAK_NAVN[x.type]}</span></div>
       <div class="u">${esc(x.beskrivelse)} · ${x.status==="ordnet"?"ordnet "+norskDato(x.ordnetDato)+(x.belopTilbake?" · kr "+kr(x.belopTilbake)+" tilbake":""):"opprettet "+norskDato(x.dato)+" · "+KORTNAVN[k]}${x.notat?" · "+esc(x.notat):""}</div>
@@ -2538,6 +2541,7 @@ function tegnSaker(){
 }
 function visSaker(){ $("start").classList.add("skjult"); $("saker").classList.remove("skjult"); sakerFane="aapne"; tegnSaker(); window.scrollTo(0,0); }
 $("knSakerHjem").addEventListener("click",()=>{ $("saker").classList.add("skjult"); visStart(); });
+$("inSokSaker").addEventListener("input",tegnSaker);
 document.querySelectorAll("#sakerFaner button").forEach(b=>b.addEventListener("click",()=>{ sakerFane=b.dataset.fane; tegnSaker(); }));
 document.querySelectorAll("#segSakType button").forEach(b=>b.addEventListener("click",()=>settSakType(b.dataset.v)));
 document.querySelectorAll("#segUtfall button").forEach(b=>b.addEventListener("click",()=>settUtfall(b.dataset.v)));
@@ -2732,26 +2736,6 @@ function plukk(key){
 function visDagen(){ $("start").classList.add("skjult"); $("dagen").classList.remove("skjult"); tegnDagen(); window.scrollTo(0,0); }
 $("dagenRad").addEventListener("click",visDagen); $("knDagenHjem").addEventListener("click",()=>{ $("dagen").classList.add("skjult"); visStart(); });
 
-/* ===================== SØK I ALT ===================== */
-function sokAlt(q){
-  q=q.trim().toLowerCase(); if(q.length<2) return [];
-  const t=(...x)=>x.filter(Boolean).join(" ").toLowerCase().includes(q); const ut=[];
-  for(const k of ["privat","kattepuser"]) for(const b of bilagListe(k)) if(t(b.butikk,b.beskrivelse,b.kommentar,String(b.belop))) ut.push({g:"Kvitteringer",tekst:b.butikk+" – "+b.beskrivelse,under:norskDato(b.dato)+" · kr "+kr(b.belop),aapne:()=>{ aapneKat(k); byttFane("liste"); visDetalj(b.id); }});
-  for(const g of bilagListe("gavekort")) if(t(g.butikk,g.kortnummer,g.kommentar)) ut.push({g:"Gavekort",tekst:g.butikk,under:"kr "+kr(gavekortRest(g))+" igjen",aapne:()=>{ aapneKat("gavekort"); byttFane("liste"); visDetalj(g.id); }});
-  for(const {k,b,x} of alleSaker()) if(t(x.beskrivelse,x.type,b.butikk)) ut.push({g:"Saker",tekst:SAK_NAVN[x.type]+": "+b.butikk,under:x.status==="ordnet"?"ordnet":"åpen",aapne:()=>{ visSaker(); }});
-  for(const p of prosjektListe()) if(t(p.navn,(p.steg||[]).map(x=>x.tekst).join(" "))) ut.push({g:"Prosjekter",tekst:p.navn,under:PR_TYPE[p.type]||"",aapne:()=>{ visProsjekter(); aapneProsjekt(p.id); }});
-  for(const o of hjemListe("oppskrift")) if(t(o.navn,(o.ingredienser||[]).map(x=>x.tekst).join(" "))) ut.push({g:"Oppskrifter",tekst:o.navn,under:"middag",aapne:()=>{ hjemFane="middag"; visHjem(); }});
-  for(const v of hjemListe("vare")) if(t(v.tekst)) ut.push({g:"Handlelister",tekst:v.tekst,under:v.liste==="felles"?"Felles":v.liste,aapne:()=>{ hjemFane="lister"; listeValg=v.liste==="felles"?"felles":"min"; visHjem(); }});
-  return ut.slice(0,40);
-}
-$("inSokAlt").addEventListener("keydown",e=>{ if(e.key==="Enter") visSok(); });
-$("inSokAlt").addEventListener("search",visSok);
-function visSok(){ const q=$("inSokAlt").value; const r=sokAlt(q); $("sokTittel").textContent="Søk: "+q.trim(); const grupper=[...new Set(r.map(x=>x.g))];
-  $("sokResultat").innerHTML=r.length?grupper.map(g=>`<div class="sok-gruppe">${g}</div>`+r.filter(x=>x.g===g).map((x,i)=>`<div class="listerad" data-i="${r.indexOf(x)}"><div><div class="h">${esc(x.tekst)}</div><div class="u">${esc(x.under)}</div></div></div>`).join("")).join(""):`<div class="tomt">Ingen treff.</div>`;
-  $("sokResultat").querySelectorAll(".listerad").forEach(e=>e.addEventListener("click",()=>{ $("sokOverlegg").classList.add("skjult"); $("start").classList.add("skjult"); r[+e.dataset.i].aapne(); }));
-  if(q.trim().length>=2) $("sokOverlegg").classList.remove("skjult"); }
-$("knSokLukk").addEventListener("click",()=>$("sokOverlegg").classList.add("skjult"));
-
 /* ===================== ØNSKER ===================== */
 let onskeValg="mine", onskeAnl="";
 function denAndre(){ return eierNaa()==="Olav"?"Stine":"Olav"; }
@@ -2763,7 +2747,8 @@ function tegnAnledninger(){
 function tegnOnsker(){
   tegnAnledninger(); document.querySelectorAll("#segOnsker button").forEach(b=>b.classList.toggle("pa",b.dataset.v===onskeValg)); document.querySelector("#segOnsker button[data-v='andre']").textContent=denAndre()+"s";
   const eier=onskeValg==="mine"?eierNaa():denAndre(); $("onskeSkriv").classList.toggle("skjult",onskeValg!=="mine"); document.querySelectorAll("#onskeSkriv .anl").forEach(b=>b.classList.toggle("pa",b.dataset.anl===onskeAnl));
-  const l=hjemListe("onske").filter(o=>o.eier===eier); const grp=[["bursdag","🎂 Bursdag"],["jul","🎄 Jul"],["","Andre ønsker"]];
+  const qw=($("inSokHjem").value||"").trim().toLowerCase();
+  const l=hjemListe("onske").filter(o=>o.eier===eier).filter(o=>!qw||o.tekst.toLowerCase().includes(qw)); const grp=[["bursdag","🎂 Bursdag"],["jul","🎄 Jul"],["","Andre ønsker"]];
   $("onskeListe").innerHTML=l.length?grp.map(([a,n])=>{ const ll=l.filter(o=>(o.anledning||"")===a); if(!ll.length) return ""; return `<div class="onske-gruppe">${n}</div>`+ll.map(o=>`<div class="onske${o.kjoptAv&&onskeValg!=="mine"?" er-kjopt":""}"><div class="t">${o.anledning?"🎁 ":""}${esc(o.tekst)}<div class="u">${o.pris?"kr "+esc(o.pris)+" · ":""}${o.lenke?`<a href="${esc(o.lenke)}" target="_blank" rel="noopener">lenke</a>`:""}</div></div>${onskeValg==="mine"?`<button class="slett" data-slett="${o.id}">✕</button>`:`<button class="kjopt" data-kjopt="${o.id}">${o.kjoptAv?"✅ Kjøpt":"🛍️ Kjøpt?"}</button>`}</div>`).join(""); }).join(""):`<div class="tomt"><strong>${onskeValg==="mine"?"Ingen ønsker ennå":"Ingen ønsker der ennå"}</strong></div>`;
   $("onskeListe").querySelectorAll("[data-slett]").forEach(b=>b.addEventListener("click",()=>{ hjemSlett(b.dataset.slett); tegnOnsker(); }));
   $("onskeListe").querySelectorAll("[data-kjopt]").forEach(b=>b.addEventListener("click",()=>{ const o=finnBilag("hjem",b.dataset.kjopt); o.kjoptAv=o.kjoptAv?"":innlogget; hjemLagre(o); tegnOnsker(); }));
@@ -2839,7 +2824,8 @@ let hjemFane="lister", listeValg="felles", vmDato=null, opRedigerId=null;
 function listeNavn(){ return listeValg==="felles"?"felles":eierNaa(); }
 function tegnLister(){
   document.querySelectorAll("#segListe button").forEach(b=>b.classList.toggle("pa",b.dataset.v===listeValg));
-  const l=hjemListe("vare").filter(v=>v.liste===listeNavn()).sort((a,b)=>(a.haket?1:0)-(b.haket?1:0)||String(a.opprettet).localeCompare(String(b.opprettet)));
+  const qh=($("inSokHjem").value||"").trim().toLowerCase();
+  const l=hjemListe("vare").filter(v=>v.liste===listeNavn()).filter(v=>!qh||(v.tekst+" "+(v.mengde||"")).toLowerCase().includes(qh)).sort((a,b)=>(a.haket?1:0)-(b.haket?1:0)||String(a.opprettet).localeCompare(String(b.opprettet)));
   $("vareListe").innerHTML=l.length?l.map(v=>`<div class="vare${v.haket?" haket":""}" data-id="${v.id}"><span class="boks">${v.haket?"✓":""}</span><span class="t">${esc(v.tekst)}</span>${v.mengde?`<span class="m">${esc(v.mengde)}</span>`:""}<span class="av">${esc(v.av||"")}</span><button class="slett" data-slett="${v.id}" aria-label="Fjern">✕</button></div>`).join(""):`<div class="tomt"><strong>Tom liste</strong>Skriv en vare over, for eksempel «Melk, 2 l».</div>`;
   $("vareListe").querySelectorAll(".vare").forEach(e=>e.addEventListener("click",ev=>{ const v=finnBilag("hjem",e.dataset.id); if(!v) return; if(ev.target.closest("[data-slett]")){ hjemSlett(v.id); tegnLister(); return; } v.haket=!v.haket; v.haketAv=innlogget||""; hjemLagre(v); tegnLister(); }));
   $("knFjernHaket").classList.toggle("skjult",!l.some(v=>v.haket));
@@ -2861,7 +2847,8 @@ function tegnMiddag(){
     h+=`<div class="dag${i===0?" idag":""}" data-dato="${d}"><div class="d">${i===0?"I dag":dt.toLocaleDateString("nb-NO",{weekday:"short"}).replace(".","")}</div>${tk?tallerkenSvg(tk):(pl&&pl.valg==="fri"?'<div class="tom">🧘</div>':'<div class="tom">＋</div>')}<div class="n">${esc(navn)}</div>${pl&&pl.valg==="oppskrift"?`<button class="til" data-til="${d}" aria-label="Til handlelista">🛒</button>`:""}</div>`; }
   $("middagDager").innerHTML=h;
   $("middagDager").querySelectorAll(".dag").forEach(e=>e.addEventListener("click",ev=>{ if(ev.target.closest("[data-til]")){ dagTilListe(e.dataset.dato); return; } aapneVelgMiddag(e.dataset.dato); }));
-  const ol=hjemListe("oppskrift").sort((a,b)=>a.navn.localeCompare(b.navn,"nb"));
+  const qo=($("inSokHjem").value||"").trim().toLowerCase();
+  const ol=hjemListe("oppskrift").filter(o=>!qo||(o.navn+" "+(o.ingredienser||[]).map(x=>x.tekst).join(" ")).toLowerCase().includes(qo)).sort((a,b)=>a.navn.localeCompare(b.navn,"nb"));
   $("oppskriftListe").innerHTML=ol.length?ol.map(o=>`<div class="oppskrift" data-id="${o.id}">${tallerkenSvg(o.tallerken)}<div class="t"><div>${esc(o.navn)}</div><div class="u">${o.porsjoner||""} porsjoner · ${(o.ingredienser||[]).length} varer</div></div><button data-rediger="${o.id}">✏️ Rediger</button></div>`).join(""):`<div class="hint">Ingen oppskrifter ennå.</div>`;
   $("oppskriftListe").querySelectorAll("[data-rediger]").forEach(b=>b.addEventListener("click",()=>aapneOppskrift(b.dataset.rediger)));
 }
@@ -2887,6 +2874,7 @@ $("knOpAvbryt").addEventListener("click",()=>$("oppskriftOverlegg").classList.ad
 function tegnHjem(){ document.querySelectorAll("#hjemFaner button").forEach(b=>b.classList.toggle("pa",b.dataset.fane===hjemFane)); $("hjemLister").classList.toggle("skjult",hjemFane!=="lister"); $("hjemMiddag").classList.toggle("skjult",hjemFane!=="middag"); $("hjemOnsker").classList.toggle("skjult",hjemFane!=="onsker"); if(hjemFane==="lister") tegnLister(); else if(hjemFane==="middag") tegnMiddag(); else tegnOnsker(); }
 function visHjem(){ saaOppskrifter(); $("start").classList.add("skjult"); $("hjem").classList.remove("skjult"); tegnHjem(); window.scrollTo(0,0); }
 $("knHjemHjem").addEventListener("click",()=>{ $("hjem").classList.add("skjult"); visStart(); });
+$("inSokHjem").addEventListener("input",()=>{ if(hjemFane==="lister") tegnLister(); else if(hjemFane==="middag") tegnMiddag(); else tegnOnsker(); });
 document.querySelectorAll("#hjemFaner button").forEach(b=>b.addEventListener("click",()=>{ hjemFane=b.dataset.fane; tegnHjem(); }));
 
 
@@ -2931,7 +2919,8 @@ async function lagreProsjektPanel(){
 }
 function tegnProsjekter(){
   document.querySelectorAll("#prosjektFaner button").forEach(b=>b.classList.toggle("pa",b.dataset.fane===prFane));
-  const l=prosjektListe().filter(p=>prFane==="igang"?(p.status==="igang"||p.status==="pause"):prFane==="ide"?p.status==="ide":p.status==="ferdig").sort((a,b)=>String(b.endret||b.opprettet).localeCompare(String(a.endret||a.opprettet)));
+  const qp=($("inSokProsjekt").value||"").trim().toLowerCase();
+  const l=prosjektListe().filter(p=>prFane==="igang"?(p.status==="igang"||p.status==="pause"):prFane==="ide"?p.status==="ide":p.status==="ferdig").filter(p=>!qp||(p.navn+" "+(p.steg||[]).map(x=>x.tekst).join(" ")+" "+(p.logg||[]).map(x=>x.tekst).join(" ")).toLowerCase().includes(qp)).sort((a,b)=>String(b.endret||b.opprettet).localeCompare(String(a.endret||a.opprettet)));
   $("prosjekterUnder").textContent=`${prosjektListe().filter(p=>p.status==="igang").length} i gang`;
   $("prosjektListe").innerHTML=l.length?l.map(p=>{ const fr=prFramdrift(p), n=prNeste(p); return `<div class="pr" data-id="${p.id}">${p.bilder&&p.bilder[0]?`<img class="bilde" data-bilde="${p.bilder[0].id}" alt="">`:`<div class="bilde">${PR_EMOJI[p.type]||"🧰"}</div>`}<div class="t"><div class="h">${esc(p.navn)} ${p.status==="pause"?'<span class="type">På pause</span>':""}</div><div class="u">${PR_TYPE[p.type]||""}${p.status==="ferdig"?" · ferdig "+norskDato(p.ferdigDato):n?" · neste: "+esc(n.tekst):fr.n?" · alle steg gjort":" · ingen steg ennå"}</div>${fr.n?`<div class="stripe"><i style="width:${fr.pst}%"></i></div>`:""}</div></div>`; }).join("")
     :`<div class="tomt"><strong>${prFane==="igang"?"Ingenting i gang":prFane==="ide"?"Ingen ideer ennå":"Ingen ferdige ennå"}</strong>${prFane==="ide"?"Trykk «💡 Ny idé» når noe dukker opp.":"Trykk «🧰 Nytt prosjekt» for å starte ett."}</div>`;
@@ -2976,6 +2965,7 @@ $("knPrFerdig").addEventListener("click",()=>{ const pr=finnProsjekt(prAktiv); i
   kattemat("dobbel"); setTimeout(()=>stjerner(document.querySelector("#start .sittekatt")||$("knPrFerdig")),400); visRos("Ferdig! +50 pusepoeng."+(plante?" Ny plante i drivhuset: "+plante+".":""));
   tegnProsjekt(); visPynt(); oppsummer(); });
 $("knProsjekterHjem").addEventListener("click",()=>{ $("prosjekter").classList.add("skjult"); visStart(); });
+$("inSokProsjekt").addEventListener("input",tegnProsjekter);
 $("knProsjektTilbake").addEventListener("click",()=>{ loggBildeNytt=null; visProsjekter(); });
 document.querySelectorAll("#prosjektFaner button").forEach(b=>b.addEventListener("click",()=>{ prFane=b.dataset.fane; tegnProsjekter(); }));
 document.querySelectorAll("#segPrType button").forEach(b=>b.addEventListener("click",()=>settPrType(b.dataset.v)));
