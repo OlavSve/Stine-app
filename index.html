@@ -288,6 +288,7 @@ button,input,select,textarea{font-family:inherit}
 .sak .knapper button.hoved{background:var(--gavekort);color:#fff;border-color:var(--gavekort)}
 .sak.gyllen{border-color:#e0a83a;box-shadow:0 0 0 2px rgba(224,168,58,.35)}
 .bilag.gyllen{border-color:#e0a83a;background:#fff9ec}
+.merkelapp.gull{background:#fdebc8;color:#7a5410}
 .dsak{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-top:1px solid var(--line);font-size:13.5px}
 .dsak .u{color:var(--muted);font-size:12px}
 .dsak button{background:var(--card);border:1px solid var(--line);border-radius:7px;padding:6px 10px;font-size:12.5px;cursor:pointer;color:var(--ink);flex:none;align-self:center}
@@ -881,7 +882,7 @@ button,input,select,textarea{font-family:inherit}
     <div class="flink-rad"><div class="h">Skåla</div><div class="u" id="flinkSkaal"></div></div>
     <div class="flink-rad"><div class="h">Rekord</div><div class="u" id="flinkRekord"></div></div>
     <div class="flink-rad"><div class="h">Drivhuset</div><div class="u" id="flinkMerkerTekst"></div><div class="album" id="flinkAlbum"></div></div>
-    <div class="flink-rad"><div class="h">Gylne kvitteringer</div><div class="u" id="flinkGylne"></div></div>
+    <div class="flink-rad"><div class="h">Gullpoten</div><div class="u" id="flinkGylne"></div></div>
     <div class="flink-rad"><div class="h">Månedene</div><div id="flinkMaaneder"></div></div>
   </div>
 </div>
@@ -1049,7 +1050,7 @@ button,input,select,textarea{font-family:inherit}
     <div class="fot">
       <button id="knBackup" class="skjult" title="Lagre komplett backup (JSON)">&#128190;</button>
       <button id="knFil" class="skjult" title="Fil">&#128196; Fil</button>
-      <span class="versjon" id="startVersjon">Versjon 3.16</span>
+      <span class="versjon" id="startVersjon">Versjon 3.17</span>
     </div>
     <div id="startBesk"></div>
     <button class="panelknapp andre" id="knInnstSkjul" style="margin-top:16px">Skjul innstillinger</button>
@@ -1074,8 +1075,8 @@ button,input,select,textarea{font-family:inherit}
 
 <script>
 "use strict";
-/* ===================== Kvitteringer, mjau mjau, versjon 3.16 ===================== */
-const APP_VERSJON = "3.16";
+/* ===================== Kvitteringer, mjau mjau, versjon 3.17 ===================== */
+const APP_VERSJON = "3.17";
 const LAGER = { eier: "OlavSve", repo: "Stine-app-data", gren: "main", fil: "bilag.kryptert.json", bilder: "bilder", backup: "backup" };
 const EK = { hemmelighet: "0df7552eec9d178481fda706b469d0305507b5ddc5c229a6292f863412d29d50", bildesalt: "m1jWj9kLvoyOxH+NuTrtpA==" };
 const DATA_TYPE = "stine-app-data";
@@ -2325,7 +2326,7 @@ function tegnFlink(){
   $("flinkRekord").textContent=f.rekord&&f.rekord.poeng?`${f.rekord.poeng} poeng i ${mndNavn(f.rekord.mnd)} ${f.rekord.mnd.slice(0,4)} (${NIVAER[nivaFor(f.rekord.poeng)][0]})`:"Ingen rekord ennå";
   const har=f.merker||[]; $("flinkMerkerTekst").textContent=`${har.length} av ${MERKER.length} planter${har.length>=MERKER.length?" – Drivhuset er fullt":""}`;
   $("flinkAlbum").innerHTML=MERKER.map((m,i)=>`<div class="${har.includes(i)?"har":""}" title="${m[0]}"><svg viewBox="0 0 100 100">${m[1]}</svg></div>`).join("");
-  const g=Object.entries(f.gylne||{}).sort((a,b)=>b[1].localeCompare(a[1])); $("flinkGylne").textContent=g.length?`${g.length} til nå · sist ${norskDato(g[0][1].slice(0,10))}`:"Ingen ennå. De kommer når de vil.";
+  const g=Object.entries(f.gylne||{}).sort((a,b)=>b[1].localeCompare(a[1])); $("flinkGylne").textContent=g.length?`${g.length} ${g.length===1?"kvittering":"kvitteringer"} med gullpoten til nå · sist ${norskDato(g[0][1].slice(0,10))}`:"Ingen ennå. Gullpoten kommer når den vil.";
   const mnd=Object.keys(f.poeng).sort().reverse().slice(0,6); $("flinkMaaneder").innerHTML=mnd.length?mnd.map(n=>`<div class="mnd-rad"><span>${mndNavn(n)} ${n.slice(0,4)}</span><span class="tall">${f.poeng[n].sum} poeng · ${NIVAER[nivaFor(f.poeng[n].sum)][0]}</span></div>`).join(""):`<div class="mnd-rad"><span>Ingen måneder ennå</span></div>`;
 }
 function visFlink(){ $("start").classList.add("skjult"); $("flink").classList.remove("skjult"); tegnFlink(); window.scrollTo(0,0); }
@@ -2545,7 +2546,7 @@ async function lagreBilag(){
   merkSti(KAT,{t:"bilag",id:rec.id}); uskrevetLagre(); persist();
   fyllButikkliste();
   let bel=null; if(!redigerId) bel=belonnLagring(rec,KAT,bilder.length);
-  $("pdfTittel").textContent=redigerId?"Bilaget er oppdatert":(bel&&bel.gyllen?"Gyllen kvittering! Dobbelt kattemat.":"Bilaget er lagret");
+  $("pdfTittel").textContent=redigerId?"Bilaget er oppdatert":(bel&&bel.gyllen?"Gullpoten! Dobbelt kattemat.":"Bilaget er lagret");
   $("pdfNavn").textContent=filnavnFor(rec); $("pdfBesk").textContent=bel?"«"+bel.ros+"» · "+bel.meld.join(" · "):"";
   $("knDelPdf").disabled=true; $("knDelPdf").textContent="Lager PDF …";
   $("pdfOverlegg").classList.remove("skjult");
@@ -2623,7 +2624,7 @@ function tegnListe(){
       const msum=l.filter(x=>(x.dato||"").slice(0,7)===md).reduce((a,x)=>a+Number(x.belop||0),0);
       h+=`<div class="maned"><span>${esc(navn)}</span><span class="sum tall">kr ${kr(msum)}</span></div>`; }
     const forste=(b.bilder&&b.bilder[0])?b.bilder[0].id:null;
-    const flere=(b.bilder&&b.bilder.length>1)?`<span class="merkelapp flere">${b.bilder.length} bilder</span>`:"";
+    const flere=((b.bilder&&b.bilder.length>1)?`<span class="merkelapp flere">${b.bilder.length} bilder</span>`:"")+(erGyllen(b.id)?`<span class="merkelapp gull">Gullpoten</span>`:"");
     h+=`<div class="bilag${erGyllen(b.id)?" gyllen":""}" data-id="${b.id}">${forste?`<img class="mini" data-bilde="${forste}" alt="">`:`<div class="mini tom">Uten bilde</div>`}
       <div class="midt"><div class="butikk">${esc(b.butikk)}</div><div class="besk">${esc(b.beskrivelse)}</div>
       <div class="under"><span class="dato tall">${norskDato(b.dato)}</span>${fristLapp(b)}${flere}</div></div>
