@@ -267,6 +267,61 @@ button,input,select,textarea{font-family:inherit}
 .kar-prikker span{width:7px;height:7px;border-radius:50%;background:rgba(31,43,58,.22)}
 .kar-prikker span.pa{background:var(--privat)}
 
+/* ---------- Moduler: saker og Flinkingen ---------- */
+.topp-modul{position:sticky;top:0;z-index:60;color:#fff;padding:calc(9px + env(safe-area-inset-top)) 14px 9px;display:flex;align-items:center;gap:10px;box-shadow:0 1px 5px rgba(0,0,0,.14)}
+.topp-modul .tilbake{background:rgba(255,255,255,.16);border:none;color:#fff;font-size:20px;width:34px;height:34px;border-radius:8px;cursor:pointer;line-height:1;flex:none}
+.topp-modul .tittel{font-size:16.5px;font-weight:650}
+.topp-modul .undertekst{font-size:11px;opacity:.82}
+.faner-modul{display:flex;background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:55}
+.faner-modul button{flex:1;background:none;border:none;padding:13px 6px;font-size:14px;font-weight:550;color:var(--muted);cursor:pointer;border-bottom:2.5px solid transparent}
+.faner-modul button.pa{color:var(--ink);border-bottom-color:var(--puser)}
+.sak{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:12px;margin-bottom:10px}
+.sak .h{display:flex;justify-content:space-between;gap:10px;font-weight:650;font-size:15px}
+.sak .u{font-size:13px;color:var(--muted);margin-top:3px}
+.sak .type{font-size:10.5px;font-weight:650;padding:2.5px 7px;border-radius:5px;white-space:nowrap}
+.sak .type.retur{background:var(--frist-bg);color:var(--frist-ink)}
+.sak .type.reklamasjon{background:var(--puser-tint);color:var(--puser-ink)}
+.sak .type.garanti{background:var(--privat-tint);color:var(--privat-ink)}
+.sak .type.ordnet{background:var(--gavekort-tint);color:var(--gavekort-ink)}
+.sak .knapper{display:flex;gap:8px;margin-top:10px}
+.sak .knapper button{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 12px;font-size:13px;cursor:pointer;color:var(--ink)}
+.sak .knapper button.hoved{background:var(--gavekort);color:#fff;border-color:var(--gavekort)}
+.sak.gyllen{border-color:#e0a83a;box-shadow:0 0 0 2px rgba(224,168,58,.35)}
+.bilag.gyllen{border-color:#e0a83a;background:#fff9ec}
+.dsak{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-top:1px solid var(--line);font-size:13.5px}
+.dsak .u{color:var(--muted);font-size:12px}
+.dsak button{background:var(--card);border:1px solid var(--line);border-radius:7px;padding:6px 10px;font-size:12.5px;cursor:pointer;color:var(--ink);flex:none;align-self:center}
+.poengstripe{display:flex;align-items:center;gap:10px;margin:4px 0 0;font-size:12px;color:var(--muted)}
+.poengstripe .stripe{flex:1;height:6px;background:rgba(255,255,255,.7);border-radius:3px;overflow:hidden}
+.poengstripe .stripe i{display:block;height:100%;width:0;background:var(--gavekort);border-radius:3px;transition:width .6s ease}
+.flink-niva{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px}
+.flink-niva svg{width:84px;height:84px;flex:none}
+.flink-niva .n{font-size:22px;font-weight:700}
+.flink-niva .p{font-size:14px;color:var(--muted);margin-top:2px}
+.flink-niva .stripe{height:8px;background:var(--linje-lys);border-radius:4px;overflow:hidden;margin-top:8px}
+.flink-niva .stripe i{display:block;height:100%;width:0;background:var(--gavekort);border-radius:4px;transition:width .6s ease}
+.flink-niva .u{font-size:12px;color:var(--muted);margin-top:5px}
+.flink-rad{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:12px 14px;margin-bottom:10px}
+.flink-rad .h{font-size:11px;text-transform:uppercase;letter-spacing:.9px;color:var(--muted);font-weight:600;margin-bottom:5px}
+.flink-rad .u{font-size:14px}
+.flink-rad.ryddig{background:var(--gavekort-tint);border-color:#bfe0cf}
+.album{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:10px}
+.album div{aspect-ratio:1;border-radius:10px;background:var(--linje-lys);display:flex;align-items:center;justify-content:center;padding:6px}
+.album div svg{width:100%;height:100%;opacity:.18;filter:grayscale(1)}
+.album div.har{background:#fff;border:1px solid var(--line)}
+.album div.har svg{opacity:1;filter:none}
+.album div.ny{box-shadow:0 0 0 2px #e0a83a}
+.mnd-rad{display:flex;justify-content:space-between;font-size:13.5px;padding:6px 0;border-top:1px solid var(--line)}
+#skaal{position:fixed;left:calc(7% + 132px);bottom:calc(2px + env(safe-area-inset-bottom));width:74px;height:48px;z-index:2;pointer-events:none}
+#skaal svg{width:74px;height:40px;display:block}
+#skaal .tall{position:absolute;right:-2px;top:-8px;font-size:10.5px;color:var(--muted);font-weight:650;font-variant-numeric:tabular-nums}
+@keyframes katt-dans{0%,100%{transform:rotate(0)}20%{transform:rotate(-8deg) translateY(-6px)}40%{transform:rotate(8deg)}60%{transform:rotate(-8deg) translateY(-6px)}80%{transform:rotate(8deg)}}
+#start .katt.danser{animation:katt-dans 1.2s ease-in-out}
+#start .katt.sover2 .oye{transform:scaleY(.12)}
+#ros{position:fixed;left:50%;top:calc(12px + env(safe-area-inset-top));transform:translateX(-50%);z-index:140;background:rgba(255,255,255,.96);border:1px solid #dba9c0;border-radius:22px;padding:8px 16px 8px 10px;display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--ink);box-shadow:0 6px 18px rgba(31,43,58,.14);max-width:92vw;animation:ros-inn .25s ease-out}
+#ros svg{width:30px;height:30px;flex:none}
+@keyframes ros-inn{from{opacity:0;transform:translate(-50%,-10px)}to{opacity:1;transform:translate(-50%,0)}}
+#pusKrone,#pusSloyfe{transition:opacity .3s}
 /* ---------- Kalender (som 8.10: måned med brikker, og «Kommende») ---------- */
 #kalender .ark{padding-bottom:calc(30px + env(safe-area-inset-bottom))}
 .kal-nav{display:flex;align-items:center;gap:8px;margin:0 0 12px}
@@ -294,6 +349,8 @@ button,input,select,textarea{font-family:inherit}
 .kal-rad .h{font-size:14.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .kal-rad .u{font-size:12.5px;color:var(--muted)}
 .kal-rad .d{font-size:12.5px;color:var(--muted);white-space:nowrap}
+.kal-rad .kal-ordnet{background:var(--gavekort);color:#fff;border:none;border-radius:7px;padding:6px 10px;font-size:12.5px;cursor:pointer;flex:none}
+.listerad .knapper button[data-ordnet]{background:var(--gavekort);color:#fff;border-color:var(--gavekort)}
 @media (min-width:700px){
   .kal-celle{min-height:78px}
   .kal-prikker{display:none}
@@ -574,6 +631,8 @@ button,input,select,textarea{font-family:inherit}
     <div class="tittelrad">
       <div class="boble" id="tittelBoble"><span id="tittelTekst">Private kvitteringer, mjau mjau</span><i class="t1"></i><i class="t2"></i><i class="t3"></i></div>
       <svg class="sittekatt" viewBox="0 0 100 100" aria-hidden="true" fill="none" stroke="#b34a7c" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+        <g id="pusKrone" class="skjult"><polygon points="36,16 36,4 42,10 50,-2 58,10 64,4 64,16" fill="#e0a83a"/><rect x="36" y="14" width="28" height="4" fill="#c98f2a"/><circle cx="50" cy="8" r="2" fill="#b34a7c" stroke="none"/></g>
+        <g id="pusSloyfe" class="skjult"><ellipse cx="70" cy="60" rx="8" ry="5" fill="#f4bdd4" stroke="none" transform="rotate(-20 70 60)"/><ellipse cx="84" cy="60" rx="8" ry="5" fill="#f4bdd4" stroke="none" transform="rotate(20 84 60)"/><circle cx="77" cy="60" r="3.5" fill="#b34a7c" stroke="none"/></g>
         <path class="kropp" d="M36 59 Q20 76 26 94 L72 94 Q80 78 66 59"/>
         <path class="hale" d="M72 94 Q94 90 90 74 Q88 66 82 70"/>
         <g class="hode">
@@ -603,17 +662,28 @@ button,input,select,textarea{font-family:inherit}
         <div class="navn">Gavekort og tilgodelapper</div>
         <div class="under" id="oppsumGavekort">Ingen kort ennå</div>
       </div>
+      <div class="kar-kort" data-kat="saker" role="button" tabindex="0">
+        <svg viewBox="0 0 100 100" aria-hidden="true"><rect x="16" y="22" width="68" height="62" rx="9" fill="#ffffff" stroke="#3d6fa3" stroke-width="3"/><path d="M16 31 a9 9 0 0 1 9 -9 h50 a9 9 0 0 1 9 9 v9 H16 Z" fill="#b34a7c"/><rect x="28" y="50" width="30" height="5" rx="2.5" fill="#9fb9d6"/><rect x="28" y="60" width="22" height="5" rx="2.5" fill="#9fb9d6"/><rect x="28" y="70" width="34" height="5" rx="2.5" fill="#9fb9d6"/><circle cx="70" cy="66" r="12" fill="#2f8f7a"/><path d="M63 66 l5 5 l10 -11" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div class="navn">Reklamasjon og garanti</div>
+        <div class="under" id="oppsumSaker">Ingen åpne saker</div>
+      </div>
       <div class="kar-kort" data-kat="kalender" role="button" tabindex="0">
         <svg viewBox="0 0 100 100" aria-hidden="true"><rect x="14" y="20" width="72" height="66" rx="9" fill="#ffffff" stroke="#3d6fa3" stroke-width="3"/><path d="M14 29 a9 9 0 0 1 9-9 h54 a9 9 0 0 1 9 9 v11 H14 Z" fill="#3d6fa3"/><rect x="30" y="12" width="6" height="16" rx="3" fill="#1f2b3a"/><rect x="64" y="12" width="6" height="16" rx="3" fill="#1f2b3a"/><ellipse cx="50" cy="68" rx="9" ry="7.5" fill="#b34a7c"/><circle cx="39" cy="58" r="4" fill="#b34a7c"/><circle cx="46" cy="53" r="4.3" fill="#b34a7c"/><circle cx="54" cy="53" r="4.3" fill="#b34a7c"/><circle cx="61" cy="58" r="4" fill="#b34a7c"/></svg>
         <div class="navn">Kalender</div>
         <div class="under" id="oppsumKalender">Ingen frister de neste 14 dagene</div>
       </div>
+      <div class="kar-kort" data-kat="flink" role="button" tabindex="0">
+        <svg viewBox="0 0 100 100" aria-hidden="true" id="flinkKortIkon"></svg>
+        <div class="navn">Flinkingen</div>
+        <div class="under" id="oppsumFlink">Kattunge · 0 poeng</div>
+      </div>
     </div>
     <div class="kar-piler">
       <button id="karForrige" aria-label="Forrige">‹</button>
-      <div class="kar-prikker" id="karPrikker"><span class="pa"></span><span></span><span></span><span></span></div>
+      <div class="kar-prikker" id="karPrikker"><span class="pa"></span><span></span><span></span><span></span><span></span><span></span></div>
       <button id="karNeste" aria-label="Neste">›</button>
     </div>
+    <div class="poengstripe" id="poengStripe"><span id="poengTekst">Kattunge · 0 poeng i september</span><span class="stripe"><i id="poengFyll"></i></span></div>
 
   </div>
   <button class="tannhjul" id="knInnst" aria-label="Innstillinger"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3h0a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8v0a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button>
@@ -625,6 +695,8 @@ button,input,select,textarea{font-family:inherit}
     <polygon class="nese" points="46.5,56 53.5,56 50,58" fill="#f4bdd4"/>
     <ellipse class="munn" cx="50" cy="60" rx="4" ry="0" fill="#72243e"/>
   </svg>
+  <div id="skaal" aria-hidden="true"><svg viewBox="0 0 80 44"><path d="M4 10 h72 q-4 26 -36 30 q-32 -4 -36 -30 z" fill="#3d6fa3"/><ellipse cx="40" cy="10" rx="36" ry="6" fill="#9fb9d6"/><g id="skaalBiter"></g></svg><div class="tall" id="skaalTall"></div></div>
+  <div id="ros" class="skjult"><svg viewBox="0 0 100 100" aria-hidden="true" fill="none" stroke="#b34a7c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M30 42 L31 16 L43 28 Q50 25 57 28 L69 16 L70 42 Q71 58 50 60 Q29 58 30 42 Z"/><circle cx="42" cy="44" r="2.5" fill="#b34a7c" stroke="none"/><circle cx="58" cy="44" r="2.5" fill="#b34a7c" stroke="none"/><path d="M46 51 L54 51 L50 55 Z" fill="#b34a7c" stroke="none"/></svg><span id="rosTekst"></span></div>
   <div id="amb" aria-hidden="true"></div>
 </div>
 
@@ -781,6 +853,39 @@ button,input,select,textarea{font-family:inherit}
   </div>
 </div>
 
+<!-- ===================== REKLAMASJON OG GARANTI ===================== -->
+<div id="saker" class="skjult">
+  <div class="topp-modul" style="background-color:var(--puser)">
+    <button class="tilbake" id="knSakerHjem" aria-label="Tilbake til start">‹</button>
+    <div><div class="tittel">Reklamasjon og garanti</div><div class="undertekst" id="sakerUnder"></div></div>
+  </div>
+  <div id="sakerFaner" class="faner-modul"><button data-fane="aapne" class="pa">Åpne saker</button><button data-fane="ordnet">Ordnet</button></div>
+  <div class="ark">
+    <div class="sumstripe"><span class="etikett" id="sakerSumEtikett">Tilbake denne måneden</span><span class="verdi tall" id="sakerSum">kr 0,00</span></div>
+    <div id="sakerListe"></div>
+  </div>
+</div>
+
+<!-- ===================== FLINKINGEN ===================== -->
+<div id="flink" class="skjult">
+  <div class="topp-modul" style="background-color:var(--gavekort)">
+    <button class="tilbake" id="knFlinkHjem" aria-label="Tilbake til start">‹</button>
+    <div><div class="tittel">Flinkingen</div><div class="undertekst" id="flinkUnder"></div></div>
+  </div>
+  <div class="ark">
+    <div class="flink-niva">
+      <svg viewBox="0 0 100 100" id="flinkIkon" aria-hidden="true"></svg>
+      <div class="t"><div class="n" id="flinkNavn">Kattunge</div><div class="p tall" id="flinkPoeng">0 poeng i september</div><div class="stripe"><i id="flinkFyll"></i></div><div class="u" id="flinkNeste"></div></div>
+    </div>
+    <div class="flink-rad" id="flinkRyddig"></div>
+    <div class="flink-rad"><div class="h">Skåla</div><div class="u" id="flinkSkaal"></div></div>
+    <div class="flink-rad"><div class="h">Rekord</div><div class="u" id="flinkRekord"></div></div>
+    <div class="flink-rad"><div class="h">Klistremerker</div><div class="u" id="flinkMerkerTekst"></div><div class="album" id="flinkAlbum"></div></div>
+    <div class="flink-rad"><div class="h">Gylne kvitteringer</div><div class="u" id="flinkGylne"></div></div>
+    <div class="flink-rad"><div class="h">Månedene</div><div id="flinkMaaneder"></div></div>
+  </div>
+</div>
+
 <!-- ===================== KALENDER ===================== -->
 <div id="kalender" class="skjult">
   <div id="toppKal" class="topp-kal" style="position:sticky;top:0;z-index:60;background-color:var(--privat);color:#fff;padding:calc(9px + env(safe-area-inset-top)) 14px 9px;display:flex;align-items:center;gap:10px;box-shadow:0 1px 5px rgba(0,0,0,.14)">
@@ -823,6 +928,8 @@ button,input,select,textarea{font-family:inherit}
     <h2 id="dButikk"></h2>
     <p class="ledetekst" id="dBesk"></p>
     <div id="dRader"></div>
+    <div id="dSaker"></div>
+    <button class="panelknapp andre skjult" id="dNySak">Ny sak</button>
     <div class="galleri" id="dGalleri"></div>
     <button class="panelknapp" id="dPdf" disabled>Lager PDF …</button>
     <button class="panelknapp andre skjult" id="dKalender">Legg returfristen i kalenderen</button>
@@ -844,6 +951,35 @@ button,input,select,textarea{font-family:inherit}
     <div id="pkListe"></div>
     <button class="panelknapp fare" id="pkTom">Tøm papirkurven</button>
     <button class="panelknapp andre" id="pkLukk">Lukk</button>
+  </div>
+</div>
+
+<div id="sakOverlegg" class="overlegg skjult">
+  <div class="panel">
+    <div class="grep"></div>
+    <h2>Ny sak</h2>
+    <p class="ledetekst" id="sakLedetekst"></p>
+    <div class="felt"><label>Type</label><div class="segment" id="segSakType"><button type="button" data-v="retur" class="pa">Retur</button><button type="button" data-v="reklamasjon">Reklamasjon</button><button type="button" data-v="garanti">Garanti</button></div></div>
+    <div class="par">
+      <div class="felt"><label for="inSakDato">Dato</label><input type="date" id="inSakDato"></div>
+    </div>
+    <div class="felt" id="feltSakBesk"><label for="inSakBesk">Hva gjelder det</label><input type="text" id="inSakBesk" autocapitalize="sentences" placeholder="Sluttet å virke etter to uker"></div>
+    <div class="panelbesk feil" id="sakBesk"></div>
+    <button class="panelknapp" id="knSakLagre">Lagre sak</button>
+    <button class="panelknapp andre" id="knSakAvbryt">Avbryt</button>
+  </div>
+</div>
+
+<div id="ordnetOverlegg" class="overlegg skjult">
+  <div class="panel">
+    <div class="grep"></div>
+    <h2>Ordnet</h2>
+    <p class="ledetekst" id="ordnetLedetekst"></p>
+    <div class="felt"><label>Utfall</label><div class="segment" id="segUtfall"><button type="button" data-v="byttet" class="pa">Byttet</button><button type="button" data-v="reparert">Reparert</button><button type="button" data-v="penger">Pengene tilbake</button><button type="button" data-v="avvist">Avvist</button></div></div>
+    <div class="felt"><label for="inTilbake">Beløp tilbake <span class="valg">– valgfritt</span></label><input type="text" id="inTilbake" inputmode="decimal" placeholder="0,00"></div>
+    <div class="felt"><label for="inOrdnetNotat">Notat <span class="valg">– valgfritt</span></label><input type="text" id="inOrdnetNotat"></div>
+    <button class="panelknapp" id="knOrdnetLagre">Marker som ordnet</button>
+    <button class="panelknapp andre" id="knOrdnetAvbryt">Avbryt</button>
   </div>
 </div>
 
@@ -913,7 +1049,7 @@ button,input,select,textarea{font-family:inherit}
     <div class="fot">
       <button id="knBackup" class="skjult" title="Lagre komplett backup (JSON)">&#128190;</button>
       <button id="knFil" class="skjult" title="Fil">&#128196; Fil</button>
-      <span class="versjon" id="startVersjon">Versjon 3.14</span>
+      <span class="versjon" id="startVersjon">Versjon 3.15</span>
     </div>
     <div id="startBesk"></div>
     <button class="panelknapp andre" id="knInnstSkjul" style="margin-top:16px">Skjul innstillinger</button>
@@ -938,8 +1074,8 @@ button,input,select,textarea{font-family:inherit}
 
 <script>
 "use strict";
-/* ===================== Kvitteringer, mjau mjau, versjon 3.14 ===================== */
-const APP_VERSJON = "3.14";
+/* ===================== Kvitteringer, mjau mjau, versjon 3.15 ===================== */
+const APP_VERSJON = "3.15";
 const LAGER = { eier: "OlavSve", repo: "Stine-app-data", gren: "main", fil: "bilag.kryptert.json", bilder: "bilder", backup: "backup" };
 const EK = { hemmelighet: "0df7552eec9d178481fda706b469d0305507b5ddc5c229a6292f863412d29d50", bildesalt: "m1jWj9kLvoyOxH+NuTrtpA==" };
 const DATA_TYPE = "stine-app-data";
@@ -949,6 +1085,7 @@ const USERS = { stine: { navn: "Stine", sjekk: "e98867470e6a2680aa174231e3711d5f
 const KATNAVN = { privat: "Private kvitteringer", kattepuser: "Kattepuser", gavekort: "Gavekort og tilgodelapper" };
 const KORTNAVN = { privat: "Privat", kattepuser: "Kattepuser", gavekort: "Gavekort", kalender: "Kalender" };
 const GRENER = ["privat", "kattepuser", "gavekort", "papirkurv"];
+const FLINK_TOM = () => ({ poeng: {}, rekord: { mnd: "", poeng: 0 }, merker: [], skaal: 0, skaalTomt: 0, gylne: {}, kroneTil: "", sloyfe: false, hendelser: [] });
 const MAKS_BILDER = 6;
 const VAPID_OFFENTLIG = "BBTU9Wt6KuEYzdV7FBa_DvRA0GuUQJ5VFHNRKAHLax822dur8wKsbkS9MfUtZtMi2tKV2ec_MdGeEaLZ0Rd82Ro";
 
@@ -1057,8 +1194,10 @@ function ekBeOmNokkel(etterpaa){ nokkelEtterpaa = etterpaa; nokkelVis("Nøkkelen
 /* ---------- Datamodell og fletting per bilag ---------- */
 let COMBINED = null;
 const endredeGrener = new Map(), grenVersjon = {};
-function tomBase(){ const o = { type: DATA_TYPE, version: 2, lagret: new Date().toISOString() }; GRENER.forEach(g => o[g] = { bilag: {} }); return o; }
-function normaliser(o){ if (!o || o.type !== DATA_TYPE) return null; GRENER.forEach(g => { if (!o[g] || typeof o[g] !== "object" || !o[g].bilag || typeof o[g].bilag !== "object") o[g] = { bilag: {} }; }); return o; }
+function tomBase(){ const o = { type: DATA_TYPE, version: 2, lagret: new Date().toISOString() }; GRENER.forEach(g => o[g] = { bilag: {} }); o.flink = FLINK_TOM(); return o; }
+function normaliser(o){ if (!o || o.type !== DATA_TYPE) return null; GRENER.forEach(g => { if (!o[g] || typeof o[g] !== "object" || !o[g].bilag || typeof o[g].bilag !== "object") o[g] = { bilag: {} }; });
+  if (!o.flink || typeof o.flink !== "object") o.flink = FLINK_TOM(); else { const t = FLINK_TOM(); Object.keys(t).forEach(k => { if (o.flink[k] === undefined) o.flink[k] = t[k]; }); }
+  return o; }
 function bumpGren(g){ grenVersjon[g] = (grenVersjon[g] || 0) + 1; }
 function merkGren(g){ endredeGrener.set(g, true); bumpGren(g); }
 function merkSti(g, sti){
@@ -1220,6 +1359,7 @@ async function lesFersktFraDisk(){
     if (alt instanceof Set && alt.size){ COMBINED[g] = poddGren(g, d[g], COMBINED[g], Array.from(alt)); return; }
     COMBINED[g] = d[g];
   });
+  if (endredeGrener.get("flink") !== true) COMBINED.flink = d.flink;
   COMBINED.lagret = d.lagret;
   ekNettOk();
   return true;
@@ -1283,7 +1423,7 @@ async function startEkstern(){
     await uskrevetGjenopprett();
     eksternStartet = true; ekNettFeil(); return true;
   }
-  if (r.mangler){ COMBINED = tomBase(); GRENER.forEach(merkGren); }
+  if (r.mangler){ COMBINED = tomBase(); GRENER.forEach(merkGren); merkGren("flink"); }
   else { let d = null; try{ d = normaliser(JSON.parse(r.tekst)); }catch{} if (!d){ COMBINED = tomBase(); GRENER.forEach(merkGren); } else { COMBINED = d; ekSha = r.sha; ekEtag = r.etag; sisteKjenteDisk = r.tekst; idbSet("sisteDisk", r.tekst); } }
   eksternStartet = true;
   const n = await uskrevetGjenopprett();
@@ -1637,7 +1777,7 @@ function kalHendelser(){
   const ut=[];
   for(const k of ["privat","kattepuser"]) for(const b of bilagListe(k)){
     if(b.dato) ut.push({dato:b.dato,slag:"kjop_"+k,kat:k,id:b.id,tekst:b.butikk,under:"Kjøp · kr "+kr(b.belop)});
-    if(b.returfrist) ut.push({dato:b.returfrist,slag:"retur",kat:k,id:b.id,tekst:"Returfrist: "+b.butikk,under:b.beskrivelse});
+    if(b.returfrist&&!returOrdnet(b)) ut.push({dato:b.returfrist,slag:"retur",kat:k,id:b.id,tekst:"Returfrist: "+b.butikk,under:b.beskrivelse});
     if(b.reklamasjon&&b.reklamasjon!=="0"&&b.dato) ut.push({dato:leggTilAar(b.dato,Number(b.reklamasjon)),slag:"reklamasjon",kat:k,id:b.id,tekst:"Reklamasjonsfrist: "+b.butikk,under:b.beskrivelse});
   }
   for(const g of gavekortListe(false)){ const f=gavekortFrist(g); if(f.dato) ut.push({dato:f.dato,slag:"gavekort",kat:"gavekort",id:g.id,tekst:(f.beregnet?"Foreldes: ":"Utløper: ")+g.butikk,under:(g.type==="tilgodelapp"?"Tilgodelapp":"Gavekort")+" · kr "+kr(gavekortRest(g))+" igjen"}); }
@@ -1645,8 +1785,8 @@ function kalHendelser(){
 }
 function isoUke(d){ const t=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())); const dag=t.getUTCDay()||7; t.setUTCDate(t.getUTCDate()+4-dag); const start=new Date(Date.UTC(t.getUTCFullYear(),0,1)); return Math.ceil(((t-start)/86400000+1)/7); }
 function kalIso(y,m,d){ return `${y}-${String(m+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`; }
-function kalRad(h){ return `<div class="kal-rad" data-kat="${h.kat}" data-id="${h.id}"><span class="farge" style="background:${KAL_FARGE[h.slag]}"></span><div class="t"><div class="h">${esc(h.tekst)}</div><div class="u">${esc(h.under||"")}</div></div><span class="d tall">${norskDato(h.dato)}</span></div>`; }
-function kalKoble(rot){ rot.querySelectorAll(".kal-rad").forEach(r=>r.addEventListener("click",()=>{ $("kalender").classList.add("skjult"); aapneKat(r.dataset.kat); byttFane("liste"); visDetalj(r.dataset.id); })); }
+function kalRad(h){ return `<div class="kal-rad" data-kat="${h.kat}" data-id="${h.id}"><span class="farge" style="background:${KAL_FARGE[h.slag]}"></span><div class="t"><div class="h">${esc(h.tekst)}</div><div class="u">${esc(h.under||"")}</div></div>${h.slag==="retur"?`<button class="kal-ordnet" data-ordnet>Ordnet</button>`:""}<span class="d tall">${norskDato(h.dato)}</span></div>`; }
+function kalKoble(rot){ rot.querySelectorAll(".kal-rad").forEach(r=>r.addEventListener("click",e=>{ if(e.target.closest("[data-ordnet]")){ returnerHurtig(r.dataset.kat,r.dataset.id); return; } $("kalender").classList.add("skjult"); aapneKat(r.dataset.kat); byttFane("liste"); visDetalj(r.dataset.id); })); }
 function kalTegn(){
   const alle=kalHendelser(), idag=idagIso();
   const forste=new Date(kalAar,kalMnd,1), antall=new Date(kalAar,kalMnd+1,0).getDate();
@@ -2029,10 +2169,172 @@ function malingStopp(){
   document.addEventListener("visibilitychange",()=>{ if(document.hidden) slutt(); });
 })();
 
+/* ===================== SAKER: retur, reklamasjon, garanti ===================== */
+const SAK_NAVN={retur:"Retur",reklamasjon:"Reklamasjon",garanti:"Garanti"};
+const UTFALL_NAVN={byttet:"Byttet",reparert:"Reparert",penger:"Pengene tilbake",avvist:"Avvist"};
+function bilagSaker(b){ return Array.isArray(b&&b.saker)?b.saker:[]; }
+function returOrdnet(b){ return bilagSaker(b).some(x=>x.type==="retur"&&x.status==="ordnet"); }
+function alleSaker(){ const ut=[]; for(const k of ["privat","kattepuser"]) for(const b of bilagListe(k)) for(const x of bilagSaker(b)) ut.push({k,b,x}); return ut; }
+let sakMaal=null, sakType="retur", ordnetMaal=null, utfall="byttet";
+function settSakType(v){ sakType=v; document.querySelectorAll("#segSakType button").forEach(b=>b.classList.toggle("pa",b.dataset.v===v)); }
+function settUtfall(v){ utfall=v; document.querySelectorAll("#segUtfall button").forEach(b=>b.classList.toggle("pa",b.dataset.v===v)); }
+function aapneNySak(k,id,type){
+  const b=finnBilag(k,id); if(!b) return; sakMaal={k,id};
+  $("sakLedetekst").textContent=b.butikk+" – "+b.beskrivelse; settSakType(type||"retur"); $("inSakDato").value=idagIso(); $("inSakBesk").value=""; $("sakBesk").textContent=""; $("feltSakBesk").classList.remove("mangler");
+  $("sakOverlegg").classList.remove("skjult");
+}
+function lagreNySak(){
+  const b=finnBilag(sakMaal.k,sakMaal.id); if(!b) return null;
+  const besk=$("inSakBesk").value.trim(); if(!besk&&sakType!=="retur"){ $("feltSakBesk").classList.add("mangler"); $("sakBesk").textContent="Skriv hva saken gjelder."; return null; }
+  if(!b.saker) b.saker=[];
+  const sak={id:nyId("s"),type:sakType,dato:$("inSakDato").value||idagIso(),beskrivelse:besk||(sakType==="retur"?"Retur":""),status:"aapen",opprettet:new Date().toISOString(),av:innlogget||""};
+  b.saker.push(sak); b.endret=new Date().toISOString(); merkSti(sakMaal.k,{t:"bilag",id:b.id}); uskrevetLagre(); persist();
+  $("sakOverlegg").classList.add("skjult"); return sak;
+}
+function aapneOrdnet(k,id,sakId){
+  const b=finnBilag(k,id); if(!b) return; const sak=bilagSaker(b).find(x=>x.id===sakId); if(!sak) return; ordnetMaal={k,id,sakId};
+  $("ordnetLedetekst").textContent=SAK_NAVN[sak.type]+": "+b.butikk+" – "+b.beskrivelse; settUtfall(sak.type==="retur"?"penger":"byttet"); $("inTilbake").value=sak.type==="retur"?String(b.belop).replace(".",","):""; $("inOrdnetNotat").value="";
+  $("ordnetOverlegg").classList.remove("skjult");
+}
+function lagreOrdnet(){
+  const b=finnBilag(ordnetMaal.k,ordnetMaal.id); if(!b) return; const sak=bilagSaker(b).find(x=>x.id===ordnetMaal.sakId); if(!sak) return;
+  sak.status="ordnet"; sak.utfall=utfall; sak.belopTilbake=tolkBelop($("inTilbake").value); sak.notat=$("inOrdnetNotat").value.trim(); sak.ordnetDato=idagIso(); sak.ordnetAv=innlogget||"";
+  b.endret=new Date().toISOString(); merkSti(ordnetMaal.k,{t:"bilag",id:b.id});
+  let poengTekst="";
+  if(!sak.poengGitt){ sak.poengGitt=true; giPoeng(20,"Sak ordnet: "+b.butikk,b.id); poengTekst=" +20 pusepoeng."; }
+  uskrevetLagre(); persist();
+  $("ordnetOverlegg").classList.add("skjult"); visRos(ROS_SAK[Math.floor(Math.random()*ROS_SAK.length)]+poengTekst); kattemat();
+  if(detaljId===b.id&&!$("detaljOverlegg").classList.contains("skjult")) visDetalj(b.id);
+  if(!$("saker").classList.contains("skjult")) tegnSaker(); if(!$("start").classList.contains("skjult")) oppsummer();
+}
+function returnerHurtig(k,id){ const b=finnBilag(k,id); if(!b) return; if(!b.saker) b.saker=[]; let sak=bilagSaker(b).find(x=>x.type==="retur"&&x.status!=="ordnet"); if(!sak){ sak={id:nyId("s"),type:"retur",dato:idagIso(),beskrivelse:"Retur",status:"aapen",opprettet:new Date().toISOString(),av:innlogget||""}; b.saker.push(sak); } aapneOrdnet(k,id,sak.id); }
+function tilbakeDenneMnd(){ const m=idagIso().slice(0,7); return alleSaker().filter(({x})=>x.status==="ordnet"&&(x.ordnetDato||"").startsWith(m)).reduce((a,{x})=>a+Number(x.belopTilbake||0),0); }
+let sakerFane="aapne";
+function tegnSaker(){
+  document.querySelectorAll("#sakerFaner button").forEach(b=>b.classList.toggle("pa",b.dataset.fane===sakerFane));
+  const l=alleSaker().filter(({x})=>sakerFane==="aapne"?x.status!=="ordnet":x.status==="ordnet").sort((p,q)=>String(q.x.ordnetDato||q.x.dato).localeCompare(String(p.x.ordnetDato||p.x.dato)));
+  $("sakerSum").textContent="kr "+kr(tilbakeDenneMnd()); $("sakerUnder").textContent=`${alleSaker().filter(({x})=>x.status!=="ordnet").length} åpne`;
+  $("sakerListe").innerHTML = l.length ? l.map(({k,b,x})=>`<div class="sak" data-k="${k}" data-id="${b.id}" data-sak="${x.id}"><div class="h"><span>${esc(b.butikk)} – ${esc(b.beskrivelse)}</span><span class="type ${x.status==="ordnet"?"ordnet":x.type}">${x.status==="ordnet"?UTFALL_NAVN[x.utfall]||"Ordnet":SAK_NAVN[x.type]}</span></div>
+      <div class="u">${esc(x.beskrivelse)} · ${x.status==="ordnet"?"ordnet "+norskDato(x.ordnetDato)+(x.belopTilbake?" · kr "+kr(x.belopTilbake)+" tilbake":""):"opprettet "+norskDato(x.dato)+" · "+KORTNAVN[k]}${x.notat?" · "+esc(x.notat):""}</div>
+      <div class="knapper">${x.status!=="ordnet"?`<button class="hoved" data-ordne>Ordnet</button>`:""}<button data-aapne>Åpne bilaget</button></div></div>`).join("")
+    : `<div class="tomt"><strong>${sakerFane==="aapne"?"Ingen åpne saker":"Ingen ordnede saker ennå"}</strong>${sakerFane==="aapne"?"Saker lages fra bilaget med «Ny sak».":""}</div>`;
+  $("sakerListe").querySelectorAll("[data-ordne]").forEach(kn=>kn.addEventListener("click",e=>{ const r=e.target.closest(".sak"); aapneOrdnet(r.dataset.k,r.dataset.id,r.dataset.sak); }));
+  $("sakerListe").querySelectorAll("[data-aapne]").forEach(kn=>kn.addEventListener("click",e=>{ const r=e.target.closest(".sak"); $("saker").classList.add("skjult"); aapneKat(r.dataset.k); byttFane("liste"); visDetalj(r.dataset.id); }));
+}
+function visSaker(){ $("start").classList.add("skjult"); $("saker").classList.remove("skjult"); sakerFane="aapne"; tegnSaker(); window.scrollTo(0,0); }
+$("knSakerHjem").addEventListener("click",()=>{ $("saker").classList.add("skjult"); visStart(); });
+document.querySelectorAll("#sakerFaner button").forEach(b=>b.addEventListener("click",()=>{ sakerFane=b.dataset.fane; tegnSaker(); }));
+document.querySelectorAll("#segSakType button").forEach(b=>b.addEventListener("click",()=>settSakType(b.dataset.v)));
+document.querySelectorAll("#segUtfall button").forEach(b=>b.addEventListener("click",()=>settUtfall(b.dataset.v)));
+$("knSakLagre").addEventListener("click",()=>{ const sak=lagreNySak(); if(sak){ visRos("Sak notert. Pusen holder øye med den."); if(detaljId){ visDetalj(detaljId); } } });
+$("knSakAvbryt").addEventListener("click",()=>$("sakOverlegg").classList.add("skjult"));
+$("knOrdnetLagre").addEventListener("click",lagreOrdnet);
+$("knOrdnetAvbryt").addEventListener("click",()=>$("ordnetOverlegg").classList.add("skjult"));
+$("dNySak").addEventListener("click",()=>aapneNySak(KAT,detaljId));
+
+/* ===================== FLINKINGEN ===================== */
+const NIVAER=[["Kattunge",0],["Huskatt",30],["Sofakatt",60],["Vinduskatt",100],["Gårdskatt",150],["Sjefskatt",210],["Gaupe",280],["Gepard",360],["Panter",450],["Tiger",550],["Løve",660]];
+function kattIkon(i){
+  const f=["#3d6fa3","#3d6fa3","#3d6fa3","#3d6fa3","#3d6fa3","#3d6fa3","#b08a55","#e0a83a","#1f2b3a","#e8955e","#e0a83a"][i];
+  const hode=`<circle cx="50" cy="56" r="28" fill="${f}"/><polygon points="26,44 30,14 46,30" fill="${f}"/><polygon points="74,44 70,14 54,30" fill="${f}"/>`;
+  const oyne=(c="#fff")=>`<circle cx="40" cy="54" r="4.5" fill="${c}"/><circle cx="60" cy="54" r="4.5" fill="${c}"/><circle cx="41" cy="55" r="2" fill="#1f2b3a"/><circle cx="61" cy="55" r="2" fill="#1f2b3a"/><polygon points="46,64 54,64 50,69" fill="#f4bdd4"/>`;
+  const ekstra=[
+    `<circle cx="50" cy="58" r="22" fill="${f}"/>`,"",
+    `<path d="M36 56 q4 -4 8 0 M56 56 q4 -4 8 0" stroke="#fff" stroke-width="2.5" fill="none"/>`,
+    `<rect x="8" y="8" width="84" height="84" rx="6" fill="none" stroke="#9fb9d6" stroke-width="4"/><path d="M50 8 v84 M8 50 h84" stroke="#9fb9d6" stroke-width="3"/>`,
+    `<path d="M22 84 q28 -14 56 0" stroke="#e0a83a" stroke-width="5" fill="none"/>`,
+    `<polygon points="36,24 36,10 42,16 50,4 58,16 64,10 64,24" fill="#e0a83a"/>`,
+    `<path d="M30 16 l-6 -12 M70 16 l6 -12" stroke="#1f2b3a" stroke-width="4" stroke-linecap="round"/>`,
+    `<path d="M40 60 l-3 10 M60 60 l3 10" stroke="#1f2b3a" stroke-width="3"/><circle cx="30" cy="70" r="2.5" fill="#1f2b3a"/><circle cx="70" cy="72" r="2.5" fill="#1f2b3a"/><circle cx="52" cy="80" r="2.5" fill="#1f2b3a"/>`,
+    "",
+    `<path d="M32 48 l8 8 M68 48 l-8 8 M28 66 l10 2 M72 66 l-10 2 M44 80 l6 -6 l6 6" stroke="#1f2b3a" stroke-width="4" stroke-linecap="round" fill="none"/>`,
+    `<circle cx="50" cy="56" r="40" fill="#c98f2a"/>`
+  ][i];
+  const bak=(i===10)?ekstra:"", fore=(i===10)?"":ekstra;
+  const oyneF=i===8?oyne("#e0a83a"):oyne();
+  return `<svg viewBox="0 0 100 100">${bak}${i===0?'<g transform="translate(50 56) scale(.8) translate(-50 -56)">'+hode+oyneF+'</g>':hode+(i===2?ekstra:oyneF)+(i===2?"":fore)}</svg>`;
+}
+const ROS=["Mjau! Det der gikk fort.","Ryddig katt. Stolt katt.","Mrrp. Én til i boks.","Det der fortjener en solflekk.","Pusen nikker anerkjennende.","Kvittering i hus. Halen i været.","Flink. Nå kan vi sove.","Sånn. Nå vet vi hvor den er.","Mjau, det var ordentlig.","Godt gjort. Pusen maler.","Den lå ikke i en skuff denne gangen.","Ett bilde, ett trykk, ferdig.","Pusen blunker sakte til deg.","Det der var voksent gjort.","Kattemat til deg, egentlig.","Hun strekker seg fornøyd.","Ryddigere enn en nyvasket pote.","Mjau. Akkurat passe.","Nå har vi kontroll. Mrrp.","Bilag i boks, pusen i solflekken.","Det gikk raskere enn å finne en pappeske.","Snart er hele huset ordnet.","Pusen gnir hodet mot deg.","Så flink at halen vifter.","Mjau, mjau. Og videre."];
+const ROS_SAK=["Ordnet! Pusen er imponert.","Mrrp. Den saken var du raskere enn.","Halen i været. Sak lukket.","Pengene tilbake, pusen på ryggen.","Det der var voksent. Mjau."];
+const MERKER=[["Pote",'<circle cx="50" cy="62" r="18" fill="#b34a7c"/><circle cx="26" cy="42" r="9" fill="#b34a7c"/><circle cx="42" cy="30" r="10" fill="#b34a7c"/><circle cx="58" cy="30" r="10" fill="#b34a7c"/><circle cx="74" cy="42" r="9" fill="#b34a7c"/>'],
+ ["Fisk",'<ellipse cx="42" cy="50" rx="30" ry="18" fill="#3d6fa3"/><polygon points="66,50 90,30 90,70" fill="#3d6fa3"/><circle cx="30" cy="45" r="4" fill="#fff"/>'],
+ ["Garn",'<circle cx="50" cy="50" r="34" fill="#b34a7c"/><path d="M22 36 q28 20 56 0 M22 64 q28 -20 56 0 M36 18 q20 32 0 64" stroke="#f4bdd4" stroke-width="4" fill="none"/>'],
+ ["Mus",'<ellipse cx="54" cy="56" rx="30" ry="20" fill="#a9b3bd"/><circle cx="30" cy="40" r="9" fill="#a9b3bd"/><circle cx="42" cy="34" r="9" fill="#a9b3bd"/><circle cx="24" cy="56" r="4" fill="#f4bdd4"/><path d="M84 56 q10 14 -4 24" stroke="#a9b3bd" stroke-width="5" fill="none"/>'],
+ ["Melk",'<path d="M30 30 h40 v50 a6 6 0 0 1 -6 6 h-28 a6 6 0 0 1 -6 -6 z" fill="#fff" stroke="#3d6fa3" stroke-width="4"/><rect x="36" y="18" width="28" height="12" rx="3" fill="#3d6fa3"/>'],
+ ["Eske",'<rect x="16" y="40" width="68" height="44" rx="4" fill="#c9a26b"/><rect x="16" y="40" width="68" height="10" fill="#b08a55"/><polygon points="30,42 32,22 44,34" fill="#3d6fa3"/><polygon points="70,42 68,22 56,34" fill="#3d6fa3"/>'],
+ ["Hjerte",'<path d="M50 84 L20 54 a17 17 0 0 1 24 -24 l6 6 l6 -6 a17 17 0 0 1 24 24 z" fill="#b34a7c"/>'],
+ ["Krone",'<polygon points="18,76 18,34 34,50 50,22 66,50 82,34 82,76" fill="#e0a83a"/><rect x="18" y="72" width="64" height="10" fill="#c98f2a"/>'],
+ ["Måne",'<path d="M62 14 A36 36 0 1 0 86 62 A28 28 0 0 1 62 14 Z" fill="#f6f0d8" stroke="#3d6fa3" stroke-width="4"/>'],
+ ["Sol",'<circle cx="50" cy="50" r="20" fill="#f2c66d"/><path d="M50 12v10M50 78v10M12 50h10M78 50h10M23 23l7 7M70 70l7 7M77 23l-7 7M30 70l-7 7" stroke="#e0a83a" stroke-width="5" stroke-linecap="round"/>'],
+ ["Stjerne",'<polygon points="50,10 61,38 90,38 66,56 75,86 50,68 25,86 34,56 10,38 39,38" fill="#e0a83a"/>'],
+ ["Sommerfugl",'<ellipse cx="32" cy="38" rx="20" ry="16" fill="#f4bdd4"/><ellipse cx="68" cy="38" rx="20" ry="16" fill="#f4bdd4"/><ellipse cx="34" cy="64" rx="15" ry="13" fill="#dba9c0"/><ellipse cx="66" cy="64" rx="15" ry="13" fill="#dba9c0"/><rect x="46" y="26" width="8" height="50" rx="4" fill="#3d6fa3"/>'],
+ ["Bjelle",'<path d="M30 66 a20 20 0 0 1 40 0 v8 h-40 z" fill="#e0a83a"/><rect x="24" y="72" width="52" height="8" rx="4" fill="#c98f2a"/><circle cx="50" cy="84" r="6" fill="#c98f2a"/>'],
+ ["Fjær",'<path d="M50 10 Q80 40 50 90 Q20 40 50 10 Z" fill="#f4bdd4"/><path d="M50 16 L50 88" stroke="#b34a7c" stroke-width="3"/>'],
+ ["Pappesketrone",'<rect x="16" y="46" width="68" height="40" rx="4" fill="#c9a26b"/><polygon points="24,44 24,26 34,34 50,16 66,34 76,26 76,44" fill="#e0a83a"/>'],
+ ["Solflekk",'<circle cx="50" cy="50" r="34" fill="#f2c66d" opacity=".7"/><circle cx="50" cy="56" r="16" fill="#3d6fa3"/><polygon points="36,48 38,30 48,40" fill="#3d6fa3"/><polygon points="64,48 62,30 52,40" fill="#3d6fa3"/>'],
+ ["Laser",'<circle cx="50" cy="50" r="10" fill="#e8362e"/><circle cx="50" cy="50" r="22" fill="none" stroke="#e8362e" stroke-width="3" opacity=".5"/><circle cx="50" cy="50" r="34" fill="none" stroke="#e8362e" stroke-width="2" opacity=".25"/>'],
+ ["Kattemat",'<circle cx="34" cy="40" r="10" fill="#8b5a2b"/><circle cx="62" cy="36" r="10" fill="#a86f3a"/><circle cx="46" cy="62" r="10" fill="#6f4420"/><circle cx="70" cy="64" r="10" fill="#b8834a"/>'],
+ ["Nøkkel",'<circle cx="34" cy="50" r="18" fill="none" stroke="#3d6fa3" stroke-width="8"/><rect x="50" y="46" width="40" height="8" fill="#3d6fa3"/><rect x="74" y="54" width="6" height="12" fill="#3d6fa3"/><rect x="84" y="54" width="6" height="16" fill="#3d6fa3"/>'],
+ ["Løve",'<circle cx="50" cy="52" r="40" fill="#c98f2a"/><circle cx="50" cy="52" r="26" fill="#e0a83a"/><circle cx="41" cy="48" r="3.5" fill="#1f2b3a"/><circle cx="59" cy="48" r="3.5" fill="#1f2b3a"/><polygon points="45,58 55,58 50,64" fill="#b34a7c"/>']];
+function mndNokkel(d){ return (d||idagIso()).slice(0,7); }
+function mndNavn(n){ const [y,m]=n.split("-"); return new Date(+y,+m-1,1).toLocaleDateString("nb-NO",{month:"long"}); }
+function flink(){ if(!COMBINED.flink) COMBINED.flink=FLINK_TOM(); return COMBINED.flink; }
+function poengMnd(n){ const f=flink(); const m=f.poeng[n||mndNokkel()]; return m?Number(m.sum||0):0; }
+function nivaFor(p){ let i=0; NIVAER.forEach((n,k)=>{ if(p>=n[1]) i=k; }); return i; }
+function flinkLagre(){ merkGren("flink"); uskrevetLagre(); persist(); }
+function giPoeng(p,hva,id){
+  const f=flink(), n=mndNokkel(); if(!f.poeng[n]) f.poeng[n]={sum:0,hendelser:[]};
+  const for_=nivaFor(f.poeng[n].sum); f.poeng[n].sum+=p; f.poeng[n].hendelser.push({t:new Date().toISOString(),p,hva,id}); if(f.poeng[n].hendelser.length>400) f.poeng[n].hendelser.splice(0,f.poeng[n].hendelser.length-400);
+  if(f.poeng[n].sum>Number(f.rekord.poeng||0)) f.rekord={mnd:n,poeng:f.poeng[n].sum};
+  merkGren("flink");
+  const etter=nivaFor(f.poeng[n].sum);
+  if(etter>for_){ const [y,m]=n.split("-").map(Number); const sist=new Date(y,m,0); f.kroneTil=`${sist.getFullYear()}-${String(sist.getMonth()+1).padStart(2,"0")}-${String(sist.getDate()).padStart(2,"0")}`; setTimeout(()=>{ kattemat("dobbel"); visRos("Nytt nivå: "+NIVAER[etter][0]+"! Pusen får krone ut måneden."); },900); }
+  tegnPoengStripe(); visPynt();
+}
+function visPynt(){ const f=flink(); $("pusKrone").classList.toggle("skjult",!(f.kroneTil&&f.kroneTil>=idagIso())); $("pusSloyfe").classList.toggle("skjult",!f.sloyfe); }
+function tegnPoengStripe(){
+  const p=poengMnd(), i=nivaFor(p), neste=NIVAER[i+1];
+  $("poengTekst").textContent=`${NIVAER[i][0]} · ${p} poeng i ${mndNavn(mndNokkel())}`;
+  $("poengFyll").style.width=(neste?Math.min(100,Math.round((p-NIVAER[i][1])/(neste[1]-NIVAER[i][1])*100)):100)+"%";
+  $("oppsumFlink").textContent=`${NIVAER[i][0]} · ${p} poeng`; $("flinkKortIkon").innerHTML=kattIkon(i).replace(/^<svg[^>]*>|<\/svg>$/g,"");
+}
+let rosTimer=null;
+function visRos(t){ $("rosTekst").textContent=t; $("ros").classList.remove("skjult"); clearTimeout(rosTimer); rosTimer=setTimeout(()=>$("ros").classList.add("skjult"),3400); }
+function tegnSkaal(){ const f=flink(); const n=Math.min(10,f.skaal||0); $("skaalBiter").innerHTML=Array.from({length:n},(_,i)=>`<circle cx="${18+(i%5)*11}" cy="${14+Math.floor(i/5)*8}" r="3.6" fill="${["#8b5a2b","#a86f3a","#6f4420","#b8834a"][i%4]}"/>`).join(""); $("skaalTall").textContent=n?`${n}/10`:""; }
+function belonnLagring(rec,kat,antallBilder){
+  const f=flink(); const meld=[];
+  let p=10+Math.max(0,antallBilder-1)*5; giPoeng(p,(kat==="gavekort"?"Kort: ":"Kvittering: ")+rec.butikk,rec.id); meld.push(`+${p} pusepoeng`);
+  f.skaal=(f.skaal||0)+1; if(f.skaal>=10){ f.skaal=0; f.skaalTomt=(f.skaalTomt||0)+1; setTimeout(()=>{ const k=KATT_BUNN(); if(k){ k.classList.add("danser"); setTimeout(()=>k.classList.remove("danser"),1300); } },300); meld.push("skåla full – hun spiser"); }
+  tegnSkaal();
+  const mangler=MERKER.map((_,i)=>i).filter(i=>!(f.merker||[]).includes(i));
+  let nyttMerke=null; if(mangler.length){ nyttMerke=mangler[Math.floor(Math.random()*mangler.length)]; f.merker=(f.merker||[]).concat([nyttMerke]); meld.push("nytt merke: "+MERKER[nyttMerke][0]); if(f.merker.length>=MERKER.length&&!f.sloyfe){ f.sloyfe=true; meld.push("albumet er fullt – sløyfe!"); } }
+  let gyllen=false; if(kat!=="gavekort"&&Math.random()<0.15){ f.gylne[rec.id]=new Date().toISOString(); gyllen=true; }
+  flinkLagre(); visPynt();
+  return {ros:ROS[Math.floor(Math.random()*ROS.length)],meld,nyttMerke,gyllen};
+}
+function erGyllen(id){ const t=flink().gylne&&flink().gylne[id]; return !!t&&(Date.now()-Date.parse(t))<86400000; }
+function altOrdnet(){ return fristerDenneUka().length===0 && alleSaker().every(({x})=>x.status==="ordnet"); }
+function tegnFlink(){
+  const f=flink(), p=poengMnd(), i=nivaFor(p), neste=NIVAER[i+1];
+  $("flinkIkon").innerHTML=kattIkon(i).replace(/^<svg[^>]*>|<\/svg>$/g,""); $("flinkNavn").textContent=NIVAER[i][0]; $("flinkPoeng").textContent=`${p} poeng i ${mndNavn(mndNokkel())}`;
+  $("flinkFyll").style.width=(neste?Math.min(100,Math.round((p-NIVAER[i][1])/(neste[1]-NIVAER[i][1])*100)):100)+"%";
+  $("flinkNeste").textContent=neste?`${neste[1]-p} poeng til ${neste[0]}`:"Høyeste nivå. Løven hviler.";
+  $("flinkUnder").textContent=`${NIVAER[i][0]} · ${p} poeng`;
+  const r=$("flinkRyddig"); const ro=altOrdnet(); r.className="flink-rad"+(ro?" ryddig":""); r.innerHTML=`<div class="h">${ro?"Alt er ordnet":"Å følge opp"}</div><div class="u">${ro?"Ingen frister venter, ingen åpne saker. Katten sover.":`${fristerDenneUka().length} frister og ${alleSaker().filter(({x})=>x.status!=="ordnet").length} åpne saker`}</div>`;
+  $("flinkSkaal").textContent=`${f.skaal||0} av 10 biter i skåla · tømt ${f.skaalTomt||0} ${(f.skaalTomt||0)===1?"gang":"ganger"}`;
+  $("flinkRekord").textContent=f.rekord&&f.rekord.poeng?`${f.rekord.poeng} poeng i ${mndNavn(f.rekord.mnd)} ${f.rekord.mnd.slice(0,4)} (${NIVAER[nivaFor(f.rekord.poeng)][0]})`:"Ingen rekord ennå";
+  const har=f.merker||[]; $("flinkMerkerTekst").textContent=`${har.length} av ${MERKER.length}${har.length>=MERKER.length?" – albumet er fullt":""}`;
+  $("flinkAlbum").innerHTML=MERKER.map((m,i)=>`<div class="${har.includes(i)?"har":""}" title="${m[0]}"><svg viewBox="0 0 100 100">${m[1]}</svg></div>`).join("");
+  const g=Object.entries(f.gylne||{}).sort((a,b)=>b[1].localeCompare(a[1])); $("flinkGylne").textContent=g.length?`${g.length} til nå · sist ${norskDato(g[0][1].slice(0,10))}`:"Ingen ennå. De kommer når de vil.";
+  const mnd=Object.keys(f.poeng).sort().reverse().slice(0,6); $("flinkMaaneder").innerHTML=mnd.length?mnd.map(n=>`<div class="mnd-rad"><span>${mndNavn(n)} ${n.slice(0,4)}</span><span class="tall">${f.poeng[n].sum} poeng · ${NIVAER[nivaFor(f.poeng[n].sum)][0]}</span></div>`).join(""):`<div class="mnd-rad"><span>Ingen måneder ennå</span></div>`;
+}
+function visFlink(){ $("start").classList.add("skjult"); $("flink").classList.remove("skjult"); tegnFlink(); window.scrollTo(0,0); }
+$("knFlinkHjem").addEventListener("click",()=>{ $("flink").classList.add("skjult"); visStart(); });
+
 /* ===================== STARTSIDE ===================== */
 function fristerDenneUka(){
   const ut=[];
-  for(const k of ["privat","kattepuser"]) for(const b of bilagListe(k)){ const d=dagerTil(b.returfrist); if(d!==null&&d>=0&&d<=7) ut.push({b,k,d,slag:"retur"}); }
+  for(const k of ["privat","kattepuser"]) for(const b of bilagListe(k)){ if(returOrdnet(b)) continue; const d=dagerTil(b.returfrist); if(d!==null&&d>=0&&d<=7) ut.push({b,k,d,slag:"retur"}); }
   for(const g of bilagListe("gavekort")){ if(g.brukt) continue; const f=gavekortFrist(g); const d=dagerTil(f.dato); if(d!==null&&d>=0&&d<=14) ut.push({b:g,k:"gavekort",d,slag:f.beregnet?"foreldes":"utlop"}); }
   return ut.sort((a,b)=>a.d-b.d);
 }
@@ -2042,6 +2344,11 @@ function oppsummer(){
     $(k==="privat"?"oppsumPrivat":"oppsumPuser").textContent = l.length?`${l.length} bilag · kr ${kr(sum)}`:"Ingen bilag ennå";
   }
   $("oppsumKalender").textContent=kalNesteTekst();
+  const aapne=alleSaker().filter(({x})=>x.status!=="ordnet").length, tilb=tilbakeDenneMnd();
+  $("oppsumSaker").textContent=(aapne?`${aapne} ${aapne===1?"åpen sak":"åpne saker"}`:"Ingen åpne saker")+(tilb?` · kr ${kr(tilb)} tilbake i ${mndNavn(mndNokkel())}`:"");
+  tegnPoengStripe(); tegnSkaal(); visPynt();
+  const ro=altOrdnet(); KATT_BUNN().classList.toggle("sover2",ro);
+  if(ro&&$("tittelTekst")){ clearTimeout(tittelTimer); $("tittelBoble").classList.remove("bytt"); $("tittelTekst").textContent="Alt er ordnet, mjau mjau"; tittelSist="Alt er ordnet, mjau mjau"; }
   const g=gavekortListe(false), grest=g.reduce((a,x)=>a+gavekortRest(x),0);
   $("oppsumGavekort").textContent = g.length?`${g.length} kort · kr ${kr(grest)} igjen`:"Ingen kort ennå";
   const f=fristerDenneUka(), e=$("fristVarsel");
@@ -2060,8 +2367,8 @@ function oppsummer(){
   } else nv.className="varsel skjult";
 }
 function visStart(){
-  $("app").classList.add("skjult"); $("kalender").classList.add("skjult"); $("start").classList.remove("skjult");
-  KAT=null; tegnHilsen(); oppsummer(); karTegn(0); window.scrollTo(0,0);
+  $("app").classList.add("skjult"); $("kalender").classList.add("skjult"); $("saker").classList.add("skjult"); $("flink").classList.add("skjult"); $("start").classList.remove("skjult");
+  KAT=null; tegnHilsen(); karTegn(0); oppsummer(); window.scrollTo(0,0);
   if(velkomstDryss){ velkomstDryss=false; setTimeout(()=>kattemat("liten"),250); }
 }
 function visTolkTilstand(){
@@ -2213,8 +2520,10 @@ async function lagreGavekort(){
   else { rec=Object.assign({id:nyId("g")},g,{bilder,brukt:gavekortRest(g)<=0,opprettet:new Date().toISOString(),av:innlogget||""}); COMBINED.gavekort.bilag[rec.id]=rec; }
   merkSti("gavekort",{t:"bilag",id:rec.id}); uskrevetLagre(); persist();
   fyllButikkliste(); skjemaBilder=skjemaBilder.map(bi=>({id:bi.id,w:bi.w,h:bi.h}));
+  const varNy=!redigerId;
   nullstillSkjema(); $("knLagre").disabled=false;
   dryssVedLagring(); byttFane("liste");
+  if(varNy){ const bel=belonnLagring(rec,"gavekort",bilder.length); visRos(bel.ros+" · "+bel.meld.join(" · ")); }
 }
 async function lagreBilag(){
   if(erGavekort()) return lagreGavekort();
@@ -2235,11 +2544,12 @@ async function lagreBilag(){
   else { rec=Object.assign({id:nyId("b")},b,{bilder,opprettet:new Date().toISOString(),av:innlogget||""}); COMBINED[KAT].bilag[rec.id]=rec; }
   merkSti(KAT,{t:"bilag",id:rec.id}); uskrevetLagre(); persist();
   fyllButikkliste();
-  $("pdfTittel").textContent=redigerId?"Bilaget er oppdatert":"Bilaget er lagret";
-  $("pdfNavn").textContent=filnavnFor(rec); $("pdfBesk").textContent="";
+  let bel=null; if(!redigerId) bel=belonnLagring(rec,KAT,bilder.length);
+  $("pdfTittel").textContent=redigerId?"Bilaget er oppdatert":(bel&&bel.gyllen?"Gyllen kvittering! Dobbelt kattemat.":"Bilaget er lagret");
+  $("pdfNavn").textContent=filnavnFor(rec); $("pdfBesk").textContent=bel?"«"+bel.ros+"» · "+bel.meld.join(" · "):"";
   $("knDelPdf").disabled=true; $("knDelPdf").textContent="Lager PDF …";
   $("pdfOverlegg").classList.remove("skjult");
-  dryssVedLagring();
+  if(bel&&bel.gyllen) kattemat("dobbel"); else dryssVedLagring();
   pdfKlar=null;
   const kat=KAT; skjemaBilder=skjemaBilder.map(bi=>({id:bi.id,w:bi.w,h:bi.h}));
   nullstillSkjema(); $("knLagre").disabled=false;
@@ -2250,6 +2560,7 @@ async function lagreBilag(){
 /* ===================== OVERSIKT ===================== */
 function fristLapp(b){
   const dt=dagerTil(b.returfrist); if(dt===null) return "";
+  if(returOrdnet(b)) return `<span class="merkelapp type">Returnert</span>`;
   if(dt<0) return `<span class="merkelapp utgatt">Returfrist utløpt</span>`;
   if(dt===0) return `<span class="merkelapp snart">Returfrist i dag</span>`;
   if(dt<=7) return `<span class="merkelapp snart">Returfrist om ${dt} ${dt===1?"dag":"dager"}</span>`;
@@ -2313,7 +2624,7 @@ function tegnListe(){
       h+=`<div class="maned"><span>${esc(navn)}</span><span class="sum tall">kr ${kr(msum)}</span></div>`; }
     const forste=(b.bilder&&b.bilder[0])?b.bilder[0].id:null;
     const flere=(b.bilder&&b.bilder.length>1)?`<span class="merkelapp flere">${b.bilder.length} bilder</span>`:"";
-    h+=`<div class="bilag" data-id="${b.id}">${forste?`<img class="mini" data-bilde="${forste}" alt="">`:`<div class="mini tom">Uten bilde</div>`}
+    h+=`<div class="bilag${erGyllen(b.id)?" gyllen":""}" data-id="${b.id}">${forste?`<img class="mini" data-bilde="${forste}" alt="">`:`<div class="mini tom">Uten bilde</div>`}
       <div class="midt"><div class="butikk">${esc(b.butikk)}</div><div class="besk">${esc(b.beskrivelse)}</div>
       <div class="under"><span class="dato tall">${norskDato(b.dato)}</span>${fristLapp(b)}${flere}</div></div>
       <div class="belop tall">kr ${kr(b.belop)}</div></div><div class="rift"></div>`;
@@ -2336,7 +2647,7 @@ async function visGavekortDetalj(g){
   if(g.av) h+=`<div class="rad"><span class="n">Registrert av</span><span class="v">${esc(g.av)}</span></div>`;
   $("dRader").innerHTML=h;
   const gal=$("dGalleri"); gal.innerHTML=(g.bilder||[]).map((bi,i)=>`<img data-full="${bi.id}" alt="Bilde ${i+1} av ${g.bilder.length}">`).join("");
-  $("dPdf").classList.add("skjult"); $("dKalender").classList.add("skjult");
+  $("dPdf").classList.add("skjult"); $("dKalender").classList.add("skjult"); $("dNySak").classList.add("skjult"); $("dSaker").innerHTML="";
   $("dRest").classList.toggle("skjult",!!g.brukt); $("dBrukt").classList.remove("skjult"); $("dBrukt").textContent=g.brukt?"Ta i bruk igjen":"Brukt opp";
   $("dBesk2").textContent=""; $("detaljOverlegg").classList.remove("skjult");
   gal.querySelectorAll("img[data-full]").forEach(async img=>{ const url=await bildeHent(img.dataset.full,false); if(url) img.src=url; else { const d=document.createElement("div"); d.className="tomtbilde"; d.textContent="Bildet er ikke lastet opp ennå – det hentes når det er i lageret."; img.replaceWith(d); } });
@@ -2354,6 +2665,11 @@ async function visDetalj(id){
   if(b.kommentar) h+=`<div class="rad"><span class="n">Kommentar</span><span class="v">${esc(b.kommentar)}</span></div>`;
   if(b.av) h+=`<div class="rad"><span class="n">Registrert av</span><span class="v">${esc(b.av)}</span></div>`;
   $("dRader").innerHTML=h;
+  const sk=bilagSaker(b); $("dNySak").classList.remove("skjult");
+  $("dSaker").innerHTML=(sk.length?`<div class="rad stablet" style="padding-bottom:0"><span class="n">Saker</span></div>`:"")+sk.map(x=>`<div class="dsak"><div><div>${SAK_NAVN[x.type]}${x.beskrivelse&&x.beskrivelse!==SAK_NAVN[x.type]?": "+esc(x.beskrivelse):""}</div><div class="u">${x.status==="ordnet"?(UTFALL_NAVN[x.utfall]||"Ordnet")+" "+norskDato(x.ordnetDato)+(x.belopTilbake?" · kr "+kr(x.belopTilbake)+" tilbake":""):"åpen siden "+norskDato(x.dato)}</div></div>${x.status!=="ordnet"?`<button data-ordne-sak="${x.id}">Ordnet</button>`:""}</div>`).join("")
+    +(b.returfrist&&!returOrdnet(b)?`<div class="dsak"><div><div>Retur</div><div class="u">frist ${norskDato(b.returfrist)}</div></div><button data-returner>Returnert</button></div>`:"");
+  $("dSaker").querySelectorAll("[data-ordne-sak]").forEach(kn=>kn.addEventListener("click",()=>aapneOrdnet(KAT,b.id,kn.dataset.ordneSak)));
+  $("dSaker").querySelectorAll("[data-returner]").forEach(kn=>kn.addEventListener("click",()=>returnerHurtig(KAT,b.id)));
   const g=$("dGalleri"); g.innerHTML=(b.bilder||[]).map((bi,i)=>`<img data-full="${bi.id}" alt="Bilde ${i+1} av ${b.bilder.length}">`).join("")||`<div class="tomtbilde">Uten bilde</div>`;
   $("dKalender").classList.toggle("skjult",!b.returfrist);
   $("dPdf").disabled=true; $("dPdf").textContent="Lager PDF …"; $("dBesk2").textContent="";
@@ -2430,7 +2746,7 @@ function karTegn(p){
 }
 let tittelSist=null, tittelTimer=null;
 function settTittel(){
-  const kat=karKort[karIdx].dataset.kat, tekst=(kat==="kalender"?"Kalender":KATNAVN[kat])+", mjau mjau";
+  const kat=karKort[karIdx].dataset.kat, tekst=({kalender:"Kalender",saker:"Reklamasjon og garanti",flink:"Flinkingen"}[kat]||KATNAVN[kat])+", mjau mjau";
   if(tekst===tittelSist) return; tittelSist=tekst;
   const b=$("tittelBoble"), t=$("tittelTekst");
   if(reduserBevegelse()||!t.textContent){ t.textContent=tekst; return; }
@@ -2438,7 +2754,7 @@ function settTittel(){
   tittelTimer=setTimeout(()=>{ t.textContent=tekst; b.classList.remove("bytt"); },170);
 }
 function karGaa(retning){ const n=karKort.length; karRetning=retning>0?1:-1; karIdx=((karIdx+retning)%n+n)%n; karTegn(0); }
-function karAapne(i){ const kat=karKort[i].dataset.kat; if(kat==="kalender") visKalender(); else aapneKat(kat); }
+function karAapne(i){ const kat=karKort[i].dataset.kat; if(kat==="kalender") visKalender(); else if(kat==="saker") visSaker(); else if(kat==="flink") visFlink(); else aapneKat(kat); }
 $("karForrige").addEventListener("click",()=>karGaa(-1));
 $("karNeste").addEventListener("click",()=>karGaa(1));
 karKort.forEach((k,i)=>{
@@ -2549,7 +2865,7 @@ $("dBrukt").addEventListener("click",()=>{
   const g=finnBilag("gavekort",detaljId); if(!g) return;
   g.brukt=!g.brukt; if(!g.brukt&&gavekortRest(g)<=0) g.rest=Number(g.palydende||0); g.endret=new Date().toISOString();
   merkSti("gavekort",{t:"bilag",id:g.id}); uskrevetLagre(); persist(); lukkDetalj(); tegnListe(); oppsummer();
-  if(g.brukt) kattemat();
+  if(g.brukt){ kattemat(); const fr=gavekortFrist(g); const d=dagerTil(fr.dato); if(!g.poengGitt&&(d===null||d>=0)){ g.poengGitt=true; giPoeng(15,"Kort brukt før utløp: "+g.butikk,g.id); flinkLagre(); visRos("Brukt før det gikk ut. +15 pusepoeng."); } }
 });
 $("knBrukte").addEventListener("click",()=>{ visBrukte=!visBrukte; tegnListe(); });
 document.querySelectorAll("#segType button").forEach(b=>b.addEventListener("click",()=>settType(b.dataset.v)));
@@ -2584,12 +2900,15 @@ $("fristVarsel").addEventListener("click",()=>{
   const f=fristerDenneUka();
   $("fristListe").innerHTML=f.map(x=>{ const gk=x.k==="gavekort", fr=gk?gavekortFrist(x.b):{dato:x.b.returfrist};
     const hva=gk?(x.slag==="foreldes"?"foreldes":"utløper"):"returfrist";
-    return `<div class="listerad" data-kat="${x.k}" data-id="${x.b.id}"><div><div class="h">${esc(x.b.butikk)} · kr ${kr(gk?gavekortRest(x.b):x.b.belop)}</div><div class="u">${esc(gk?(x.b.type==="tilgodelapp"?"Tilgodelapp":"Gavekort"):x.b.beskrivelse)} · ${hva} ${x.d===0?"i dag":"om "+x.d+(x.d===1?" dag":" dager")} (${norskDato(fr.dato)})</div></div><span class="k ${x.k}">${KORTNAVN[x.k]||x.k}</span></div>`; }).join("");
-  $("fristListe").querySelectorAll(".listerad").forEach(r=>r.addEventListener("click",()=>{ $("fristOverlegg").classList.add("skjult"); aapneKat(r.dataset.kat); byttFane("liste"); visDetalj(r.dataset.id); }));
+    return `<div class="listerad" data-kat="${x.k}" data-id="${x.b.id}"><div><div class="h">${esc(x.b.butikk)} · kr ${kr(gk?gavekortRest(x.b):x.b.belop)}</div><div class="u">${esc(gk?(x.b.type==="tilgodelapp"?"Tilgodelapp":"Gavekort"):x.b.beskrivelse)} · ${hva} ${x.d===0?"i dag":"om "+x.d+(x.d===1?" dag":" dager")} (${norskDato(fr.dato)})</div></div><div class="knapper"><button data-ordnet>${gk?"Brukt opp":"Ordnet"}</button></div></div>`; }).join("");
+  $("fristListe").querySelectorAll(".listerad").forEach(r=>r.addEventListener("click",e=>{ if(e.target.closest("[data-ordnet]")) return; $("fristOverlegg").classList.add("skjult"); aapneKat(r.dataset.kat); byttFane("liste"); visDetalj(r.dataset.id); }));
+  $("fristListe").querySelectorAll("[data-ordnet]").forEach(kn=>kn.addEventListener("click",e=>{ const r=e.target.closest(".listerad"); $("fristOverlegg").classList.add("skjult");
+    if(r.dataset.kat==="gavekort"){ const g=finnBilag("gavekort",r.dataset.id); if(g){ g.brukt=true; g.endret=new Date().toISOString(); merkSti("gavekort",{t:"bilag",id:g.id}); if(!g.poengGitt){ g.poengGitt=true; giPoeng(15,"Kort brukt før utløp: "+g.butikk,g.id); } flinkLagre(); kattemat(); visRos("Brukt før det gikk ut. +15 pusepoeng."); oppsummer(); } }
+    else returnerHurtig(r.dataset.kat,r.dataset.id); }));
   $("fristOverlegg").classList.remove("skjult");
 });
 $("fristLukk").addEventListener("click",()=>$("fristOverlegg").classList.add("skjult"));
-for(const id of ["pdfOverlegg","detaljOverlegg","papirkurvOverlegg","fristOverlegg","nokkelOverlegg","filOverlegg","innstOverlegg"]){
+for(const id of ["pdfOverlegg","detaljOverlegg","papirkurvOverlegg","fristOverlegg","nokkelOverlegg","filOverlegg","innstOverlegg","sakOverlegg","ordnetOverlegg"]){
   $(id).addEventListener("click",e=>{ if(e.target.id!==id) return;
     if(id==="detaljOverlegg") lukkDetalj(); else if(id==="pdfOverlegg"){ $("pdfOverlegg").classList.add("skjult"); byttFane("liste"); } else $(id).classList.add("skjult"); });
 }
@@ -2680,7 +2999,7 @@ async function etterInnlogging(){
 async function etterStart(){
   const n=await importerV1();
   visStart(); pvStart(); sbkStart(); ambStart(); klippForhent();
-  if(window.__apne){ const {k,id}=window.__apne; window.__apne=null; if(k==="kalender") visKalender(); else if(KATNAVN[k]&&finnBilag(k,id)){ aapneKat(k); byttFane("liste"); visDetalj(id); } }
+  if(window.__apne){ const {k,id}=window.__apne; window.__apne=null; if(k==="kalender") visKalender(); else if(k==="flink") visFlink(); else if(k==="saker") visSaker(); else if(KATNAVN[k]&&finnBilag(k,id)){ aapneKat(k); byttFane("liste"); visDetalj(id); } }
   if(n) startBesk(`Tok med ${n} bilag fra forrige utgave av appen.`,"ok");
 }
 (async ()=>{
