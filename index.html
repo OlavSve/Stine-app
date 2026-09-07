@@ -802,7 +802,7 @@ button,input,select,textarea{font-family:inherit}
       <div class="kar-prikker" id="karPrikker"><span class="pa"></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
       <button id="karNeste" aria-label="Neste">›</button>
     </div>
-    <div class="poengstripe" id="poengStripe"><span id="poengTekst">Kattunge · 0 poeng i september</span><span class="stripe"><i id="poengFyll"></i></span></div>
+
 
   </div>
   <button class="tannhjul" id="knInnst" aria-label="Innstillinger"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3h0a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8v0a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button>
@@ -1349,7 +1349,7 @@ button,input,select,textarea{font-family:inherit}
     <div class="fot">
       <button id="knBackup" class="skjult" title="Lagre komplett backup (JSON)">&#128190;</button>
       <button id="knFil" class="skjult" title="Fil">&#128196; Fil</button>
-      <span class="versjon" id="startVersjon">Versjon 3.25</span>
+      <span class="versjon" id="startVersjon">Versjon 3.26</span>
     </div>
     <div id="startBesk"></div>
     <button class="panelknapp andre" id="knInnstSkjul" style="margin-top:16px">✋ Skjul innstillinger</button>
@@ -1376,8 +1376,8 @@ button,input,select,textarea{font-family:inherit}
 
 <script>
 "use strict";
-/* ===================== Kvitteringer, mjau mjau, versjon 3.25 ===================== */
-const APP_VERSJON = "3.25";
+/* ===================== Kvitteringer, mjau mjau, versjon 3.26 ===================== */
+const APP_VERSJON = "3.26";
 const LAGER = { eier: "OlavSve", repo: "Stine-app-data", gren: "main", fil: "bilag.kryptert.json", bilder: "bilder", backup: "backup" };
 const EK = { hemmelighet: "0df7552eec9d178481fda706b469d0305507b5ddc5c229a6292f863412d29d50", bildesalt: "m1jWj9kLvoyOxH+NuTrtpA==" };
 const DATA_TYPE = "stine-app-data";
@@ -2640,9 +2640,7 @@ function giPoeng(p,hva,id){
 }
 function visPynt(){ const f=flink(); const krone=!!(f.kroneTil&&f.kroneTil>=idagIso()); $("pusKrone").classList.toggle("skjult",!krone); $("pusSloyfe").classList.toggle("skjult",!f.sloyfe); $("pusHjelm").classList.toggle("skjult",krone||!prosjektListe().some(p=>p.status==="igang")); }
 function tegnPoengStripe(){
-  const p=poengMnd(), i=nivaFor(p), neste=NIVAER[i+1];
-  $("poengTekst").textContent=`${NIVAER[i][0]} · ${p} poeng i ${mndNavn(mndNokkel())}`;
-  $("poengFyll").style.width=(neste?Math.min(100,Math.round((p-NIVAER[i][1])/(neste[1]-NIVAER[i][1])*100)):100)+"%";
+  const p=poengMnd(), i=nivaFor(p);
   $("oppsumFlink").textContent=`${NIVAER[i][0]} · ${p} poeng`; $("flinkKortIkon").innerHTML=kattIkon(i).replace(/^<svg[^>]*>|<\/svg>$/g,"");
 }
 let rosTimer=null;
@@ -3407,7 +3405,8 @@ function karPlasser(offset,m){
 function karTegn(p){
   const m=karMaal(), n=karKort.length;
   karKort.forEach((k,i)=>{
-    let o=((i-karIdx)%n+n)%n; if(o===3) o=-1; if(o===2) o=(p?(p>0?-2:2):(karRetning>0?-2:2));
+    let o=((i-karIdx)%n+n)%n; if(o>n/2) o-=n;
+    if(n===4&&Math.abs(o)===2) o=(p?(p>0?-2:2):(karRetning>0?-2:2)); else if(o<-1) o=-2; else if(o>1) o=2;
     const pl=karPlasser(o-(p||0),m);
     k.style.transform=`translate3d(${pl.x.toFixed(1)}px,0,0) scale(${pl.s.toFixed(3)})`;
     k.style.opacity=pl.a.toFixed(3); k.style.zIndex=String(10-Math.round(Math.abs(o-(p||0))*3));
