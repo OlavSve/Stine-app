@@ -123,13 +123,15 @@ button,input,select,textarea{font-family:inherit}
 @keyframes pus-trill{from{transform:translateX(0) rotate(0)}to{transform:translateX(-95vw) rotate(-1400deg);opacity:.6}}
 .tannhjul{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:80;width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.92);border:1px solid rgba(61,111,163,.3);box-shadow:0 4px 12px rgba(31,43,58,.16);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--privat-ink)}
 .tannhjul svg{width:24px;height:24px}
-#nokkelOverlegg,#filOverlegg,#papirkurvOverlegg,#sakOverlegg,#ordnetOverlegg,#velgProsjektOverlegg,#nyttProsjektOverlegg,#fokusOverlegg{z-index:95}
+#nokkelOverlegg,#filOverlegg,#papirkurvOverlegg,#sakOverlegg,#ordnetOverlegg,#velgProsjektOverlegg,#nyttProsjektOverlegg,#fokusOverlegg,#velgMiddagOverlegg,#oppskriftOverlegg{z-index:95}
 .panel .tolkrad{background:var(--card);border:1px solid var(--line);margin-top:10px}
 .panel .tolkrad button,.panel .fot button{background:var(--card);color:var(--privat-ink);border:1px solid var(--line);border-radius:7px;padding:8px 13px;font-size:12.5px;cursor:pointer;flex:none}
 .panel .fot{display:flex;gap:8px;align-items:center;margin-top:14px}
 .panel .fot .versjon{margin-left:auto;font-size:11.5px;color:var(--muted)}
 .panel .konto{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:14px;color:var(--ink);padding:4px 2px 12px;border-bottom:1px solid var(--line);margin-bottom:4px}
 .panel .konto button{background:transparent;border:none;color:var(--privat-ink);font-size:13.5px;cursor:pointer;text-decoration:underline;padding:0}
+.panel .konto button.oye{text-decoration:none;font-size:15px;opacity:.55;padding:2px 5px;border-radius:7px}
+.panel .konto button.oye.pa{opacity:1;background:var(--privat-tint)}
 #start .merke{color:var(--muted);font-size:11px;letter-spacing:3.2px;text-transform:uppercase;margin-bottom:6px}
 #start h1{font-size:30px;font-weight:700;letter-spacing:.2px;margin:0 0 4px;color:var(--ink)}
 .velg{position:relative;display:block;width:100%;text-align:left;cursor:pointer;background:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.95);border-radius:14px;padding:18px 74px 18px 20px;margin-bottom:12px;color:var(--ink)}
@@ -323,6 +325,29 @@ button,input,select,textarea{font-family:inherit}
 #ros svg{width:30px;height:30px;flex:none}
 @keyframes ros-inn{from{opacity:0;transform:translate(-50%,-10px)}to{opacity:1;transform:translate(-50%,0)}}
 #pusKrone,#pusSloyfe{transition:opacity .3s}
+/* ---------- Mat og hjem ---------- */
+.vare{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line);font-size:15px;cursor:pointer}
+.vare .boks{width:24px;height:24px;border-radius:7px;border:2px solid var(--line);flex:none;display:flex;align-items:center;justify-content:center;font-size:14px}
+.vare.haket .boks{background:var(--gavekort);border-color:var(--gavekort);color:#fff}
+.vare.haket .t{color:var(--muted);text-decoration:line-through}
+.vare .m{color:var(--muted);font-size:13px}
+.vare .av{margin-left:auto;font-size:11px;color:var(--muted)}
+.vare .slett{background:none;border:none;color:var(--muted);font-size:16px;cursor:pointer;padding:4px}
+.dager{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.dag{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 4px;text-align:center;cursor:pointer;min-height:104px;display:flex;flex-direction:column;align-items:center;gap:4px}
+.dag.idag{border-color:var(--privat);box-shadow:inset 0 0 0 1px var(--privat)}
+.dag .d{font-size:10.5px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);font-weight:650}
+.dag svg{width:44px;height:44px}
+.dag .n{font-size:11px;line-height:1.2;color:var(--ink);word-break:break-word}
+.dag .tom{color:var(--muted);font-size:20px;margin-top:10px}
+.dag .til{background:none;border:none;font-size:14px;cursor:pointer;padding:2px}
+.oppskrift{display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px solid var(--line);font-size:14.5px}
+.oppskrift svg{width:38px;height:38px;flex:none}
+.oppskrift .u{font-size:12px;color:var(--muted)}
+.oppskrift .t{flex:1}
+.oppskrift button{background:var(--card);border:1px solid var(--line);border-radius:7px;padding:6px 9px;font-size:12.5px;cursor:pointer;color:var(--ink)}
+.vm-rad{display:flex;align-items:center;gap:10px;padding:9px 6px;border-top:1px solid var(--line);cursor:pointer;font-size:14.5px}
+.vm-rad svg{width:34px;height:34px}
 /* ---------- Prosjekter ---------- */
 #start .nestesteg{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.95);border-radius:12px;padding:10px 14px;font-size:14px;color:var(--ink);cursor:pointer;margin:8px 0 0}
 #start .nestesteg span:first-child{font-size:18px}
@@ -660,6 +685,7 @@ button,input,select,textarea{font-family:inherit}
       <svg id="tidIkon" viewBox="0 0 100 100" aria-hidden="true"></svg>
       <div><div class="h" id="hilsenTekst">Hei</div><div class="s" id="hilsenSetning"></div></div>
     </div>
+    <button class="nestesteg skjult" id="middagIdag"><span>🍽️</span><span id="middagIdagTekst"></span></button>
     <button class="nestesteg skjult" id="nesteSteg"><span>🔧</span><span id="nesteStegTekst"></span></button>
     <div class="spor" aria-hidden="true"></div>
     <div class="tittelrad">
@@ -707,6 +733,11 @@ button,input,select,textarea{font-family:inherit}
         <div class="navn">Kalender</div>
         <div class="under" id="oppsumKalender">Ingen frister de neste 14 dagene</div>
       </div>
+      <div class="kar-kort" data-kat="hjem" role="button" tabindex="0">
+        <svg viewBox="0 0 100 100" aria-hidden="true"><path d="M14 52 L50 20 L86 52" fill="none" stroke="#3d6fa3" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><rect x="24" y="50" width="52" height="36" rx="4" fill="#ffffff" stroke="#3d6fa3" stroke-width="3"/><circle cx="50" cy="70" r="12" fill="#f4bdd4"/><circle cx="50" cy="70" r="7" fill="#fff"/><path d="M42 84 h16" stroke="#b34a7c" stroke-width="3" stroke-linecap="round"/></svg>
+        <div class="navn">Mat og hjem</div>
+        <div class="under" id="oppsumHjem">Ingen middag planlagt</div>
+      </div>
       <div class="kar-kort" data-kat="prosjekter" role="button" tabindex="0">
         <svg viewBox="0 0 100 100" aria-hidden="true"><rect x="14" y="40" width="72" height="46" rx="8" fill="#e0a83a"/><rect x="14" y="40" width="72" height="10" fill="#c98f2a"/><rect x="38" y="30" width="24" height="12" rx="4" fill="#c98f2a"/><rect x="44" y="56" width="12" height="18" rx="3" fill="#fff"/><path d="M28 62 l8 8 M36 62 l-8 8" stroke="#fff" stroke-width="3" stroke-linecap="round"/><circle cx="70" cy="66" r="6" fill="#fff"/></svg>
         <div class="navn">Prosjekter</div>
@@ -720,7 +751,7 @@ button,input,select,textarea{font-family:inherit}
     </div>
     <div class="kar-piler">
       <button id="karForrige" aria-label="Forrige">‹</button>
-      <div class="kar-prikker" id="karPrikker"><span class="pa"></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="kar-prikker" id="karPrikker"><span class="pa"></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
       <button id="karNeste" aria-label="Neste">›</button>
     </div>
     <div class="poengstripe" id="poengStripe"><span id="poengTekst">Kattunge · 0 poeng i september</span><span class="stripe"><i id="poengFyll"></i></span></div>
@@ -924,6 +955,51 @@ button,input,select,textarea{font-family:inherit}
     <div class="flink-rad"><div class="h">Prosjekter</div><div class="u" id="flinkProsjekter"></div></div>
     <div class="flink-rad"><div class="h">Gullpoten</div><div class="u" id="flinkGylne"></div></div>
     <div class="flink-rad"><div class="h">Månedene</div><div id="flinkMaaneder"></div></div>
+  </div>
+</div>
+
+<!-- ===================== MAT OG HJEM ===================== -->
+<div id="hjem" class="skjult">
+  <div class="topp-modul" style="background-color:var(--privat)">
+    <button class="tilbake" id="knHjemHjem" aria-label="Tilbake til start">‹</button>
+    <div><div class="tittel">Mat og hjem</div><div class="undertekst">Felles for begge</div></div>
+  </div>
+  <div id="hjemFaner" class="faner-modul"><button data-fane="lister" class="pa">Handlelister</button><button data-fane="middag">Middag</button></div>
+  <div class="ark" id="hjemLister">
+    <div class="segment" id="segListe" style="margin-bottom:12px"><button type="button" data-v="felles" class="pa">Felles</button><button type="button" data-v="min">Min</button></div>
+    <div class="sokerad"><input type="text" id="inVare" placeholder="Melk, 2 l" list="varer" autocapitalize="sentences"><button class="panelknapp" id="knVare" style="width:auto;margin:0;padding:10px 14px">➕ Legg til</button></div>
+    <datalist id="varer"></datalist>
+    <div id="vareListe" style="margin-top:12px"></div>
+    <button class="panelknapp andre skjult" id="knFjernHaket" style="margin-top:14px">🧹 Fjern haket</button>
+  </div>
+  <div class="ark skjult" id="hjemMiddag">
+    <div class="flink-rad"><div class="h">Fem dager</div><div class="dager" id="middagDager"></div><div class="tolinje" style="margin-top:12px"><button class="panelknapp andre" id="knUkaTilListe">🛒 Hele uka til handlelista</button></div></div>
+    <div class="flink-rad"><div class="h">Oppskrifter</div><div id="oppskriftListe"></div><button class="panelknapp andre" id="knNyOppskrift" style="margin-top:12px">➕ Ny oppskrift</button></div>
+  </div>
+</div>
+
+<div id="velgMiddagOverlegg" class="overlegg skjult">
+  <div class="panel">
+    <div class="grep"></div>
+    <h2 id="vmTittel">Middag</h2>
+    <div class="tolinje"><button class="panelknapp andre" data-valg="rester">🍲 Rester</button><button class="panelknapp andre" data-valg="ute">🍽️ Ute</button></div>
+    <div class="tolinje"><button class="panelknapp andre" data-valg="fri">🧘 Fri</button><button class="panelknapp andre" data-valg="tom">✕ Tøm dagen</button></div>
+    <div id="vmOppskrifter" style="margin-top:10px"></div>
+    <button class="panelknapp andre" id="knVmLukk" style="margin-top:12px">✋ Avbryt</button>
+  </div>
+</div>
+
+<div id="oppskriftOverlegg" class="overlegg skjult">
+  <div class="panel">
+    <div class="grep"></div>
+    <h2 id="opTittel">Ny oppskrift</h2>
+    <div class="felt" id="feltOpNavn"><label for="inOpNavn">Navn</label><input type="text" id="inOpNavn" autocapitalize="sentences" placeholder="Taco"></div>
+    <div class="par"><div class="felt"><label for="inOpPorsjoner">Porsjoner</label><input type="text" id="inOpPorsjoner" inputmode="numeric" value="2"></div><div class="felt"><label for="inOpTallerken">Tallerken</label><select id="inOpTallerken"></select></div></div>
+    <div class="felt"><label for="inOpIngr">Innkjøp, én per linje</label><textarea id="inOpIngr" style="min-height:120px" placeholder="400 g kjøttdeig&#10;1 pk tacokrydder&#10;8 tortillalefser"></textarea></div>
+    <div class="panelbesk feil" id="opBesk"></div>
+    <button class="panelknapp" id="knOpLagre">💾 Lagre oppskrift</button>
+    <button class="panelknapp fare skjult" id="knOpSlett">🗑️ Slett oppskrift</button>
+    <button class="panelknapp andre" id="knOpAvbryt">✋ Avbryt</button>
   </div>
 </div>
 
@@ -1132,7 +1208,7 @@ button,input,select,textarea{font-family:inherit}
 <div id="innstOverlegg" class="overlegg skjult">
   <div class="panel">
     <div class="grep"></div>
-    <div class="konto"><span id="startBruker">Innlogget</span><button id="knLoggUt">🚪 Logg ut</button></div>
+    <div class="konto"><span id="startBruker">Innlogget</span><span style="display:flex;gap:10px;align-items:center"><button id="knOye" class="oye skjult" aria-label="Vis Stines">👁️</button><button id="knLoggUt">🚪 Logg ut</button></span></div>
     <div class="tolkrad">
       <div>
         <div class="n">Varsler om frister</div>
@@ -1168,7 +1244,7 @@ button,input,select,textarea{font-family:inherit}
     <div class="fot">
       <button id="knBackup" class="skjult" title="Lagre komplett backup (JSON)">&#128190;</button>
       <button id="knFil" class="skjult" title="Fil">&#128196; Fil</button>
-      <span class="versjon" id="startVersjon">Versjon 3.18</span>
+      <span class="versjon" id="startVersjon">Versjon 3.19</span>
     </div>
     <div id="startBesk"></div>
     <button class="panelknapp andre" id="knInnstSkjul" style="margin-top:16px">✋ Skjul innstillinger</button>
@@ -1194,8 +1270,8 @@ button,input,select,textarea{font-family:inherit}
 
 <script>
 "use strict";
-/* ===================== Kvitteringer, mjau mjau, versjon 3.18 ===================== */
-const APP_VERSJON = "3.18";
+/* ===================== Kvitteringer, mjau mjau, versjon 3.19 ===================== */
+const APP_VERSJON = "3.19";
 const LAGER = { eier: "OlavSve", repo: "Stine-app-data", gren: "main", fil: "bilag.kryptert.json", bilder: "bilder", backup: "backup" };
 const EK = { hemmelighet: "0df7552eec9d178481fda706b469d0305507b5ddc5c229a6292f863412d29d50", bildesalt: "m1jWj9kLvoyOxH+NuTrtpA==" };
 const DATA_TYPE = "stine-app-data";
@@ -1204,7 +1280,9 @@ const BACKUP_MONSTER = /^\d{4} \d{2}-\d{2} Backup Bilag \d{2}-\d{2}-\d{2}\.json$
 const USERS = { stine: { navn: "Stine", sjekk: "e98867470e6a2680aa174231e3711d5ffb1dbbc74f66c2f5d3a71dbd1e65852d" }, olav: { navn: "Olav", sjekk: "db676bb2e8827fbb3235fe61402d6a342434744a7952dcf8d5896766b4a4a500" } };
 const KATNAVN = { privat: "Private kvitteringer", kattepuser: "Kattepuser", gavekort: "Gavekort og tilgodelapper" };
 const KORTNAVN = { privat: "Privat", kattepuser: "Kattepuser", gavekort: "Gavekort", kalender: "Kalender" };
-const GRENER = ["privat", "kattepuser", "gavekort", "papirkurv", "prosjekter"];
+const GRENER = ["privat", "kattepuser", "gavekort", "papirkurv", "prosjekter", "hjem"];
+const PERSONLIGE = ["privat", "kattepuser", "gavekort", "papirkurv", "prosjekter"];
+let visning = null;
 const FLINK_TOM = () => ({ poeng: {}, rekord: { mnd: "", poeng: 0 }, merker: [], skaal: 0, skaalTomt: 0, gylne: {}, kroneTil: "", sloyfe: false, hendelser: [], prosjektPlanter: [], planteLogg: [] });
 const MAKS_BILDER = 6;
 const VAPID_OFFENTLIG = "BBTU9Wt6KuEYzdV7FBa_DvRA0GuUQJ5VFHNRKAHLax822dur8wKsbkS9MfUtZtMi2tKV2ec_MdGeEaLZ0Rd82Ro";
@@ -1314,10 +1392,12 @@ function ekBeOmNokkel(etterpaa){ nokkelEtterpaa = etterpaa; nokkelVis("Nøkkelen
 /* ---------- Datamodell og fletting per bilag ---------- */
 let COMBINED = null;
 const endredeGrener = new Map(), grenVersjon = {};
-function tomBase(){ const o = { type: DATA_TYPE, version: 2, lagret: new Date().toISOString() }; GRENER.forEach(g => o[g] = { bilag: {} }); o.flink = FLINK_TOM(); return o; }
+function tomBase(){ const o = { type: DATA_TYPE, version: 2, lagret: new Date().toISOString() }; GRENER.forEach(g => o[g] = { bilag: {} }); o.flink = FLINK_TOM(); o.flinkOlav = FLINK_TOM(); return o; }
 function normaliser(o){ if (!o || o.type !== DATA_TYPE) return null; GRENER.forEach(g => { if (!o[g] || typeof o[g] !== "object" || !o[g].bilag || typeof o[g].bilag !== "object") o[g] = { bilag: {} }; });
   if (!o.flink || typeof o.flink !== "object") o.flink = FLINK_TOM(); else { const t = FLINK_TOM(); Object.keys(t).forEach(k => { if (o.flink[k] === undefined) o.flink[k] = t[k]; }); }
+  if (!o.flinkOlav || typeof o.flinkOlav !== "object") o.flinkOlav = FLINK_TOM(); else { const t = FLINK_TOM(); Object.keys(t).forEach(k => { if (o.flinkOlav[k] === undefined) o.flinkOlav[k] = t[k]; }); }
   return o; }
+function eierAv(b){ return (b && b.eier) || "Stine"; }
 function bumpGren(g){ grenVersjon[g] = (grenVersjon[g] || 0) + 1; }
 function merkGren(g){ endredeGrener.set(g, true); bumpGren(g); }
 function merkSti(g, sti){
@@ -1480,6 +1560,7 @@ async function lesFersktFraDisk(){
     COMBINED[g] = d[g];
   });
   if (endredeGrener.get("flink") !== true) COMBINED.flink = d.flink;
+  if (endredeGrener.get("flinkOlav") !== true) COMBINED.flinkOlav = d.flinkOlav;
   COMBINED.lagret = d.lagret;
   ekNettOk();
   return true;
@@ -1543,7 +1624,7 @@ async function startEkstern(){
     await uskrevetGjenopprett();
     eksternStartet = true; ekNettFeil(); return true;
   }
-  if (r.mangler){ COMBINED = tomBase(); GRENER.forEach(merkGren); merkGren("flink"); }
+  if (r.mangler){ COMBINED = tomBase(); GRENER.forEach(merkGren); merkGren("flink"); merkGren("flinkOlav"); }
   else { let d = null; try{ d = normaliser(JSON.parse(r.tekst)); }catch{} if (!d){ COMBINED = tomBase(); GRENER.forEach(merkGren); } else { COMBINED = d; ekSha = r.sha; ekEtag = r.etag; sisteKjenteDisk = r.tekst; idbSet("sisteDisk", r.tekst); } }
   eksternStartet = true;
   const n = await uskrevetGjenopprett();
@@ -1590,7 +1671,7 @@ async function varslerSlaaAv(){
 
 /* ---------- Innlogging (8.10) ---------- */
 let innlogget = null, velkomstDryss = false;
-function settInn(navn){
+function settInn(navn){ visning = navn;
   innlogget = navn;
   $("loginScreen").classList.add("skjult");
   $("startBruker").textContent = "Innlogget: " + navn;
@@ -1993,7 +2074,9 @@ let reklamasjon="2", gType="gavekort", visBrukte=false;
 function erGavekort(){ return KAT==="gavekort"; }
 function gavekortFrist(g){ if(g.utlop) return {dato:g.utlop,beregnet:false}; if(g.utstedt) return {dato:leggTilAar(g.utstedt,3),beregnet:true}; return {dato:"",beregnet:false}; }
 function gavekortRest(g){ return g.rest===null||g.rest===undefined?Number(g.palydende||0):Number(g.rest||0); }
-function bilagListe(k){ return Object.values((COMBINED&&COMBINED[k]&&COMBINED[k].bilag)||{}); }
+function bilagListeAlle(k){ return Object.values((COMBINED&&COMBINED[k]&&COMBINED[k].bilag)||{}); }
+function bilagListe(k){ const alle=bilagListeAlle(k); return PERSONLIGE.includes(k)?alle.filter(b=>eierAv(b)===(visning||innlogget||"Stine")):alle; }
+function eierNaa(){ return visning||innlogget||"Stine"; }
 function finnBilag(k,id){ return COMBINED&&COMBINED[k]&&COMBINED[k].bilag[id]||null; }
 
 /* ===================== HILSEN MED TID PÅ DØGNET ===================== */
@@ -2423,15 +2506,16 @@ const MERKER=[["Monstera",'<path d="M34 70 h32 l-4 26 h-24 z" fill="#b34a7c"/><r
  ["Bonsai",'<path d="M34 70 h32 l-4 26 h-24 z" fill="#3d6fa3"/><rect x="30" y="64" width="40" height="8" rx="3" fill="#9fb9d6"/><path d="M24 78 h52 l-3 14 h-46 z" fill="#8b5a2b"/><path d="M50 78 Q46 60 38 50 M50 78 Q54 58 62 44" stroke="#6f4420" stroke-width="5" fill="none" stroke-linecap="round"/><ellipse cx="34" cy="44" rx="16" ry="8" fill="#2f8f7a"/><ellipse cx="64" cy="36" rx="18" ry="9" fill="#2f8f7a"/><ellipse cx="50" cy="26" rx="14" ry="7" fill="#2f8f7a"/><ellipse cx="34" cy="42" rx="9" ry="4" fill="#7fc4b4"/><ellipse cx="64" cy="34" rx="10" ry="4.5" fill="#7fc4b4"/><ellipse cx="50" cy="24" rx="8" ry="3.5" fill="#7fc4b4"/>']];
 function mndNokkel(d){ return (d||idagIso()).slice(0,7); }
 function mndNavn(n){ const [y,m]=n.split("-"); return new Date(+y,+m-1,1).toLocaleDateString("nb-NO",{month:"long"}); }
-function flink(){ if(!COMBINED.flink) COMBINED.flink=FLINK_TOM(); return COMBINED.flink; }
+function flinkGren(){ return eierNaa()==="Olav"?"flinkOlav":"flink"; }
+function flink(){ const g=flinkGren(); if(!COMBINED[g]) COMBINED[g]=FLINK_TOM(); return COMBINED[g]; }
 function poengMnd(n){ const f=flink(); const m=f.poeng[n||mndNokkel()]; return m?Number(m.sum||0):0; }
 function nivaFor(p){ let i=0; NIVAER.forEach((n,k)=>{ if(p>=n[1]) i=k; }); return i; }
-function flinkLagre(){ merkGren("flink"); uskrevetLagre(); persist(); }
+function flinkLagre(){ merkGren(flinkGren()); uskrevetLagre(); persist(); }
 function giPoeng(p,hva,id){
   const f=flink(), n=mndNokkel(); if(!f.poeng[n]) f.poeng[n]={sum:0,hendelser:[]};
   const for_=nivaFor(f.poeng[n].sum); f.poeng[n].sum+=p; f.poeng[n].hendelser.push({t:new Date().toISOString(),p,hva,id}); if(f.poeng[n].hendelser.length>400) f.poeng[n].hendelser.splice(0,f.poeng[n].hendelser.length-400);
   if(f.poeng[n].sum>Number(f.rekord.poeng||0)) f.rekord={mnd:n,poeng:f.poeng[n].sum};
-  merkGren("flink");
+  merkGren(flinkGren());
   const etter=nivaFor(f.poeng[n].sum);
   if(etter>for_){ const [y,m]=n.split("-").map(Number); const sist=new Date(y,m,0); f.kroneTil=`${sist.getFullYear()}-${String(sist.getMonth()+1).padStart(2,"0")}-${String(sist.getDate()).padStart(2,"0")}`; setTimeout(()=>{ kattemat("dobbel"); visRos("Nytt nivå: "+NIVAER[etter][0]+"! Pusen får krone ut måneden."); },900); }
   tegnPoengStripe(); visPynt();
@@ -2481,6 +2565,90 @@ function tegnFlink(){
 function visFlink(){ $("start").classList.add("skjult"); $("flink").classList.remove("skjult"); tegnFlink(); window.scrollTo(0,0); }
 $("knFlinkHjem").addEventListener("click",()=>{ $("flink").classList.add("skjult"); visStart(); });
 
+/* ===================== MAT OG HJEM ===================== */
+const TALLERKEN={
+  pasta:["Pasta",'<circle cx="50" cy="52" r="34" fill="#fff" stroke="#c9d8ea" stroke-width="3"/><path d="M28 46 q22 -14 44 0 M26 54 q24 -12 48 0 M30 62 q20 -10 40 0" stroke="#e0a83a" stroke-width="5" fill="none" stroke-linecap="round"/><circle cx="44" cy="50" r="4" fill="#e8362e"/><circle cx="58" cy="56" r="4" fill="#e8362e"/><path d="M40 40 l4 -6 M60 40 l-4 -6" stroke="#2f8f7a" stroke-width="3"/>'],
+  taco:["Taco",'<path d="M16 62 a34 34 0 0 1 68 0 z" fill="#e0a83a"/><path d="M24 62 q26 -20 52 0" fill="#8b5a2b"/><path d="M26 58 q24 -14 48 0" fill="#2f8f7a"/><circle cx="40" cy="54" r="3" fill="#e8362e"/><circle cx="60" cy="54" r="3" fill="#e8362e"/><rect x="12" y="62" width="76" height="6" rx="3" fill="#c9d8ea"/>'],
+  pizza:["Pizza",'<circle cx="50" cy="50" r="34" fill="#e0a83a"/><circle cx="50" cy="50" r="28" fill="#e8362e"/><circle cx="50" cy="50" r="26" fill="#f2c66d"/><circle cx="40" cy="42" r="5" fill="#e8362e"/><circle cx="60" cy="46" r="5" fill="#e8362e"/><circle cx="48" cy="60" r="5" fill="#e8362e"/><path d="M50 50 L50 16 A34 34 0 0 1 82 42 z" fill="#fff" opacity=".35"/>'],
+  biff:["Biff",'<circle cx="50" cy="52" r="34" fill="#fff" stroke="#c9d8ea" stroke-width="3"/><path d="M28 48 q4 -14 22 -12 q20 -2 26 12 q2 16 -16 20 q-30 2 -32 -20 z" fill="#8b5a2b"/><path d="M36 50 q14 -6 26 2" stroke="#6f4420" stroke-width="3" fill="none"/><circle cx="34" cy="68" r="6" fill="#e0a83a"/><circle cx="48" cy="72" r="5" fill="#e0a83a"/><path d="M62 66 l8 6 M66 64 l8 8" stroke="#2f8f7a" stroke-width="3"/>'],
+  kylling:["Kylling",'<circle cx="50" cy="52" r="34" fill="#fff" stroke="#c9d8ea" stroke-width="3"/><ellipse cx="46" cy="52" rx="20" ry="14" fill="#e0a83a"/><path d="M62 46 l18 -10" stroke="#f6f0d8" stroke-width="7" stroke-linecap="round"/><circle cx="82" cy="34" r="4" fill="#f6f0d8"/><path d="M28 70 q10 6 20 0" stroke="#2f8f7a" stroke-width="4" fill="none"/>'],
+  fisk:["Fisk",'<circle cx="50" cy="52" r="34" fill="#fff" stroke="#c9d8ea" stroke-width="3"/><path d="M22 52 q14 -16 30 -10 q14 4 26 10 q-12 6 -26 10 q-16 6 -30 -10 z" fill="#e8955e"/><path d="M40 46 q8 8 0 12 M52 46 q8 8 0 12" stroke="#fff" stroke-width="2" fill="none"/><path d="M78 52 l10 -8 l0 16 z" fill="#e8955e"/><circle cx="34" cy="70" r="6" fill="#f2c66d"/>'],
+  suppe:["Suppe",'<path d="M16 46 h68 q-4 30 -34 34 q-30 -4 -34 -34 z" fill="#3d6fa3"/><ellipse cx="50" cy="46" rx="34" ry="8" fill="#e8955e"/><path d="M40 34 q4 -8 0 -14 M52 34 q4 -8 0 -14 M62 36 q4 -8 0 -14" stroke="#9fb9d6" stroke-width="3" fill="none" stroke-linecap="round"/>'],
+  salat:["Salat",'<path d="M16 46 h68 q-4 30 -34 34 q-30 -4 -34 -34 z" fill="#fff" stroke="#c9d8ea" stroke-width="3"/><ellipse cx="50" cy="46" rx="32" ry="10" fill="#2f8f7a"/><circle cx="36" cy="44" r="5" fill="#e8362e"/><circle cx="60" cy="42" r="5" fill="#e8362e"/><circle cx="50" cy="48" r="4" fill="#f2c66d"/><path d="M28 40 q6 -8 12 -4 M56 36 q6 -6 12 -2" stroke="#7fc4b4" stroke-width="3" fill="none"/>'],
+  curry:["Curry",'<path d="M16 46 h68 q-4 30 -34 34 q-30 -4 -34 -34 z" fill="#fff" stroke="#c9d8ea" stroke-width="3"/><path d="M18 46 h32 q2 12 -2 20 q-24 -2 -30 -20 z" fill="#f6f0d8"/><path d="M50 46 h32 q-4 20 -30 20 q-2 -10 -2 -20 z" fill="#e0a83a"/><circle cx="62" cy="54" r="4" fill="#8b5a2b"/><circle cx="70" cy="50" r="3" fill="#2f8f7a"/>'],
+  wok:["Wok",'<path d="M12 44 h76 q-6 30 -38 34 q-32 -4 -38 -34 z" fill="#1f2b3a"/><path d="M22 44 q28 -16 56 0" stroke="#e0a83a" stroke-width="5" fill="none"/><path d="M28 48 q22 -12 44 0" stroke="#e8955e" stroke-width="4" fill="none"/><circle cx="38" cy="40" r="4" fill="#2f8f7a"/><circle cx="60" cy="38" r="4" fill="#e8362e"/><path d="M74 30 l16 -10" stroke="#8b5a2b" stroke-width="4" stroke-linecap="round"/>'],
+  gryte:["Gryte",'<path d="M18 44 h64 v22 a12 12 0 0 1 -12 12 h-40 a12 12 0 0 1 -12 -12 z" fill="#8b5a2b"/><rect x="14" y="38" width="72" height="8" rx="4" fill="#6f4420"/><rect x="6" y="46" width="12" height="6" rx="3" fill="#6f4420"/><rect x="82" y="46" width="12" height="6" rx="3" fill="#6f4420"/><path d="M40 30 q4 -8 0 -14 M56 30 q4 -8 0 -14" stroke="#9fb9d6" stroke-width="3" fill="none" stroke-linecap="round"/>'],
+  grot:["Grøt",'<path d="M16 46 h68 q-4 30 -34 34 q-30 -4 -34 -34 z" fill="#3d6fa3"/><ellipse cx="50" cy="46" rx="32" ry="9" fill="#f6f0d8"/><circle cx="50" cy="45" r="5" fill="#e0a83a"/><circle cx="38" cy="47" r="2" fill="#8b5a2b"/><circle cx="62" cy="48" r="2" fill="#8b5a2b"/>'],
+  pannekaker:["Pannekaker",'<ellipse cx="50" cy="70" rx="34" ry="8" fill="#e0a83a"/><ellipse cx="50" cy="62" rx="32" ry="8" fill="#f2c66d"/><ellipse cx="50" cy="54" rx="34" ry="8" fill="#e0a83a"/><ellipse cx="50" cy="46" rx="30" ry="8" fill="#f2c66d"/><circle cx="44" cy="42" r="4" fill="#e8362e"/><circle cx="56" cy="40" r="4" fill="#e8362e"/><path d="M50 30 q6 6 0 12" stroke="#b34a7c" stroke-width="3" fill="none"/>'],
+  pai:["Pai",'<path d="M50 56 L14 56 A36 36 0 0 1 50 20 z" fill="#e0a83a"/><path d="M50 56 L14 56 A36 36 0 0 1 22 34 z" fill="#c98f2a"/><path d="M50 22 L50 56 L86 56 A36 36 0 0 0 50 20" fill="#e8955e"/><rect x="10" y="56" width="80" height="8" rx="4" fill="#c9d8ea"/>'],
+  sushi:["Sushi",'<circle cx="30" cy="50" r="16" fill="#1f2b3a"/><circle cx="30" cy="50" r="11" fill="#fff"/><circle cx="30" cy="50" r="5" fill="#e8955e"/><circle cx="70" cy="50" r="16" fill="#1f2b3a"/><circle cx="70" cy="50" r="11" fill="#fff"/><circle cx="70" cy="50" r="5" fill="#2f8f7a"/><rect x="10" y="70" width="80" height="6" rx="3" fill="#c9d8ea"/>'],
+  omelett:["Omelett",'<circle cx="50" cy="52" r="34" fill="#fff" stroke="#c9d8ea" stroke-width="3"/><path d="M22 54 q28 -26 56 0 q-28 18 -56 0 z" fill="#f2c66d"/><path d="M28 52 q22 -12 44 0" stroke="#e0a83a" stroke-width="3" fill="none"/><circle cx="46" cy="52" r="3" fill="#2f8f7a"/><circle cx="58" cy="50" r="3" fill="#e8362e"/>'],
+  wrap:["Wrap",'<path d="M20 30 h60 l-8 46 h-44 z" fill="#f2c66d"/><path d="M28 30 h44 l-4 12 h-36 z" fill="#2f8f7a"/><circle cx="40" cy="36" r="3" fill="#e8362e"/><circle cx="60" cy="36" r="3" fill="#e8362e"/><path d="M34 52 h32" stroke="#e0a83a" stroke-width="4"/>'],
+  burger:["Burger",'<path d="M18 40 a32 18 0 0 1 64 0 z" fill="#e0a83a"/><rect x="16" y="40" width="68" height="8" fill="#2f8f7a"/><rect x="16" y="48" width="68" height="10" fill="#8b5a2b"/><rect x="16" y="58" width="68" height="6" fill="#f2c66d"/><path d="M18 64 h64 v6 a8 8 0 0 1 -8 8 h-48 a8 8 0 0 1 -8 -8 z" fill="#e0a83a"/><circle cx="40" cy="34" r="1.6" fill="#fff"/><circle cx="56" cy="30" r="1.6" fill="#fff"/>'],
+  smorbrod:["Smørbrød",'<path d="M16 62 h68 v10 a6 6 0 0 1 -6 6 h-56 a6 6 0 0 1 -6 -6 z" fill="#e0a83a"/><rect x="16" y="52" width="68" height="10" fill="#f2c66d"/><rect x="20" y="44" width="60" height="8" fill="#e8955e"/><path d="M18 36 q32 -12 64 0 v8 h-64 z" fill="#2f8f7a"/><circle cx="34" cy="40" r="3" fill="#e8362e"/><circle cx="66" cy="40" r="3" fill="#e8362e"/>'],
+  tallerken:["Tallerken",'<circle cx="50" cy="52" r="30" fill="#fff" stroke="#c9d8ea" stroke-width="3"/><circle cx="50" cy="52" r="18" fill="none" stroke="#c9d8ea" stroke-width="2"/><path d="M12 24 v22 M8 24 v10 M16 24 v10 M12 46 v30" stroke="#3d6fa3" stroke-width="3" stroke-linecap="round"/><path d="M88 24 q6 14 0 28 v24" stroke="#3d6fa3" stroke-width="3" stroke-linecap="round" fill="none"/>']
+};
+const TALLERKEN_ORD=[["pasta","spaghetti","lasagne","bolognese","carbonara","makaroni","tagliatelle","ravioli"],["taco","tortilla","burrito","nacho"],["pizza"],["biff","entrecote","entrecôte","stek","kotelett","svin","lam"],["kylling","kylling"],["laks","fisk","torsk","sei","ørret","reker","fiskekaker","fiskepinner"],["suppe","gryterett"],["salat"],["curry","ris","dal","risotto"],["wok","nudler","nudel","ramen","pad"],["gryte","lapskaus","chili con","stew","sodd"],["grøt"],["pannekake","vaffel"],["pai","quiche"],["sushi","poke"],["omelett","egg","eggerøre"],["wrap","kebab","pita"],["burger","hamburger","pølse"],["smørbrød","toast","brød","ostesmørbrød"]];
+const TALLERKEN_NAVN=Object.keys(TALLERKEN);
+function velgTallerken(navn){ const n=(navn||"").toLowerCase(); for(let i=0;i<TALLERKEN_ORD.length;i++){ if(TALLERKEN_ORD[i].some(o=>n.includes(o))) return TALLERKEN_NAVN[i]; } return "tallerken"; }
+function tallerkenSvg(k){ const t=TALLERKEN[k]||TALLERKEN.tallerken; return `<svg viewBox="0 0 100 100">${t[1]}</svg>`; }
+const START_OPPSKRIFTER=[["Taco",4,["500 g kjøttdeig","1 pk tacokrydder","8 tortillalefser","1 pk revet ost","1 rømme","2 tomater","1 agurk","1 isbergsalat","1 boks mais"]],["Spaghetti bolognese",4,["400 g kjøttdeig","1 løk","2 fedd hvitløk","1 boks hakkede tomater","1 pk spaghetti","parmesan"]],["Laks med poteter",2,["2 laksefileter","6 poteter","1 brokkoli","1 sitron","rømme"]],["Kyllingwok",2,["400 g kyllingfilet","1 pk wokgrønnsaker","1 pk eggnudler","soyasaus","1 lime"]],["Pizza",4,["2 pizzabunner","1 boks pizzasaus","1 pk revet ost","1 pk pepperoni","1 paprika"]],["Fiskesuppe",4,["400 g fisk","2 gulrøtter","1 purre","3 dl fløte","1 fiskebuljong","poteter"]],["Chili con carne",4,["400 g kjøttdeig","1 løk","1 boks kidneybønner","1 boks hakkede tomater","chilipulver","ris"]],["Pannekaker",4,["4 egg","6 dl melk","3 dl mel","smør","syltetøy"]],["Lasagne",4,["500 g kjøttdeig","1 boks tomater","lasagneplater","1 pk revet ost","1 pk hvit saus"]],["Kyllingcurry",4,["500 g kyllinglår","1 boks kokosmelk","curry","2 dl ris","1 løk","1 koriander"]],["Burger",2,["4 hamburgerbrød","4 burgere","1 pk cheddar","1 tomat","1 rødløk","salat","burgerdressing"]],["Tomatsuppe med ostesmørbrød",2,["1 boks tomatsuppe","brød","ost","smør"]],["Omelett",2,["6 egg","1 pk skinke","ost","1 paprika"]],["Gryterett",4,["600 g grytekjøtt","1 løk","3 gulrøtter","2 dl fløte","poteter"]],["Pølser med potetmos",2,["1 pk pølser","1 pk potetmos","1 boks maiskorn","ketchup"]]];
+function hjemListe(t){ return bilagListe("hjem").filter(x=>x.t===t); }
+function hjemLagre(x){ if(!COMBINED.hjem) COMBINED.hjem={bilag:{}}; COMBINED.hjem.bilag[x.id]=x; merkSti("hjem",{t:"bilag",id:x.id}); uskrevetLagre(); persist(); }
+function hjemSlett(id){ delete COMBINED.hjem.bilag[id]; merkSti("hjem",{t:"bilag",id}); uskrevetLagre(); persist(); }
+function saaOppskrifter(){ if(hjemListe("oppskrift").length||(COMBINED.hjem&&COMBINED.hjem.saadd)) return; START_OPPSKRIFTER.forEach(([n,p,i])=>{ const o={id:nyId("o"),t:"oppskrift",navn:n,porsjoner:p,ingredienser:i.map(x=>({tekst:x})),tallerken:velgTallerken(n),opprettet:new Date().toISOString(),av:innlogget||""}; if(!COMBINED.hjem) COMBINED.hjem={bilag:{}}; COMBINED.hjem.bilag[o.id]=o; merkSti("hjem",{t:"bilag",id:o.id}); }); COMBINED.hjem.saadd=true; uskrevetLagre(); persist(); }
+let hjemFane="lister", listeValg="felles", vmDato=null, opRedigerId=null;
+function listeNavn(){ return listeValg==="felles"?"felles":eierNaa(); }
+function tegnLister(){
+  document.querySelectorAll("#segListe button").forEach(b=>b.classList.toggle("pa",b.dataset.v===listeValg));
+  const l=hjemListe("vare").filter(v=>v.liste===listeNavn()).sort((a,b)=>(a.haket?1:0)-(b.haket?1:0)||String(a.opprettet).localeCompare(String(b.opprettet)));
+  $("vareListe").innerHTML=l.length?l.map(v=>`<div class="vare${v.haket?" haket":""}" data-id="${v.id}"><span class="boks">${v.haket?"✓":""}</span><span class="t">${esc(v.tekst)}</span>${v.mengde?`<span class="m">${esc(v.mengde)}</span>`:""}<span class="av">${esc(v.av||"")}</span><button class="slett" data-slett="${v.id}" aria-label="Fjern">✕</button></div>`).join(""):`<div class="tomt"><strong>Tom liste</strong>Skriv en vare over, for eksempel «Melk, 2 l».</div>`;
+  $("vareListe").querySelectorAll(".vare").forEach(e=>e.addEventListener("click",ev=>{ const v=finnBilag("hjem",e.dataset.id); if(!v) return; if(ev.target.closest("[data-slett]")){ hjemSlett(v.id); tegnLister(); return; } v.haket=!v.haket; v.haketAv=innlogget||""; hjemLagre(v); tegnLister(); }));
+  $("knFjernHaket").classList.toggle("skjult",!l.some(v=>v.haket));
+  const alle=[...new Set(hjemListe("vare").map(v=>v.tekst))]; $("varer").innerHTML=alle.slice(-60).map(t=>`<option value="${esc(t)}">`).join("");
+}
+function leggVare(tekstRaa,liste,av){ const raa=tekstRaa.trim(); if(!raa) return null; let tekst=raa, mengde=""; const m=raa.match(/^(.*?),\s*(.+)$/); if(m){ tekst=m[1].trim(); mengde=m[2].trim(); }
+  const fins=hjemListe("vare").find(v=>v.liste===liste&&!v.haket&&v.tekst.toLowerCase()===tekst.toLowerCase()); if(fins){ if(mengde&&fins.mengde&&fins.mengde!==mengde) { fins.mengde=fins.mengde+" + "+mengde; hjemLagre(fins); } return fins; }
+  const v={id:nyId("v"),t:"vare",liste,tekst,mengde,haket:false,av:av||innlogget||"",opprettet:new Date().toISOString()}; hjemLagre(v); return v; }
+$("knVare").addEventListener("click",()=>{ if(leggVare($("inVare").value,listeNavn())){ $("inVare").value=""; tegnLister(); } });
+$("inVare").addEventListener("keydown",e=>{ if(e.key==="Enter") $("knVare").click(); });
+$("knFjernHaket").addEventListener("click",()=>{ hjemListe("vare").filter(v=>v.liste===listeNavn()&&v.haket).forEach(v=>{ delete COMBINED.hjem.bilag[v.id]; merkSti("hjem",{t:"bilag",id:v.id}); }); uskrevetLagre(); persist(); tegnLister(); });
+document.querySelectorAll("#segListe button").forEach(b=>b.addEventListener("click",()=>{ listeValg=b.dataset.v; tegnLister(); }));
+function planFor(dato){ return hjemListe("plan").find(p=>p.dato===dato)||null; }
+function planTekst(pl){ if(!pl||pl.valg==="tom") return ""; if(pl.valg==="oppskrift"){ const o=finnBilag("hjem",pl.oppskriftId); return o?o.navn:""; } return {rester:"Rester",ute:"Ute",fri:"Fri"}[pl.valg]||""; }
+function planTallerken(pl){ if(!pl) return null; if(pl.valg==="oppskrift"){ const o=finnBilag("hjem",pl.oppskriftId); return o?(o.tallerken||"tallerken"):"tallerken"; } return {rester:"gryte",ute:"tallerken",fri:null}[pl.valg]; }
+function tegnMiddag(){
+  const idag=idagIso(); let h="";
+  for(let i=0;i<5;i++){ const d=leggTilDager(idag,i); const dt=new Date(d+"T00:00:00"); const pl=planFor(d); const tk=planTallerken(pl); const navn=planTekst(pl);
+    h+=`<div class="dag${i===0?" idag":""}" data-dato="${d}"><div class="d">${i===0?"I dag":dt.toLocaleDateString("nb-NO",{weekday:"short"}).replace(".","")}</div>${tk?tallerkenSvg(tk):(pl&&pl.valg==="fri"?'<div class="tom">🧘</div>':'<div class="tom">＋</div>')}<div class="n">${esc(navn)}</div>${pl&&pl.valg==="oppskrift"?`<button class="til" data-til="${d}" aria-label="Til handlelista">🛒</button>`:""}</div>`; }
+  $("middagDager").innerHTML=h;
+  $("middagDager").querySelectorAll(".dag").forEach(e=>e.addEventListener("click",ev=>{ if(ev.target.closest("[data-til]")){ dagTilListe(e.dataset.dato); return; } aapneVelgMiddag(e.dataset.dato); }));
+  const ol=hjemListe("oppskrift").sort((a,b)=>a.navn.localeCompare(b.navn,"nb"));
+  $("oppskriftListe").innerHTML=ol.length?ol.map(o=>`<div class="oppskrift" data-id="${o.id}">${tallerkenSvg(o.tallerken)}<div class="t"><div>${esc(o.navn)}</div><div class="u">${o.porsjoner||""} porsjoner · ${(o.ingredienser||[]).length} varer</div></div><button data-rediger="${o.id}">✏️ Rediger</button></div>`).join(""):`<div class="hint">Ingen oppskrifter ennå.</div>`;
+  $("oppskriftListe").querySelectorAll("[data-rediger]").forEach(b=>b.addEventListener("click",()=>aapneOppskrift(b.dataset.rediger)));
+}
+function aapneVelgMiddag(dato){ vmDato=dato; const dt=new Date(dato+"T00:00:00"); $("vmTittel").textContent="Middag "+dt.toLocaleDateString("nb-NO",{weekday:"long",day:"numeric",month:"long"});
+  const ol=hjemListe("oppskrift").sort((a,b)=>a.navn.localeCompare(b.navn,"nb")); $("vmOppskrifter").innerHTML=ol.map(o=>`<div class="vm-rad" data-id="${o.id}">${tallerkenSvg(o.tallerken)}<span>${esc(o.navn)}</span></div>`).join("");
+  $("vmOppskrifter").querySelectorAll(".vm-rad").forEach(r=>r.addEventListener("click",()=>settMiddag(vmDato,"oppskrift",r.dataset.id)));
+  $("velgMiddagOverlegg").classList.remove("skjult"); }
+function settMiddag(dato,valg,oppskriftId){ let pl=planFor(dato); if(valg==="tom"){ if(pl){ hjemSlett(pl.id); } } else { if(!pl) pl={id:nyId("m"),t:"plan",dato}; pl.valg=valg; pl.oppskriftId=oppskriftId||""; pl.av=innlogget||""; pl.endret=new Date().toISOString(); hjemLagre(pl); } $("velgMiddagOverlegg").classList.add("skjult"); tegnMiddag(); if(valg==="oppskrift") visRos("Middag satt. Trykk 🛒 på dagen for å handle."); }
+document.querySelectorAll("#velgMiddagOverlegg [data-valg]").forEach(b=>b.addEventListener("click",()=>settMiddag(vmDato,b.dataset.valg)));
+$("knVmLukk").addEventListener("click",()=>$("velgMiddagOverlegg").classList.add("skjult"));
+function ingrTilListe(oppskrifter){ const samlet=new Map(); for(const o of oppskrifter) for(const ing of (o.ingredienser||[])){ const t=ing.tekst.trim(); const m=t.match(/^(\d+(?:[.,]\d+)?)\s*([a-zæøå]+)?\s+(.+)$/i); const nokkel=(m?m[3]:t).toLowerCase(); const e=samlet.get(nokkel)||{navn:m?m[3]:t,antall:0,enhet:m?(m[2]||"stk"):"",uten:!m}; if(m){ e.antall+=parseFloat(m[1].replace(",",".")); } samlet.set(nokkel,e); }
+  let lagt=0; for(const e of samlet.values()){ const tekst=e.navn; const mengde=e.uten?"":(String(e.antall).replace(".",",")+" "+e.enhet).trim(); const fins=hjemListe("vare").find(v=>v.liste==="felles"&&!v.haket&&v.tekst.toLowerCase()===tekst.toLowerCase()); if(fins) continue; leggVare(tekst+(mengde?", "+mengde:""),"felles"); lagt++; } return lagt; }
+function dagTilListe(dato){ const pl=planFor(dato); const o=pl&&finnBilag("hjem",pl.oppskriftId); if(!o) return; const n=ingrTilListe([o]); visRos(n?`${n} varer lagt i Felles.`:"Alt sto der fra før."); }
+$("knUkaTilListe").addEventListener("click",()=>{ const os=[]; for(let i=0;i<5;i++){ const pl=planFor(leggTilDager(idagIso(),i)); const o=pl&&finnBilag("hjem",pl.oppskriftId); if(o) os.push(o); } if(!os.length){ visRos("Ingen middager valgt ennå."); return; } const n=ingrTilListe(os); visRos(n?`${n} varer lagt i Felles.`:"Alt sto der fra før."); });
+function aapneOppskrift(id){ opRedigerId=id||null; const o=id?finnBilag("hjem",id):null; $("opTittel").textContent=o?"Rediger oppskrift":"Ny oppskrift"; $("inOpNavn").value=o?o.navn:""; $("inOpPorsjoner").value=o?String(o.porsjoner||2):"2"; $("inOpTallerken").innerHTML='<option value="">Velges fra navnet</option>'+TALLERKEN_NAVN.map(k=>`<option value="${k}">${TALLERKEN[k][0]}</option>`).join(""); $("inOpTallerken").value=o?(o.tallerken||""):""; $("inOpIngr").value=o?(o.ingredienser||[]).map(x=>x.tekst).join("\n"):""; $("opBesk").textContent=""; $("feltOpNavn").classList.remove("mangler"); $("knOpSlett").classList.toggle("skjult",!o); $("oppskriftOverlegg").classList.remove("skjult"); }
+$("knNyOppskrift").addEventListener("click",()=>aapneOppskrift(null));
+$("knOpLagre").addEventListener("click",()=>{ const navn=$("inOpNavn").value.trim(); if(!navn){ $("feltOpNavn").classList.add("mangler"); $("opBesk").textContent="Gi oppskriften et navn."; return; } const ingr=$("inOpIngr").value.split("\n").map(x=>x.trim()).filter(Boolean).map(tekst=>({tekst})); const o=opRedigerId?finnBilag("hjem",opRedigerId):{id:nyId("o"),t:"oppskrift",opprettet:new Date().toISOString(),av:innlogget||""}; Object.assign(o,{navn,porsjoner:parseInt($("inOpPorsjoner").value,10)||2,ingredienser:ingr,tallerken:$("inOpTallerken").value||velgTallerken(navn),endret:new Date().toISOString()}); hjemLagre(o); $("oppskriftOverlegg").classList.add("skjult"); tegnMiddag(); });
+$("knOpSlett").addEventListener("click",()=>{ if(!opRedigerId) return; if(!confirm("Slette oppskriften?")) return; hjemSlett(opRedigerId); $("oppskriftOverlegg").classList.add("skjult"); tegnMiddag(); });
+$("knOpAvbryt").addEventListener("click",()=>$("oppskriftOverlegg").classList.add("skjult"));
+function tegnHjem(){ document.querySelectorAll("#hjemFaner button").forEach(b=>b.classList.toggle("pa",b.dataset.fane===hjemFane)); $("hjemLister").classList.toggle("skjult",hjemFane!=="lister"); $("hjemMiddag").classList.toggle("skjult",hjemFane!=="middag"); if(hjemFane==="lister") tegnLister(); else tegnMiddag(); }
+function visHjem(){ saaOppskrifter(); $("start").classList.add("skjult"); $("hjem").classList.remove("skjult"); tegnHjem(); window.scrollTo(0,0); }
+$("knHjemHjem").addEventListener("click",()=>{ $("hjem").classList.add("skjult"); visStart(); });
+document.querySelectorAll("#hjemFaner button").forEach(b=>b.addEventListener("click",()=>{ hjemFane=b.dataset.fane; tegnHjem(); }));
+$("middagIdag").addEventListener("click",()=>{ hjemFane="middag"; visHjem(); });
+
 /* ===================== PROSJEKTER ===================== */
 const PR_TYPE={bygge:"Bygge",reparere:"Reparere",plante:"Plante",pusse:"Pusse opp",annet:"Annet"};
 const PR_EMOJI={bygge:"🔨",reparere:"🔧",plante:"🌱",pusse:"🪵",annet:"🧰"};
@@ -2492,7 +2660,7 @@ const PR_MALER={
   omplanting:["Omplanting",["Kjøpe ny potte og jord","Vanne planten dagen før","Løsne planten forsiktig","Sette i ny potte","Fylle på jord","Vanne godt"]]
 };
 let prAktiv=null, prFane="igang", prBildeNytt=null, prRedigerId=null, prType="bygge", loggBildeNytt=null, fokusTimer=null, fokusSlutt=0;
-function prosjektListe(){ return Object.values((COMBINED.prosjekter&&COMBINED.prosjekter.bilag)||{}); }
+function prosjektListe(){ return bilagListe("prosjekter"); }
 function finnProsjekt(id){ return COMBINED.prosjekter&&COMBINED.prosjekter.bilag[id]||null; }
 function prLagre(pr){ pr.endret=new Date().toISOString(); merkSti("prosjekter",{t:"bilag",id:pr.id}); uskrevetLagre(); persist(); }
 function prNeste(pr){ return (pr.steg||[]).find(x=>!x.ferdig)||null; }
@@ -2511,7 +2679,7 @@ async function lagreProsjektPanel(){
   const ide=$("nyttProsjektOverlegg").dataset.ide==="1";
   let pr;
   if(prRedigerId&&finnProsjekt(prRedigerId)){ pr=finnProsjekt(prRedigerId); Object.assign(pr,{navn,type:prType,start:$("inPrStart").value,maal:$("inPrMaal").value}); }
-  else { pr={id:nyId("p"),navn,type:prType,status:ide?"ide":"igang",start:$("inPrStart").value||idagIso(),maal:$("inPrMaal").value,steg:[],logg:[],stell:[],bilag:[],bilder:[],opprettet:new Date().toISOString(),av:innlogget||""};
+  else { pr={id:nyId("p"),navn,type:prType,status:ide?"ide":"igang",start:$("inPrStart").value||idagIso(),maal:$("inPrMaal").value,steg:[],logg:[],stell:[],bilag:[],bilder:[],opprettet:new Date().toISOString(),av:innlogget||"",eier:eierNaa()};
     const mal=PR_MALER[$("inPrMal").value]; if(mal&&!ide) pr.steg=mal[1].map(t=>({id:nyId("t"),tekst:t,ferdig:false}));
     if(!COMBINED.prosjekter) COMBINED.prosjekter={bilag:{}}; COMBINED.prosjekter.bilag[pr.id]=pr; }
   if(prBildeNytt){ await bildeLagreLokalt(prBildeNytt.id,prBildeNytt.bytes,prBildeNytt.mini); pr.bilder=[{id:prBildeNytt.id,w:prBildeNytt.w,h:prBildeNytt.h}]; prBildeNytt=null; }
@@ -2612,6 +2780,8 @@ function oppsummer(){
   const prl=prosjektListe(), igang=prl.filter(p=>p.status==="igang").length, ns=nesteStegTekst();
   $("oppsumProsjekter").textContent=prl.length?`${igang} i gang${ns?" · neste: "+ns.n.tekst:""}`:"Ingen prosjekter ennå";
   $("nesteSteg").classList.toggle("skjult",!ns); if(ns){ $("nesteStegTekst").textContent="Neste steg: "+ns.n.tekst; $("nesteSteg").dataset.id=ns.p.id; }
+  const plI=planFor(idagIso()), mt=planTekst(plI); $("middagIdag").classList.toggle("skjult",!mt); if(mt) $("middagIdagTekst").textContent="I dag: "+mt;
+  const pln=[0,1,2,3,4].map(i=>planTekst(planFor(leggTilDager(idagIso(),i)))).filter(Boolean); $("oppsumHjem").textContent=pln.length?`${pln.length} av 5 middager planlagt${mt?" · i dag: "+mt:""}`:"Ingen middag planlagt";
   tegnPoengStripe(); tegnSkaal(); visPynt();
   const ro=altOrdnet(); KATT_BUNN().classList.toggle("sover2",ro);
   if(ro&&$("tittelTekst")){ clearTimeout(tittelTimer); $("tittelBoble").classList.remove("bytt"); $("tittelTekst").textContent="Alt er ordnet, mjau mjau"; tittelSist="Alt er ordnet, mjau mjau"; }
@@ -2635,7 +2805,7 @@ function oppsummer(){
   } else nv.className="varsel skjult";
 }
 function visStart(){
-  ["app","kalender","saker","flink","prosjekter","prosjekt","drivhus"].forEach(i=>$(i).classList.add("skjult")); $("start").classList.remove("skjult");
+  ["app","kalender","saker","flink","prosjekter","prosjekt","drivhus","hjem"].forEach(i=>$(i).classList.add("skjult")); $("start").classList.remove("skjult");
   KAT=null; tegnHilsen(); karTegn(0); oppsummer(); window.scrollTo(0,0);
   if(velkomstDryss){ velkomstDryss=false; setTimeout(()=>kattemat("liten"),250); }
 }
@@ -2785,7 +2955,7 @@ async function lagreGavekort(){
   const bilder=skjemaBilder.map(bi=>({id:bi.id,w:bi.w,h:bi.h}));
   let rec;
   if(redigerId&&finnBilag("gavekort",redigerId)){ rec=finnBilag("gavekort",redigerId); Object.assign(rec,g,{bilder,endret:new Date().toISOString()}); if(gavekortRest(rec)<=0) rec.brukt=true; }
-  else { rec=Object.assign({id:nyId("g")},g,{bilder,brukt:gavekortRest(g)<=0,opprettet:new Date().toISOString(),av:innlogget||""}); COMBINED.gavekort.bilag[rec.id]=rec; }
+  else { rec=Object.assign({id:nyId("g")},g,{bilder,brukt:gavekortRest(g)<=0,opprettet:new Date().toISOString(),av:innlogget||"",eier:eierNaa()}); COMBINED.gavekort.bilag[rec.id]=rec; }
   merkSti("gavekort",{t:"bilag",id:rec.id}); uskrevetLagre(); persist();
   fyllButikkliste(); skjemaBilder=skjemaBilder.map(bi=>({id:bi.id,w:bi.w,h:bi.h}));
   const varNy=!redigerId;
@@ -2809,7 +2979,7 @@ async function lagreBilag(){
   const bilder=skjemaBilder.map(bi=>({id:bi.id,w:bi.w,h:bi.h}));
   let rec;
   if(redigerId&&finnBilag(KAT,redigerId)){ rec=finnBilag(KAT,redigerId); Object.assign(rec,b,{bilder,endret:new Date().toISOString()}); }
-  else { rec=Object.assign({id:nyId("b")},b,{bilder,opprettet:new Date().toISOString(),av:innlogget||""}); COMBINED[KAT].bilag[rec.id]=rec; }
+  else { rec=Object.assign({id:nyId("b")},b,{bilder,opprettet:new Date().toISOString(),av:innlogget||"",eier:eierNaa()}); COMBINED[KAT].bilag[rec.id]=rec; }
   merkSti(KAT,{t:"bilag",id:rec.id}); uskrevetLagre(); persist();
   fyllButikkliste();
   let bel=null; if(!redigerId) bel=belonnLagring(rec,KAT,bilder.length);
@@ -3014,7 +3184,7 @@ function karTegn(p){
 }
 let tittelSist=null, tittelTimer=null;
 function settTittel(){
-  const kat=karKort[karIdx].dataset.kat, tekst=({kalender:"Kalender",saker:"Reklamasjon og garanti",flink:"Flinkingen",prosjekter:"Prosjekter"}[kat]||KATNAVN[kat])+", mjau mjau";
+  const kat=karKort[karIdx].dataset.kat, tekst=({kalender:"Kalender",saker:"Reklamasjon og garanti",flink:"Flinkingen",prosjekter:"Prosjekter",hjem:"Mat og hjem"}[kat]||KATNAVN[kat])+", mjau mjau";
   if(tekst===tittelSist) return; tittelSist=tekst;
   const b=$("tittelBoble"), t=$("tittelTekst");
   if(reduserBevegelse()||!t.textContent){ t.textContent=tekst; return; }
@@ -3022,7 +3192,7 @@ function settTittel(){
   tittelTimer=setTimeout(()=>{ t.textContent=tekst; b.classList.remove("bytt"); },170);
 }
 function karGaa(retning){ const n=karKort.length; karRetning=retning>0?1:-1; karIdx=((karIdx+retning)%n+n)%n; karTegn(0); }
-function karAapne(i){ const kat=karKort[i].dataset.kat; if(kat==="kalender") visKalender(); else if(kat==="saker") visSaker(); else if(kat==="flink") visFlink(); else if(kat==="prosjekter") visProsjekter(); else aapneKat(kat); }
+function karAapne(i){ const kat=karKort[i].dataset.kat; if(kat==="kalender") visKalender(); else if(kat==="saker") visSaker(); else if(kat==="flink") visFlink(); else if(kat==="prosjekter") visProsjekter(); else if(kat==="hjem"){ hjemFane="lister"; visHjem(); } else aapneKat(kat); }
 $("karForrige").addEventListener("click",()=>karGaa(-1));
 $("karNeste").addEventListener("click",()=>karGaa(1));
 karKort.forEach((k,i)=>{
@@ -3099,7 +3269,9 @@ function pusTrykk(nr){
   const ms=PUS[i](); setTimeout(()=>{ pusOpptatt=false; },ms);
 }
 document.querySelector("#start .sittekatt").addEventListener("click",()=>{ lydKtx(); pusTrykk(); });
-$("knInnst").addEventListener("click",()=>{ startBesk(""); visTolkTilstand(); visVarselTilstand(); visPkTilstand(); $("innstOverlegg").classList.remove("skjult"); });
+$("knInnst").addEventListener("click",()=>{ startBesk(""); visTolkTilstand(); visVarselTilstand(); visPkTilstand(); visOye(); $("innstOverlegg").classList.remove("skjult"); });
+function visOye(){ const kn=$("knOye"); kn.classList.toggle("skjult",innlogget!=="Olav"); kn.classList.toggle("pa",visning==="Stine"&&innlogget==="Olav"); }
+$("knOye").addEventListener("click",()=>{ if(innlogget!=="Olav") return; visning=(visning==="Stine")?"Olav":"Stine"; visOye(); tegnAlt(); if(!$("start").classList.contains("skjult")){ oppsummer(); karTegn(0); } });
 $("knInnstSkjul").addEventListener("click",()=>$("innstOverlegg").classList.add("skjult"));
 document.querySelectorAll("#faner button").forEach(b=>b.addEventListener("click",()=>byttFane(b.dataset.fane)));
 $("inSok").addEventListener("input",tegnListe);
@@ -3179,7 +3351,7 @@ $("fristVarsel").addEventListener("click",()=>{
 });
 $("fristLukk").addEventListener("click",()=>$("fristOverlegg").classList.add("skjult"));
 $("nesteSteg").addEventListener("click",()=>{ visProsjekter(); aapneProsjekt($("nesteSteg").dataset.id); });
-for(const id of ["pdfOverlegg","detaljOverlegg","papirkurvOverlegg","fristOverlegg","nokkelOverlegg","filOverlegg","innstOverlegg","sakOverlegg","ordnetOverlegg","nyttProsjektOverlegg","velgProsjektOverlegg"]){
+for(const id of ["pdfOverlegg","detaljOverlegg","papirkurvOverlegg","fristOverlegg","nokkelOverlegg","filOverlegg","innstOverlegg","sakOverlegg","ordnetOverlegg","nyttProsjektOverlegg","velgProsjektOverlegg","velgMiddagOverlegg","oppskriftOverlegg"]){
   $(id).addEventListener("click",e=>{ if(e.target.id!==id) return;
     if(id==="detaljOverlegg") lukkDetalj(); else if(id==="pdfOverlegg"){ $("pdfOverlegg").classList.add("skjult"); byttFane("liste"); } else $(id).classList.add("skjult"); });
 }
@@ -3270,7 +3442,7 @@ async function etterInnlogging(){
 async function etterStart(){
   const n=await importerV1();
   visStart(); pvStart(); sbkStart(); ambStart(); klippForhent();
-  if(window.__apne){ const {k,id}=window.__apne; window.__apne=null; if(k==="kalender") visKalender(); else if(k==="flink") visFlink(); else if(k==="saker") visSaker(); else if(k==="prosjekter"){ if(id&&finnProsjekt(id)){ visProsjekter(); aapneProsjekt(id); } else visProsjekter(); } else if(KATNAVN[k]&&finnBilag(k,id)){ aapneKat(k); byttFane("liste"); visDetalj(id); } }
+  if(window.__apne){ const {k,id}=window.__apne; window.__apne=null; if(k==="kalender") visKalender(); else if(k==="flink") visFlink(); else if(k==="saker") visSaker(); else if(k==="hjem"){ hjemFane="middag"; visHjem(); } else if(k==="prosjekter"){ if(id&&finnProsjekt(id)){ visProsjekter(); aapneProsjekt(id); } else visProsjekter(); } else if(KATNAVN[k]&&finnBilag(k,id)){ aapneKat(k); byttFane("liste"); visDetalj(id); } }
   if(n) startBesk(`Tok med ${n} bilag fra forrige utgave av appen.`,"ok");
 }
 (async ()=>{
