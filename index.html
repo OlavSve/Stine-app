@@ -123,7 +123,7 @@ button,input,select,textarea{font-family:inherit}
 @keyframes pus-trill{from{transform:translateX(0) rotate(0)}to{transform:translateX(-95vw) rotate(-1400deg);opacity:.6}}
 .tannhjul{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:80;width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.92);border:1px solid rgba(61,111,163,.3);box-shadow:0 4px 12px rgba(31,43,58,.16);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--privat-ink)}
 .tannhjul svg{width:24px;height:24px}
-#nokkelOverlegg,#filOverlegg,#papirkurvOverlegg,#sakOverlegg,#ordnetOverlegg,#velgProsjektOverlegg,#nyttProsjektOverlegg,#fokusOverlegg,#velgMiddagOverlegg,#oppskriftOverlegg{z-index:95}
+#nokkelOverlegg,#filOverlegg,#papirkurvOverlegg,#sakOverlegg,#ordnetOverlegg,#velgProsjektOverlegg,#nyttProsjektOverlegg,#fokusOverlegg,#velgMiddagOverlegg,#oppskriftOverlegg,#sokOverlegg,#planteOverlegg{z-index:95}
 .panel .tolkrad{background:var(--card);border:1px solid var(--line);margin-top:10px}
 .panel .tolkrad button,.panel .fot button{background:var(--card);color:var(--privat-ink);border:1px solid var(--line);border-radius:7px;padding:8px 13px;font-size:12.5px;cursor:pointer;flex:none}
 .panel .fot{display:flex;gap:8px;align-items:center;margin-top:14px}
@@ -325,6 +325,50 @@ button,input,select,textarea{font-family:inherit}
 #ros svg{width:30px;height:30px;flex:none}
 @keyframes ros-inn{from{opacity:0;transform:translate(-50%,-10px)}to{opacity:1;transform:translate(-50%,0)}}
 #pusKrone,#pusSloyfe{transition:opacity .3s}
+/* ---------- v3.22: søk, Dagens tre, tall, ønsker, planter ---------- */
+#start .sokrad-start{margin:10px 0 0}
+#start .sokrad-start input{width:100%;background:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.95);border-radius:12px;padding:10px 14px;font-size:14px;color:var(--ink)}
+#start .dagen-rad{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:rgba(255,255,255,.75);border:1px solid rgba(255,255,255,.95);border-radius:14px;padding:8px 12px;margin:8px 0 0;cursor:pointer;color:var(--ink)}
+#start .dagen-rad svg{width:64px;height:70px;flex:none}
+#start .dagen-rad .t{flex:1;min-width:0;font-size:13.5px;line-height:1.5}
+#start .dagen-rad .h{font-weight:700;font-size:11px;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+#start .dagen-rad .pil{font-size:18px;color:var(--privat)}
+.dagen-tre-stor{text-align:center;margin:4px 0 14px}
+.dagen-tre-stor svg{width:220px;height:auto}
+.dagen-el{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:10px;font-size:15px}
+.dagen-el .frukt{font-size:26px;flex:none}
+.dagen-el .t{flex:1}
+.dagen-el .u{font-size:12.5px;color:var(--muted)}
+.dagen-el button{background:var(--gavekort);color:#fff;border:none;border-radius:9px;padding:9px 12px;font-size:13.5px;cursor:pointer;flex:none}
+.kar-kort.laast{opacity:.72}
+.kar-kort.laast .under{color:var(--gavekort-ink);font-weight:650}
+.stolper{display:grid;grid-template-columns:repeat(12,1fr);gap:4px;align-items:end;height:130px;padding:16px 0 18px}
+.stolper div{background:var(--akt);border-radius:4px 4px 0 0;position:relative;min-height:2px}
+.stolper div span{position:absolute;bottom:-16px;left:0;right:0;text-align:center;font-size:9px;color:var(--muted)}
+.stolper div i{position:absolute;top:-14px;left:-6px;right:-6px;text-align:center;font-size:9px;color:var(--muted);font-style:normal;white-space:nowrap}
+.topp-rad{display:flex;justify-content:space-between;padding:8px 0;border-top:1px solid var(--line);font-size:14px}
+.anledninger{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.anl-boks{background:var(--card);border:2px solid var(--line);border-radius:14px;padding:12px;text-align:center}
+.anl-boks .e{font-size:30px}
+.anl-boks .h{font-weight:700;font-size:15px;margin-top:2px}
+.anl-boks .u{font-size:12px;color:var(--muted)}
+.anl-boks.snart{border-color:#e0a83a;background:#fff9ec}
+.anl-boks.snart .u{color:#7a5410;font-weight:650}
+#onskeSkriv .anl{margin:0}
+#onskeSkriv .anl.pa{background:#fff9ec;border-color:#e0a83a;color:#7a5410}
+.onske-gruppe{font-size:11px;text-transform:uppercase;letter-spacing:.9px;color:var(--muted);font-weight:600;margin:14px 2px 6px}
+.onske{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line);font-size:14.5px}
+.onske .t{flex:1}
+.onske .u{font-size:12px;color:var(--muted)}
+.onske .kjopt{background:var(--gavekort-tint);color:var(--gavekort-ink);border:none;border-radius:8px;padding:6px 10px;font-size:12.5px;cursor:pointer}
+.onske.er-kjopt .t{text-decoration:line-through;color:var(--muted)}
+.onske .slett{background:none;border:none;color:var(--muted);font-size:16px;cursor:pointer}
+.sok-gruppe{font-size:11px;text-transform:uppercase;letter-spacing:.9px;color:var(--muted);font-weight:600;margin:12px 2px 4px}
+.plante{display:flex;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:10px;align-items:center}
+.plante .bilde{width:56px;height:56px;border-radius:9px;background:var(--gavekort-tint);display:flex;align-items:center;justify-content:center;font-size:24px;flex:none;object-fit:cover}
+.plante .t{flex:1}.plante .u{font-size:12.5px;color:var(--muted)}
+.plante button{background:var(--gavekort);color:#fff;border:none;border-radius:8px;padding:8px 12px;font-size:13px;cursor:pointer}
+.album div.gull{background:#fff9ec;border-color:#e0a83a}
 /* ---------- Mat og hjem ---------- */
 .vare{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line);font-size:15px;cursor:pointer}
 .vare .boks{width:24px;height:24px;border-radius:7px;border:2px solid var(--line);flex:none;display:flex;align-items:center;justify-content:center;font-size:14px}
@@ -685,8 +729,8 @@ button,input,select,textarea{font-family:inherit}
       <svg id="tidIkon" viewBox="0 0 100 100" aria-hidden="true"></svg>
       <div><div class="h" id="hilsenTekst">Hei</div><div class="s" id="hilsenSetning"></div></div>
     </div>
-    <button class="nestesteg skjult" id="middagIdag"><span>🍽️</span><span id="middagIdagTekst"></span></button>
-    <button class="nestesteg skjult" id="nesteSteg"><span>🔧</span><span id="nesteStegTekst"></span></button>
+    <div class="sokrad-start"><input type="search" id="inSokAlt" placeholder="🔎 Søk i alt" autocomplete="off"></div>
+    <button class="dagen-rad" id="dagenRad"><svg viewBox="0 0 140 150" id="dagenTre" aria-hidden="true"></svg><div class="t"><div class="h">Dagens tre</div><div id="dagenLinjer"></div></div><span class="pil">›</span></button>
     <div class="spor" aria-hidden="true"></div>
     <div class="tittelrad">
       <div class="boble" id="tittelBoble"><span id="tittelTekst">Private kvitteringer, mjau mjau</span><i class="t1"></i><i class="t2"></i><i class="t3"></i></div>
@@ -733,6 +777,11 @@ button,input,select,textarea{font-family:inherit}
         <div class="navn">Kalender</div>
         <div class="under" id="oppsumKalender">Ingen frister de neste 14 dagene</div>
       </div>
+      <div class="kar-kort laast" data-kat="planter" role="button" tabindex="0">
+        <svg viewBox="0 0 100 100" aria-hidden="true"><path d="M34 70 h32 l-4 26 h-24 z" fill="#b34a7c"/><rect x="30" y="64" width="40" height="8" rx="3" fill="#dba9c0"/><path d="M50 66 Q50 44 50 30" stroke="#2f8f7a" stroke-width="4" fill="none"/><path d="M50 44 Q34 40 30 26 Q46 28 50 44 Z M50 36 Q66 32 70 18 Q54 20 50 36 Z" fill="#2f8f7a"/></svg>
+        <div class="navn">Mine planter</div>
+        <div class="under">Kommer snart</div>
+      </div>
       <div class="kar-kort" data-kat="hjem" role="button" tabindex="0">
         <svg viewBox="0 0 100 100" aria-hidden="true"><path d="M14 52 L50 20 L86 52" fill="none" stroke="#3d6fa3" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><rect x="24" y="50" width="52" height="36" rx="4" fill="#ffffff" stroke="#3d6fa3" stroke-width="3"/><circle cx="50" cy="70" r="12" fill="#f4bdd4"/><circle cx="50" cy="70" r="7" fill="#fff"/><path d="M42 84 h16" stroke="#b34a7c" stroke-width="3" stroke-linecap="round"/></svg>
         <div class="navn">Mat og hjem</div>
@@ -751,7 +800,7 @@ button,input,select,textarea{font-family:inherit}
     </div>
     <div class="kar-piler">
       <button id="karForrige" aria-label="Forrige">‹</button>
-      <div class="kar-prikker" id="karPrikker"><span class="pa"></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="kar-prikker" id="karPrikker"><span class="pa"></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
       <button id="karNeste" aria-label="Neste">›</button>
     </div>
     <div class="poengstripe" id="poengStripe"><span id="poengTekst">Kattunge · 0 poeng i september</span><span class="stripe"><i id="poengFyll"></i></span></div>
@@ -785,6 +834,7 @@ button,input,select,textarea{font-family:inherit}
   <div id="faner">
     <button data-fane="ny" class="pa">Nytt bilag</button>
     <button data-fane="liste">Oversikt</button>
+    <button data-fane="tall">Tall</button>
   </div>
 
   <!-- Skjema -->
@@ -903,6 +953,7 @@ button,input,select,textarea{font-family:inherit}
   </div>
 
   <!-- Oversikt -->
+  <div id="faneTall" class="ark skjult"><div class="flink-rad"><div class="h">Per måned, siste tolv</div><div class="stolper" id="tallMnd"></div></div><div class="flink-rad"><div class="h">Topp fem butikker</div><div id="tallButikker"></div></div></div>
   <div id="faneListe" class="ark skjult">
     <div class="sokerad">
       <input type="search" id="inSok" placeholder="Søk i butikk, beskrivelse eller kommentar">
@@ -930,7 +981,7 @@ button,input,select,textarea{font-family:inherit}
     <button class="tilbake" id="knSakerHjem" aria-label="Tilbake til start">‹</button>
     <div><div class="tittel">Reklamasjon og garanti</div><div class="undertekst" id="sakerUnder"></div></div>
   </div>
-  <div id="sakerFaner" class="faner-modul"><button data-fane="aapne" class="pa">Åpne saker</button><button data-fane="ordnet">Ordnet</button></div>
+  <div id="sakerFaner" class="faner-modul"><button data-fane="aapne" class="pa">Åpne saker</button><button data-fane="ordnet">Ordnet</button><button data-fane="garanti">Garanti nå</button></div>
   <div class="ark">
     <div class="sumstripe"><span class="etikett" id="sakerSumEtikett">Tilbake denne måneden</span><span class="verdi tall" id="sakerSum">kr 0,00</span></div>
     <div id="sakerListe"></div>
@@ -958,19 +1009,71 @@ button,input,select,textarea{font-family:inherit}
   </div>
 </div>
 
+<!-- ===================== DAGENS TRE ===================== -->
+<div id="dagen" class="skjult">
+  <div class="topp-modul" style="background-color:var(--gavekort)">
+    <button class="tilbake" id="knDagenHjem" aria-label="Tilbake til start">‹</button>
+    <div><div class="tittel">Dagens tre</div><div class="undertekst" id="dagenUnder"></div></div>
+  </div>
+  <div class="ark">
+    <div class="dagen-tre-stor"><svg viewBox="0 0 140 150" id="dagenTreStor" aria-hidden="true"></svg></div>
+    <div id="dagenListe"></div>
+  </div>
+</div>
+
+<div id="sokOverlegg" class="overlegg skjult">
+  <div class="panel">
+    <div class="grep"></div>
+    <h2 id="sokTittel">Søk</h2>
+    <div id="sokResultat"></div>
+    <button class="panelknapp andre" id="knSokLukk" style="margin-top:12px">✋ Lukk</button>
+  </div>
+</div>
+
+<!-- ===================== MINE PLANTER (låst) ===================== -->
+<div id="planter" class="skjult">
+  <div class="topp-modul" style="background-color:var(--gavekort)">
+    <button class="tilbake" id="knPlanterHjem" aria-label="Tilbake til start">‹</button>
+    <div><div class="tittel">Mine planter</div><div class="undertekst" id="planterUnder"></div></div>
+  </div>
+  <div class="ark">
+    <button class="panelknapp" id="knNyPlante">🌱 Ny plante</button>
+    <div id="planteListe" style="margin-top:12px"></div>
+  </div>
+</div>
+<div id="planteOverlegg" class="overlegg skjult">
+  <div class="panel">
+    <div class="grep"></div>
+    <h2 id="plTittel">Ny plante</h2>
+    <div class="felt" id="feltPlNavn"><label for="inPlNavn">Navn</label><input type="text" id="inPlNavn" autocapitalize="sentences" placeholder="Monstera i stua"></div>
+    <div class="par"><div class="felt"><label for="inPlSted">Plassering</label><input type="text" id="inPlSted" placeholder="Stuevinduet"></div><div class="felt"><label for="inPlDager">Vanne hver</label><input type="text" id="inPlDager" inputmode="numeric" placeholder="5. dag"></div></div>
+    <div class="felt"><label>Bilde <span class="valg">– valgfritt</span></label><button class="panelknapp andre" id="knPlBilde" style="margin:0">📷 Ta bilde</button><span class="hint" id="plBildeInfo"></span></div>
+    <div class="panelbesk feil" id="plBesk"></div>
+    <button class="panelknapp" id="knPlLagre">💾 Lagre plante</button>
+    <button class="panelknapp fare skjult" id="knPlSlett">🗑️ Slett</button>
+    <button class="panelknapp andre" id="knPlAvbryt">✋ Avbryt</button>
+  </div>
+</div>
+
 <!-- ===================== MAT OG HJEM ===================== -->
 <div id="hjem" class="skjult">
   <div class="topp-modul" style="background-color:var(--privat)">
     <button class="tilbake" id="knHjemHjem" aria-label="Tilbake til start">‹</button>
     <div><div class="tittel">Mat og hjem</div><div class="undertekst">Felles for begge</div></div>
   </div>
-  <div id="hjemFaner" class="faner-modul"><button data-fane="lister" class="pa">Handlelister</button><button data-fane="middag">Middag</button></div>
+  <div id="hjemFaner" class="faner-modul"><button data-fane="lister" class="pa">Handlelister</button><button data-fane="middag">Middag</button><button data-fane="onsker">Ønsker</button></div>
   <div class="ark" id="hjemLister">
     <div class="segment" id="segListe" style="margin-bottom:12px"><button type="button" data-v="felles" class="pa">Felles</button><button type="button" data-v="min">Min</button></div>
     <div class="sokerad"><input type="text" id="inVare" placeholder="Melk, 2 l" list="varer" autocapitalize="sentences"><button class="panelknapp" id="knVare" style="width:auto;margin:0;padding:10px 14px">➕ Legg til</button></div>
     <datalist id="varer"></datalist>
     <div id="vareListe" style="margin-top:12px"></div>
     <button class="panelknapp andre skjult" id="knFjernHaket" style="margin-top:14px">🧹 Fjern haket</button>
+  </div>
+  <div class="ark skjult" id="hjemOnsker">
+    <div class="anledninger" id="anledninger"></div>
+    <div class="segment" id="segOnsker" style="margin:12px 0"><button type="button" data-v="mine" class="pa">Mine</button><button type="button" data-v="andre">Den andres</button></div>
+    <div id="onskeSkriv"><div class="sokerad"><input type="text" id="inOnske" placeholder="Nytt ønske" autocapitalize="sentences"><button class="panelknapp" id="knOnske" style="width:auto;margin:0;padding:10px 14px">➕ Legg til</button></div><div class="par" style="margin-top:8px"><div class="felt" style="margin:0"><input type="text" id="inOnskePris" inputmode="decimal" placeholder="Pris, valgfritt"></div><div class="felt" style="margin:0"><input type="url" id="inOnskeLenke" placeholder="Lenke, valgfritt" autocapitalize="off"></div></div><div class="tolinje" style="margin:8px 0 0"><button class="panelknapp andre anl" data-anl="bursdag">🎂 Bursdag</button><button class="panelknapp andre anl" data-anl="jul">🎄 Jul</button></div></div>
+    <div id="onskeListe" style="margin-top:12px"></div>
   </div>
   <div class="ark skjult" id="hjemMiddag">
     <div class="flink-rad"><div class="h">Fem dager</div><div class="dager" id="middagDager"></div><div class="tolinje" style="margin-top:12px"><button class="panelknapp andre" id="knUkaTilListe">🛒 Hele uka til handlelista</button></div></div>
@@ -1244,7 +1347,7 @@ button,input,select,textarea{font-family:inherit}
     <div class="fot">
       <button id="knBackup" class="skjult" title="Lagre komplett backup (JSON)">&#128190;</button>
       <button id="knFil" class="skjult" title="Fil">&#128196; Fil</button>
-      <span class="versjon" id="startVersjon">Versjon 3.21</span>
+      <span class="versjon" id="startVersjon">Versjon 3.22</span>
     </div>
     <div id="startBesk"></div>
     <button class="panelknapp andre" id="knInnstSkjul" style="margin-top:16px">✋ Skjul innstillinger</button>
@@ -1267,11 +1370,12 @@ button,input,select,textarea{font-family:inherit}
 <input type="file" id="filKamera" accept="image/*" capture="environment" class="skjult">
 <input type="file" id="filGalleri" accept="image/*" multiple class="skjult">
 <input type="file" id="filProsjekt" accept="image/*" class="skjult">
+<input type="file" id="filPlante" accept="image/*" class="skjult">
 
 <script>
 "use strict";
-/* ===================== Kvitteringer, mjau mjau, versjon 3.21 ===================== */
-const APP_VERSJON = "3.21";
+/* ===================== Kvitteringer, mjau mjau, versjon 3.22 ===================== */
+const APP_VERSJON = "3.22";
 const LAGER = { eier: "OlavSve", repo: "Stine-app-data", gren: "main", fil: "bilag.kryptert.json", bilder: "bilder", backup: "backup" };
 const EK = { hemmelighet: "0df7552eec9d178481fda706b469d0305507b5ddc5c229a6292f863412d29d50", bildesalt: "m1jWj9kLvoyOxH+NuTrtpA==" };
 const DATA_TYPE = "stine-app-data";
@@ -1280,8 +1384,10 @@ const BACKUP_MONSTER = /^\d{4} \d{2}-\d{2} Backup Bilag \d{2}-\d{2}-\d{2}\.json$
 const USERS = { stine: { navn: "Stine", sjekk: "e98867470e6a2680aa174231e3711d5ffb1dbbc74f66c2f5d3a71dbd1e65852d" }, olav: { navn: "Olav", sjekk: "db676bb2e8827fbb3235fe61402d6a342434744a7952dcf8d5896766b4a4a500" } };
 const KATNAVN = { privat: "Private kvitteringer", kattepuser: "Kattepuser", gavekort: "Gavekort og tilgodelapper" };
 const KORTNAVN = { privat: "Privat", kattepuser: "Kattepuser", gavekort: "Gavekort", kalender: "Kalender" };
-const GRENER = ["privat", "kattepuser", "gavekort", "papirkurv", "prosjekter", "hjem"];
-const PERSONLIGE = ["privat", "kattepuser", "gavekort", "papirkurv", "prosjekter"];
+const GRENER = ["privat", "kattepuser", "gavekort", "papirkurv", "prosjekter", "hjem", "planter"];
+const PERSONLIGE = ["privat", "kattepuser", "gavekort", "papirkurv", "prosjekter", "planter"];
+const PLANTER_PAA = false;
+const BURSDAGER = { Olav: "06-03", Stine: "08-11" };
 let visning = null;
 const FLINK_TOM = () => ({ poeng: {}, rekord: { mnd: "", poeng: 0 }, merker: [], skaal: 0, skaalTomt: 0, gylne: {}, kroneTil: "", sloyfe: false, hendelser: [], prosjektPlanter: [], planteLogg: [] });
 const MAKS_BILDER = 6;
@@ -2416,6 +2522,11 @@ function tilbakeDenneMnd(){ const m=idagIso().slice(0,7); return alleSaker().fil
 let sakerFane="aapne";
 function tegnSaker(){
   document.querySelectorAll("#sakerFaner button").forEach(b=>b.classList.toggle("pa",b.dataset.fane===sakerFane));
+  if(sakerFane==="garanti"){ const g=[]; for(const k of ["privat","kattepuser"]) for(const b of bilagListe(k)){ if(b.reklamasjon&&b.reklamasjon!=="0"&&b.dato){ const f=leggTilAar(b.dato,Number(b.reklamasjon)); const d=dagerTil(f); if(d!==null&&d>=0) g.push({k,b,f,d}); } } g.sort((a,b)=>a.d-b.d);
+    $("sakerSumEtikett").textContent="Under garanti"; $("sakerSum").textContent="kr "+kr(g.reduce((a,x)=>a+Number(x.b.belop||0),0));
+    $("sakerListe").innerHTML=g.length?g.map(x=>`<div class="sak" data-k="${x.k}" data-id="${x.b.id}"><div class="h"><span>${esc(x.b.butikk)} – ${esc(x.b.beskrivelse)}</span><span class="type garanti">${x.b.reklamasjon} år</span></div><div class="u">kr ${kr(x.b.belop)} · til ${norskDato(x.f)} · ${x.d===0?"siste dag":x.d+" dager igjen"}</div><div class="knapper"><button data-aapne>📂 Åpne bilaget</button></div></div>`).join(""):`<div class="tomt"><strong>Ingenting under garanti</strong></div>`;
+    $("sakerListe").querySelectorAll("[data-aapne]").forEach(kn=>kn.addEventListener("click",e=>{ const r=e.target.closest(".sak"); $("saker").classList.add("skjult"); aapneKat(r.dataset.k); byttFane("liste"); visDetalj(r.dataset.id); })); return; }
+  $("sakerSumEtikett").textContent="Tilbake denne måneden";
   const l=alleSaker().filter(({x})=>sakerFane==="aapne"?x.status!=="ordnet":x.status==="ordnet").sort((p,q)=>String(q.x.ordnetDato||q.x.dato).localeCompare(String(p.x.ordnetDato||p.x.dato)));
   $("sakerSum").textContent="kr "+kr(tilbakeDenneMnd()); $("sakerUnder").textContent=`${alleSaker().filter(({x})=>x.status!=="ordnet").length} åpne`;
   $("sakerListe").innerHTML = l.length ? l.map(({k,b,x})=>`<div class="sak" data-k="${k}" data-id="${b.id}" data-sak="${x.id}"><div class="h"><span>${esc(b.butikk)} – ${esc(b.beskrivelse)}</span><span class="type ${x.status==="ordnet"?"ordnet":x.type}">${x.status==="ordnet"?UTFALL_NAVN[x.utfall]||"Ordnet":SAK_NAVN[x.type]}</span></div>
@@ -2568,6 +2679,130 @@ function tegnFlink(){
 function visFlink(){ $("start").classList.add("skjult"); $("flink").classList.remove("skjult"); tegnFlink(); window.scrollTo(0,0); }
 $("knFlinkHjem").addEventListener("click",()=>{ $("flink").classList.add("skjult"); visStart(); });
 
+/* ===================== DAGENS TRE ===================== */
+const FRUKT=["🍎","🍐","🍑"];
+function dagensTing(){
+  const ut=[]; const idag=idagIso();
+  for(const p of prosjektListe()){ if(p.status!=="igang") continue; for(const st of (p.stell||[])){ if(dagerTil(stellNeste(st))<=0) ut.push({key:"stell:"+p.id+":"+st.id,slag:"stell",tekst:st.hva+": "+p.navn,under:"hver "+st.intervall+". dag",p,st}); } }
+  const f=fristerDenneUka().filter(x=>x.slag!=="stell").sort((a,b)=>a.d-b.d)[0];
+  if(f){ const gk=f.k==="gavekort"; ut.push({key:"frist:"+f.b.id,slag:"frist",tekst:gk?((f.b.type==="tilgodelapp"?"Tilgodelapp":"Gavekort")+" "+f.b.butikk+" "+(f.slag==="foreldes"?"foreldes":"utløper")):"Returfrist: "+f.b.butikk,under:f.d===0?"i dag":"om "+f.d+(f.d===1?" dag":" dager"),f}); }
+  const ns=nesteStegTekst(); if(ns) ut.push({key:"steg:"+ns.p.id+":"+ns.n.id,slag:"steg",tekst:"Neste steg: "+ns.n.tekst,under:ns.p.navn,p:ns.p,n:ns.n});
+  return ut;
+}
+/* Dagens tre: de tre første som dukket opp i dag står fast; plukket frukt blir liggende i gresset */
+function dagensListe(){
+  const f=flink(); const naa=dagensTing(); if(!f.dagen||f.dagen.dato!==idagIso()) f.dagen={dato:idagIso(),ting:[],plukket:[]};
+  let endret=false; for(const t of naa){ if(f.dagen.ting.length>=3) break; if(!f.dagen.ting.some(x=>x.key===t.key)){ f.dagen.ting.push({key:t.key,slag:t.slag,tekst:t.tekst,under:t.under}); endret=true; } }
+  if(endret) flinkLagre();
+  return f.dagen.ting.map(t=>Object.assign({},t,{plukket:f.dagen.plukket.includes(t.key),naa:naa.find(x=>x.key===t.key)||null}));
+}
+function dagenPlukket(){ return dagensListe().filter(t=>t.plukket).map((_,i)=>i); }
+function treSvg(frukter,plukket,blomst){
+  const kroner=`<path d="M70 146 q-4 -30 0 -60" stroke="#8b5a2b" stroke-width="9" stroke-linecap="round"/><path d="M70 100 q-14 -10 -26 -22 M70 96 q14 -12 28 -20" stroke="#8b5a2b" stroke-width="6" stroke-linecap="round" fill="none"/><ellipse cx="70" cy="62" rx="52" ry="40" fill="#2f8f7a"/><ellipse cx="46" cy="52" rx="24" ry="20" fill="#4a7f5a" opacity=".5"/><ellipse cx="94" cy="56" rx="22" ry="18" fill="#7fc4b4" opacity=".45"/>`;
+  const fr=[`<line x1="44" y1="70" x2="44" y2="84" stroke="#6f4420" stroke-width="2"/><circle cx="44" cy="92" r="10" fill="#e8362e"/><path d="M44 82 l4 -4" stroke="#2f8f7a" stroke-width="2.5"/>`,
+            `<line x1="72" y1="78" x2="72" y2="92" stroke="#6f4420" stroke-width="2"/><path d="M72 92 q-9 6 -8 16 q8 12 16 0 q1 -10 -8 -16 z" fill="#e0a83a"/>`,
+            `<line x1="98" y1="72" x2="98" y2="86" stroke="#6f4420" stroke-width="2"/><circle cx="98" cy="94" r="9" fill="#7a5fa8"/><circle cx="95" cy="91" r="3" fill="#fff" opacity=".6"/>`];
+  const gress=[`<circle cx="40" cy="140" r="8" fill="#e8362e" opacity=".55"/>`,`<path d="M66 132 q-7 5 -6 12 q6 9 12 0 q1 -7 -6 -12 z" fill="#e0a83a" opacity=".55"/>`,`<circle cx="100" cy="140" r="7" fill="#7a5fa8" opacity=".55"/>`];
+  let h=kroner;
+  for(let i=0;i<frukter;i++) h+=plukket.includes(i)?gress[i]:fr[i];
+  if(blomst) h+=`<g fill="#f4bdd4"><circle cx="40" cy="44" r="4"/><circle cx="62" cy="34" r="4"/><circle cx="86" cy="40" r="4"/><circle cx="104" cy="60" r="4"/><circle cx="54" cy="70" r="4"/></g>`;
+  h+=`<ellipse cx="70" cy="146" rx="40" ry="4" fill="#2f8f7a" opacity=".35"/>`;
+  return h;
+}
+function tegnDagenStart(){
+  const ting=dagensListe(); const pl=ting.map((t,i)=>t.plukket?i:-1).filter(i=>i>=0); const igjen=ting.filter(t=>!t.plukket);
+  $("dagenTre").innerHTML=treSvg(ting.length,pl,igjen.length===0);
+  $("dagenLinjer").innerHTML=igjen.length?ting.map((t,i)=>t.plukket?"":`<div>${FRUKT[i]} ${esc(t.tekst)}</div>`).join(""):`<div>Ferdig for i dag</div>`;
+}
+function tegnDagen(){
+  const ting=dagensListe(); const pl=ting.map((t,i)=>t.plukket?i:-1).filter(i=>i>=0); const igjen=ting.filter(t=>!t.plukket);
+  $("dagenTreStor").innerHTML=treSvg(ting.length,pl,igjen.length===0); $("dagenUnder").textContent=igjen.length?`${igjen.length} igjen`:"Ferdig for i dag";
+  $("dagenListe").innerHTML=ting.length?ting.map((t,i)=>`<div class="dagen-el${t.plukket?" plukket":""}"><span class="frukt">${FRUKT[i]}</span><div class="t"><div>${esc(t.tekst)}</div><div class="u">${esc(t.under)}</div></div>${t.plukket?"":`<button data-plukk="${esc(t.key)}">${t.slag==="steg"?"✅ Gjort":t.slag==="stell"?"💧 Gjort":"✅ Ordne"}</button>`}</div>`).join(""):`<div class="tomt"><strong>Ingenting i dag</strong>Treet blomstrer. Nyt det.</div>`;
+  $("dagenListe").querySelectorAll("[data-plukk]").forEach(b=>b.addEventListener("click",()=>plukk(b.dataset.plukk)));
+}
+function plukkLagre(key){ const f=flink(); if(!f.dagen||f.dagen.dato!==idagIso()) f.dagen={dato:idagIso(),ting:[],plukket:[]}; if(!f.dagen.plukket.includes(key)) f.dagen.plukket.push(key); flinkLagre(); }
+function plukk(key){
+  const t=dagensListe().find(x=>x.key===key); if(!t) return; const n=t.naa;
+  if(t.slag==="stell"&&n){ n.st.sist=idagIso(); prLagre(n.p); giPoeng(5,n.st.hva+": "+n.p.navn,n.p.id); plukkLagre(key); kattemat("liten"); visRos(n.st.hva+" gjort. +5 pusepoeng."); }
+  else if(t.slag==="steg"&&n){ n.n.ferdig=true; n.n.ferdigDato=idagIso(); if(!n.n.poengGitt){ n.n.poengGitt=true; giPoeng(5,"Steg: "+n.n.tekst,n.p.id); } prLagre(n.p); plukkLagre(key); kattemat("liten"); visRos("Ett steg til. +5 pusepoeng."); }
+  else if(t.slag==="frist"&&n){ plukkLagre(key); if(n.f.k==="gavekort"){ const g=n.f.b; g.brukt=true; g.endret=new Date().toISOString(); merkSti("gavekort",{t:"bilag",id:g.id}); if(!g.poengGitt){ g.poengGitt=true; giPoeng(15,"Kort brukt før utløp: "+g.butikk,g.id); } flinkLagre(); visRos("Brukt før det gikk ut. +15 pusepoeng."); } else returnerHurtig(n.f.k,n.f.b.id); }
+  else plukkLagre(key);
+  tegnDagen(); if(!$("start").classList.contains("skjult")) tegnDagenStart();
+}
+function visDagen(){ $("start").classList.add("skjult"); $("dagen").classList.remove("skjult"); tegnDagen(); window.scrollTo(0,0); }
+$("dagenRad").addEventListener("click",visDagen); $("knDagenHjem").addEventListener("click",()=>{ $("dagen").classList.add("skjult"); visStart(); });
+
+/* ===================== SØK I ALT ===================== */
+function sokAlt(q){
+  q=q.trim().toLowerCase(); if(q.length<2) return [];
+  const t=(...x)=>x.filter(Boolean).join(" ").toLowerCase().includes(q); const ut=[];
+  for(const k of ["privat","kattepuser"]) for(const b of bilagListe(k)) if(t(b.butikk,b.beskrivelse,b.kommentar,String(b.belop))) ut.push({g:"Kvitteringer",tekst:b.butikk+" – "+b.beskrivelse,under:norskDato(b.dato)+" · kr "+kr(b.belop),aapne:()=>{ aapneKat(k); byttFane("liste"); visDetalj(b.id); }});
+  for(const g of bilagListe("gavekort")) if(t(g.butikk,g.kortnummer,g.kommentar)) ut.push({g:"Gavekort",tekst:g.butikk,under:"kr "+kr(gavekortRest(g))+" igjen",aapne:()=>{ aapneKat("gavekort"); byttFane("liste"); visDetalj(g.id); }});
+  for(const {k,b,x} of alleSaker()) if(t(x.beskrivelse,x.type,b.butikk)) ut.push({g:"Saker",tekst:SAK_NAVN[x.type]+": "+b.butikk,under:x.status==="ordnet"?"ordnet":"åpen",aapne:()=>{ visSaker(); }});
+  for(const p of prosjektListe()) if(t(p.navn,(p.steg||[]).map(x=>x.tekst).join(" "))) ut.push({g:"Prosjekter",tekst:p.navn,under:PR_TYPE[p.type]||"",aapne:()=>{ visProsjekter(); aapneProsjekt(p.id); }});
+  for(const o of hjemListe("oppskrift")) if(t(o.navn,(o.ingredienser||[]).map(x=>x.tekst).join(" "))) ut.push({g:"Oppskrifter",tekst:o.navn,under:"middag",aapne:()=>{ hjemFane="middag"; visHjem(); }});
+  for(const v of hjemListe("vare")) if(t(v.tekst)) ut.push({g:"Handlelister",tekst:v.tekst,under:v.liste==="felles"?"Felles":v.liste,aapne:()=>{ hjemFane="lister"; listeValg=v.liste==="felles"?"felles":"min"; visHjem(); }});
+  return ut.slice(0,40);
+}
+$("inSokAlt").addEventListener("keydown",e=>{ if(e.key==="Enter") visSok(); });
+$("inSokAlt").addEventListener("search",visSok);
+function visSok(){ const q=$("inSokAlt").value; const r=sokAlt(q); $("sokTittel").textContent="Søk: "+q.trim(); const grupper=[...new Set(r.map(x=>x.g))];
+  $("sokResultat").innerHTML=r.length?grupper.map(g=>`<div class="sok-gruppe">${g}</div>`+r.filter(x=>x.g===g).map((x,i)=>`<div class="listerad" data-i="${r.indexOf(x)}"><div><div class="h">${esc(x.tekst)}</div><div class="u">${esc(x.under)}</div></div></div>`).join("")).join(""):`<div class="tomt">Ingen treff.</div>`;
+  $("sokResultat").querySelectorAll(".listerad").forEach(e=>e.addEventListener("click",()=>{ $("sokOverlegg").classList.add("skjult"); $("start").classList.add("skjult"); r[+e.dataset.i].aapne(); }));
+  if(q.trim().length>=2) $("sokOverlegg").classList.remove("skjult"); }
+$("knSokLukk").addEventListener("click",()=>$("sokOverlegg").classList.add("skjult"));
+
+/* ===================== ØNSKER ===================== */
+let onskeValg="mine", onskeAnl="";
+function denAndre(){ return eierNaa()==="Olav"?"Stine":"Olav"; }
+function dagerTilDato(mmdd){ const i=idagIso(); let y=+i.slice(0,4); let d=`${y}-${mmdd}`; if(d<i){ d=`${y+1}-${mmdd}`; } return {dato:d,d:dagerTil(d)}; }
+function tegnAnledninger(){
+  const meg=eierNaa(), andre=denAndre(); const bA=dagerTilDato(BURSDAGER[andre]), jul=dagerTilDato("12-24");
+  $("anledninger").innerHTML=`<div class="anl-boks${bA.d<=30?" snart":""}"><div class="e">🎂</div><div class="h">${andre}s bursdag</div><div class="u">${norskDato(bA.dato)} · ${bA.d===0?"i dag":bA.d+" dager"}</div></div><div class="anl-boks${jul.d<=30?" snart":""}"><div class="e">🎄</div><div class="h">Jul</div><div class="u">${jul.d} dager</div></div>`;
+}
+function tegnOnsker(){
+  tegnAnledninger(); document.querySelectorAll("#segOnsker button").forEach(b=>b.classList.toggle("pa",b.dataset.v===onskeValg)); document.querySelector("#segOnsker button[data-v='andre']").textContent=denAndre()+"s";
+  const eier=onskeValg==="mine"?eierNaa():denAndre(); $("onskeSkriv").classList.toggle("skjult",onskeValg!=="mine"); document.querySelectorAll("#onskeSkriv .anl").forEach(b=>b.classList.toggle("pa",b.dataset.anl===onskeAnl));
+  const l=hjemListe("onske").filter(o=>o.eier===eier); const grp=[["bursdag","🎂 Bursdag"],["jul","🎄 Jul"],["","Andre ønsker"]];
+  $("onskeListe").innerHTML=l.length?grp.map(([a,n])=>{ const ll=l.filter(o=>(o.anledning||"")===a); if(!ll.length) return ""; return `<div class="onske-gruppe">${n}</div>`+ll.map(o=>`<div class="onske${o.kjoptAv&&onskeValg!=="mine"?" er-kjopt":""}"><div class="t">${o.anledning?"🎁 ":""}${esc(o.tekst)}<div class="u">${o.pris?"kr "+esc(o.pris)+" · ":""}${o.lenke?`<a href="${esc(o.lenke)}" target="_blank" rel="noopener">lenke</a>`:""}</div></div>${onskeValg==="mine"?`<button class="slett" data-slett="${o.id}">✕</button>`:`<button class="kjopt" data-kjopt="${o.id}">${o.kjoptAv?"✅ Kjøpt":"🛍️ Kjøpt?"}</button>`}</div>`).join(""); }).join(""):`<div class="tomt"><strong>${onskeValg==="mine"?"Ingen ønsker ennå":"Ingen ønsker der ennå"}</strong></div>`;
+  $("onskeListe").querySelectorAll("[data-slett]").forEach(b=>b.addEventListener("click",()=>{ hjemSlett(b.dataset.slett); tegnOnsker(); }));
+  $("onskeListe").querySelectorAll("[data-kjopt]").forEach(b=>b.addEventListener("click",()=>{ const o=finnBilag("hjem",b.dataset.kjopt); o.kjoptAv=o.kjoptAv?"":innlogget; hjemLagre(o); tegnOnsker(); }));
+}
+$("knOnske").addEventListener("click",()=>{ const t=$("inOnske").value.trim(); if(!t) return; hjemLagre({id:nyId("w"),t:"onske",eier:eierNaa(),tekst:t,pris:$("inOnskePris").value.trim(),lenke:$("inOnskeLenke").value.trim(),anledning:onskeAnl,opprettet:new Date().toISOString()}); $("inOnske").value=""; $("inOnskePris").value=""; $("inOnskeLenke").value=""; tegnOnsker(); });
+document.querySelectorAll("#onskeSkriv .anl").forEach(b=>b.addEventListener("click",()=>{ onskeAnl=onskeAnl===b.dataset.anl?"":b.dataset.anl; tegnOnsker(); }));
+document.querySelectorAll("#segOnsker button").forEach(b=>b.addEventListener("click",()=>{ onskeValg=b.dataset.v; tegnOnsker(); }));
+
+/* ===================== TALL ===================== */
+function tegnTall(){
+  const l=bilagListe(KAT); const mnd=[]; const i=idagIso(); let y=+i.slice(0,4), m=+i.slice(5,7);
+  for(let k=0;k<12;k++){ mnd.unshift(`${y}-${String(m).padStart(2,"0")}`); m--; if(m===0){ m=12; y--; } }
+  const sum={}; l.forEach(b=>{ const n=(b.dato||"").slice(0,7); sum[n]=(sum[n]||0)+Number(b.belop||0); }); const maks=Math.max(1,...mnd.map(n=>sum[n]||0));
+  $("tallMnd").innerHTML=mnd.map(n=>`<div style="height:${Math.max(2,Math.round((sum[n]||0)/maks*90))}%"><i>${sum[n]?kr(Math.round(sum[n])):""}</i><span>${mndNavn(n).slice(0,3)}</span></div>`).join("");
+  const but={}; l.forEach(b=>{ but[b.butikk]=(but[b.butikk]||0)+Number(b.belop||0); });
+  const topp=Object.entries(but).sort((a,b)=>b[1]-a[1]).slice(0,5);
+  $("tallButikker").innerHTML=topp.length?topp.map(([n,v])=>`<div class="topp-rad"><span>${esc(n)}</span><span class="tall">kr ${kr(v)}</span></div>`).join(""):`<div class="hint">Ingen kjøp ennå.</div>`;
+}
+
+/* ===================== MINE PLANTER (låst) ===================== */
+let plRedigerId=null, plBildeNytt=null;
+function planteListe(){ return bilagListe("planter"); }
+function tegnPlanter(){
+  const l=planteListe().sort((a,b)=>a.navn.localeCompare(b.navn,"nb")); $("planterUnder").textContent=`${l.length} planter`;
+  $("planteListe").innerHTML=l.length?l.map(p=>{ const st=p.stell&&p.stell[0]; const forfalt=st&&dagerTil(stellNeste(st))<=0; return `<div class="plante" data-id="${p.id}">${p.bilder&&p.bilder[0]?`<img class="bilde" data-bilde="${p.bilder[0].id}" alt="">`:`<div class="bilde">🌱</div>`}<div class="t"><div>${esc(p.navn)}</div><div class="u">${esc(p.sted||"")}${st?` · vanne hver ${st.intervall}. dag · ${forfalt?"i dag":"neste "+norskDato(stellNeste(st))}`:""}</div></div>${st?`<button data-vann="${p.id}">💧 Vannet</button>`:""}</div>`; }).join(""):`<div class="tomt"><strong>Ingen planter ennå</strong></div>`;
+  $("planteListe").querySelectorAll("img.bilde[data-bilde]").forEach(async img=>{ const u=await bildeHent(img.dataset.bilde,true); if(u) img.src=u; });
+  $("planteListe").querySelectorAll("[data-vann]").forEach(b=>b.addEventListener("click",e=>{ e.stopPropagation(); const p=finnBilag("planter",b.dataset.vann); p.stell[0].sist=idagIso(); p.endret=new Date().toISOString(); merkSti("planter",{t:"bilag",id:p.id}); uskrevetLagre(); persist(); giPoeng(5,"Vannet: "+p.navn,p.id); flinkLagre(); visRos("Vannet. +5 pusepoeng."); tegnPlanter(); }));
+  $("planteListe").querySelectorAll(".plante").forEach(e=>e.addEventListener("click",()=>aapnePlante(e.dataset.id)));
+}
+function aapnePlante(id){ plRedigerId=id||null; plBildeNytt=null; const p=id?finnBilag("planter",id):null; $("plTittel").textContent=p?"Rediger plante":"Ny plante"; $("inPlNavn").value=p?p.navn:""; $("inPlSted").value=p?(p.sted||""):""; $("inPlDager").value=p&&p.stell&&p.stell[0]?String(p.stell[0].intervall):""; $("plBildeInfo").textContent=""; $("plBesk").textContent=""; $("knPlSlett").classList.toggle("skjult",!p); $("planteOverlegg").classList.remove("skjult"); }
+$("knNyPlante").addEventListener("click",()=>aapnePlante(null));
+$("knPlBilde").addEventListener("click",()=>$("filPlante").click());
+$("filPlante").addEventListener("change",async e=>{ const f=e.target.files&&e.target.files[0]; e.target.value=""; if(!f) return; try{ plBildeNytt=await lesBildeFil(f); $("plBildeInfo").textContent="Bilde klart"; }catch(err){ $("plBesk").textContent=err.message; } });
+$("knPlLagre").addEventListener("click",async ()=>{ const navn=$("inPlNavn").value.trim(); if(!navn){ $("plBesk").textContent="Gi planten et navn."; return; } const d=parseInt($("inPlDager").value.replace(/\D/g,""),10); let p=plRedigerId?finnBilag("planter",plRedigerId):{id:nyId("pl"),stell:[],logg:[],bilder:[],opprettet:new Date().toISOString(),av:innlogget||"",eier:eierNaa()}; p.navn=navn; p.sted=$("inPlSted").value.trim(); if(d){ if(!p.stell[0]) p.stell[0]={id:nyId("v"),hva:"Vanne",intervall:d,sist:""}; else p.stell[0].intervall=d; } else p.stell=[]; if(plBildeNytt){ await bildeLagreLokalt(plBildeNytt.id,plBildeNytt.bytes,plBildeNytt.mini); p.bilder=[{id:plBildeNytt.id,w:plBildeNytt.w,h:plBildeNytt.h}]; p.logg=(p.logg||[]).concat([{dato:idagIso(),bilde:p.bilder[0]}]); } if(!COMBINED.planter) COMBINED.planter={bilag:{}}; COMBINED.planter.bilag[p.id]=p; p.endret=new Date().toISOString(); merkSti("planter",{t:"bilag",id:p.id}); uskrevetLagre(); persist(); $("planteOverlegg").classList.add("skjult"); tegnPlanter(); });
+$("knPlSlett").addEventListener("click",()=>{ if(!plRedigerId||!confirm("Slette planten?")) return; delete COMBINED.planter.bilag[plRedigerId]; merkSti("planter",{t:"bilag",id:plRedigerId}); uskrevetLagre(); persist(); $("planteOverlegg").classList.add("skjult"); tegnPlanter(); });
+$("knPlAvbryt").addEventListener("click",()=>$("planteOverlegg").classList.add("skjult"));
+function visPlanter(){ if(!PLANTER_PAA){ visRos("Mine planter kommer snart."); return; } $("start").classList.add("skjult"); $("planter").classList.remove("skjult"); tegnPlanter(); window.scrollTo(0,0); }
+$("knPlanterHjem").addEventListener("click",()=>{ $("planter").classList.add("skjult"); visStart(); });
+
 /* ===================== MAT OG HJEM ===================== */
 const TALLERKEN={
   pasta:["Pasta",'<circle cx="50" cy="52" r="34" fill="#fff" stroke="#c9d8ea" stroke-width="3"/><path d="M28 46 q22 -14 44 0 M26 54 q24 -12 48 0 M30 62 q20 -10 40 0" stroke="#e0a83a" stroke-width="5" fill="none" stroke-linecap="round"/><circle cx="44" cy="50" r="4" fill="#e8362e"/><circle cx="58" cy="56" r="4" fill="#e8362e"/><path d="M40 40 l4 -6 M60 40 l-4 -6" stroke="#2f8f7a" stroke-width="3"/>'],
@@ -2631,7 +2866,10 @@ function tegnMiddag(){
   $("oppskriftListe").querySelectorAll("[data-rediger]").forEach(b=>b.addEventListener("click",()=>aapneOppskrift(b.dataset.rediger)));
 }
 function aapneVelgMiddag(dato){ vmDato=dato; const dt=new Date(dato+"T00:00:00"); $("vmTittel").textContent="Middag "+dt.toLocaleDateString("nb-NO",{weekday:"long",day:"numeric",month:"long"});
-  const ol=hjemListe("oppskrift").sort((a,b)=>a.navn.localeCompare(b.navn,"nb")); $("vmOppskrifter").innerHTML=ol.map(o=>`<div class="vm-rad" data-id="${o.id}">${tallerkenSvg(o.tallerken)}<span>${esc(o.navn)}</span></div>`).join("");
+  const planer=hjemListe("plan"); const sist=o=>planer.filter(p=>p.oppskriftId===o.id&&p.dato<=idagIso()).map(p=>p.dato).sort().pop()||"";
+  const ol=hjemListe("oppskrift").sort((a,b)=>a.navn.localeCompare(b.navn,"nb")); const lenge=ol.filter(o=>{ const s=sist(o); return !s||dagerTil(s)<=-21; }), nylig=ol.filter(o=>!lenge.includes(o));
+  const rad=o=>`<div class="vm-rad" data-id="${o.id}">${tallerkenSvg(o.tallerken)}<span>${esc(o.navn)}</span></div>`;
+  $("vmOppskrifter").innerHTML=(lenge.length?`<div class="sok-gruppe">Ikke spist på tre uker</div>`+lenge.map(rad).join(""):"")+(nylig.length?`<div class="sok-gruppe">Nylig</div>`+nylig.map(rad).join(""):"");
   $("vmOppskrifter").querySelectorAll(".vm-rad").forEach(r=>r.addEventListener("click",()=>settMiddag(vmDato,"oppskrift",r.dataset.id)));
   $("velgMiddagOverlegg").classList.remove("skjult"); }
 function settMiddag(dato,valg,oppskriftId){ let pl=planFor(dato); if(valg==="tom"){ if(pl){ hjemSlett(pl.id); } } else { if(!pl) pl={id:nyId("m"),t:"plan",dato}; pl.valg=valg; pl.oppskriftId=oppskriftId||""; pl.av=innlogget||""; pl.endret=new Date().toISOString(); hjemLagre(pl); } $("velgMiddagOverlegg").classList.add("skjult"); tegnMiddag(); if(valg==="oppskrift") visRos("Middag satt. Trykk 🛒 på dagen for å handle."); }
@@ -2646,11 +2884,11 @@ $("knNyOppskrift").addEventListener("click",()=>aapneOppskrift(null));
 $("knOpLagre").addEventListener("click",()=>{ const navn=$("inOpNavn").value.trim(); if(!navn){ $("feltOpNavn").classList.add("mangler"); $("opBesk").textContent="Gi oppskriften et navn."; return; } const ingr=$("inOpIngr").value.split("\n").map(x=>x.trim()).filter(Boolean).map(tekst=>({tekst})); const o=opRedigerId?finnBilag("hjem",opRedigerId):{id:nyId("o"),t:"oppskrift",opprettet:new Date().toISOString(),av:innlogget||""}; Object.assign(o,{navn,porsjoner:parseInt($("inOpPorsjoner").value,10)||2,ingredienser:ingr,tallerken:$("inOpTallerken").value||velgTallerken(navn),endret:new Date().toISOString()}); hjemLagre(o); $("oppskriftOverlegg").classList.add("skjult"); tegnMiddag(); });
 $("knOpSlett").addEventListener("click",()=>{ if(!opRedigerId) return; if(!confirm("Slette oppskriften?")) return; hjemSlett(opRedigerId); $("oppskriftOverlegg").classList.add("skjult"); tegnMiddag(); });
 $("knOpAvbryt").addEventListener("click",()=>$("oppskriftOverlegg").classList.add("skjult"));
-function tegnHjem(){ document.querySelectorAll("#hjemFaner button").forEach(b=>b.classList.toggle("pa",b.dataset.fane===hjemFane)); $("hjemLister").classList.toggle("skjult",hjemFane!=="lister"); $("hjemMiddag").classList.toggle("skjult",hjemFane!=="middag"); if(hjemFane==="lister") tegnLister(); else tegnMiddag(); }
+function tegnHjem(){ document.querySelectorAll("#hjemFaner button").forEach(b=>b.classList.toggle("pa",b.dataset.fane===hjemFane)); $("hjemLister").classList.toggle("skjult",hjemFane!=="lister"); $("hjemMiddag").classList.toggle("skjult",hjemFane!=="middag"); $("hjemOnsker").classList.toggle("skjult",hjemFane!=="onsker"); if(hjemFane==="lister") tegnLister(); else if(hjemFane==="middag") tegnMiddag(); else tegnOnsker(); }
 function visHjem(){ saaOppskrifter(); $("start").classList.add("skjult"); $("hjem").classList.remove("skjult"); tegnHjem(); window.scrollTo(0,0); }
 $("knHjemHjem").addEventListener("click",()=>{ $("hjem").classList.add("skjult"); visStart(); });
 document.querySelectorAll("#hjemFaner button").forEach(b=>b.addEventListener("click",()=>{ hjemFane=b.dataset.fane; tegnHjem(); }));
-$("middagIdag").addEventListener("click",()=>{ hjemFane="middag"; visHjem(); });
+
 
 /* ===================== PROSJEKTER ===================== */
 const PR_TYPE={bygge:"Bygge",reparere:"Reparere",plante:"Plante",pusse:"Pusse opp",annet:"Annet"};
@@ -2754,10 +2992,12 @@ $("dTilProsjekt").addEventListener("click",()=>{ const l=prosjektListe().filter(
   $("velgProsjektOverlegg").classList.remove("skjult"); });
 $("knVelgProsjektLukk").addEventListener("click",()=>$("velgProsjektOverlegg").classList.add("skjult"));
 /* Drivhuset */
-function planteSvg(kilde,nr){ return kilde==="kvitt"?`<svg viewBox="0 0 100 100">${MERKER[nr][1]}</svg>`:`<svg viewBox="0 0 100 100">${planteTegning(nr)}</svg>`; }
+function planteSvg(kilde,nr,gull){ let k=kilde==="kvitt"?MERKER[nr][1]:planteTegning(nr); if(gull) k=k.replace(/fill="#b34a7c"\/><rect x="30" y="64" width="40" height="8" rx="3" fill="#dba9c0"/,'fill="#e0a83a"/><rect x="30" y="64" width="40" height="8" rx="3" fill="#f2c66d"').replace(/fill="#3d6fa3"\/><rect x="30" y="64" width="40" height="8" rx="3" fill="#9fb9d6"/,'fill="#e0a83a"/><rect x="30" y="64" width="40" height="8" rx="3" fill="#f2c66d"'); return `<svg viewBox="0 0 100 100">${k}</svg>`; }
+function loveMaaned(t){ const f=flink(); const n=String(t||"").slice(0,7); if(!n||n>=mndNokkel()) return false; const m=f.poeng&&f.poeng[n]; return !!m&&Number(m.sum||0)>=NIVAER[NIVAER.length-1][1]; }
 function tegnDrivhus(){
   const f=flink(); const har=f.merker||[]; $("drivhusKvitt").innerHTML=MERKER.map((m,i)=>`<div class="${har.includes(i)?"har":""}" title="${m[0]}">${planteSvg("kvitt",i)}</div>`).join("");
-  const pp=f.prosjektPlanter||[]; $("drivhusProsjekt").innerHTML=pp.map(nr=>`<div class="har" title="${PLANTEBANK[nr][0]}">${planteSvg("bank",nr)}</div>`).join(""); $("drivhusTom").textContent=pp.length?"":"Fullfør et prosjekt, så kommer den første.";
+  const pp=f.prosjektPlanter||[], logg=f.planteLogg||[]; const tidFor=nr=>{ const x=logg.find(l=>l.kilde!=="kvitt"&&l.nr===nr); return x?x.t:""; };
+  $("drivhusProsjekt").innerHTML=pp.map(nr=>{ const g=loveMaaned(tidFor(nr)); return `<div class="har${g?" gull":""}" title="${PLANTEBANK[nr][0]}${g?" – Løve-måned":""}">${planteSvg("bank",nr,g)}</div>`; }).join(""); $("drivhusTom").textContent=pp.length?"":"Fullfør et prosjekt, så kommer den første.";
   $("drivhusUnder").textContent=`${har.length+pp.length} planter`;
 }
 function visDrivhus(){ $("flink").classList.add("skjult"); $("drivhus").classList.remove("skjult"); tegnDrivhus(); window.scrollTo(0,0); }
@@ -2782,8 +3022,8 @@ function oppsummer(){
   $("oppsumSaker").textContent=(aapne?`${aapne} ${aapne===1?"åpen sak":"åpne saker"}`:"Ingen åpne saker")+(tilb?` · kr ${kr(tilb)} tilbake i ${mndNavn(mndNokkel())}`:"");
   const prl=prosjektListe(), igang=prl.filter(p=>p.status==="igang").length, ns=nesteStegTekst();
   $("oppsumProsjekter").textContent=prl.length?`${igang} i gang${ns?" · neste: "+ns.n.tekst:""}`:"Ingen prosjekter ennå";
-  $("nesteSteg").classList.toggle("skjult",!ns); if(ns){ $("nesteStegTekst").textContent="Neste steg: "+ns.n.tekst; $("nesteSteg").dataset.id=ns.p.id; }
-  const plI=planFor(idagIso()), mt=planTekst(plI); $("middagIdag").classList.toggle("skjult",!mt); if(mt) $("middagIdagTekst").textContent="I dag: "+mt;
+  tegnDagenStart();
+  const plI=planFor(idagIso()), mt=planTekst(plI);
   const pln=[0,1,2,3,4].map(i=>planTekst(planFor(leggTilDager(idagIso(),i)))).filter(Boolean); $("oppsumHjem").textContent=pln.length?`${pln.length} av 5 middager planlagt${mt?" · i dag: "+mt:""}`:"Ingen middag planlagt";
   tegnPoengStripe(); tegnSkaal(); visPynt();
   const ro=altOrdnet(); KATT_BUNN().classList.toggle("sover2",ro);
@@ -2808,7 +3048,7 @@ function oppsummer(){
   } else nv.className="varsel skjult";
 }
 function visStart(){
-  ["app","kalender","saker","flink","prosjekter","prosjekt","drivhus","hjem"].forEach(i=>$(i).classList.add("skjult")); $("start").classList.remove("skjult");
+  ["app","kalender","saker","flink","prosjekter","prosjekt","drivhus","hjem","dagen","planter"].forEach(i=>$(i).classList.add("skjult")); $("start").classList.remove("skjult");
   KAT=null; tegnHilsen(); karTegn(0); oppsummer(); window.scrollTo(0,0);
   if(velkomstDryss){ velkomstDryss=false; setTimeout(()=>kattemat("liten"),250); }
 }
@@ -2840,6 +3080,7 @@ function aapneKat(k){
   nullstillSkjema(); byttFane("ny"); fyllButikkliste(); pkOppdaterIkon(); window.scrollTo(0,0);
 }
 function byttFane(f){
+  $("faneTall").classList.toggle("skjult",f!=="tall"); if(f==="tall"){ tegnTall(); }
   document.querySelectorAll("#faner button").forEach(b=>b.classList.toggle("pa",b.dataset.fane===f));
   $("faneNy").classList.toggle("skjult",f!=="ny"); $("faneListe").classList.toggle("skjult",f!=="liste"); $("bunnNy").classList.toggle("skjult",f!=="ny");
   if(f==="liste")tegnListe();
@@ -3187,7 +3428,7 @@ function karTegn(p){
 }
 let tittelSist=null, tittelTimer=null;
 function settTittel(){
-  const kat=karKort[karIdx].dataset.kat, tekst=({kalender:"Kalender",saker:"Reklamasjon og garanti",flink:"Flinkingen",prosjekter:"Prosjekter",hjem:"Mat og hjem"}[kat]||KATNAVN[kat])+", mjau mjau";
+  const kat=karKort[karIdx].dataset.kat, tekst=({kalender:"Kalender",saker:"Reklamasjon og garanti",flink:"Flinkingen",prosjekter:"Prosjekter",hjem:"Mat og hjem",planter:"Mine planter"}[kat]||KATNAVN[kat])+", mjau mjau";
   if(tekst===tittelSist) return; tittelSist=tekst;
   const b=$("tittelBoble"), t=$("tittelTekst");
   if(reduserBevegelse()||!t.textContent){ t.textContent=tekst; return; }
@@ -3195,7 +3436,7 @@ function settTittel(){
   tittelTimer=setTimeout(()=>{ t.textContent=tekst; b.classList.remove("bytt"); },170);
 }
 function karGaa(retning){ const n=karKort.length; karRetning=retning>0?1:-1; karIdx=((karIdx+retning)%n+n)%n; karTegn(0); }
-function karAapne(i){ const kat=karKort[i].dataset.kat; if(kat==="kalender") visKalender(); else if(kat==="saker") visSaker(); else if(kat==="flink") visFlink(); else if(kat==="prosjekter") visProsjekter(); else if(kat==="hjem"){ hjemFane="lister"; visHjem(); } else aapneKat(kat); }
+function karAapne(i){ const kat=karKort[i].dataset.kat; if(kat==="kalender") visKalender(); else if(kat==="saker") visSaker(); else if(kat==="flink") visFlink(); else if(kat==="prosjekter") visProsjekter(); else if(kat==="hjem"){ hjemFane="lister"; visHjem(); } else if(kat==="planter") visPlanter(); else aapneKat(kat); }
 $("karForrige").addEventListener("click",()=>karGaa(-1));
 $("karNeste").addEventListener("click",()=>karGaa(1));
 karKort.forEach((k,i)=>{
@@ -3353,7 +3594,6 @@ $("fristVarsel").addEventListener("click",()=>{
   $("fristOverlegg").classList.remove("skjult");
 });
 $("fristLukk").addEventListener("click",()=>$("fristOverlegg").classList.add("skjult"));
-$("nesteSteg").addEventListener("click",()=>{ visProsjekter(); aapneProsjekt($("nesteSteg").dataset.id); });
 for(const id of ["pdfOverlegg","detaljOverlegg","papirkurvOverlegg","fristOverlegg","nokkelOverlegg","filOverlegg","innstOverlegg","sakOverlegg","ordnetOverlegg","nyttProsjektOverlegg","velgProsjektOverlegg","velgMiddagOverlegg","oppskriftOverlegg"]){
   $(id).addEventListener("click",e=>{ if(e.target.id!==id) return;
     if(id==="detaljOverlegg") lukkDetalj(); else if(id==="pdfOverlegg"){ $("pdfOverlegg").classList.add("skjult"); byttFane("liste"); } else $(id).classList.add("skjult"); });
