@@ -1005,7 +1005,7 @@ button,input,select,textarea{font-family:inherit}
     <div class="flink-rad"><div class="h">Drivhuset</div><div class="u" id="flinkMerkerTekst"></div><div class="album" id="flinkAlbum"></div><div class="u" style="margin-top:10px;font-size:12px;color:var(--muted)" id="flinkNesteTekst"></div><div class="album" id="flinkNestePlanter"></div><button class="panelknapp andre" id="knDrivhus" style="margin-top:12px">🌿 Til drivhuset</button></div>
     <div class="flink-rad"><div class="h">Prosjekter</div><div class="u" id="flinkProsjekter"></div></div>
     <div class="flink-rad"><div class="h">Gullpoten</div><div class="u" id="flinkGylne"></div></div>
-    <div class="flink-rad"><div class="h">Månedene</div><div id="flinkMaaneder"></div></div>
+    <div class="flink-rad"><div class="h">Måned for måned</div><div id="flinkMaaneder"></div></div>
   </div>
 </div>
 
@@ -1046,7 +1046,7 @@ button,input,select,textarea{font-family:inherit}
     <div class="grep"></div>
     <h2 id="plTittel">Ny plante</h2>
     <div class="felt" id="feltPlNavn"><label for="inPlNavn">Navn</label><input type="text" id="inPlNavn" autocapitalize="sentences" placeholder="Monstera i stua"></div>
-    <div class="par"><div class="felt"><label for="inPlSted">Plassering</label><input type="text" id="inPlSted" placeholder="Stuevinduet"></div><div class="felt"><label for="inPlDager">Vanne hver</label><input type="text" id="inPlDager" inputmode="numeric" placeholder="5. dag"></div></div>
+    <div class="par"><div class="felt"><label for="inPlSted">Plassering</label><input type="text" id="inPlSted" placeholder="Stuevinduet"></div><div class="felt"><label for="inPlDager">Vanne hver … dag</label><input type="text" id="inPlDager" inputmode="numeric" placeholder="5"></div></div>
     <div class="felt"><label>Bilde <span class="valg">– valgfritt</span></label><button class="panelknapp andre" id="knPlBilde" style="margin:0">📷 Ta bilde</button><span class="hint" id="plBildeInfo"></span></div>
     <div class="panelbesk feil" id="plBesk"></div>
     <button class="panelknapp" id="knPlLagre">💾 Lagre plante</button>
@@ -1064,7 +1064,7 @@ button,input,select,textarea{font-family:inherit}
   <div id="hjemFaner" class="faner-modul"><button data-fane="lister" class="pa">Handlelister</button><button data-fane="middag">Middag</button><button data-fane="onsker">Ønsker</button></div>
   <div class="sokerad" style="margin:12px 20px 0"><input type="search" id="inSokHjem" placeholder="🔎 Søk" autocomplete="off"></div>
   <div class="ark" id="hjemLister">
-    <div class="segment" id="segListe" style="margin-bottom:12px"><button type="button" data-v="felles" class="pa">Felles</button><button type="button" data-v="min">Min</button></div>
+    <div class="segment" id="segListe" style="margin-bottom:12px"><button type="button" data-v="felles" class="pa">Felles</button><button type="button" data-v="min">Mine</button></div>
     <div class="sokerad"><input type="text" id="inVare" placeholder="Melk, 2 l" list="varer" autocapitalize="sentences"><button class="panelknapp" id="knVare" style="width:auto;margin:0;padding:10px 14px">➕ Legg til</button></div>
     <datalist id="varer"></datalist>
     <div id="vareListe" style="margin-top:12px"></div>
@@ -1087,7 +1087,7 @@ button,input,select,textarea{font-family:inherit}
     <div class="grep"></div>
     <h2 id="vmTittel">Middag</h2>
     <div class="tolinje"><button class="panelknapp andre" data-valg="rester">🍲 Rester</button><button class="panelknapp andre" data-valg="ute">🍽️ Ute</button></div>
-    <div class="tolinje"><button class="panelknapp andre" data-valg="fri">🧘 Fri</button><button class="panelknapp andre" data-valg="tom">✕ Tøm dagen</button></div>
+    <div class="tolinje"><button class="panelknapp andre" data-valg="fri">🧘 Fri fra middag</button><button class="panelknapp andre" data-valg="tom">🧹 Tøm dagen</button></div>
     <div id="vmOppskrifter" style="margin-top:10px"></div>
     <button class="panelknapp andre" id="knVmLukk" style="margin-top:12px">✋ Avbryt</button>
   </div>
@@ -1131,9 +1131,9 @@ button,input,select,textarea{font-family:inherit}
     <div class="pr-status" id="prStatusRad"></div>
     <div class="flink-niva" style="align-items:stretch"><div class="t" style="flex:1"><div class="n" style="font-size:12px;text-transform:uppercase;letter-spacing:.9px;color:var(--muted);font-weight:600">Neste steg</div><div class="p" id="prNeste" style="font-size:18px;color:var(--ink);font-weight:650;margin-top:4px"></div><div class="stripe"><i id="prFyll"></i></div><div class="u" id="prFramdrift"></div><button class="panelknapp" id="knStegGjort" style="margin-top:10px">✅ Gjort</button><button class="panelknapp andre" id="knFokus" style="margin-top:8px">⏱️ Sett i gang 10 minutter</button></div></div>
     <div class="flink-rad"><div class="h">Steg</div><div id="prSteg"></div><div class="sokerad" style="margin:10px 0 0"><input type="text" id="inNyttSteg" placeholder="Nytt steg, én linje"><button class="panelknapp andre" id="knLeggSteg" style="width:auto;margin:0;padding:10px 14px">➕ Legg til</button></div></div>
-    <div class="flink-rad"><div class="h">Stell</div><div id="prStell"></div><div class="par" style="margin-top:10px"><div class="felt" style="margin:0"><input type="text" id="inStellHva" placeholder="Vanne"></div><div class="felt" style="margin:0;max-width:110px"><input type="text" id="inStellDager" inputmode="numeric" placeholder="hver 3. dag"></div></div><button class="panelknapp andre" id="knLeggStell" style="margin-top:8px">💧 Legg til stell</button></div>
+    <div class="flink-rad"><div class="h">Stell</div><div id="prStell"></div><div class="par" style="margin-top:10px"><div class="felt" style="margin:0"><label for="inStellHva">Hva</label><input type="text" id="inStellHva" placeholder="Vanne"></div><div class="felt" style="margin:0;max-width:130px"><label for="inStellDager">Hver … dag</label><input type="text" id="inStellDager" inputmode="numeric" placeholder="3"></div></div><button class="panelknapp andre" id="knLeggStell" style="margin-top:8px">💧 Legg til stell</button></div>
     <div class="flink-rad"><div class="h">Dagbok</div><div id="prLogg"></div><div class="sokerad" style="margin:10px 0 0"><input type="text" id="inLoggTekst" placeholder="Én linje om i dag"><button class="panelknapp andre" id="knLoggBilde" style="width:auto;margin:0;padding:10px 12px">📷</button><button class="panelknapp andre" id="knLoggLagre" style="width:auto;margin:0;padding:10px 14px">📝 Legg til</button></div><div class="hint" id="prLoggBildeInfo"></div></div>
-    <div class="flink-rad"><div class="h">Kvitteringer</div><div id="prBilag"></div></div>
+    <div class="flink-rad"><div class="h">Bilag</div><div id="prBilag"></div></div>
     <div class="tolinje"><button class="panelknapp andre" id="knPrRediger">✏️ Rediger</button><button class="panelknapp fare" id="knPrSlett">🗑️ Slett</button></div>
     <button class="panelknapp" id="knPrFerdig" style="background:#c98f2a">🏁 Ferdig!</button>
   </div>
@@ -1168,7 +1168,7 @@ button,input,select,textarea{font-family:inherit}
     <div class="felt" id="feltPrNavn"><label for="inPrNavn">Navn</label><input type="text" id="inPrNavn" autocapitalize="sentences" placeholder="Chili i stuevinduet"></div>
     <div class="felt"><label>Type</label><div class="segment" id="segPrType"><button type="button" data-v="bygge" class="pa">Bygge</button><button type="button" data-v="reparere">Reparere</button><button type="button" data-v="plante">Plante</button><button type="button" data-v="pusse">Pusse opp</button><button type="button" data-v="annet">Annet</button></div></div>
     <div class="felt" id="feltPrMal"><label>Mal <span class="valg">– valgfritt</span></label><select id="inPrMal"><option value="">Tomt prosjekt</option></select></div>
-    <div class="par"><div class="felt"><label for="inPrStart">Start</label><input type="date" id="inPrStart"></div><div class="felt"><label for="inPrMaal">Mål <span class="valg">– valgfritt</span></label><input type="date" id="inPrMaal"></div></div>
+    <div class="par"><div class="felt"><label for="inPrStart">Startet</label><input type="date" id="inPrStart"></div><div class="felt"><label for="inPrMaal">Mål <span class="valg">– valgfritt</span></label><input type="date" id="inPrMaal"></div></div>
     <div class="felt"><label>Bilde <span class="valg">– valgfritt</span></label><div class="tolinje" style="margin:0"><button class="panelknapp andre" id="knPrBilde" style="margin:0">📷 Ta bilde</button><span class="hint" id="prBildeInfo" style="align-self:center"></span></div></div>
     <div class="panelbesk feil" id="npBesk"></div>
     <button class="panelknapp" id="knNpLagre">💾 Lagre</button>
@@ -1287,7 +1287,7 @@ button,input,select,textarea{font-family:inherit}
   <div class="panel">
     <div class="grep"></div>
     <h2>Returfrister</h2>
-    <p class="ledetekst">Bilag med returfrist de neste sju dagene.</p>
+    <p class="ledetekst">Det som forfaller de nærmeste dagene: returer, gavekort og stell.</p>
     <div id="fristListe"></div>
     <button class="panelknapp andre" id="fristLukk">✋ Lukk</button>
   </div>
@@ -1349,7 +1349,7 @@ button,input,select,textarea{font-family:inherit}
     <div class="fot">
       <button id="knBackup" class="skjult" title="Lagre komplett backup (JSON)">&#128190;</button>
       <button id="knFil" class="skjult" title="Fil">&#128196; Fil</button>
-      <span class="versjon" id="startVersjon">Versjon 3.24</span>
+      <span class="versjon" id="startVersjon">Versjon 3.25</span>
     </div>
     <div id="startBesk"></div>
     <button class="panelknapp andre" id="knInnstSkjul" style="margin-top:16px">✋ Skjul innstillinger</button>
@@ -1376,8 +1376,8 @@ button,input,select,textarea{font-family:inherit}
 
 <script>
 "use strict";
-/* ===================== Kvitteringer, mjau mjau, versjon 3.24 ===================== */
-const APP_VERSJON = "3.24";
+/* ===================== Kvitteringer, mjau mjau, versjon 3.25 ===================== */
+const APP_VERSJON = "3.25";
 const LAGER = { eier: "OlavSve", repo: "Stine-app-data", gren: "main", fil: "bilag.kryptert.json", bilder: "bilder", backup: "backup" };
 const EK = { hemmelighet: "0df7552eec9d178481fda706b469d0305507b5ddc5c229a6292f863412d29d50", bildesalt: "m1jWj9kLvoyOxH+NuTrtpA==" };
 const DATA_TYPE = "stine-app-data";
@@ -2095,7 +2095,7 @@ function kalHendelser(){
 }
 function isoUke(d){ const t=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())); const dag=t.getUTCDay()||7; t.setUTCDate(t.getUTCDate()+4-dag); const start=new Date(Date.UTC(t.getUTCFullYear(),0,1)); return Math.ceil(((t-start)/86400000+1)/7); }
 function kalIso(y,m,d){ return `${y}-${String(m+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`; }
-function kalRad(h){ return `<div class="kal-rad" data-kat="${h.kat}" data-id="${h.id}"><span class="farge" style="background:${KAL_FARGE[h.slag]}"></span><div class="t"><div class="h">${esc(h.tekst)}</div><div class="u">${esc(h.under||"")}</div></div>${h.slag==="retur"?`<button class="kal-ordnet" data-ordnet>✅ Ordnet</button>`:""}<span class="d tall">${norskDato(h.dato)}</span></div>`; }
+function kalRad(h){ return `<div class="kal-rad" data-kat="${h.kat}" data-id="${h.id}"><span class="farge" style="background:${KAL_FARGE[h.slag]}"></span><div class="t"><div class="h">${esc(h.tekst)}</div><div class="u">${esc(h.under||"")}</div></div>${h.slag==="retur"?`<button class="kal-ordnet" data-ordnet>✅ Ordne</button>`:""}<span class="d tall">${norskDato(h.dato)}</span></div>`; }
 function kalKoble(rot){ rot.querySelectorAll(".kal-rad").forEach(r=>r.addEventListener("click",e=>{ if(e.target.closest("[data-ordnet]")){ returnerHurtig(r.dataset.kat,r.dataset.id); return; } $("kalender").classList.add("skjult"); if(r.dataset.kat==="prosjekter"){ aapneProsjekt(r.dataset.id); return; } aapneKat(r.dataset.kat); byttFane("liste"); visDetalj(r.dataset.id); })); }
 function kalTegn(){
   const alle=kalHendelser(), idag=idagIso();
@@ -2534,7 +2534,7 @@ function tegnSaker(){
   $("sakerSum").textContent="kr "+kr(tilbakeDenneMnd()); $("sakerUnder").textContent=`${alleSaker().filter(({x})=>x.status!=="ordnet").length} åpne`;
   $("sakerListe").innerHTML = l.length ? l.map(({k,b,x})=>`<div class="sak" data-k="${k}" data-id="${b.id}" data-sak="${x.id}"><div class="h"><span>${esc(b.butikk)} – ${esc(b.beskrivelse)}</span><span class="type ${x.status==="ordnet"?"ordnet":x.type}">${x.status==="ordnet"?UTFALL_NAVN[x.utfall]||"Ordnet":SAK_NAVN[x.type]}</span></div>
       <div class="u">${esc(x.beskrivelse)} · ${x.status==="ordnet"?"ordnet "+norskDato(x.ordnetDato)+(x.belopTilbake?" · kr "+kr(x.belopTilbake)+" tilbake":""):"opprettet "+norskDato(x.dato)+" · "+KORTNAVN[k]}${x.notat?" · "+esc(x.notat):""}</div>
-      <div class="knapper">${x.status!=="ordnet"?`<button class="hoved" data-ordne>✅ Ordnet</button>`:""}<button data-aapne>📂 Åpne bilaget</button></div></div>`).join("")
+      <div class="knapper">${x.status!=="ordnet"?`<button class="hoved" data-ordne>✅ Ordne</button>`:""}<button data-aapne>📂 Åpne bilaget</button></div></div>`).join("")
     : `<div class="tomt"><strong>${sakerFane==="aapne"?"Ingen åpne saker":"Ingen ordnede saker ennå"}</strong>${sakerFane==="aapne"?"Saker lages fra bilaget med «Ny sak».":""}</div>`;
   $("sakerListe").querySelectorAll("[data-ordne]").forEach(kn=>kn.addEventListener("click",e=>{ const r=e.target.closest(".sak"); aapneOrdnet(r.dataset.k,r.dataset.id,r.dataset.sak); }));
   $("sakerListe").querySelectorAll("[data-aapne]").forEach(kn=>kn.addEventListener("click",e=>{ const r=e.target.closest(".sak"); $("saker").classList.add("skjult"); aapneKat(r.dataset.k); byttFane("liste"); visDetalj(r.dataset.id); }));
@@ -2673,7 +2673,7 @@ function tegnFlink(){
   $("flinkRekord").textContent=f.rekord&&f.rekord.poeng?`${f.rekord.poeng} poeng i ${mndNavn(f.rekord.mnd)} ${f.rekord.mnd.slice(0,4)} (${NIVAER[nivaFor(f.rekord.poeng)][0]})`:"Ingen rekord ennå";
   const har=f.merker||[], pp=f.prosjektPlanter||[]; $("flinkMerkerTekst").textContent=`${har.length+pp.length} planter · de siste du har fått`;
   const logg=(f.planteLogg||[]).slice(-5).reverse(); const siste=logg.length?logg:har.slice(-5).reverse().map(nr=>({nr,kilde:"kvitt"}));
-  $("flinkAlbum").innerHTML=siste.length?siste.map(x=>`<div class="har" title="${x.kilde==="kvitt"?MERKER[x.nr][0]:PLANTEBANK[x.nr][0]}">${planteSvg(x.kilde,x.nr)}</div>`).join(""):`<div class="hint" style="grid-column:1/-1">Ingen ennå. Den første kommer med første kvittering.</div>`;
+  $("flinkAlbum").innerHTML=siste.length?siste.map(x=>`<div class="har" title="${x.kilde==="kvitt"?MERKER[x.nr][0]:PLANTEBANK[x.nr][0]}">${planteSvg(x.kilde,x.nr)}</div>`).join(""):`<div class="hint" style="grid-column:1/-1">Ingen ennå. Den første kommer med første kvittering eller gavekort.</div>`;
   $("flinkNesteTekst").textContent="Neste tre, for prosjekter og hvert hundrede poeng:"; $("flinkNestePlanter").innerHTML=[0,1,2].map(k=>pp.length+k).filter(nr=>nr<PLANTEBANK.length).map(nr=>`<div title="${PLANTEBANK[nr][0]}">${planteSvg("bank",nr)}</div>`).join("");
   const prl=prosjektListe(); const stegUka=prl.reduce((a,p)=>a+(p.steg||[]).filter(x=>x.ferdig&&x.ferdigDato&&dagerTil(x.ferdigDato)>=-7).length,0);
   $("flinkProsjekter").textContent=`${prl.filter(p=>p.status==="igang").length} i gang · ${prl.filter(p=>p.status==="ferdig").length} ferdige · ${stegUka} steg denne uka`;
@@ -2773,7 +2773,7 @@ let plRedigerId=null, plBildeNytt=null;
 function planteListe(){ return bilagListe("planter"); }
 function tegnPlanter(){
   const l=planteListe().sort((a,b)=>a.navn.localeCompare(b.navn,"nb")); $("planterUnder").textContent=`${l.length} planter`;
-  $("planteListe").innerHTML=l.length?l.map(p=>{ const st=p.stell&&p.stell[0]; const forfalt=st&&dagerTil(stellNeste(st))<=0; return `<div class="plante" data-id="${p.id}">${p.bilder&&p.bilder[0]?`<img class="bilde" data-bilde="${p.bilder[0].id}" alt="">`:`<div class="bilde">🌱</div>`}<div class="t"><div>${esc(p.navn)}</div><div class="u">${esc(p.sted||"")}${st?` · vanne hver ${st.intervall}. dag · ${forfalt?"i dag":"neste "+norskDato(stellNeste(st))}`:""}</div></div>${st?`<button data-vann="${p.id}">💧 Vannet</button>`:""}</div>`; }).join(""):`<div class="tomt"><strong>Ingen planter ennå</strong></div>`;
+  $("planteListe").innerHTML=l.length?l.map(p=>{ const st=p.stell&&p.stell[0]; const forfalt=st&&dagerTil(stellNeste(st))<=0; return `<div class="plante" data-id="${p.id}">${p.bilder&&p.bilder[0]?`<img class="bilde" data-bilde="${p.bilder[0].id}" alt="">`:`<div class="bilde">🌱</div>`}<div class="t"><div>${esc(p.navn)}</div><div class="u">${esc(p.sted||"")}${st?` · vanne hver ${st.intervall}. dag · ${forfalt?"i dag":"neste "+norskDato(stellNeste(st))}`:""}</div></div>${st?`<button data-vann="${p.id}">💧 Gjort</button>`:""}</div>`; }).join(""):`<div class="tomt"><strong>Ingen planter ennå</strong></div>`;
   $("planteListe").querySelectorAll("img.bilde[data-bilde]").forEach(async img=>{ const u=await bildeHent(img.dataset.bilde,true); if(u) img.src=u; });
   $("planteListe").querySelectorAll("[data-vann]").forEach(b=>b.addEventListener("click",e=>{ e.stopPropagation(); const p=finnBilag("planter",b.dataset.vann); p.stell[0].sist=idagIso(); p.endret=new Date().toISOString(); merkSti("planter",{t:"bilag",id:p.id}); uskrevetLagre(); persist(); giPoeng(5,"Vannet: "+p.navn,p.id); flinkLagre(); visRos("Vannet. +5 pusepoeng."); tegnPlanter(); }));
   $("planteListe").querySelectorAll(".plante").forEach(e=>e.addEventListener("click",()=>aapnePlante(e.dataset.id)));
@@ -2946,7 +2946,7 @@ function tegnProsjekt(){
   $("prLogg").innerHTML=(pr.logg||[]).slice().reverse().map(x=>`<div class="logg">${x.bilde?`<img data-bilde="${x.bilde.id}" alt="">`:""}<div><div class="d">${norskDato(x.dato)}</div><div>${esc(x.tekst)}</div></div></div>`).join("")||`<div class="hint">Én linje og et bilde nå og da. For planter blir det en vekstrekke.</div>`;
   $("prLogg").querySelectorAll("img[data-bilde]").forEach(async img=>{ const u=await bildeHent(img.dataset.bilde,true); if(u) img.src=u; });
   const bl=(pr.bilag||[]).map(r=>({r,b:finnBilag(r.kat,r.id)})).filter(x=>x.b); const sum=bl.reduce((a,x)=>a+Number(x.b.belop||0),0);
-  $("prBilag").innerHTML=bl.length?bl.map(x=>`<div class="prbilag"><div><div>${esc(x.b.butikk)} – ${esc(x.b.beskrivelse)}</div><div class="u">${norskDato(x.b.dato)}</div></div><span class="tall">kr ${kr(x.b.belop)}</span></div>`).join("")+`<div class="prbilag"><strong>Til sammen</strong><strong class="tall">kr ${kr(sum)}</strong></div>`:`<div class="hint">Åpne en kvittering og velg «🧰 Legg til i prosjekt».</div>`;
+  $("prBilag").innerHTML=bl.length?bl.map(x=>`<div class="prbilag"><div><div>${esc(x.b.butikk)} – ${esc(x.b.beskrivelse)}</div><div class="u">${norskDato(x.b.dato)}</div></div><span class="tall">kr ${kr(x.b.belop)}</span></div>`).join("")+`<div class="prbilag"><strong>Til sammen</strong><strong class="tall">kr ${kr(sum)}</strong></div>`:`<div class="hint">Åpne et bilag og velg «🧰 Legg til i prosjekt».</div>`;
   $("knPrFerdig").classList.toggle("skjult",pr.status==="ferdig"); $("prLoggBildeInfo").textContent=loggBildeNytt?"Bilde klart":"";
 }
 function stegHak(pr,id){ const st=pr.steg.find(x=>x.id===id); if(!st) return; st.ferdig=!st.ferdig; st.ferdigDato=st.ferdig?idagIso():""; if(st.ferdig&&!st.poengGitt){ st.poengGitt=true; giPoeng(5,"Steg: "+st.tekst,pr.id); flinkLagre(); kattemat("liten"); visRos(["Ett steg til. Pusen nikker.","Gjort! Neste, når du vil.","Mrrp. Det der var et steg.","Hun ser at du gjør det."][Math.floor(Math.random()*4)]+" +5 pusepoeng."); } prLagre(pr); tegnProsjekt(); oppsummer(); }
@@ -2974,7 +2974,7 @@ $("knNpLagre").addEventListener("click",lagreProsjektPanel); $("knNpAvbryt").add
 /* Fokusstund */
 function fokusVis(){ const ms=Math.max(0,fokusSlutt-Date.now()); const m=Math.floor(ms/60000), sek=Math.floor((ms%60000)/1000); $("fokusTid").textContent=`${String(m).padStart(2,"0")}:${String(sek).padStart(2,"0")}`; if(ms<=0){ fokusStopp(true); } }
 function fokusStart(){ const pr=finnProsjekt(prAktiv); const n=pr&&prNeste(pr); $("fokusTittel").textContent="10 minutter"; $("fokusTekst").textContent=n?"Bare dette: "+n.tekst:"Pusen heier. Bare dette ene steget."; fokusSlutt=Date.now()+10*60000; fokusVis(); clearInterval(fokusTimer); fokusTimer=setInterval(()=>{ fokusVis(); if(Math.random()<0.08){ const r=$("fokusTid").getBoundingClientRect(); prrTekst(r.left+r.width/2,r.top); } },1000); $("fokusOverlegg").classList.remove("skjult"); }
-function fokusStopp(fullfort){ clearInterval(fokusTimer); fokusTimer=null; $("fokusOverlegg").classList.add("skjult"); if(fullfort){ giPoeng(5,"Fokusstund",prAktiv); flinkLagre(); kattemat(); visRos("Ti minutter. Det er sånn det gjøres. +5 pusepoeng."); } }
+function fokusStopp(fullfort){ clearInterval(fokusTimer); fokusTimer=null; $("fokusOverlegg").classList.add("skjult"); if(fullfort){ giPoeng(5,"Fokusstund",prAktiv); flinkLagre(); kattemat(); visRos("Ti minutter gjort. +5 pusepoeng."); } }
 $("knFokus").addEventListener("click",fokusStart); $("knFokusFerdig").addEventListener("click",()=>fokusStopp(true)); $("knFokusAvbryt").addEventListener("click",()=>fokusStopp(false));
 /* Kvittering til prosjekt */
 $("dTilProsjekt").addEventListener("click",()=>{ const l=prosjektListe().filter(p=>p.status!=="ferdig"); $("velgProsjektListe").innerHTML=l.length?l.map(p=>`<div class="listerad" data-id="${p.id}"><div><div class="h">${PR_EMOJI[p.type]||"🧰"} ${esc(p.navn)}</div><div class="u">${PR_TYPE[p.type]||""}</div></div></div>`).join(""):`<div class="tomt">Ingen prosjekter i gang.</div>`;
@@ -3338,7 +3338,7 @@ async function visDetalj(id){
   if(b.av) h+=`<div class="rad"><span class="n">Registrert av</span><span class="v">${esc(b.av)}</span></div>`;
   $("dRader").innerHTML=h;
   const sk=bilagSaker(b); $("dNySak").classList.remove("skjult"); $("dTilProsjekt").classList.remove("skjult");
-  $("dSaker").innerHTML=(sk.length?`<div class="rad stablet" style="padding-bottom:0"><span class="n">Saker</span></div>`:"")+sk.map(x=>`<div class="dsak"><div><div>${SAK_NAVN[x.type]}${x.beskrivelse&&x.beskrivelse!==SAK_NAVN[x.type]?": "+esc(x.beskrivelse):""}</div><div class="u">${x.status==="ordnet"?(UTFALL_NAVN[x.utfall]||"Ordnet")+" "+norskDato(x.ordnetDato)+(x.belopTilbake?" · kr "+kr(x.belopTilbake)+" tilbake":""):"åpen siden "+norskDato(x.dato)}</div></div>${x.status!=="ordnet"?`<button data-ordne-sak="${x.id}">✅ Ordnet</button>`:""}</div>`).join("")
+  $("dSaker").innerHTML=(sk.length?`<div class="rad stablet" style="padding-bottom:0"><span class="n">Saker</span></div>`:"")+sk.map(x=>`<div class="dsak"><div><div>${SAK_NAVN[x.type]}${x.beskrivelse&&x.beskrivelse!==SAK_NAVN[x.type]?": "+esc(x.beskrivelse):""}</div><div class="u">${x.status==="ordnet"?(UTFALL_NAVN[x.utfall]||"Ordnet")+" "+norskDato(x.ordnetDato)+(x.belopTilbake?" · kr "+kr(x.belopTilbake)+" tilbake":""):"åpen siden "+norskDato(x.dato)}</div></div>${x.status!=="ordnet"?`<button data-ordne-sak="${x.id}">✅ Ordne</button>`:""}</div>`).join("")
     +(b.returfrist&&!returOrdnet(b)?`<div class="dsak"><div><div>Retur</div><div class="u">frist ${norskDato(b.returfrist)}</div></div><button data-returner>↩️ Returnert</button></div>`:"");
   $("dSaker").querySelectorAll("[data-ordne-sak]").forEach(kn=>kn.addEventListener("click",()=>aapneOrdnet(KAT,b.id,kn.dataset.ordneSak)));
   $("dSaker").querySelectorAll("[data-returner]").forEach(kn=>kn.addEventListener("click",()=>returnerHurtig(KAT,b.id)));
@@ -3575,7 +3575,7 @@ $("fristVarsel").addEventListener("click",()=>{
   $("fristListe").innerHTML=f.map(x=>{ if(x.slag==="stell") return `<div class="listerad" data-kat="prosjekter" data-id="${x.b.id}"><div><div class="h">${esc(x.st.hva)}: ${esc(x.b.navn)}</div><div class="u">i dag · hver ${x.st.intervall}. dag</div></div><div class="knapper"><button data-stellgjort="${x.st.id}">💧 Gjort</button></div></div>`;
     const gk=x.k==="gavekort", fr=gk?gavekortFrist(x.b):{dato:x.b.returfrist};
     const hva=gk?(x.slag==="foreldes"?"foreldes":"utløper"):"returfrist";
-    return `<div class="listerad" data-kat="${x.k}" data-id="${x.b.id}"><div><div class="h">${esc(x.b.butikk)} · kr ${kr(gk?gavekortRest(x.b):x.b.belop)}</div><div class="u">${esc(gk?(x.b.type==="tilgodelapp"?"Tilgodelapp":"Gavekort"):x.b.beskrivelse)} · ${hva} ${x.d===0?"i dag":"om "+x.d+(x.d===1?" dag":" dager")} (${norskDato(fr.dato)})</div></div><div class="knapper"><button data-ordnet>${gk?"✅ Brukt opp":"✅ Ordnet"}</button></div></div>`; }).join("");
+    return `<div class="listerad" data-kat="${x.k}" data-id="${x.b.id}"><div><div class="h">${esc(x.b.butikk)} · kr ${kr(gk?gavekortRest(x.b):x.b.belop)}</div><div class="u">${esc(gk?(x.b.type==="tilgodelapp"?"Tilgodelapp":"Gavekort"):x.b.beskrivelse)} · ${hva} ${x.d===0?"i dag":"om "+x.d+(x.d===1?" dag":" dager")} (${norskDato(fr.dato)})</div></div><div class="knapper"><button data-ordnet>${gk?"✅ Brukt opp":"✅ Ordne"}</button></div></div>`; }).join("");
   $("fristListe").querySelectorAll(".listerad").forEach(r=>r.addEventListener("click",e=>{ if(e.target.closest("[data-ordnet],[data-stellgjort]")) return; $("fristOverlegg").classList.add("skjult"); if(r.dataset.kat==="prosjekter"){ aapneProsjekt(r.dataset.id); return; } aapneKat(r.dataset.kat); byttFane("liste"); visDetalj(r.dataset.id); }));
   $("fristListe").querySelectorAll("[data-stellgjort]").forEach(kn=>kn.addEventListener("click",e=>{ const r=e.target.closest(".listerad"); const pr=finnProsjekt(r.dataset.id); const st=pr&&pr.stell.find(x=>x.id===kn.dataset.stellgjort); if(!st) return; st.sist=idagIso(); prLagre(pr); giPoeng(5,st.hva+": "+pr.navn,pr.id); flinkLagre(); kattemat("liten"); visRos(st.hva+" gjort. +5 pusepoeng."); $("fristOverlegg").classList.add("skjult"); oppsummer(); }));
   $("fristListe").querySelectorAll("[data-ordnet]").forEach(kn=>kn.addEventListener("click",e=>{ const r=e.target.closest(".listerad"); $("fristOverlegg").classList.add("skjult");
