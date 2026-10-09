@@ -328,18 +328,23 @@ button,input,select,textarea{font-family:inherit}
 /* ---------- v3.22: søk, Dagens tre, tall, ønsker, planter ---------- */
 #start .sokrad-start{margin:10px 0 0}
 #start .sokrad-start input{width:100%;background:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.95);border-radius:12px;padding:10px 14px;font-size:14px;color:var(--ink)}
-#start .dagen-rad{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:rgba(255,255,255,.75);border:1px solid rgba(255,255,255,.95);border-radius:14px;padding:8px 12px;margin:8px 0 0;cursor:pointer;color:var(--ink)}
-#start .dagen-rad svg{width:64px;height:70px;flex:none}
-#start .dagen-rad .t{flex:1;min-width:0;font-size:13.5px;line-height:1.5}
-#start .dagen-rad .h{font-weight:700;font-size:11px;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
-#start .dagen-rad .pil{font-size:18px;color:var(--privat)}
-.dagen-tre-stor{text-align:center;margin:4px 0 14px}
-.dagen-tre-stor svg{width:220px;height:auto}
-.dagen-el{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:10px;font-size:15px}
-.dagen-el .frukt{font-size:26px;flex:none}
-.dagen-el .t{flex:1}
-.dagen-el .u{font-size:12.5px;color:var(--muted)}
-.dagen-el button{background:var(--gavekort);color:#fff;border:none;border-radius:9px;padding:9px 12px;font-size:13.5px;cursor:pointer;flex:none}
+/* ---------- 3.29: Ikke glem ---------- */
+#start .husk-rad{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:rgba(255,255,255,.75);border:1px solid rgba(255,255,255,.95);border-radius:14px;padding:8px 12px;margin:8px 0 0;cursor:pointer;color:var(--ink)}
+#start .husk-rad svg{width:64px;height:66px;flex:none}
+#start .husk-rad .t{flex:1;min-width:0;font-size:13.5px;line-height:1.5}
+#start .husk-rad .h{font-weight:800;font-size:14.5px;color:var(--puser);margin-bottom:2px;letter-spacing:.2px}
+#start .husk-rad .h.pille{display:inline-flex;align-items:center;gap:6px;background:var(--puser-tint);border-radius:999px;padding:2px 11px;font-size:13.5px;margin-bottom:4px}
+#start .husk-rad .h .blomst{font-size:12px;position:relative;top:-1px}
+#start .husk-rad .blomst{color:var(--puser)}
+#start .husk-rad .tom{color:var(--muted)}
+#start .husk-rad .pil{font-size:18px;color:var(--privat)}
+.husk-topp{position:relative;overflow:hidden}
+.husk-topp .husk-krans{position:absolute;right:8px;bottom:-6px;width:150px;height:40px;opacity:.95;pointer-events:none}
+.husk-el{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:10px;font-size:15px}
+.husk-el .blomst{font-size:22px;color:var(--puser);flex:none;width:28px;text-align:center}
+.husk-el .t{flex:1}
+.husk-el .u{font-size:12.5px;color:var(--muted)}
+.husk-el button{background:var(--gavekort);color:#fff;border:none;border-radius:9px;padding:9px 12px;font-size:13.5px;cursor:pointer;flex:none}
 .kar-kort.laast{opacity:.72}
 .kar-kort.laast .under{color:var(--gavekort-ink);font-weight:650}
 .stolper{display:grid;grid-template-columns:repeat(12,1fr);gap:4px;align-items:end;height:130px;padding:16px 0 18px}
@@ -828,7 +833,7 @@ button,input,select,textarea{font-family:inherit}
       <svg id="tidIkon" viewBox="0 0 100 100" aria-hidden="true"></svg>
       <div><div class="h" id="hilsenTekst">Hei</div><div class="s" id="hilsenSetning"></div></div>
     </div>
-    <button class="dagen-rad" id="dagenRad"><svg viewBox="0 0 140 150" id="dagenTre" aria-hidden="true"></svg><div class="t"><div class="h">Dagens tre</div><div id="dagenLinjer"></div></div><span class="pil">›</span></button>
+    <button class="husk-rad" id="huskRad"><svg viewBox="0 0 70 72" aria-hidden="true"><ellipse cx="35" cy="68" rx="22" ry="3.5" fill="#2f8f7a" opacity=".25"/><path d="M35 66 Q30 50 21 34" stroke="#2f8f7a" stroke-width="2.4" fill="none" stroke-linecap="round"/><path d="M35 66 Q36 46 38 24" stroke="#2f8f7a" stroke-width="2.4" fill="none" stroke-linecap="round"/><path d="M35 66 Q42 52 52 36" stroke="#2f8f7a" stroke-width="2.4" fill="none" stroke-linecap="round"/><ellipse cx="27" cy="54" rx="6.5" ry="3" transform="rotate(-38 27 54)" fill="#7fc4b4"/><ellipse cx="44" cy="53" rx="6.5" ry="3" transform="rotate(34 44 53)" fill="#7fc4b4"/><ellipse cx="33" cy="44" rx="5" ry="2.5" transform="rotate(-24 33 44)" fill="#2f8f7a"/><ellipse cx="21" cy="24.4" rx="3.8" ry="5.6" transform="rotate(10 21 30)" fill="#f4bdd4"/><ellipse cx="21" cy="24.4" rx="3.8" ry="5.6" transform="rotate(82 21 30)" fill="#f4bdd4"/><ellipse cx="21" cy="24.4" rx="3.8" ry="5.6" transform="rotate(154 21 30)" fill="#f4bdd4"/><ellipse cx="21" cy="24.4" rx="3.8" ry="5.6" transform="rotate(226 21 30)" fill="#f4bdd4"/><ellipse cx="21" cy="24.4" rx="3.8" ry="5.6" transform="rotate(298 21 30)" fill="#f4bdd4"/><circle cx="21" cy="30" r="3.1" fill="#e0a83a"/><ellipse cx="52" cy="28.0" rx="3.4" ry="5.0" transform="rotate(20 52 33)" fill="#e0a83a"/><ellipse cx="52" cy="28.0" rx="3.4" ry="5.0" transform="rotate(92 52 33)" fill="#e0a83a"/><ellipse cx="52" cy="28.0" rx="3.4" ry="5.0" transform="rotate(164 52 33)" fill="#e0a83a"/><ellipse cx="52" cy="28.0" rx="3.4" ry="5.0" transform="rotate(236 52 33)" fill="#e0a83a"/><ellipse cx="52" cy="28.0" rx="3.4" ry="5.0" transform="rotate(308 52 33)" fill="#e0a83a"/><circle cx="52" cy="33" r="2.7" fill="#b34a7c"/><ellipse cx="38" cy="13.8" rx="4.2" ry="6.2" transform="rotate(0 38 20)" fill="#b34a7c"/><ellipse cx="38" cy="13.8" rx="4.2" ry="6.2" transform="rotate(72 38 20)" fill="#b34a7c"/><ellipse cx="38" cy="13.8" rx="4.2" ry="6.2" transform="rotate(144 38 20)" fill="#b34a7c"/><ellipse cx="38" cy="13.8" rx="4.2" ry="6.2" transform="rotate(216 38 20)" fill="#b34a7c"/><ellipse cx="38" cy="13.8" rx="4.2" ry="6.2" transform="rotate(288 38 20)" fill="#b34a7c"/><circle cx="38" cy="20" r="3.4" fill="#fff3f8"/></svg><div class="t"><div class="h"><span class="blomst">✿</span> Ikke glem <span class="blomst">✿</span></div><div id="huskLinjer"></div></div><span class="pil">›</span></button>
     <div class="spor" aria-hidden="true"></div>
     <div class="tittelrad">
       <div class="boble" id="tittelBoble"><span id="tittelTekst">Private kvitteringer, mjau mjau</span><i class="t1"></i><i class="t2"></i><i class="t3"></i></div>
@@ -846,7 +851,6 @@ button,input,select,textarea{font-family:inherit}
       </svg>
     </div>
 
-    <div id="fristVarsel" class="varsel klikk skjult"></div>
     <div id="nokkelVarsel" class="varsel skjult"></div>
 
     <div class="karusell" id="karusell" aria-roledescription="karusell">
@@ -1107,15 +1111,15 @@ button,input,select,textarea{font-family:inherit}
   </div>
 </div>
 
-<!-- ===================== DAGENS TRE ===================== -->
-<div id="dagen" class="skjult">
-  <div class="topp-modul" style="background-color:var(--gavekort)">
-    <button class="tilbake" id="knDagenHjem" aria-label="Tilbake til start">‹</button>
-    <div><div class="tittel">Dagens tre</div><div class="undertekst" id="dagenUnder"></div></div>
+<!-- ===================== IKKE GLEM ===================== -->
+<div id="husk" class="skjult">
+  <div class="topp-modul husk-topp" style="background-color:var(--gavekort)">
+    <button class="tilbake" id="knHuskHjem" aria-label="Tilbake til start">‹</button>
+    <div><div class="tittel">Ikke glem</div><div class="undertekst" id="huskUnder"></div></div>
+    <svg class="husk-krans" viewBox="0 0 150 40" aria-hidden="true"><path d="M2 30 Q40 6 75 24 T148 18" stroke="#9fd9c9" stroke-width="2" fill="none" stroke-linecap="round"/><ellipse cx="30" cy="18" rx="7" ry="3" transform="rotate(-30 30 18)" fill="#7fc4b4"/><ellipse cx="96" cy="20" rx="7" ry="3" transform="rotate(25 96 20)" fill="#7fc4b4"/><ellipse cx="128" cy="24" rx="6" ry="2.6" transform="rotate(-20 128 24)" fill="#7fc4b4"/><ellipse cx="14" cy="21.7" rx="2.9" ry="4.3" transform="rotate(15 14 26)" fill="#f4bdd4"/><ellipse cx="14" cy="21.7" rx="2.9" ry="4.3" transform="rotate(87 14 26)" fill="#f4bdd4"/><ellipse cx="14" cy="21.7" rx="2.9" ry="4.3" transform="rotate(159 14 26)" fill="#f4bdd4"/><ellipse cx="14" cy="21.7" rx="2.9" ry="4.3" transform="rotate(231 14 26)" fill="#f4bdd4"/><ellipse cx="14" cy="21.7" rx="2.9" ry="4.3" transform="rotate(303 14 26)" fill="#f4bdd4"/><circle cx="14" cy="26" r="2.4" fill="#e0a83a"/><ellipse cx="56" cy="10.0" rx="3.4" ry="5.0" transform="rotate(0 56 15)" fill="#fff3f8"/><ellipse cx="56" cy="10.0" rx="3.4" ry="5.0" transform="rotate(72 56 15)" fill="#fff3f8"/><ellipse cx="56" cy="10.0" rx="3.4" ry="5.0" transform="rotate(144 56 15)" fill="#fff3f8"/><ellipse cx="56" cy="10.0" rx="3.4" ry="5.0" transform="rotate(216 56 15)" fill="#fff3f8"/><ellipse cx="56" cy="10.0" rx="3.4" ry="5.0" transform="rotate(288 56 15)" fill="#fff3f8"/><circle cx="56" cy="15" r="2.7" fill="#e0a83a"/><ellipse cx="80" cy="23.0" rx="2.7" ry="4.0" transform="rotate(30 80 27)" fill="#f4bdd4"/><ellipse cx="80" cy="23.0" rx="2.7" ry="4.0" transform="rotate(102 80 27)" fill="#f4bdd4"/><ellipse cx="80" cy="23.0" rx="2.7" ry="4.0" transform="rotate(174 80 27)" fill="#f4bdd4"/><ellipse cx="80" cy="23.0" rx="2.7" ry="4.0" transform="rotate(246 80 27)" fill="#f4bdd4"/><ellipse cx="80" cy="23.0" rx="2.7" ry="4.0" transform="rotate(318 80 27)" fill="#f4bdd4"/><circle cx="80" cy="27" r="2.2" fill="#b34a7c"/><ellipse cx="112" cy="9.3" rx="3.1" ry="4.7" transform="rotate(10 112 14)" fill="#fff3f8"/><ellipse cx="112" cy="9.3" rx="3.1" ry="4.7" transform="rotate(82 112 14)" fill="#fff3f8"/><ellipse cx="112" cy="9.3" rx="3.1" ry="4.7" transform="rotate(154 112 14)" fill="#fff3f8"/><ellipse cx="112" cy="9.3" rx="3.1" ry="4.7" transform="rotate(226 112 14)" fill="#fff3f8"/><ellipse cx="112" cy="9.3" rx="3.1" ry="4.7" transform="rotate(298 112 14)" fill="#fff3f8"/><circle cx="112" cy="14" r="2.6" fill="#b34a7c"/><ellipse cx="142" cy="18.3" rx="2.5" ry="3.7" transform="rotate(0 142 22)" fill="#f4bdd4"/><ellipse cx="142" cy="18.3" rx="2.5" ry="3.7" transform="rotate(72 142 22)" fill="#f4bdd4"/><ellipse cx="142" cy="18.3" rx="2.5" ry="3.7" transform="rotate(144 142 22)" fill="#f4bdd4"/><ellipse cx="142" cy="18.3" rx="2.5" ry="3.7" transform="rotate(216 142 22)" fill="#f4bdd4"/><ellipse cx="142" cy="18.3" rx="2.5" ry="3.7" transform="rotate(288 142 22)" fill="#f4bdd4"/><circle cx="142" cy="22" r="2.0" fill="#e0a83a"/></svg>
   </div>
   <div class="ark">
-    <div class="dagen-tre-stor"><svg viewBox="0 0 140 150" id="dagenTreStor" aria-hidden="true"></svg></div>
-    <div id="dagenListe"></div>
+    <div id="huskListe"></div>
   </div>
 </div>
 
@@ -1381,16 +1385,6 @@ button,input,select,textarea{font-family:inherit}
   </div>
 </div>
 
-<div id="fristOverlegg" class="overlegg skjult">
-  <div class="panel">
-    <div class="grep"></div>
-    <h2>Returfrister</h2>
-    <p class="ledetekst">Det som forfaller de nærmeste dagene: returer, gavekort og stell.</p>
-    <div id="fristListe"></div>
-    <button class="panelknapp andre" id="fristLukk">✋ Lukk</button>
-  </div>
-</div>
-
 <div id="nokkelOverlegg" class="overlegg skjult">
   <div class="panel">
     <div class="grep"></div>
@@ -1447,7 +1441,7 @@ button,input,select,textarea{font-family:inherit}
     <div class="fot">
       <button id="knBackup" class="skjult" title="Lagre komplett backup (JSON)">&#128190;</button>
       <button id="knFil" class="skjult" title="Fil">&#128196; Fil</button>
-      <span class="versjon" id="startVersjon">Versjon 3.28</span>
+      <span class="versjon" id="startVersjon">Versjon 3.29</span>
     </div>
     <div id="startBesk"></div>
     <button class="panelknapp andre" id="knInnstSkjul" style="margin-top:16px">✋ Skjul innstillinger</button>
@@ -1540,8 +1534,8 @@ button,input,select,textarea{font-family:inherit}
 
 <script>
 "use strict";
-/* ===================== Kvitteringer, mjau mjau, versjon 3.28 ===================== */
-const APP_VERSJON = "3.28";
+/* ===================== Kvitteringer, mjau mjau, versjon 3.29 ===================== */
+const APP_VERSJON = "3.29";
 const LAGER = { eier: "OlavSve", repo: "Stine-app-data", gren: "main", fil: "bilag.kryptert.json", bilder: "bilder", backup: "backup" };
 const EK = { hemmelighet: "0df7552eec9d178481fda706b469d0305507b5ddc5c229a6292f863412d29d50", bildesalt: "m1jWj9kLvoyOxH+NuTrtpA==" };
 const DATA_TYPE = "stine-app-data";
@@ -2689,6 +2683,7 @@ function lagreOrdnet(){
   if(!sak.poengGitt){ sak.poengGitt=true; giPoeng(20,"Sak ordnet: "+b.butikk,b.id); poengTekst=" +20 pusepoeng."; }
   uskrevetLagre(); persist();
   $("ordnetOverlegg").classList.add("skjult"); visRos(ROS_SAK[Math.floor(Math.random()*ROS_SAK.length)]+poengTekst); kattemat();
+  if(!$("husk").classList.contains("skjult")) tegnIkkeGlem();
   if(detaljId===b.id&&!$("detaljOverlegg").classList.contains("skjult")) visDetalj(b.id);
   if(!$("saker").classList.contains("skjult")) tegnSaker(); if(!$("start").classList.contains("skjult")) oppsummer();
 }
@@ -2856,59 +2851,38 @@ function tegnFlink(){
 function visFlink(){ $("start").classList.add("skjult"); $("flink").classList.remove("skjult"); tegnFlink(); window.scrollTo(0,0); }
 $("knFlinkHjem").addEventListener("click",()=>{ $("flink").classList.add("skjult"); visStart(); });
 
-/* ===================== DAGENS TRE ===================== */
-const FRUKT=["🍎","🍐","🍑"];
-function dagensTing(){
-  const ut=[]; const idag=idagIso();
-  for(const p of prosjektListe()){ if(p.status!=="igang") continue; for(const st of (p.stell||[])){ if(dagerTil(stellNeste(st))<=0) ut.push({key:"stell:"+p.id+":"+st.id,slag:"stell",tekst:st.hva+": "+p.navn,under:"hver "+st.intervall+". dag",p,st}); } }
-  const f=fristerDenneUka().filter(x=>x.slag!=="stell").sort((a,b)=>a.d-b.d)[0];
-  if(f){ const gk=f.k==="gavekort"; ut.push({key:"frist:"+f.b.id,slag:"frist",tekst:gk?((f.b.type==="tilgodelapp"?"Tilgodelapp":"Gavekort")+" "+f.b.butikk+" "+(f.slag==="foreldes"?"foreldes":"utløper")):"Returfrist: "+f.b.butikk,under:f.d===0?"i dag":"om "+f.d+(f.d===1?" dag":" dager"),f}); }
+/* ===================== IKKE GLEM (3.29): det som venter i dag, som liste ===================== */
+function ikkeGlemListe(){
+  const ut=[];
+  for(const x of fristerDenneUka()){
+    if(x.slag==="stell"){ ut.push({key:"stell:"+x.b.id+":"+x.st.id,slag:"stell",tekst:x.st.hva+": "+x.b.navn,under:"hver "+x.st.intervall+". dag",p:x.b,st:x.st}); continue; }
+    const gk=x.k==="gavekort";
+    ut.push({key:"frist:"+x.b.id,slag:"frist",tekst:gk?((x.b.type==="tilgodelapp"?"Tilgodelapp":"Gavekort")+" "+x.b.butikk+" "+(x.slag==="foreldes"?"foreldes":"utløper")):"Returfrist: "+x.b.butikk,under:x.d===0?"i dag":"om "+x.d+(x.d===1?" dag":" dager"),f:x});
+  }
   const ns=nesteStegTekst(); if(ns) ut.push({key:"steg:"+ns.p.id+":"+ns.n.id,slag:"steg",tekst:"Neste steg: "+ns.n.tekst,under:ns.p.navn,p:ns.p,n:ns.n});
   return ut;
 }
-/* Dagens tre: de tre første som dukket opp i dag står fast; plukket frukt blir liggende i gresset */
-function dagensListe(){
-  const f=flink(); const naa=dagensTing(); if(!f.dagen||f.dagen.dato!==idagIso()) f.dagen={dato:idagIso(),ting:[],plukket:[]};
-  let endret=false; for(const t of naa){ if(f.dagen.ting.length>=3) break; if(!f.dagen.ting.some(x=>x.key===t.key)){ f.dagen.ting.push({key:t.key,slag:t.slag,tekst:t.tekst,under:t.under}); endret=true; } }
-  if(endret) flinkLagre();
-  return f.dagen.ting.map(t=>Object.assign({},t,{plukket:f.dagen.plukket.includes(t.key),naa:naa.find(x=>x.key===t.key)||null}));
+function huskAntallTekst(n){ return n?`${n} ting å huske`:"Ingenting å huske i dag"; }
+function tegnIkkeGlemStart(){
+  const l=ikkeGlemListe();
+  $("huskLinjer").innerHTML=l.length?l.map(t=>`<div><span class="blomst">✿</span> ${esc(t.tekst)}</div>`).join(""):`<div class="tom">Ingenting å huske i dag</div>`;
 }
-function dagenPlukket(){ return dagensListe().filter(t=>t.plukket).map((_,i)=>i); }
-function treSvg(frukter,plukket,blomst){
-  const kroner=`<path d="M70 146 q-4 -30 0 -60" stroke="#8b5a2b" stroke-width="9" stroke-linecap="round"/><path d="M70 100 q-14 -10 -26 -22 M70 96 q14 -12 28 -20" stroke="#8b5a2b" stroke-width="6" stroke-linecap="round" fill="none"/><ellipse cx="70" cy="62" rx="52" ry="40" fill="#2f8f7a"/><ellipse cx="46" cy="52" rx="24" ry="20" fill="#4a7f5a" opacity=".5"/><ellipse cx="94" cy="56" rx="22" ry="18" fill="#7fc4b4" opacity=".45"/>`;
-  const fr=[`<line x1="44" y1="70" x2="44" y2="84" stroke="#6f4420" stroke-width="2"/><circle cx="44" cy="92" r="10" fill="#e8362e"/><path d="M44 82 l4 -4" stroke="#2f8f7a" stroke-width="2.5"/>`,
-            `<line x1="72" y1="78" x2="72" y2="92" stroke="#6f4420" stroke-width="2"/><path d="M72 92 q-9 6 -8 16 q8 12 16 0 q1 -10 -8 -16 z" fill="#e0a83a"/>`,
-            `<line x1="98" y1="72" x2="98" y2="86" stroke="#6f4420" stroke-width="2"/><circle cx="98" cy="94" r="9" fill="#7a5fa8"/><circle cx="95" cy="91" r="3" fill="#fff" opacity=".6"/>`];
-  const gress=[`<circle cx="40" cy="140" r="8" fill="#e8362e" opacity=".55"/>`,`<path d="M66 132 q-7 5 -6 12 q6 9 12 0 q1 -7 -6 -12 z" fill="#e0a83a" opacity=".55"/>`,`<circle cx="100" cy="140" r="7" fill="#7a5fa8" opacity=".55"/>`];
-  let h=kroner;
-  for(let i=0;i<frukter;i++) h+=plukket.includes(i)?gress[i]:fr[i];
-  if(blomst) h+=`<g fill="#f4bdd4"><circle cx="40" cy="44" r="4"/><circle cx="62" cy="34" r="4"/><circle cx="86" cy="40" r="4"/><circle cx="104" cy="60" r="4"/><circle cx="54" cy="70" r="4"/></g>`;
-  h+=`<ellipse cx="70" cy="146" rx="40" ry="4" fill="#2f8f7a" opacity=".35"/>`;
-  return h;
+function tegnIkkeGlem(){
+  const l=ikkeGlemListe();
+  $("huskUnder").textContent=huskAntallTekst(l.length);
+  $("huskListe").innerHTML=l.length?l.map(t=>`<div class="husk-el"><span class="blomst">✿</span><div class="t"><div>${esc(t.tekst)}</div><div class="u">${esc(t.under)}</div></div><button data-husk="${esc(t.key)}">${t.slag==="steg"?"✅ Gjort":t.slag==="stell"?"💧 Gjort":"✅ Ordne"}</button></div>`).join(""):`<div class="tomt"><strong>Ingenting å huske i dag</strong></div>`;
+  $("huskListe").querySelectorAll("[data-husk]").forEach(b=>b.addEventListener("click",()=>huskGjort(b.dataset.husk)));
 }
-function tegnDagenStart(){
-  const ting=dagensListe(); const pl=ting.map((t,i)=>t.plukket?i:-1).filter(i=>i>=0); const igjen=ting.filter(t=>!t.plukket);
-  $("dagenTre").innerHTML=treSvg(ting.length,pl,igjen.length===0);
-  $("dagenLinjer").innerHTML=igjen.length?ting.map((t,i)=>t.plukket?"":`<div>${FRUKT[i]} ${esc(t.tekst)}</div>`).join(""):`<div>Ferdig for i dag</div>`;
+function huskGjort(key){
+  const t=ikkeGlemListe().find(x=>x.key===key); if(!t) return;
+  if(t.slag==="stell"){ t.st.sist=idagIso(); prLagre(t.p); giPoeng(5,t.st.hva+": "+t.p.navn,t.p.id); flinkLagre(); kattemat("liten"); visRos(t.st.hva+" gjort. +5 pusepoeng."); }
+  else if(t.slag==="steg"){ t.n.ferdig=true; t.n.ferdigDato=idagIso(); if(!t.n.poengGitt){ t.n.poengGitt=true; giPoeng(5,"Steg: "+t.n.tekst,t.p.id); } prLagre(t.p); flinkLagre(); kattemat("liten"); visRos("Ett steg til. +5 pusepoeng."); }
+  else if(t.f.k==="gavekort"){ const g=t.f.b; g.brukt=true; g.endret=new Date().toISOString(); merkSti("gavekort",{t:"bilag",id:g.id}); if(!g.poengGitt){ g.poengGitt=true; giPoeng(15,"Kort brukt før utløp: "+g.butikk,g.id); } flinkLagre(); visRos("Brukt før det gikk ut. +15 pusepoeng."); }
+  else returnerHurtig(t.f.k,t.f.b.id);
+  tegnIkkeGlem(); if(!$("start").classList.contains("skjult")) tegnIkkeGlemStart();
 }
-function tegnDagen(){
-  const ting=dagensListe(); const pl=ting.map((t,i)=>t.plukket?i:-1).filter(i=>i>=0); const igjen=ting.filter(t=>!t.plukket);
-  $("dagenTreStor").innerHTML=treSvg(ting.length,pl,igjen.length===0); $("dagenUnder").textContent=igjen.length?`${igjen.length} igjen`:"Ferdig for i dag";
-  $("dagenListe").innerHTML=ting.length?ting.map((t,i)=>`<div class="dagen-el${t.plukket?" plukket":""}"><span class="frukt">${FRUKT[i]}</span><div class="t"><div>${esc(t.tekst)}</div><div class="u">${esc(t.under)}</div></div>${t.plukket?"":`<button data-plukk="${esc(t.key)}">${t.slag==="steg"?"✅ Gjort":t.slag==="stell"?"💧 Gjort":"✅ Ordne"}</button>`}</div>`).join(""):`<div class="tomt"><strong>Ingenting i dag</strong>Treet blomstrer. Nyt det.</div>`;
-  $("dagenListe").querySelectorAll("[data-plukk]").forEach(b=>b.addEventListener("click",()=>plukk(b.dataset.plukk)));
-}
-function plukkLagre(key){ const f=flink(); if(!f.dagen||f.dagen.dato!==idagIso()) f.dagen={dato:idagIso(),ting:[],plukket:[]}; if(!f.dagen.plukket.includes(key)) f.dagen.plukket.push(key); flinkLagre(); }
-function plukk(key){
-  const t=dagensListe().find(x=>x.key===key); if(!t) return; const n=t.naa;
-  if(t.slag==="stell"&&n){ n.st.sist=idagIso(); prLagre(n.p); giPoeng(5,n.st.hva+": "+n.p.navn,n.p.id); plukkLagre(key); kattemat("liten"); visRos(n.st.hva+" gjort. +5 pusepoeng."); }
-  else if(t.slag==="steg"&&n){ n.n.ferdig=true; n.n.ferdigDato=idagIso(); if(!n.n.poengGitt){ n.n.poengGitt=true; giPoeng(5,"Steg: "+n.n.tekst,n.p.id); } prLagre(n.p); plukkLagre(key); kattemat("liten"); visRos("Ett steg til. +5 pusepoeng."); }
-  else if(t.slag==="frist"&&n){ plukkLagre(key); if(n.f.k==="gavekort"){ const g=n.f.b; g.brukt=true; g.endret=new Date().toISOString(); merkSti("gavekort",{t:"bilag",id:g.id}); if(!g.poengGitt){ g.poengGitt=true; giPoeng(15,"Kort brukt før utløp: "+g.butikk,g.id); } flinkLagre(); visRos("Brukt før det gikk ut. +15 pusepoeng."); } else returnerHurtig(n.f.k,n.f.b.id); }
-  else plukkLagre(key);
-  tegnDagen(); if(!$("start").classList.contains("skjult")) tegnDagenStart();
-}
-function visDagen(){ $("start").classList.add("skjult"); $("dagen").classList.remove("skjult"); tegnDagen(); window.scrollTo(0,0); }
-$("dagenRad").addEventListener("click",visDagen); $("knDagenHjem").addEventListener("click",()=>{ $("dagen").classList.add("skjult"); visStart(); });
-
+function visIkkeGlem(){ $("start").classList.add("skjult"); $("husk").classList.remove("skjult"); tegnIkkeGlem(); window.scrollTo(0,0); }
+$("huskRad").addEventListener("click",visIkkeGlem); $("knHuskHjem").addEventListener("click",()=>{ $("husk").classList.add("skjult"); visStart(); });
 /* ===================== ØNSKER ===================== */
 let onskeValg="mine", onskeAnl="";
 function denAndre(){ return eierNaa()==="Olav"?"Stine":"Olav"; }
@@ -3186,7 +3160,7 @@ function oppsummer(){
   $("oppsumSaker").textContent=(aapne?`${aapne} ${aapne===1?"åpen sak":"åpne saker"}`:"Ingen åpne saker")+(tilb?` · kr ${kr(tilb)} tilbake i ${mndNavn(mndNokkel())}`:"");
   const prl=prosjektListe(), igang=prl.filter(p=>p.status==="igang").length, ns=nesteStegTekst();
   $("oppsumProsjekter").textContent=prl.length?`${igang} i gang${ns?" · neste: "+ns.n.tekst:""}`:"Ingen prosjekter ennå";
-  tegnDagenStart();
+  tegnIkkeGlemStart();
   const plI=planFor(idagIso()), mt=planTekst(plI);
   const pln=[0,1,2,3,4].map(i=>planTekst(planFor(leggTilDager(idagIso(),i)))).filter(Boolean); $("oppsumHjem").textContent=pln.length?`${pln.length} av 5 middager planlagt${mt?" · i dag: "+mt:""}`:"Ingen middag planlagt";
   tegnPoengStripe(); tegnSkaal(); visPynt();
@@ -3194,16 +3168,6 @@ function oppsummer(){
   if(ro&&$("tittelTekst")){ clearTimeout(tittelTimer); $("tittelBoble").classList.remove("bytt"); $("tittelTekst").textContent="Alt er ordnet, mjau mjau"; tittelSist="Alt er ordnet, mjau mjau"; }
   const g=gavekortListe(false), grest=g.reduce((a,x)=>a+gavekortRest(x),0);
   $("oppsumGavekort").textContent = g.length?`${g.length} kort · kr ${kr(grest)} igjen`:"Ingen kort ennå";
-  const f=fristerDenneUka(), e=$("fristVarsel");
-  if(f.length){
-    const r=f.filter(x=>x.slag==="retur"), gk=f.filter(x=>x.slag!=="retur"), idag=f.filter(x=>x.d===0).length, deler=[];
-    const stl=f.filter(x=>x.slag==="stell");
-    if(r.length) deler.push((r.length===1?"1 returfrist":r.length+" returfrister")+" denne uka");
-    if(gk.length) deler.push((gk.length===1?"1 kort":gk.length+" kort")+" utløper snart");
-    if(stl.length) deler.push(stl.map(x=>x.st.hva.toLowerCase()+" "+x.b.navn.toLowerCase()).slice(0,2).join(" og ")+(stl.length>2?" med mer":""));
-    e.textContent=deler.join(" · ")+(idag?" – "+(idag===1?"ett":idag)+" i dag":"")+". Trykk for å se."; e.classList.remove("skjult");
-    if(idag&&!$("start").classList.contains("skjult")) setTimeout(()=>stjerner(e),350); }
-  else e.classList.add("skjult");
   const nv=$("nokkelVarsel");
   if(nokkelUtlop){ const d=dagerTil(nokkelUtlop);
     if(d!==null&&d<0){ nv.textContent="Nøkkelen til lageret utløp "+norskDato(nokkelUtlop)+". Olav må lage en ny og sende ny lenke."; nv.className="varsel feil"; }
@@ -3212,7 +3176,7 @@ function oppsummer(){
   } else nv.className="varsel skjult";
 }
 function visStart(){
-  ["app","kalender","saker","flink","prosjekter","prosjekt","drivhus","hjem","dagen","planter"].forEach(i=>$(i).classList.add("skjult")); $("start").classList.remove("skjult");
+  ["app","kalender","saker","flink","prosjekter","prosjekt","drivhus","hjem","husk","planter"].forEach(i=>$(i).classList.add("skjult")); $("start").classList.remove("skjult");
   KAT=null; tegnHilsen(); karTegn(0); oppsummer(); window.scrollTo(0,0);
   if(velkomstDryss){ velkomstDryss=false; setTimeout(()=>kattemat("liten"),250); }
 }
@@ -3747,21 +3711,7 @@ $("pkLukk").addEventListener("click",()=>$("papirkurvOverlegg").classList.add("s
 $("pkTom").addEventListener("click",()=>{ const l=bilagListe("papirkurv").filter(b=>pkAlle||b.kat===KAT); if(!l.length) return;
   if(!confirm(`Tømme papirkurven (${l.length} bilag)? Dette kan ikke angres.`)) return;
   l.forEach(b=>{ delete COMBINED.papirkurv.bilag[b.id]; merkSti("papirkurv",{t:"bilag",id:b.id}); }); uskrevetLagre(); persist(); tegnPapirkurv(); if(KAT) tegnListe(); visPkTilstand(); });
-$("fristVarsel").addEventListener("click",()=>{
-  const f=fristerDenneUka();
-  $("fristListe").innerHTML=f.map(x=>{ if(x.slag==="stell") return `<div class="listerad" data-kat="prosjekter" data-id="${x.b.id}"><div><div class="h">${esc(x.st.hva)}: ${esc(x.b.navn)}</div><div class="u">i dag · hver ${x.st.intervall}. dag</div></div><div class="knapper"><button data-stellgjort="${x.st.id}">💧 Gjort</button></div></div>`;
-    const gk=x.k==="gavekort", fr=gk?gavekortFrist(x.b):{dato:x.b.returfrist};
-    const hva=gk?(x.slag==="foreldes"?"foreldes":"utløper"):"returfrist";
-    return `<div class="listerad" data-kat="${x.k}" data-id="${x.b.id}"><div><div class="h">${esc(x.b.butikk)} · kr ${kr(gk?gavekortRest(x.b):x.b.belop)}</div><div class="u">${esc(gk?(x.b.type==="tilgodelapp"?"Tilgodelapp":"Gavekort"):x.b.beskrivelse)} · ${hva} ${x.d===0?"i dag":"om "+x.d+(x.d===1?" dag":" dager")} (${norskDato(fr.dato)})</div></div><div class="knapper"><button data-ordnet>${gk?"✅ Brukt opp":"✅ Ordne"}</button></div></div>`; }).join("");
-  $("fristListe").querySelectorAll(".listerad").forEach(r=>r.addEventListener("click",e=>{ if(e.target.closest("[data-ordnet],[data-stellgjort]")) return; $("fristOverlegg").classList.add("skjult"); if(r.dataset.kat==="prosjekter"){ aapneProsjekt(r.dataset.id); return; } aapneKat(r.dataset.kat); byttFane("liste"); visDetalj(r.dataset.id); }));
-  $("fristListe").querySelectorAll("[data-stellgjort]").forEach(kn=>kn.addEventListener("click",e=>{ const r=e.target.closest(".listerad"); const pr=finnProsjekt(r.dataset.id); const st=pr&&pr.stell.find(x=>x.id===kn.dataset.stellgjort); if(!st) return; st.sist=idagIso(); prLagre(pr); giPoeng(5,st.hva+": "+pr.navn,pr.id); flinkLagre(); kattemat("liten"); visRos(st.hva+" gjort. +5 pusepoeng."); $("fristOverlegg").classList.add("skjult"); oppsummer(); }));
-  $("fristListe").querySelectorAll("[data-ordnet]").forEach(kn=>kn.addEventListener("click",e=>{ const r=e.target.closest(".listerad"); $("fristOverlegg").classList.add("skjult");
-    if(r.dataset.kat==="gavekort"){ const g=finnBilag("gavekort",r.dataset.id); if(g){ g.brukt=true; g.endret=new Date().toISOString(); merkSti("gavekort",{t:"bilag",id:g.id}); if(!g.poengGitt){ g.poengGitt=true; giPoeng(15,"Kort brukt før utløp: "+g.butikk,g.id); } flinkLagre(); kattemat(); visRos("Brukt før det gikk ut. +15 pusepoeng."); oppsummer(); } }
-    else returnerHurtig(r.dataset.kat,r.dataset.id); }));
-  $("fristOverlegg").classList.remove("skjult");
-});
-$("fristLukk").addEventListener("click",()=>$("fristOverlegg").classList.add("skjult"));
-for(const id of ["pdfOverlegg","detaljOverlegg","papirkurvOverlegg","fristOverlegg","nokkelOverlegg","filOverlegg","innstOverlegg","sakOverlegg","ordnetOverlegg","nyttProsjektOverlegg","velgProsjektOverlegg","velgMiddagOverlegg","oppskriftOverlegg"]){
+for(const id of ["pdfOverlegg","detaljOverlegg","papirkurvOverlegg","nokkelOverlegg","filOverlegg","innstOverlegg","sakOverlegg","ordnetOverlegg","nyttProsjektOverlegg","velgProsjektOverlegg","velgMiddagOverlegg","oppskriftOverlegg"]){
   $(id).addEventListener("click",e=>{ if(e.target.id!==id) return;
     if(id==="detaljOverlegg") lukkDetalj(); else if(id==="pdfOverlegg"){ $("pdfOverlegg").classList.add("skjult"); byttFane("liste"); } else $(id).classList.add("skjult"); });
 }
@@ -4060,7 +4010,7 @@ function feHendelse(bel,samlet){
   if(bel.nySloyfe) feRosKo.push("Drivhuset er fullt – sløyfe!");
   return {ros:bel.ros,poeng:"+"+bel.poeng+" pusepoeng",bit:bel.bit,planter,gull:!!bel.gyllen,drivhus:true};
 }
-function feTilDrivhus(){ ["start","app","kalender","saker","flink","prosjekter","prosjekt","hjem","dagen","planter"].forEach(i=>{ const e=$(i); if(e) e.classList.add("skjult"); }); $("drivhus").classList.remove("skjult"); tegnDrivhus(); window.scrollTo(0,0); }
+function feTilDrivhus(){ ["start","app","kalender","saker","flink","prosjekter","prosjekt","hjem","husk","planter"].forEach(i=>{ const e=$(i); if(e) e.classList.add("skjult"); }); $("drivhus").classList.remove("skjult"); tegnDrivhus(); window.scrollTo(0,0); }
 
 /* ---------- Hele feiringen. h = { ros, poeng, bit:{fra,til}, planter:[{kilde,nr,navn,under}], gullpoten, nivaa:{i,navn}, kort, drivhus } ---------- */
 async function feiringSpill(h){
