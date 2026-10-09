@@ -781,6 +781,28 @@ button,input,select,textarea{font-family:inherit}
 #feiring .f-note{position:absolute;z-index:4;pointer-events:none;color:#fff;font-weight:700;font-size:24px;text-shadow:0 2px 8px rgba(0,0,0,.45);animation:f-stig 1.3s ease-out forwards}
 @keyframes f-stig{from{transform:translate(0,0) rotate(var(--v));opacity:1}to{transform:translate(var(--dx),-110px) rotate(var(--v));opacity:0}}
 @media (prefers-reduced-motion:reduce){ #feiring .f-lerret{display:none} }
+/* ===================== TIL STINE (3.31): hilsen med tema, og bit i skåla ===================== */
+.tema-rute{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.tema-rute button{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:9px 4px 7px;font-size:12px;color:var(--ink);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;line-height:1.2;font-family:inherit}
+.tema-rute button .e{font-size:22px;letter-spacing:-1px}
+.tema-rute button.pa{border-color:var(--puser);background:var(--puser-tint);color:var(--puser-ink);font-weight:650;box-shadow:0 0 0 2px rgba(179,74,124,.18)}
+#tilStineOverlegg .husk{margin:2px 0 6px}
+
+/* Popupen hos Stine */
+#hilsen{position:fixed;inset:0;z-index:150;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:0 16px 8vh}
+#hilsen .h-slor{position:absolute;inset:0;background:radial-gradient(circle at 50% 38%,rgba(244,189,212,.6) 0%,rgba(179,74,124,.58) 48%,rgba(31,43,58,.76) 100%);opacity:0;transition:opacity .35s ease}
+#hilsen.pa .h-slor{opacity:1}
+#hilsen .h-bobler{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+#hilsen .h-bobler span{position:absolute;bottom:-70px;font-size:var(--s);line-height:1;animation:h-boble var(--t) linear forwards;filter:drop-shadow(0 6px 10px rgba(0,0,0,.25))}
+@keyframes h-boble{0%{transform:translate(0,0) rotate(0) scale(.7);opacity:0}8%{opacity:1;transform:translate(calc(var(--dx) * .1),-8vh) rotate(calc(var(--r) * .2)) scale(1)}50%{transform:translate(calc(var(--dx) * -.5),-55vh) rotate(calc(var(--r) * -.6)) scale(1.05)}100%{transform:translate(var(--dx),-118vh) rotate(var(--r)) scale(.95);opacity:.85}}
+#hilsen .h-kort{position:relative;z-index:2;background:var(--card);border-radius:26px;padding:24px 22px 18px;width:min(100%,340px);text-align:center;box-shadow:0 26px 70px rgba(0,0,0,.4);animation:h-kortinn .55s cubic-bezier(.2,1.25,.4,1)}
+@keyframes h-kortinn{from{opacity:0;transform:translateY(40px) scale(.9)}to{opacity:1;transform:none}}
+#hilsen .h-fra{font-size:11px;letter-spacing:.9px;text-transform:uppercase;color:var(--muted);font-weight:700}
+#hilsen .h-tekst{font-size:22px;font-weight:800;color:var(--puser-ink);line-height:1.3;margin:12px 0 10px;overflow-wrap:anywhere;white-space:pre-wrap}
+#hilsen .h-tekst:empty{display:none}
+#hilsen .h-emoji{font-size:30px;line-height:1.3;letter-spacing:6px;margin:0 0 14px 6px}
+#hilsen .h-takk{background:var(--puser);margin-top:4px}
+@media (prefers-reduced-motion:reduce){ #hilsen .h-bobler{display:none} }
 @media print{ #nettStatus,#pvVarsel{display:none !important} }
 </style>
 </head>
@@ -1439,10 +1461,18 @@ button,input,select,textarea{font-family:inherit}
       <button id="knTolkNokkel">🔔 Slå på</button>
     </div>
 
+    <div class="tolkrad skjult" id="tilStineRad">
+      <div>
+        <div class="n">Til Stine</div>
+        <div class="t">Hilsen og bit i skåla</div>
+      </div>
+      <button id="knTilStine">💌 Åpne</button>
+    </div>
+
     <div class="fot">
       <button id="knBackup" class="skjult" title="Lagre komplett backup (JSON)">&#128190;</button>
       <button id="knFil" class="skjult" title="Fil">&#128196; Fil</button>
-      <span class="versjon" id="startVersjon">Versjon 3.30</span>
+      <span class="versjon" id="startVersjon">Versjon 3.31</span>
     </div>
     <div id="startBesk"></div>
     <button class="panelknapp andre" id="knInnstSkjul" style="margin-top:16px">✋ Skjul innstillinger</button>
@@ -1468,6 +1498,38 @@ button,input,select,textarea{font-family:inherit}
 <input type="file" id="filPlante" accept="image/*" class="skjult">
 
 <div id="ros" class="skjult"><svg viewBox="0 0 100 100" aria-hidden="true" fill="none" stroke="#b34a7c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M30 42 L31 16 L43 28 Q50 25 57 28 L69 16 L70 42 Q71 58 50 60 Q29 58 30 42 Z"/><circle cx="42" cy="44" r="2.5" fill="#b34a7c" stroke="none"/><circle cx="58" cy="44" r="2.5" fill="#b34a7c" stroke="none"/><path d="M46 51 L54 51 L50 55 Z" fill="#b34a7c" stroke="none"/></svg><span id="rosTekst"></span></div>
+
+<!-- ===================== TIL STINE (3.31) ===================== -->
+<div id="tilStineOverlegg" class="overlegg skjult">
+  <div class="panel">
+    <div class="grep"></div>
+    <h2>Til Stine</h2>
+    <p class="ledetekst">Hun får det neste gang hun åpner appen.</p>
+    <div class="felt">
+      <label for="inHilsen">Hilsen <span class="valg">– kan stå tom om du bare sender en bit</span></label>
+      <textarea id="inHilsen" maxlength="140" rows="3" placeholder="Skriv en liten hilsen"></textarea>
+    </div>
+    <div class="felt">
+      <label>Tema</label>
+      <div class="tema-rute" id="temaRute"></div>
+    </div>
+    <label class="husk"><input type="checkbox" id="inHilsenBit"> 🐾 Legg ved en bit i skåla</label>
+    <div class="panelbesk feil" id="tilStineBesk"></div>
+    <button class="panelknapp" id="knTilStineSend">📨 Send til Stine</button>
+    <button class="panelknapp andre" id="knTilStineLukk">✋ Avbryt</button>
+  </div>
+</div>
+
+<div id="hilsen" class="skjult">
+  <div class="h-slor"></div>
+  <div class="h-bobler"></div>
+  <div class="h-kort">
+    <div class="h-fra">Hilsen fra Olav</div>
+    <div class="h-tekst"></div>
+    <div class="h-emoji"></div>
+    <button class="panelknapp h-takk" type="button">💗 Takk</button>
+  </div>
+</div>
 
 <!-- ===================== FEIRING (3.28) ===================== -->
 <div id="feiring" class="skjult">
@@ -1535,8 +1597,8 @@ button,input,select,textarea{font-family:inherit}
 
 <script>
 "use strict";
-/* ===================== Kvitteringer, mjau mjau, versjon 3.30 ===================== */
-const APP_VERSJON = "3.30";
+/* ===================== Kvitteringer, mjau mjau, versjon 3.31 ===================== */
+const APP_VERSJON = "3.31";
 const LAGER = { eier: "OlavSve", repo: "Stine-app-data", gren: "main", fil: "bilag.kryptert.json", bilder: "bilder", backup: "backup" };
 const EK = { hemmelighet: "0df7552eec9d178481fda706b469d0305507b5ddc5c229a6292f863412d29d50", bildesalt: "m1jWj9kLvoyOxH+NuTrtpA==" };
 const DATA_TYPE = "stine-app-data";
@@ -1545,7 +1607,7 @@ const BACKUP_MONSTER = /^\d{4} \d{2}-\d{2} Backup Bilag \d{2}-\d{2}-\d{2}\.json$
 const USERS = { stine: { navn: "Stine", sjekk: "e98867470e6a2680aa174231e3711d5ffb1dbbc74f66c2f5d3a71dbd1e65852d" }, olav: { navn: "Olav", sjekk: "db676bb2e8827fbb3235fe61402d6a342434744a7952dcf8d5896766b4a4a500" } };
 const KATNAVN = { privat: "Private kvitteringer", kattepuser: "Kattepuser", gavekort: "Gavekort og tilgodelapper" };
 const KORTNAVN = { privat: "Privat", kattepuser: "Kattepuser", gavekort: "Gavekort", kalender: "Kalender" };
-const GRENER = ["privat", "kattepuser", "gavekort", "papirkurv", "prosjekter", "hjem", "planter"];
+const GRENER = ["privat", "kattepuser", "gavekort", "papirkurv", "prosjekter", "hjem", "planter", "hilsener"];
 const PERSONLIGE = ["privat", "kattepuser", "gavekort", "papirkurv", "prosjekter", "planter"];
 const PLANTER_PAA = false;
 const BURSDAGER = { Olav: "06-03", Stine: "08-11" };
@@ -1852,7 +1914,7 @@ async function pvSjekk(){
 }
 function pvStart(){ pvStopp(); pvTimer = setInterval(pvSjekk, PV_INTERVALL); }
 function pvStopp(){ if (pvTimer){ clearInterval(pvTimer); pvTimer = null; } pvSkjul(); pvSkjultTekst = null; }
-async function pvHentInn(){ pvSkjul(); pvSkjultTekst = null; const ok = await lesFersktFraDisk(); if (ok) tegnAlt(); return ok; }
+async function pvHentInn(){ pvSkjul(); pvSkjultTekst = null; const ok = await lesFersktFraDisk(); if (ok){ tegnAlt(); hilsenerSjekk(); } return ok; }
 
 /* ---------- Skybackup: hvert 30. minutt og ved hver lagring (8.10, 3.7) ---------- */
 let sbkSisteTekst = null, sbkTimer = null, sbkOpptatt = false, sbkVenter = null;
@@ -3648,7 +3710,7 @@ function pusTrykk(nr){
 }
 document.querySelector("#start .sittekatt").addEventListener("click",()=>{ lydKtx(); pusTrykk(); });
 $("knInnst").addEventListener("click",()=>{ startBesk(""); visTolkTilstand(); visVarselTilstand(); visPkTilstand(); visOye(); $("innstOverlegg").classList.remove("skjult"); });
-function visOye(){ const kn=$("knOye"); kn.classList.toggle("skjult",innlogget!=="Olav"); kn.classList.toggle("pa",visning==="Stine"&&innlogget==="Olav"); }
+function visOye(){ const kn=$("knOye"); kn.classList.toggle("skjult",innlogget!=="Olav"); kn.classList.toggle("pa",visning==="Stine"&&innlogget==="Olav"); $("tilStineRad").classList.toggle("skjult",innlogget!=="Olav"); }
 $("knOye").addEventListener("click",()=>{ if(innlogget!=="Olav") return; visning=(visning==="Stine")?"Olav":"Stine"; visOye(); tegnAlt(); if(!$("start").classList.contains("skjult")){ tegnHilsen(); oppsummer(); karTegn(0); } });
 $("knInnstSkjul").addEventListener("click",()=>$("innstOverlegg").classList.add("skjult"));
 document.querySelectorAll("#faner button").forEach(b=>b.addEventListener("click",()=>byttFane(b.dataset.fane)));
@@ -4030,15 +4092,98 @@ async function feiringSpill(h){
   return await feSlutt(h);
 }
 
+/* ===================== TIL STINE (3.31): hilsen med tema, og bit i skåla ===================== */
+const HILSEN_TEMAER=[
+  ["hjerter","Hjerter",["❤️","🩷","💗","💕"]],
+  ["stjerner","Stjerner",["⭐","🌟","✨","💫"]],
+  ["highfive","High five",["🙌","✋","👏","🖐️"]],
+  ["poter","Kattepoter",["🐾","🐱","😻"]],
+  ["blomster","Blomster",["🌸","🌷","🌼","🌻"]],
+  ["kyss","Kyss og klem",["😘","💋","🤗"]],
+  ["kaffe","Kaffe og kos",["☕","🍪","🧁"]],
+  ["regnbue","Regnbue og sol",["🌈","☀️","🦋"]],
+  ["godteri","Godteri",["🍬","🍭","🍫"]],
+  ["olmat","Øl og mat",["🍺","🍔","🍕","🌮"]],
+  ["olfest","Øl og fest",["🍻","🎉","🥳","🎶"]],
+  ["film","Popcorn og film",["🍿","🎬","🍺","🎥"]]
+];
+function hilsenTema(id){ return HILSEN_TEMAER.find(t=>t[0]===id)||HILSEN_TEMAER[0]; }
+
+/* ---------- Popupen hos Stine ---------- */
+let hilsenTimer=null, hilsenLukker=null;
+function hilsenVis(h){
+  return new Promise(ok=>{
+    const el=$("hilsen"), tema=hilsenTema(h.tema), bob=el.querySelector(".h-bobler");
+    if(hilsenLukker){ clearTimeout(hilsenLukker); hilsenLukker=null; }
+    el.querySelector(".h-fra").textContent="Hilsen fra "+(h.fra||"Olav");
+    el.querySelector(".h-tekst").textContent=h.tekst||"";
+    el.querySelector(".h-emoji").textContent=tema[2].join(" ");
+    bob.innerHTML="";
+    el.classList.remove("skjult"); requestAnimationFrame(()=>el.classList.add("pa"));
+    lydSpill("noter");
+    const lag=()=>{ if(reduserBevegelse()||el.classList.contains("skjult")) return; const s=document.createElement("span"); s.textContent=tema[2][Math.floor(Math.random()*tema[2].length)];
+      s.style.left=(4+Math.random()*88)+"%"; s.style.setProperty("--s",(22+Math.random()*26)+"px"); s.style.setProperty("--t",(4.2+Math.random()*3)+"s"); s.style.setProperty("--dx",(Math.random()*140-70)+"px"); s.style.setProperty("--r",(Math.random()*70-35)+"deg");
+      bob.appendChild(s); setTimeout(()=>s.remove(),7400); };
+    for(let i=0;i<10;i++) setTimeout(lag,i*80);
+    clearInterval(hilsenTimer); hilsenTimer=setInterval(lag,170);
+    el.querySelector(".h-takk").onclick=()=>{ clearInterval(hilsenTimer); el.classList.remove("pa"); el.querySelector(".h-takk").onclick=null; hilsenLukker=setTimeout(()=>{ hilsenLukker=null; el.classList.add("skjult"); bob.innerHTML=""; ok(); },380); };
+  });
+}
+
+/* ---------- Panelet «Til Stine» hos Olav ---------- */
+let hilsenValgtTema="hjerter";
+function tilStineTegnTema(){
+  $("temaRute").innerHTML=HILSEN_TEMAER.map(t=>`<button type="button" data-tema="${t[0]}" class="${t[0]===hilsenValgtTema?"pa":""}"><span class="e">${t[2].slice(0,2).join("")}</span>${esc(t[1])}</button>`).join("");
+  $("temaRute").querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>{ hilsenValgtTema=b.dataset.tema; tilStineTegnTema(); }));
+}
+function tilStineAapne(){ $("inHilsen").value=""; $("inHilsenBit").checked=false; $("tilStineBesk").textContent=""; tilStineTegnTema(); $("tilStineOverlegg").classList.remove("skjult"); }
+function tilStineLes(){
+  const tekst=$("inHilsen").value.trim(), bit=$("inHilsenBit").checked;
+  if(!tekst&&!bit){ $("tilStineBesk").textContent="Skriv en hilsen, eller kryss av for en bit i skåla."; return null; }
+  return {tekst,tema:hilsenValgtTema,bit};
+}
+$("knTilStineLukk").addEventListener("click",()=>$("tilStineOverlegg").classList.add("skjult"));
+$("knTilStineSend").addEventListener("click",()=>{ const h=tilStineLes(); if(!h) return; $("tilStineOverlegg").classList.add("skjult"); tilStineSend(h); });
+/* ---------- Til Stine: sending hos Olav, mottak hos Stine ---------- */
+function tilStineSend(h){
+  if(!COMBINED.hilsener) COMBINED.hilsener={bilag:{}};
+  const id=nyId("h");
+  COMBINED.hilsener.bilag[id]={id,fra:innlogget||"Olav",til:"Stine",t:new Date().toISOString(),tekst:h.tekst||"",tema:h.tema,bit:!!h.bit,sett:null};
+  merkSti("hilsener",{t:"bilag",id}); uskrevetLagre(); persist();
+  startBesk("Sendt til Stine. Hun ser det neste gang hun åpner appen.","ok");
+}
+$("knTilStine").addEventListener("click",()=>{ lydKtx(); tilStineAapne(); });
+let hilsenerOpptatt=false;
+/* Fila kan ha blitt lest inn på nytt mens en melding ble vist, så meldingen slås opp på nytt før den merkes som sett */
+function hilsenMerkSett(id){ const m=COMBINED.hilsener&&COMBINED.hilsener.bilag[id]; if(m) m.sett=new Date().toISOString(); merkSti("hilsener",{t:"bilag",id}); uskrevetLagre(); persist(); }
+async function hilsenerSjekk(){
+  if(hilsenerOpptatt||!COMBINED||!innlogget||fe.aktiv) return;
+  const mine=Object.values((COMBINED.hilsener&&COMBINED.hilsener.bilag)||{}).filter(h=>h&&h.til===innlogget&&!h.sett).sort((a,b)=>String(a.t).localeCompare(String(b.t)));
+  if(!mine.length) return;
+  hilsenerOpptatt=true;
+  try{
+    for(const h of mine.filter(x=>x.bit)){
+      const f=flink(), fra=f.skaal||0; f.skaal=fra+1; if(f.skaal>=10){ f.skaal=0; f.skaalTomt=(f.skaalTomt||0)+1; }
+      merkGren(flinkGren()); hilsenMerkSett(h.id); tegnSkaal();
+      await feiringSpill({ros:"Fra "+(h.fra||"Olav")+" 🐾",poeng:"1 bit i skåla",bit:{fra,til:fra+1},drivhus:false});
+    }
+    for(const h of mine.filter(x=>x.tekst)){
+      hilsenMerkSett(h.id);
+      await hilsenVis(h);
+    }
+  } finally { hilsenerOpptatt=false; }
+}
+
 /* ===================== OPPSTART ===================== */
 async function etterInnlogging(){
-  if(eksternStartet){ visStart(); pvStart(); return; }
+  if(eksternStartet){ visStart(); pvStart(); hilsenerSjekk(); return; }
   const ok=await startEkstern(); if(!ok) return;
   await etterStart();
 }
 async function etterStart(){
   const n=await importerV1();
   visStart(); pvStart(); sbkStart(); ambStart(); klippForhent();
+  hilsenerSjekk();
   if(window.__apne){ const {k,id}=window.__apne; window.__apne=null; if(k==="kalender") visKalender(); else if(k==="flink") visFlink(); else if(k==="saker") visSaker(); else if(k==="hjem"){ hjemFane="middag"; visHjem(); } else if(k==="prosjekter"){ if(id&&finnProsjekt(id)){ visProsjekter(); aapneProsjekt(id); } else visProsjekter(); } else if(KATNAVN[k]&&finnBilag(k,id)){ aapneKat(k); byttFane("liste"); visDetalj(id); } }
   if(n) startBesk(`Tok med ${n} bilag fra forrige utgave av appen.`,"ok");
 }
