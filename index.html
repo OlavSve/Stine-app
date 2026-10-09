@@ -337,6 +337,7 @@ button,input,select,textarea{font-family:inherit}
 #start .husk-rad .h .blomst{font-size:12px;position:relative;top:-1px}
 #start .husk-rad .blomst{color:var(--puser)}
 #start .husk-rad .tom{color:var(--muted)}
+#start .husk-rad .naar{color:var(--muted)}
 #start .husk-rad .pil{font-size:18px;color:var(--privat)}
 .husk-topp{position:relative;overflow:hidden}
 .husk-topp .husk-krans{position:absolute;right:8px;bottom:-6px;width:150px;height:40px;opacity:.95;pointer-events:none}
@@ -1441,7 +1442,7 @@ button,input,select,textarea{font-family:inherit}
     <div class="fot">
       <button id="knBackup" class="skjult" title="Lagre komplett backup (JSON)">&#128190;</button>
       <button id="knFil" class="skjult" title="Fil">&#128196; Fil</button>
-      <span class="versjon" id="startVersjon">Versjon 3.29</span>
+      <span class="versjon" id="startVersjon">Versjon 3.30</span>
     </div>
     <div id="startBesk"></div>
     <button class="panelknapp andre" id="knInnstSkjul" style="margin-top:16px">✋ Skjul innstillinger</button>
@@ -1534,8 +1535,8 @@ button,input,select,textarea{font-family:inherit}
 
 <script>
 "use strict";
-/* ===================== Kvitteringer, mjau mjau, versjon 3.29 ===================== */
-const APP_VERSJON = "3.29";
+/* ===================== Kvitteringer, mjau mjau, versjon 3.30 ===================== */
+const APP_VERSJON = "3.30";
 const LAGER = { eier: "OlavSve", repo: "Stine-app-data", gren: "main", fil: "bilag.kryptert.json", bilder: "bilder", backup: "backup" };
 const EK = { hemmelighet: "0df7552eec9d178481fda706b469d0305507b5ddc5c229a6292f863412d29d50", bildesalt: "m1jWj9kLvoyOxH+NuTrtpA==" };
 const DATA_TYPE = "stine-app-data";
@@ -2852,20 +2853,22 @@ function visFlink(){ $("start").classList.add("skjult"); $("flink").classList.re
 $("knFlinkHjem").addEventListener("click",()=>{ $("flink").classList.add("skjult"); visStart(); });
 
 /* ===================== IKKE GLEM (3.29): det som venter i dag, som liste ===================== */
+const HUSK_DAGER=7;
+function huskNaar(d){ return d<=0?"i dag":"om "+d+(d===1?" dag":" dager"); }
+/* 278: alt med dato innen sju dager, sortert etter dato; neste steg sist */
 function ikkeGlemListe(){
   const ut=[];
-  for(const x of fristerDenneUka()){
-    if(x.slag==="stell"){ ut.push({key:"stell:"+x.b.id+":"+x.st.id,slag:"stell",tekst:x.st.hva+": "+x.b.navn,under:"hver "+x.st.intervall+". dag",p:x.b,st:x.st}); continue; }
-    const gk=x.k==="gavekort";
-    ut.push({key:"frist:"+x.b.id,slag:"frist",tekst:gk?((x.b.type==="tilgodelapp"?"Tilgodelapp":"Gavekort")+" "+x.b.butikk+" "+(x.slag==="foreldes"?"foreldes":"utløper")):"Returfrist: "+x.b.butikk,under:x.d===0?"i dag":"om "+x.d+(x.d===1?" dag":" dager"),f:x});
-  }
-  const ns=nesteStegTekst(); if(ns) ut.push({key:"steg:"+ns.p.id+":"+ns.n.id,slag:"steg",tekst:"Neste steg: "+ns.n.tekst,under:ns.p.navn,p:ns.p,n:ns.n});
+  for(const k of ["privat","kattepuser"]) for(const b of bilagListe(k)){ if(returOrdnet(b)) continue; const d=dagerTil(b.returfrist); if(d!==null&&d>=0&&d<=HUSK_DAGER) ut.push({key:"frist:"+b.id,slag:"frist",d,tekst:"Returfrist: "+b.butikk,under:huskNaar(d),f:{k,b}}); }
+  for(const g of bilagListe("gavekort")){ if(g.brukt) continue; const fr=gavekortFrist(g); const d=dagerTil(fr.dato); if(d!==null&&d>=0&&d<=HUSK_DAGER) ut.push({key:"frist:"+g.id,slag:"frist",d,tekst:(g.type==="tilgodelapp"?"Tilgodelapp":"Gavekort")+" "+g.butikk+" "+(fr.beregnet?"foreldes":"utløper"),under:huskNaar(d),f:{k:"gavekort",b:g}}); }
+  for(const p of prosjektListe()){ if(p.status!=="igang") continue; for(const st of (p.stell||[])){ const d=dagerTil(stellNeste(st)); if(d!==null&&d<=HUSK_DAGER){ const dd=Math.max(0,d); ut.push({key:"stell:"+p.id+":"+st.id,slag:"stell",d:dd,tekst:st.hva+": "+p.navn,under:huskNaar(dd)+" · hver "+st.intervall+". dag",p,st}); } } }
+  ut.sort((a,b)=>a.d-b.d);
+  const ns=nesteStegTekst(); if(ns) ut.push({key:"steg:"+ns.p.id+":"+ns.n.id,slag:"steg",d:null,tekst:"Neste steg: "+ns.n.tekst,under:ns.p.navn,p:ns.p,n:ns.n});
   return ut;
 }
 function huskAntallTekst(n){ return n?`${n} ting å huske`:"Ingenting å huske i dag"; }
 function tegnIkkeGlemStart(){
   const l=ikkeGlemListe();
-  $("huskLinjer").innerHTML=l.length?l.map(t=>`<div><span class="blomst">✿</span> ${esc(t.tekst)}</div>`).join(""):`<div class="tom">Ingenting å huske i dag</div>`;
+  $("huskLinjer").innerHTML=l.length?l.map(t=>`<div><span class="blomst">✿</span> ${esc(t.tekst)}${t.d===null?"":` <span class="naar">· ${huskNaar(t.d)}</span>`}</div>`).join(""):`<div class="tom">Ingenting å huske i dag</div>`;
 }
 function tegnIkkeGlem(){
   const l=ikkeGlemListe();
