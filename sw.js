@@ -1,5 +1,5 @@
-/* Kvitteringer, mjau mjau - bakgrunnsskript v4.1: nett først, hurtiglager som reserve (samme som NFK Operations 8.10) */
-const LAGER = "stine-app-v4-1";
+/* Kvitteringer, mjau mjau - bakgrunnsskript v4.2: nett først, hurtiglager som reserve (samme som NFK Operations 8.10) */
+const LAGER = "stine-app-v4-2";
 const GRUNN = ["./index.html", "./manifest.webmanifest", "./ikon-192.png", "./ikon-512.png"];
 
 self.addEventListener("install", h => {
@@ -55,11 +55,15 @@ self.addEventListener("pushsubscriptionchange", h => {
   h.waitUntil(self.registration.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: b64urlTilBytes(VAPID_OFFENTLIG) }).catch(() => {}));
 });
 
+/* Trykk på varselet: et varsel med eget mål (frister, #apne=…) åpner appen der; et varsel uten mål (hilsen, bit, prøve)
+   henter fram appen slik den står, uten ny innlasting, og sier fra så hilsenene vises (4.2) */
 self.addEventListener("notificationclick", h => {
   h.notification.close();
-  const maal = new URL((h.notification.data && h.notification.data.url) || "./index.html", self.location.href).href;
+  const adresse = (h.notification.data && h.notification.data.url) || "./index.html";
+  const maal = new URL(adresse, self.location.href).href;
+  const harMaal = /#apne=/.test(adresse);
   h.waitUntil(self.clients.matchAll({ type: "window", includeUncontrolled: true }).then(liste => {
-    for (const k of liste){ if ("focus" in k){ k.navigate(maal).catch(() => {}); return k.focus(); } }
+    for (const k of liste){ if ("focus" in k){ if (harMaal) k.navigate(maal).catch(() => {}); else { try{ k.postMessage({ hva: "hilsen" }); }catch{} } return k.focus(); } }
     return self.clients.openWindow(maal);
   }));
 });
