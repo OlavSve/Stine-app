@@ -1438,7 +1438,7 @@ button,input,select,textarea{font-family:inherit}
     <div class="fot">
       <button id="knBackup" class="skjult" title="Lagre komplett backup (JSON)">&#128190;</button>
       <button id="knFil" class="skjult" title="Fil">&#128196; Fil</button>
-      <span class="versjon" id="startVersjon">Versjon 4.0</span>
+      <span class="versjon" id="startVersjon">Versjon 4.1</span>
     </div>
     <div id="startBesk"></div>
     <button class="panelknapp andre" id="knInnstSkjul" style="margin-top:16px">✋ Skjul innstillinger</button>
@@ -1577,11 +1577,11 @@ Resources:`;for(let t of c){if(!t||typeof t!=`string`)throw Error(`@supabase/aut
 </script>
 <script>
 "use strict";
-/* ===================== Kvitteringer, mjau mjau, versjon 4.0 ===================== */
+/* ===================== Kvitteringer, mjau mjau, versjon 4.1 ===================== */
 /* 4.0 (18.10.2026, punkt 288–303): lageret er flyttet fra fila i GitHub til Supabase. Innlogging med fornavn og passord,
    én rad per ting i databasen, bildene i et eget lager, endringer fra den andre telefonen kommer inn av seg selv,
    kvitteringslesing og varsler går gjennom tjenester hos Supabase. Ingen nøkler ligger på telefonene lenger. */
-const APP_VERSJON = "4.0";
+const APP_VERSJON = "4.1";
 const SUPA = { url: window.__supaUrl || "https://fratzganbtqsgtnbrjba.supabase.co", nokkel: window.__supaNokkel || "sb_publishable_kCARMplPBy2o_5w6P_lekA_N35-IH-m", bilder: "bilder", epost: "@mjaumjau.app" };
 const DATA_TYPE = "stine-app-data";
 const NETT_PAUSE = 15000, SJEKK_INTERVALL = 60000, SIDE = 1000;
@@ -1998,11 +1998,19 @@ async function varslerSlaaAv(){
   try{ const sub = await varslerFinnAbonnement(); if (sub) await sub.unsubscribe(); }catch{}
   await varslerSlettFraLager(); varselAbonnement = null; await idbSet("varslerPaa", null);
 }
-/* Telefoner som allerede har varsler på, skrives inn i tabellen igjen ved oppstart, så registreringen alltid er fersk */
+/* Telefoner som har varsler på, skrives inn i tabellen igjen ved hver oppstart, så registreringen alltid er fersk.
+   Er raden borte (varseltjenesten meldte at registreringen var død, og tjenesten push fjernet den), lages en ny registrering
+   her, uten at noen trenger å slå varslene av og på (4.1, 310.1). */
 async function varslerFrisk(){
   try{
-    if ((await idbGet("varslerPaa")) !== "ja" || !okt) return;
-    const sub = await varslerFinnAbonnement(); if (!sub) return;
+    if ((await idbGet("varslerPaa")) !== "ja" || !okt || !varslerStottes()) return;
+    if (Notification.permission !== "granted") return;
+    const reg = await navigator.serviceWorker.ready;
+    let sub = await reg.pushManager.getSubscription();
+    const r = await supa.from("push_abonnement").select("enhet").eq("enhet", enhetId).maybeSingle();
+    if (r.error) return;
+    if (sub && !r.data){ try{ await sub.unsubscribe(); }catch{} sub = null; }
+    if (!sub) sub = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: b64urlTilBytes(VAPID_OFFENTLIG) });
     varselAbonnement = sub; await varslerSkrivTilLager(sub.toJSON());
   }catch{}
 }

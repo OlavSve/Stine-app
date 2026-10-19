@@ -1,5 +1,5 @@
-/* Kvitteringer, mjau mjau - bakgrunnsskript v4.0: nett først, hurtiglager som reserve (samme som NFK Operations 8.10) */
-const LAGER = "stine-app-v4-0";
+/* Kvitteringer, mjau mjau - bakgrunnsskript v4.1: nett først, hurtiglager som reserve (samme som NFK Operations 8.10) */
+const LAGER = "stine-app-v4-1";
 const GRUNN = ["./index.html", "./manifest.webmanifest", "./ikon-192.png", "./ikon-512.png"];
 
 self.addEventListener("install", h => {
@@ -46,6 +46,13 @@ self.addEventListener("push", h => {
     tag: d.tag || "frist",
     data: { url: d.url || "./index.html" }
   }));
+});
+
+/* Nettleseren byttet ut registreringen (4.1): lag en ny med en gang, appen skriver den inn i tabellen ved neste åpning */
+const VAPID_OFFENTLIG = "BBTU9Wt6KuEYzdV7FBa_DvRA0GuUQJ5VFHNRKAHLax822dur8wKsbkS9MfUtZtMi2tKV2ec_MdGeEaLZ0Rd82Ro";
+function b64urlTilBytes(s){ const p = "=".repeat((4 - s.length % 4) % 4); const b = atob((s + p).replace(/-/g, "+").replace(/_/g, "/")); const u = new Uint8Array(b.length); for (let i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; }
+self.addEventListener("pushsubscriptionchange", h => {
+  h.waitUntil(self.registration.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: b64urlTilBytes(VAPID_OFFENTLIG) }).catch(() => {}));
 });
 
 self.addEventListener("notificationclick", h => {
