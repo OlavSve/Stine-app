@@ -1,5 +1,5 @@
-/* Kvitteringer, mjau mjau - bakgrunnsskript v3.31: nett først, hurtiglager som reserve (samme som NFK Operations 8.10) */
-const LAGER = "stine-app-v3-31";
+/* Kvitteringer, mjau mjau - bakgrunnsskript v4.0: nett først, hurtiglager som reserve (samme som NFK Operations 8.10) */
+const LAGER = "stine-app-v4-0";
 const GRUNN = ["./index.html", "./manifest.webmanifest", "./ikon-192.png", "./ikon-512.png"];
 
 self.addEventListener("install", h => {
@@ -34,7 +34,7 @@ self.addEventListener("fetch", h => {
   );
 });
 
-/* Varsler om frister (v3.0): meldingen sendes av jobben i lageret kl. 19 */
+/* Varsler (v3.0, 4.0): meldingene sendes av tjenesten «push» hos Supabase: frister kl. 19, hilsen og bit med en gang */
 self.addEventListener("push", h => {
   let d = {};
   try{ d = h.data ? h.data.json() : {}; }catch{ d = { tekst: h.data ? h.data.text() : "" }; }
